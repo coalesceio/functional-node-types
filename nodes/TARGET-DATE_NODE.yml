@@ -1,0 +1,230 @@
+fileVersion: 1
+id: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+name: DATE_NODE
+operation:
+  config:
+    dateColumnName: "\"DATE_COL\""
+    daysToGenerate: "2000"
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    startingDate: DATEADD(DAY, -730, CURRENT_DATE)
+    testsEnabled: false
+    truncateBefore: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 59e9cc11-7897-442c-9cbd-802a4d7c4edb
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        isDate: true
+        name: DATE_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "{{config.dateColumnName}}"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 79ed4d3a-29a6-4474-aed7-1be453f813ea
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: ""
+        isYear: true
+        name: YEAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: YEAR({{config.dateColumnName}} )
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: df54701d-4f23-4c59-b0cd-6f804858bac3
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: ""
+        isMonth: true
+        name: MONTH
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: MONTH({{config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3e626b19-aee8-47d3-a428-d15e4cb966b5
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: CHAR(3)
+        defaultValue: ""
+        description: ""
+        isMonthName: true
+        name: MONTH_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: MONTHNAME({{config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2c789029-dc51-432c-afac-d5f7a6b360d1
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: ""
+        isDayOfMonth: true
+        name: DAY_OF_MONTH
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DAY({{config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9e5921b1-4d00-4eab-880d-b84e824a8772
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: VARCHAR(9)
+        defaultValue: ""
+        description: ""
+        isDayOfWeek: true
+        name: DAY_OF_WEEK
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DAYOFWEEK({{config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 873ad3f0-e7d2-481c-8b1f-3933eb8efb7d
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: ""
+        isWeekOfYear: true
+        name: WEEK_OF_YEAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: WEEKOFYEAR({{config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e814c564-970f-4592-85c0-790a6fb74e72
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: ""
+        isYearColumn: true
+        name: DAY_OF_YEAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DAYOFYEAR({{config.dateColumnName }})
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a9c48186-8ced-46d5-a270-3ec6cad12411
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        description: ""
+        name: QUARTER_NUMBER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "TO_NUMBER(TO_CHAR(DATE_PART('Q',{{config.dateColumnName}})), '9') "
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8d7571ff-068f-41ef-bf2a-d3819563c275
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: SMALLINT
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: TO_NUMBER(TO_CHAR({{config.dateColumnName}}, 'YYYY') || '0' || TO_CHAR(DATE_PART('Q',{{config.dateColumnName}})), '999999')
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b00c348c-a869-431b-9ac9-053b73fc1c2a
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: VARCHAR(9)
+        description: ""
+        name: FLAG_WEEK_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'N' ELSE 'Y' END
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d0ac0229-039c-4d21-b523-80864313a2a9
+          stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
+        config: {}
+        dataType: VARCHAR(9)
+        description: ""
+        name: FLAG_WEEK_END
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'Y' ELSE 'N' END
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: DATE_NODE
+        noLinkRefs: []
+  name: DATE_NODE
+  overrideSQL: false
+  schema: ""
+  sqlType: "404"
+  type: sql
+  version: 1
+type: Node
