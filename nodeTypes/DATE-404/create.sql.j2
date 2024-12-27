@@ -65,16 +65,6 @@ select 1 = 0
             {% endfor %}
 
             FROM CTE_DATE_GENERATOR	
-            {% if desiredState.config.groupByAll %}
-		       Group By All
-	         {% endif %}
-            {% if not loop.last %}
-                {% if desiredState.config.insertStrategy in ['UNION', 'UNION ALL'] %}
-                    {{ desiredState.config.insertStrategy }}
-                {% else %}
-                    UNION
-                {% endif %}
-            {% endif %}
         {% endfor %}
 
     {% elif desiredState.node.materializationType == 'table' or desiredState.node.materializationType == 'transient table'  %}

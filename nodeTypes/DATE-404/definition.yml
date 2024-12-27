@@ -42,25 +42,11 @@ metadata:
       - type: overrideSQLToggle
         enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
 
-      - type: multisourceToggle
-        enableIf: "{% if node.override.create.enabled %} false {% else %} true {% endif %}" 
-     
-      - displayName: Multi Source Strategy
-        attributeName: insertStrategy
-        type: dropdownSelector
-        default: INSERT
-        options:
-        - "INSERT"
-        - "UNION"
-        - "UNION ALL"
-        isRequired: true
-        enableIf: "{% if node.isMultisource %} true {% else %} false {% endif %}"
-
       - displayName: Truncate Before
         attributeName: truncateBefore
         type: toggleButton
         default: true
-        isRequired: true
+        isRequired: false
         enableIf: "{% if node.materializationType != 'view' %} true {% else %} false {% endif %}"
 
       - displayName: Enable Tests
@@ -69,45 +55,6 @@ metadata:
         default: false
         enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
-      - displayName: Distinct
-        attributeName: selectDistinct
-        type: toggleButton
-        default: false
-        enableIf: "{% if config.groupByAll or  node.override.create.enabled %} false {% else %} true {% endif %}"
-
-
-      - displayName: Group By All
-        attributeName: groupByAll
-        type: toggleButton
-        default: false
-        enableIf: "{% if config.selectDistinct or  node.override.create.enabled %} false {% else %} true {% endif %}"
-
-
-      - displayName: Order By
-        attributeName: orderby
-        type: toggleButton
-        default: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-
-      - type: tabular
-        displayName: 'Sort column'
-        attributeName: orderbycolumn
-        columns:
-
-          -  type: columnDropdownSelector
-             displayName: Column Name
-             attributeName: sortColName
-
-          -  type: dropdownSelector
-             displayName: Sort Order
-             attributeName: sortOrder
-             default: desc
-             options:
-             - desc
-             - asc
-           
-        isRequired: true
-        enableIf: "{% if config.orderby %} true {% else %} false {% endif %}"
       - displayName: Pre-SQL
         attributeName: preSQL
         type: textBox
@@ -122,42 +69,80 @@ metadata:
     - displayName: DATE_KEY
       transform: '{{ config.dateColumnName }}'
       dataType: 'DATE'
+      description: "Date in the format YYYY-MM-DD"
       placement: beginning
       attributeName: isDate
     - displayName: 'YEAR'
       transform: 'YEAR({{ config.dateColumnName }})'
       dataType: SMALLINT
+      description: "Year in the format YYYY"
       placement: beginning
       attributeName: isYear
     - displayName: 'MONTH'
       transform: 'MONTH({{ config.dateColumnName }})'
       dataType: SMALLINT
+      description: "Month in the format MM"
       placement: beginning
       attributeName: isMonth
     - displayName: 'MONTH_NAME'
       transform: 'MONTHNAME({{ config.dateColumnName }})'
       dataType: CHAR(3)
+      description: "Month in the format MMM"
       placement: beginning
       attributeName: isMonthName
     - displayName: 'DAY_OF_MONTH'
       transform: 'DAY({{ config.dateColumnName }})'
       dataType: SMALLINT
+      description: "Day in the format DD"
       placement: beginning
       attributeName: isDayOfMonth
     - displayName: 'DAY_OF_WEEK'
       transform: 'DAYOFWEEK({{ config.dateColumnName }})'
       dataType: VARCHAR(9)
+      description: "Day of the Week in format DD"
       placement: beginning
       attributeName: isDayOfWeek
+    - displayName: 'DAY_NAME_OF_WEEK'
+      transform: "TO_CHAR({{ config.dateColumnName }}, 'Dy')"
+      dataType: VARCHAR(9)
+      description: "Day of the Week in format DDD"
+      placement: beginning
+      attributeName: isDayNameOfWeek
     - displayName: 'WEEK_OF_YEAR'
       transform: 'WEEKOFYEAR({{ config.dateColumnName }})'
       dataType: SMALLINT
+      description: "Week of the Year"
       placement: beginning
       attributeName: isWeekOfYear
     - displayName: 'DAY_OF_YEAR'
       transform: 'DAYOFYEAR({{ config.dateColumnName }})'
       dataType: SMALLINT
+      description: "Day of the year"
       placement: beginning
       attributeName: isYearColumn
+    - displayName: 'QUARTER_NUMBER'
+      transform: "TO_NUMBER(TO_CHAR(DATE_PART('Q',{{config.dateColumnName}})), '9')"
+      dataType: SMALLINT
+      description: "Quarter Number of the year (1-4)"
+      placement: beginning
+      attributeName: isQuarterNumber
+    - displayName: 'QUARTER'
+      transform: "TO_NUMBER(TO_CHAR({{config.dateColumnName}}, 'YYYY') || '0' || TO_CHAR(DATE_PART('Q',{{config.dateColumnName}})), '999999')"
+      dataType: SMALLINT
+      description: "Year and the Quarter number in the format YYYYQQ"
+      placement: beginning
+      attributeName: isQuarter
+    - displayName: 'FLAG_WEEK_DAY'
+      transform: "CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'N' ELSE 'Y' END"
+      dataType: VARCHAR(9)
+      description: "Flag to check week day"
+      placement: beginning
+      attributeName: isFlagWeekDay
+    - displayName: 'FLAG_WEEK_END'
+      transform: "CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'Y' ELSE 'N' END"
+      dataType: VARCHAR(9)
+      description: "Flag to check weekend"
+      placement: beginning
+      attributeName: isFlagWeekEnd
 name: DATE
 type: NodeType
