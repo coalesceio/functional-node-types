@@ -15,77 +15,7 @@ does not permit copying or modification for any other purpose.
 {{ stage('Nothing to do.') }}
 select 1 = 0
 
-{% elif desiredState %} 
-
-{% set source = desiredState.sources[0] %}
-{%- set ns = namespace(aggfunctions=[]) %}
-{% set ns.aggfunctions = desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list%}
-
-       {% if currentState == undefined or currentState.storageLocations | length == 0  %}
-
-       {{ stage('Create Pivot Table') }}
-            CREATE OR REPLACE TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              AS
-             ( {%for func in ns.aggfunctions%}
-                SELECT '{{func}}' AS aggregate ,*
-               {{ source.join }} 
-              PIVOT({{func}}({{desiredState.config.valCol.name}}) FOR {{desiredState.config.keyCol.name}} IN ( {%if desiredState.config.subquery == true %}
-                 {{desiredState.config.subqueryval}}
-                {%elif desiredState.config.filcolvol == true %}
-                   {{desiredState.config.Colvol}}  
-                {%else%}
-                ANY ORDER BY {{desiredState.config.keyCol.name}}
-                {%endif%})
-                {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
-                ) 
-                {%- if not loop.last -%} UNION {% endif %}
-                {%endfor%}
-                )
-            {%endif%}   
-        
-
-          {% if currentState != undefined and desiredState != undefined and currentState != desiredState %}
-
-                {# Change in materialization type #}
-				
-				{%if currentState.node.materializationType != desiredState.node.materializationType %}
-
-                     {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
-
-                     {% if currentState.node.materializationType == 'view' %} 
-                      DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                     {% else %}
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                     {% endif %}
-                {%endif%}
-				
-                
-
-                {{ stage('Create Pivot Table') }}
-
-                      CREATE OR REPLACE TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              AS
-             ( {%for func in ns.aggfunctions%}
-                SELECT *
-               {{ source.join }} 
-              PIVOT({{func}}({{desiredState.config.valCol.name}}) FOR {{desiredState.config.keyCol.name}} IN ( {%if desiredState.config.subquery == true %}
-                 {{desiredState.config.subqueryval}}
-                {%elif desiredState.config.filcolvol == true %}
-                   {{desiredState.config.Colvol}}  
-                {%else%}
-                ANY ORDER BY {{desiredState.config.keyCol.name}}
-                {%endif%})
-                {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
-                ) 
-                {%- if not loop.last -%} UNION {% endif %}
-                {%endfor%}
-                )
-                         
-        {% endif %}
-
-        
-        
-{% elif currentState != undefined and desiredState == undefined %}
+{% elif desiredState == undefined %}
 
     {# Table or View Name #}
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
@@ -104,6 +34,108 @@ select 1 = 0
 
     {% endif %}
 
+{% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
+
+              {%if currentState != defined %}
+              {%if currentState.node.materializationType != desiredState.node.materializationType %}
+
+                     {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+
+                     {% if currentState.node.materializationType == 'view' %} 
+                      DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                     {% else %}
+                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                     {% endif %}
+                {%endif%}
+                {%endif%}
+
+{% set source = desiredState.sources[0] %}
+{%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='') %}
+    
+      {%if desiredState.config.sincol == true %}
+
+        {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
+         
+        {{ stage('Create Pivot '+ desiredState.node.materializationType) }}
+
+            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+              AS
+             ( {%for func in ns.saggfunctions%}
+               {%if func == 'SUM'%} 
+                 {%set ns.funcdesc = "TOTAL "+ desiredState.config.valCol1.name %}
+               {%elif func == 'AVG'%}
+                 {%set ns.funcdesc = "AVERAGE "+ desiredState.config.valCol1.name%}
+               {%elif func == 'MAX'%}
+                 {%set ns.funcdesc = "MAXIMUM "+ desiredState.config.valCol1.name%}
+               {%elif func == 'MIN'%}
+                 {%set ns.funcdesc = "MINIMUM "+ desiredState.config.valCol1.name%}
+               {%elif func == 'COUNT'%}
+                 {%set ns.funcdesc = "COUNT OF "+ desiredState.config.valCol1.name%}
+                {%endif%}
+                SELECT '{{ns.funcdesc}}' AS aggregate , *
+                 {{ source.join }} 
+              PIVOT({{func}}({{desiredState.config.valCol1.name}}) FOR {{desiredState.config.keyCol.name}} IN ( {%if desiredState.config.subqueryval1 !="" %}
+                 {{desiredState.config.subqueryval1}}
+                {%elif desiredState.config.Colvol1 != "" %}
+                   {{desiredState.config.Colvol1}}  
+                {%else%}
+                ANY ORDER BY {{desiredState.config.keyCol.name}}
+                {%endif%})
+                {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
+                ) 
+                {%- if not loop.last -%} UNION {% endif %}
+                {%endfor%}
+                )
+        {%elif desiredState.config.mulcol == true %}
+               # Multiple Pivot Columns
+            {% set pcolumn, functions,subquery,filcol = desiredState.config.aggfunc.get('items') | map(attribute='valCol.name') | list, desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list,desiredState.config.aggfunc.get('items') | map(attribute='subqueryval') | list,desiredState.config.aggfunc.get('items') | map(attribute='Colvol') | list%}
+            
+            {%set flag = 0 %}
+            {%set cnt =1 %}
+            
+            # Filter columns need to be explicitly specified for Multiple Pivot Columns
+            
+            {%for fil in filcol %}
+            {%if fil == ""%}   
+                  {%set flag=1%}                          
+                  {{stage('Warning-Filter column values need to be explicitly specified for Multiple Pivot Columns')}}
+                    select 1=0 
+            {%endif%}
+            {%endfor%}      
+
+         {%if flag==0 %}
+         
+            {{ stage('Create Pivot '+ desiredState.node.materializationType) }}
+
+            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+              AS
+             ( 
+                SELECT 
+                {%for fil in filcol %}
+                    {%set filcolval = filcol.split(',')|list%}
+                   {{functions[loop.index0]}}(${{cnt}}) AS {{functions[loop.index0]}}_{{fil}},
+                   {%set cnt = cnt +1%}
+                {%endfor%}
+                 FROM
+              (SELECT
+              {%for col in pcolumn%}
+                 {{col}},
+                 {{desiredState.config.keyCol.name}} AS {{desiredState.config.keyCol.name}}_{{col}}
+                 {%if not loop.last%},{%endif%}
+              {%endfor%}
+              {{ source.join }})
+              {%for col in pcolumn%} 
+                PIVOT({{functions[loop.index0]}}({{col}}) FOR {{desiredState.config.keyCol.name}}_{{col}} IN ( {%if subquery[loop.index0] != None  %}
+                 {{subquery[loop.index0]}}
+                {%elif filcol[loop.index0] != None %}
+                   {{filcol[loop.index0]}}  
+                {%else%}
+                   ANY ORDER BY {{desiredState.config.keyCol.name}}
+                {%endif%}){%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%})
+			      {%endfor%}
+                )
+        {%endif%}   
+        {%endif%}
 {%- else -%}
 
 {{ stage('Nothing to do.') }}

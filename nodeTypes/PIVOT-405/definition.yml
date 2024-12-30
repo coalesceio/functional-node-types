@@ -24,11 +24,6 @@ metadata:
         - view
         - transient table
 
-      - displayName: Truncate Before
-        attributeName: truncateBefore
-        type: toggleButton
-        default: true
-
       - displayName: Key Column
         type: columnDropdownSelector
         attributeName: keyCol
@@ -37,7 +32,8 @@ metadata:
       - displayName: Single PIVOT column multiple aggregation  
         attributeName: sincol
         type: toggleButton
-        default: true
+        default: false
+        enableIf: "{% if config.mulcol %}  false {% else %} true {% endif %}"
 
       - displayName: Value Column
         type: columnDropdownSelector
@@ -63,7 +59,7 @@ metadata:
            - COUNT
            - SUM
 
-      - displayName: subquery
+      - displayName: Subquery
         type: textBox
         attributeName: subqueryval1
         enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
@@ -76,7 +72,8 @@ metadata:
       - displayName: Multiple PIVOT columns 
         attributeName: mulcol
         type: toggleButton
-        default: true
+        default: false
+        enableIf: "{% if config.sincol %} false {% else %} true {% endif %}"
      
       - displayName: Pivot Columns
         attributeName: aggfunc

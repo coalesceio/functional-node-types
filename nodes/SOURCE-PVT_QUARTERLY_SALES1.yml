@@ -1,0 +1,82 @@
+fileVersion: 1
+id: 328cd0f4-2ec9-4c48-b9ae-522714027468
+name: PVT_QUARTERLY_SALES1
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - Colvol: null
+          subqueryval: null
+    aggfunc1:
+      items:
+        - funcname1: SUM
+    defaultval: "0"
+    defvalue: true
+    keyCol:
+      columnCounter: cd7db461-c6f6-407d-8760-eabdf16e206f
+      stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+    mulcol: false
+    sincol: true
+    subqueryval1: ""
+    truncateBefore: true
+    valCol1:
+      columnCounter: 59f0f8b4-ddae-4786-baf2-970d807e01b9
+      stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 59f0f8b4-ddae-4786-baf2-970d807e01b9
+          stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: cd7db461-c6f6-407d-8760-eabdf16e206f
+          stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: PVT_QUARTERLY_SALES1
+        noLinkRefs: []
+  name: PVT_QUARTERLY_SALES1
+  overrideSQL: false
+  schema: ""
+  sqlType: "405"
+  type: sql
+  version: 1
+type: Node
