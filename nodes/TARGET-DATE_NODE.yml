@@ -72,7 +72,7 @@ operation:
         defaultValue: ""
         description: ""
         isMonth: true
-        name: MONTH
+        name: MONTH_NEW
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
@@ -191,7 +191,7 @@ operation:
           columnCounter: b00c348c-a869-431b-9ac9-053b73fc1c2a
           stepCounter: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
         config: {}
-        dataType: VARCHAR(9)
+        dataType: VARCHAR(10)
         description: ""
         name: FLAG_WEEK_DAY
         nullable: true
