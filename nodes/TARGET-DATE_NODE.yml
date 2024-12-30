@@ -3,8 +3,8 @@ id: 9cfffdfa-77d8-4d2b-a78b-9aa1cd159bae
 name: DATE_NODE
 operation:
   config:
-    dateColumnName: "\"DATE_COL\""
-    daysToGenerate: "2000"
+    dateColumnName: "\"DATE_COLUMN\""
+    daysToGenerate: "5000"
     groupByAll: false
     insertStrategy: INSERT
     orderby: false
@@ -14,9 +14,9 @@ operation:
     postSQL: ""
     preSQL: ""
     selectDistinct: false
-    startingDate: DATEADD(DAY, -730, CURRENT_DATE)
+    startingDate: DATEADD(DAY, -12782, CURRENT_DATE)
     testsEnabled: false
-    truncateBefore: false
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
@@ -215,7 +215,53 @@ operation:
     sourceMapping:
       - aliases: {}
         customSQL:
-          customSQL: ""
+          customSQL: |-
+            {{ stage('Override Create SQL') }}
+            CREATE OR REPLACE VIEW "POONAMM_DEV"."EDW_QA"."DATE_NODE" (
+              "DATE_KEY",
+              "YEAR",
+              "MONTH",
+              "MONTH_NAME",
+              "DAY_OF_MONTH",
+              "DAY_OF_WEEK",
+              "WEEK_OF_YEAR",
+              "DAY_OF_YEAR",
+              "QUARTER_NUMBER",
+              "QUARTER",
+              "FLAG_WEEK_DAY",
+              "FLAG_WEEK_END"
+            ) AS
+            WITH
+              CTE_DATE_GENERATOR AS (
+                SELECT
+                  DATEADD(DAY, SEQ4(), DATEADD(DAY, -730, CURRENT_DATE)) AS "DATE_COL"
+                FROM
+                  TABLE (GENERATOR(ROWCOUNT => 2000))
+              )
+            SELECT
+              "DATE_COL" AS "DATE_KEY",
+              YEAR("DATE_COL") AS "YEAR",
+              MONTH("DATE_COL") AS "MONTH",
+              MONTHNAME("DATE_COL") AS "MONTH_NAME",
+              DAY("DATE_COL") AS "DAY_OF_MONTH",
+              DAYOFWEEK("DATE_COL") AS "DAY_OF_WEEK",
+              WEEKOFYEAR("DATE_COL") AS "WEEK_OF_YEAR",
+              DAYOFYEAR("DATE_COL") AS "DAY_OF_YEAR",
+              TO_NUMBER(TO_CHAR(DATE_PART('Q', "DATE_COL")), '9') AS "QUARTER_NUMBER",
+              TO_NUMBER(
+                TO_CHAR("DATE_COL", 'YYYY') || '0' || TO_CHAR(DATE_PART('Q', "DATE_COL")),
+                '999999'
+              ) AS "QUARTER",
+              CASE
+                WHEN TO_CHAR("DATE_COL", 'Dy') IN ('Sat', 'Sun') THEN 'N'
+                ELSE 'Y'
+              END AS "FLAG_WEEK_DAY",
+              CASE
+                WHEN TO_CHAR("DATE_COL", 'Dy') IN ('Sat', 'Sun') THEN 'Y'
+                ELSE 'N'
+              END AS "FLAG_WEEK_END"
+            FROM
+              CTE_DATE_GENERATOR
         dependencies: []
         join:
           joinCondition: ""
