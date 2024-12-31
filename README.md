@@ -149,6 +149,6 @@ This is executed in below stage:
 
 | **Component** | **Link** |
 |--------------|-----------|
-| **Node definition** | [definition.yml](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/DateAdvancedDeploy-179/definition.yml) |
-| **Create Template** | [create.sql.j2](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/DateAdvancedDeploy-179/create.sql.j2) |
-| **Run Template** | [run.sql.j2](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/DateAdvancedDeploy-179/run.sql.j2) |
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/definition.yml)
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/create.sql.j2) |
+| **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/run.sql.j2) |
