@@ -9,11 +9,9 @@ The Coalesce Functional Node Types Package includes:
 
 ## Date Table
 
-The Coalesce Work Node is a versatile node that allows you to develop and deploy a Work table/view in Snowflake.
-
-A Work node serves as an intermediary object and is commonly employed to store raw data before undergoing the crucial phases of transformation and loading into the main tables of the data warehouse.
-
-This pivotal step ensures that the raw data is processed and structured effectively.
+The Coalesce Date Table provides a comprehensive breakdown of date-related attributes, enabling efficient handling of date operations across various
+use cases. The table typically includes columns such as day, month, year, day of the week, week of the year, quarter, and flags like day is weekday
+or weekend. Additional columns like fiscal year, fiscal quarter, holiday indicators can also be included, depending on the requirements.
 
 ### Date Table Node Configuration
 
@@ -33,7 +31,15 @@ The Work node type has two configuration groups:
 | **Description** | A description of the node's purpose |
 | **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
 
-#### Date Table Options
+##### Date Table Options
+
+| **Setting** | **Description** |
+|---------|-------------|
+| **Starting Date**| A date from where the date values should be added in the date table.Default is :DATEADD(DAY, -730, CURRENT_DATE)|
+| **Number of Days To Generate ** | Numeric value indicating how many days' records should be generated from the Starting Date. |
+| **Generated Date Column Name** |Metadata column name used in the SQL generated for inserting records into the table. |
+
+#### Additional Options
 
 You can create the node as:
 
@@ -68,6 +74,7 @@ You can create the node as:
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 | **Pre-SQL**| SQL to execute before data insert operation |
 | **Post-SQL** | SQL to execute after data insert operation |
+
 
 ### Date Table Joins
 
