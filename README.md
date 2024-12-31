@@ -21,7 +21,7 @@ The Data Table node type has two configuration groups:
 * [Date table Options](#date-table-options)
 * [Additional Options](#additional-options)
 
-![Fact_config](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/assets/7216836/45d22ea5-32ca-49f5-a464-b266cb29b516)
+![image](https://github.com/user-attachments/assets/dccbe9b4-4ea8-4ded-8861-5982e6d57ff7)
 
 #### Date Table Node Properties
 
@@ -39,6 +39,8 @@ The Data Table node type has two configuration groups:
 | **Starting Date**| A date from where the date values should be added in the date table.Default is :DATEADD(DAY, -730, CURRENT_DATE)|
 | **Number of Days To Generate** | Numeric value indicating how many days' records should be generated from the Starting Date. |
 | **Generated Date Column Name** |Metadata column name used in the SQL generated for inserting records into the table. |
+
+![image](https://github.com/user-attachments/assets/6863b101-61dd-4469-a199-fa21f16069eb)
 
 #### Additional Options
 
