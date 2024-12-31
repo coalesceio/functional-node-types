@@ -15,10 +15,11 @@ or weekend. Additional columns like fiscal year, fiscal quarter, holiday indicat
 
 ### Date Table Node Configuration
 
-The Work node type has two configuration groups:
+The Data Table node type has two configuration groups:
 
 * [Node Properties](#date-table-node-properties)
-* [Options](#date-table-options)
+* [Date table Options](#date-table-options)
+* [Additional Options](#additional-options)
 
 ![Fact_config](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/assets/7216836/45d22ea5-32ca-49f5-a464-b266cb29b516)
 
