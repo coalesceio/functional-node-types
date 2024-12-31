@@ -23,6 +23,7 @@ The Data Table node type has two configuration groups:
 
 ![image](https://github.com/user-attachments/assets/dccbe9b4-4ea8-4ded-8861-5982e6d57ff7)
 
+
 #### Date Table Node Properties
 
 | **Setting** | **Description** |
@@ -32,7 +33,8 @@ The Data Table node type has two configuration groups:
 | **Description** | A description of the node's purpose |
 | **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
 
-##### Date Table Options
+
+#### Date Table Options
 
 | **Setting** | **Description** |
 |---------|-------------|
