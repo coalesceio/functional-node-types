@@ -36,7 +36,7 @@ The Work node type has two configuration groups:
 | **Setting** | **Description** |
 |---------|-------------|
 | **Starting Date**| A date from where the date values should be added in the date table.Default is :DATEADD(DAY, -730, CURRENT_DATE)|
-| **Number of Days To Generate ** | Numeric value indicating how many days' records should be generated from the Starting Date. |
+| **Number of Days To Generate** | Numeric value indicating how many days' records should be generated from the Starting Date. |
 | **Generated Date Column Name** |Metadata column name used in the SQL generated for inserting records into the table. |
 
 #### Additional Options
