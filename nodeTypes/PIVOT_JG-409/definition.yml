@@ -37,11 +37,11 @@ metadata:
         default: false
       
       - type: tabular
-        displayName: 'Key Column'
+        displayName: 'Key Column-(Cannot add multiple key columns)'
         attributeName: tabKeyColumn
         isRequired: true
         columns:
-      
+        
         - displayName: Key Column
           type: columnDropdownSelector
           attributeName: keyColDropdown
@@ -61,6 +61,7 @@ metadata:
       - displayName: Pivot operation on same key column values
         attributeName: samKeyColval
         type: toggleButton
+        enableIf: "{% if config.sincol %} false {% else %} true {% endif %}"
         default: false
 
       

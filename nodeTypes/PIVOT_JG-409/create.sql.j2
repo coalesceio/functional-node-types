@@ -49,9 +49,21 @@ select 1 = 0
                 {%endif%}
                 {%endif%}
 
-{% set source = desiredState.sources[0] %}
-{%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
-    
+         {% set source = desiredState.sources[0] %}
+         {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+
+
+     {# Infer Pivot true #}
+     {%if desiredState.config.inferPivot == true %}
+			          {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
+                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+      {%else%}
+			         {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list%}
+                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+      {%endif%}
+
+
+
       {%if desiredState.config.sincol == true %}
 
         {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
@@ -75,70 +87,58 @@ select 1 = 0
               AS
              ( {%for func in ns.saggfunctions%}
                {%if func == 'SUM'%} 
-                 {%set ns.funcdesc = "TOTAL "+ desiredState.config.valCol1.name %}
+                 {%set ns.funcdesc = "TOTAL "+ ns.pcolumn|first %}
                {%elif func == 'AVG'%}
-                 {%set ns.funcdesc = "AVERAGE "+ desiredState.config.valCol1.name%}
+                 {%set ns.funcdesc = "AVERAGE "+ ns.pcolumn|first%}
                {%elif func == 'MAX'%}
-                 {%set ns.funcdesc = "MAXIMUM "+ desiredState.config.valCol1.name%}
+                 {%set ns.funcdesc = "MAXIMUM "+ ns.pcolumn|first%}
                {%elif func == 'MIN'%}
-                 {%set ns.funcdesc = "MINIMUM "+ desiredState.config.valCol1.name%}
+                 {%set ns.funcdesc = "MINIMUM "+ ns.pcolumn|first%}
                {%elif func == 'COUNT'%}
-                 {%set ns.funcdesc = "COUNT OF "+ desiredState.config.valCol1.name%}
+                 {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
                 {%endif%}
                 SELECT * FROM (SELECT {%if ns.saggfunctions | length >1 %}'{{ns.funcdesc}}' AS aggregate ,{%endif%} *  {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
                  {{ source.join }} )
-              PIVOT({{func}}({{desiredState.config.valCol1.name}}) FOR {{keycol}} IN ( {%if desiredState.config.subqueryval1 !="" %}
+              PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if desiredState.config.subqueryval1 !="" %}
                  {{desiredState.config.subqueryval1}}
                 {%elif desiredState.config.Colvol1 != "" %}
                    {{desiredState.config.Colvol1}}  
                 {%else%}
-                ANY ORDER BY {{keycol}}
+                ANY ORDER BY {{ns.keycol}}
                 {%endif%})
                 {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
                 ) 
                 {%- if not loop.last -%} UNION {% endif %}
                 {%endfor%}
                 )
-        {%elif desiredState.config.mulcol == true %}
+        {%else %}
                # Multiple Pivot Columns
-            {% set functions,subquery =  desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list,desiredState.config.aggfunc.get('items') | map(attribute='subqueryval') | list%}
-            
+            {% set ns.mggfunctions = desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list%}
+                  
             #Filter column list
-
-            {%set flag = 0 %}
-            {%if inferPivot == true %}
-                      {%set pcolumn = desiredState.config.aggfunc.get('items') | map(attribute='valCol.name') | list%}
-            {%else%}
-                                    {%set pcolumn = desiredState.config.aggfunc.get('items') | map(attribute='valColbox')|list%}
-            {%endif%}
-
-
+              
            {%if desiredState.config.samKeyColval == true%} 
-               {%for col in pcolumn%}
-                  {%set ns.filcol = ns.filcol + [desiredState.config.samColvol] %}
+               {%for col in ns.pcolumn%}
+                  {%set ns.filcol = ns.filcol + [desiredState.config.Colvol1] %}
                {%endfor%}
 
             {%else%}
-                {%set ns.filcol = desiredState.config.aggfunc.get('items') | map(attribute='Colvol') | list%}
+                {%set ns.filcol = desiredState.config.tabValueColumn.get('items') | map(attribute='Colvol1') | list%}
             {%endif%}
+            
             # Filter columns need to be explicitly specified for Multiple Pivot Columns
-                      
-         {%if flag==0 %}
-         
-            {{ stage('Create Pivot '+ desiredState.node.materializationType) }}      
-
-
-            {%set keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name')|list|first%}
-           
-
+                           
+            {{ stage('Create Pivot '+ desiredState.node.materializationType) }}             
+              
+              
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               AS
              ( 
                 SELECT 
-                {%for func in functions %}
+                {%for func in ns.mggfunctions %}
                        {%for val1 in ns.filcol[ns.i].split(',') %}
                         {% set val = val1.strip() %}
-                      {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{pcolumn[ns.i]}}
+                      {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{ns.pcolumn[ns.i]}}
                       {%set ns.cnt = ns.cnt +1%}
                       {%if not loop.last %},{%endif%}
 				           {%endfor%}
@@ -147,22 +147,22 @@ select 1 = 0
                 {%endfor%}
                  FROM
               (SELECT
-              {%for col in pcolumn%}
+              {%for col in ns.pcolumn%}
                  {{col}},
-                 {{keycol}} AS {{keycol}}_{{col}}
+                 {{ns.keycol}} AS {{ns.keycol}}_{{col}}
                  {%if not loop.last%},{%endif%}
               {%endfor%}
               {{ source.join }})
-              {%for col in pcolumn%} 
-                PIVOT({{functions[loop.index0]}}({{col}}) FOR {{keycol}}_{{col}} IN ( 
+              {%for col in ns.pcolumn%} 
+                PIVOT({{ns.mggfunctions[loop.index0]}}({{col}}) FOR {{ns.keycol}}_{{col}} IN ( 
                 {%if ns.filcol[loop.index0] != None %}
                    {{ns.filcol[loop.index0]}}  
                 {%else%}
-                   ANY ORDER BY {{keycol}}
+                   ANY ORDER BY {{ns.keycol}}
                 {%endif%}){%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%})
 			      {%endfor%}
                 )
-        {%endif%}   
+         
         {%endif%}
 {%- else -%}
 
