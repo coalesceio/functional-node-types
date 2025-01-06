@@ -7,7 +7,7 @@ does not permit copying or modification for any other purpose.
 #}
 {# == Node Type Version        : 1  == #}
 {# == Node Type Name           : PIVOT NODE == #}
-{# == Node Type Description    : This node creates work table,view and also override create sql for view with advanced deployment strategy == #}
+{# == Node Type Description    : This node creates == #}
 {#Release date:20240516 Version:1.0.0#}
 
 {% if desiredState == currentState %}
@@ -50,7 +50,7 @@ select 1 = 0
                 {%endif%}
 
 {% set source = desiredState.sources[0] %}
-{%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="") %}
+{%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
     
       {%if desiredState.config.sincol == true %}
 
@@ -87,12 +87,12 @@ select 1 = 0
                 {%endif%}
                 SELECT * FROM (SELECT {%if ns.saggfunctions | length >1 %}'{{ns.funcdesc}}' AS aggregate ,{%endif%} *  {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
                  {{ source.join }} )
-              PIVOT({{func}}({{desiredState.config.valCol1.name}}) FOR {{desiredState.config.keyCol.name}} IN ( {%if desiredState.config.subqueryval1 !="" %}
+              PIVOT({{func}}({{desiredState.config.valCol1.name}}) FOR {{keycol}} IN ( {%if desiredState.config.subqueryval1 !="" %}
                  {{desiredState.config.subqueryval1}}
                 {%elif desiredState.config.Colvol1 != "" %}
                    {{desiredState.config.Colvol1}}  
                 {%else%}
-                ANY ORDER BY {{desiredState.config.keyCol.name}}
+                ANY ORDER BY {{keycol}}
                 {%endif%})
                 {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
                 ) 
@@ -101,30 +101,42 @@ select 1 = 0
                 )
         {%elif desiredState.config.mulcol == true %}
                # Multiple Pivot Columns
-            {% set pcolumn, functions,subquery,filcol = desiredState.config.aggfunc.get('items') | map(attribute='valCol.name') | list, desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list,desiredState.config.aggfunc.get('items') | map(attribute='subqueryval') | list,desiredState.config.aggfunc.get('items') | map(attribute='Colvol') | list%}
+            {% set functions,subquery =  desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list,desiredState.config.aggfunc.get('items') | map(attribute='subqueryval') | list%}
             
+            #Filter column list
+
             {%set flag = 0 %}
-            
+            {%if inferPivot == true %}
+                      {%set pcolumn = desiredState.config.aggfunc.get('items') | map(attribute='valCol.name') | list%}
+            {%else%}
+                                    {%set pcolumn = desiredState.config.aggfunc.get('items') | map(attribute='valColbox')|list%}
+            {%endif%}
+
+
+           {%if desiredState.config.samKeyColval == true%} 
+               {%for col in pcolumn%}
+                  {%set ns.filcol = ns.filcol + [desiredState.config.samColvol] %}
+               {%endfor%}
+
+            {%else%}
+                {%set ns.filcol = desiredState.config.aggfunc.get('items') | map(attribute='Colvol') | list%}
+            {%endif%}
             # Filter columns need to be explicitly specified for Multiple Pivot Columns
                       
-            {%for fil in filcol %}
-            {%if fil == ""%}   
-                  {%set flag=1%}                          
-                  {{stage('Warning-Filter column values need to be explicitly specified for Multiple Pivot Columns')}}
-                    select 1=0 
-            {%endif%}
-            {%endfor%}      
-         
          {%if flag==0 %}
          
             {{ stage('Create Pivot '+ desiredState.node.materializationType) }}      
+
+
+            {%set keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name')|list|first%}
+           
 
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               AS
              ( 
                 SELECT 
                 {%for func in functions %}
-                       {%for val1 in filcol[ns.i].split(',') %}
+                       {%for val1 in ns.filcol[ns.i].split(',') %}
                         {% set val = val1.strip() %}
                       {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{pcolumn[ns.i]}}
                       {%set ns.cnt = ns.cnt +1%}
@@ -137,16 +149,16 @@ select 1 = 0
               (SELECT
               {%for col in pcolumn%}
                  {{col}},
-                 {{desiredState.config.keyCol.name}} AS {{desiredState.config.keyCol.name}}_{{col}}
+                 {{keycol}} AS {{keycol}}_{{col}}
                  {%if not loop.last%},{%endif%}
               {%endfor%}
               {{ source.join }})
               {%for col in pcolumn%} 
-                PIVOT({{functions[loop.index0]}}({{col}}) FOR {{desiredState.config.keyCol.name}}_{{col}} IN ( 
-                {%if filcol[loop.index0] != None %}
-                   {{filcol[loop.index0]}}  
+                PIVOT({{functions[loop.index0]}}({{col}}) FOR {{keycol}}_{{col}} IN ( 
+                {%if ns.filcol[loop.index0] != None %}
+                   {{ns.filcol[loop.index0]}}  
                 {%else%}
-                   ANY ORDER BY {{desiredState.config.keyCol.name}}
+                   ANY ORDER BY {{keycol}}
                 {%endif%}){%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%})
 			      {%endfor%}
                 )

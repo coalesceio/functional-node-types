@@ -1,44 +1,52 @@
 fileVersion: 1
-id: 7ef9963c-61cb-49a8-b3d0-57741658d16a
-name: PVT_QUARTERLY_SALES_WO_DIS
+id: f276648a-0d59-4ea9-a552-9ac4da6d3b0c
+name: PVT_QUARTERLY_SALES_WO_DIS1
 operation:
   config:
     Colvol1: ""
     aggfunc:
       items:
         - Colvol: null
-          subqueryval: null
+          funcname: null
+          valCol: null
+          valColbox: null
     aggfunc1:
       items:
-        - funcname1: SUM
-    defaultval: "0"
+        - {}
+    defaultval: ""
     defvalue: false
     exlcol:
       items:
-        - exclcol1: null
-    keyCol:
-      columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
-      stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
-    mulcol: false
-    sincol: true
+        - {}
+    inferPivot: true
+    keyColTextBox1: "{{config.keyColDropdown}}"
+    mulcol: true
+    samKeyColval: false
+    sincol: false
     subqueryval1: ""
-    truncateBefore: true
-    valCol1:
-      columnCounter: d95b765a-39e2-48e8-b777-9e766bab7d92
-      stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: c3148427-ac3f-45ac-b591-47a1e7cb2a6b
+            stepCounter: f276648a-0d59-4ea9-a552-9ac4da6d3b0c
+          keyColTextBox: null
+    tabValueColumn:
+      items:
+        - valColDropdown: null
+          valColTextBox: null
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: SOURCE
-  materializationType: transient table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 30274535-d9dd-4e6c-9928-709aec658cec
-          stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+          columnCounter: f52b6d67-20f6-4855-ab72-e69a40730b03
+          stepCounter: f276648a-0d59-4ea9-a552-9ac4da6d3b0c
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -51,8 +59,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d95b765a-39e2-48e8-b777-9e766bab7d92
-          stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+          columnCounter: 23e8e667-47ac-4a43-aff7-f3e9aea5aa39
+          stepCounter: f276648a-0d59-4ea9-a552-9ac4da6d3b0c
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -65,8 +73,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
-          stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+          columnCounter: c3148427-ac3f-45ac-b591-47a1e7cb2a6b
+          stepCounter: f276648a-0d59-4ea9-a552-9ac4da6d3b0c
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -88,12 +96,12 @@ operation:
             nodeName: QUARTERLY_SALES_WO_DIS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES_WO_DIS') }} "QUARTERLY_SALES_WO_DIS"
-        name: PVT_QUARTERLY_SALES_WO_DIS
+        name: PVT_QUARTERLY_SALES_WO_DIS1
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES_WO_DIS
+  name: PVT_QUARTERLY_SALES_WO_DIS1
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

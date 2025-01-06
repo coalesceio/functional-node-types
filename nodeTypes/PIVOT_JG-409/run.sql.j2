@@ -1,0 +1,119 @@
+{# Table or View Name #}
+    {% set targetObjectDatabase = ref_no_link(node.location.name, node.name).split('.')[0] %} 
+    {% set targetObjectSchema = ref_no_link(node.location.name, node.name).split('.')[1] %} 
+    {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
+
+      {% set source = sources[0] %}
+      {%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+      
+{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
+
+  {% set source = sources[0] %}
+
+     {%if config.trunc %}
+  			{{ stage('Truncate Pivot Table') }}
+			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+     {%endif%}
+
+      {%if config.sincol == true %}
+
+             {% set ns.saggfunctions = config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
+         
+               {#List of columns to be excluded from Pivot query#}
+
+              {%if config.exlcol == true %}
+
+                  {% set exclcol = config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
+
+                  {%for col in exclcol%}
+                     {%set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
+                 {%endfor%}
+                 {%set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
+              {%endif%}
+
+         
+        {{ stage('Insert data into Pivot table') }}
+
+            CREATE OR REPLACE {{node.materializationType}} {{ ref_no_link(node.location.name, node.name) }}
+              AS
+             ( {%for func in ns.saggfunctions%}
+               {%if func == 'SUM'%} 
+                 {%set ns.funcdesc = "TOTAL "+ config.valCol1.name %}
+               {%elif func == 'AVG'%}
+                 {%set ns.funcdesc = "AVERAGE "+ config.valCol1.name%}
+               {%elif func == 'MAX'%}
+                 {%set ns.funcdesc = "MAXIMUM "+ config.valCol1.name%}
+               {%elif func == 'MIN'%}
+                 {%set ns.funcdesc = "MINIMUM "+ config.valCol1.name%}
+               {%elif func == 'COUNT'%}
+                 {%set ns.funcdesc = "COUNT OF "+ config.valCol1.name%}
+                {%endif%}
+                SELECT * FROM (SELECT {%if ns.saggfunctions | length >1 %}'{{ns.funcdesc}}' AS aggregate ,{%endif%} *  {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
+                 {{ source.join }} )
+              PIVOT({{func}}({{config.valCol1.name}}) FOR {{keycol}} IN ( {%if config.subqueryval1 !="" %}
+                 {{config.subqueryval1}}
+                {%elif config.Colvol1 != "" %}
+                   {{config.Colvol1}}  
+                {%else%}
+                ANY ORDER BY {{keycol}}
+                {%endif%})
+                {%if config.defvalue == true%} DEFAULT ON NULL ({{config.defaultval}}) {%endif%}
+                ) 
+                {%- if not loop.last -%} UNION {% endif %}
+                {%endfor%}
+                )
+        {%elif config.mulcol == true %}
+               {# Multiple Pivot Columns#}
+            {% set pcolumn, functions,subquery = config.aggfunc.get('items') | map(attribute='valCol.name') | list, config.aggfunc.get('items') | map(attribute='funcname') | list,config.aggfunc.get('items') | map(attribute='subqueryval') | list%}
+            
+            {#Filter column list#}
+
+            {%set flag = 0 %}
+           {%if config.samKeyColval == true%} 
+               {%for col in pcolumn%}
+                  {%set ns.filcol = ns.filcol + [config.samColvol] %}
+               {%endfor%}
+            {%else%}
+                {# Filter columns need to be explicitly specified for Multiple Pivot Columns#}
+                {%set ns.filcol = config.aggfunc.get('items') | map(attribute='Colvol') | list%}
+            {%endif%}
+                   
+         
+            {{ stage('Insert data into Pivot table') }}      
+
+            {%set keycol = config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name')|list|first%}
+           
+
+            INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
+             
+             ( 
+                SELECT 
+                {%for func in functions %}
+                       {%for val1 in ns.filcol[ns.i].split(',') %}
+                        {% set val = val1.strip() %}
+                      {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{pcolumn[ns.i]}}
+                      {%set ns.cnt = ns.cnt +1%}
+                      {%if not loop.last %},{%endif%}
+				           {%endfor%}
+                   {%set ns.i = ns.i+1%}
+                   {%if not loop.last%},{%endif%}
+                {%endfor%}
+                 FROM
+              (SELECT
+              {%for col in pcolumn%}
+                 {{col}},
+                 {{keycol}} AS {{keycol}}_{{col}}
+                 {%if not loop.last%},{%endif%}
+              {%endfor%}
+              {{ source.join }})
+              {%for col in pcolumn%} 
+                PIVOT({{functions[loop.index0]}}({{col}}) FOR {{keycol}}_{{col}} IN ( 
+                {%if ns.filcol[loop.index0] != None %}
+                   {{ns.filcol[loop.index0]}}  
+                {%else%}
+                   ANY ORDER BY {{keycol}}
+                {%endif%}){%if config.defvalue == true%} DEFAULT ON NULL ({{config.defaultval}}) {%endif%})
+			      {%endfor%}
+                )
+        {%endif%}   
+{%endif%}

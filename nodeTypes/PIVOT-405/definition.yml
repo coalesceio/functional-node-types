@@ -27,7 +27,7 @@ metadata:
       - displayName: Key Column
         type: columnDropdownSelector
         attributeName: keyCol
-        isRequired: true
+        isRequired: true 
 
       - displayName: Single PIVOT column multiple aggregation  
         attributeName: sincol
@@ -51,7 +51,6 @@ metadata:
            displayName: Functions
            attributeName: funcname1
            isRequired: false
-           default: table
            options:
            - AVG
            - MAX
@@ -59,16 +58,28 @@ metadata:
            - COUNT
            - SUM
 
-      - displayName: Subquery
+      - displayName: Subquery -PIVOT column values
         type: textBox
         attributeName: subqueryval1
         enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
 
-      - displayName: Filter Column Values(comma separated list of column values)
+      - displayName: Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')
         type: textBox
         attributeName: Colvol1
         enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
 
+      - displayName: Exclude columns from pivot query
+        attributeName: exlcol
+        isRequired: false
+        enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
+        type: tabular
+        columns:
+         
+        -  type: columnDropdownSelector
+           attributeName: exclcol1
+           isRequired: false
+           displayName: Exclude Columns
+            
       - displayName: Multiple PIVOT columns 
         attributeName: mulcol
         type: toggleButton
@@ -98,17 +109,13 @@ metadata:
            - COUNT
            - SUM
 
-        - displayName: Include subquery in pivot query
-          type: textBox
-          attributeName: subqueryval
-
         - displayName: Column Values(comma separated list of column values)
           type: textBox
           attributeName: Colvol
       
       - displayName: Default value for NULL
         type: toggleButton
-        default: true
+        default: false
         attributeName: defvalue
       
       - displayName: Default value

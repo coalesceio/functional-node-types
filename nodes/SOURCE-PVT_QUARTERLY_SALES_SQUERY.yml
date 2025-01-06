@@ -11,7 +11,7 @@ operation:
       items:
         - funcname1: SUM
     defaultval: "0"
-    defvalue: true
+    defvalue: false
     keyCol:
       columnCounter: 0e0a0b5c-8b9d-4d0a-951a-96dbba29b720
       stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83

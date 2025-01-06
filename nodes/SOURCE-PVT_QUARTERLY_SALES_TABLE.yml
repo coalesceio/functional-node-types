@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 328cd0f4-2ec9-4c48-b9ae-522714027468
-name: PVT_QUARTERLY_SALES1
+name: PVT_QUARTERLY_SALES_TABLE
 operation:
   config:
     Colvol1: ""
@@ -71,9 +71,9 @@ operation:
             nodeName: QUARTERLY_SALES
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
-        name: PVT_QUARTERLY_SALES1
+        name: PVT_QUARTERLY_SALES_TABLE
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES1
+  name: PVT_QUARTERLY_SALES_TABLE
   overrideSQL: false
   schema: ""
   sqlType: "405"

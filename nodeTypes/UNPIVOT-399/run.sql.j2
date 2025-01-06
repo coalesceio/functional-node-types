@@ -1,16 +1,3 @@
-{% for test in node.tests if config.testsEnabled %}
-    {% if test.runOrder == 'Before' %}
-        {{ test_stage(test.name, test.continueOnFailure) }}
-        {{ test.templateString }}
-    {% endif %}
-{% endfor %}
-
-
-{% if config.preSQL %}
-    {{ stage('Pre-SQL') }}
-    {{ config.preSQL }}
-{% endif %}
-
 {% set source = sources[0] %}
 
 {% if config.truncateBefore %}
@@ -51,18 +38,3 @@ WHERE f.KEY NOT IN (
 )
 
  
-{% if config.testsEnabled %}
-    {% for test in node.tests %}
-        {% if test.runOrder == 'After' %}
-            {{ test_stage(test.name, test.continueOnFailure) }}
-            {{ test.templateString }}
-        {% endif %}
-    {% endfor %}
-
-    {% for column in columns %}
-        {% for test in column.tests %}
-            {{ test_stage(column.name + ": " + test.name) }}
-            {{ test.templateString }}
-        {% endfor %}
-    {% endfor %}
-{% endif %}
