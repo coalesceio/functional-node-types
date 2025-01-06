@@ -1,4 +1,16 @@
-{# Table or View Name #}
+{#
+    Copyright (c) 2023 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalsce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Version        : 1  == #}
+{# == Node Type Name           : PIVOT NODE == #}
+{# == Node Type Description    : This node transforms a narrow table to wider table ie. rows to columns on applying a transformation == #}
+{#Release date:20240106 Version:1.0.0#}
+
+{# Table or Transient table Name #}
     {% set targetObjectDatabase = ref_no_link(node.location.name, node.name).split('.')[0] %} 
     {% set targetObjectSchema = ref_no_link(node.location.name, node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
@@ -9,6 +21,18 @@
 {% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
 
   {% set source = sources[0] %}
+         {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+
+
+     {# Infer Pivot true #}
+     {%if config.inferPivot == true %}
+			          {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
+                  {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+      {%else%}
+			         {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list%}
+                  {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+      {%endif%}
+
 
      {%if config.trunc %}
   			{{ stage('Truncate Pivot Table') }}
@@ -34,64 +58,58 @@
          
         {{ stage('Insert data into Pivot table') }}
 
-            CREATE OR REPLACE {{node.materializationType}} {{ ref_no_link(node.location.name, node.name) }}
-              AS
+            INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
              ( {%for func in ns.saggfunctions%}
                {%if func == 'SUM'%} 
-                 {%set ns.funcdesc = "TOTAL "+ config.valCol1.name %}
+                 {%set ns.funcdesc = "TOTAL "+ ns.pcolumn|first %}
                {%elif func == 'AVG'%}
-                 {%set ns.funcdesc = "AVERAGE "+ config.valCol1.name%}
+                 {%set ns.funcdesc = "AVERAGE "+ ns.pcolumn|first%}
                {%elif func == 'MAX'%}
-                 {%set ns.funcdesc = "MAXIMUM "+ config.valCol1.name%}
+                 {%set ns.funcdesc = "MAXIMUM "+ ns.pcolumn|first%}
                {%elif func == 'MIN'%}
-                 {%set ns.funcdesc = "MINIMUM "+ config.valCol1.name%}
+                 {%set ns.funcdesc = "MINIMUM "+ ns.pcolumn|first%}
                {%elif func == 'COUNT'%}
-                 {%set ns.funcdesc = "COUNT OF "+ config.valCol1.name%}
+                 {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
                 {%endif%}
                 SELECT * FROM (SELECT {%if ns.saggfunctions | length >1 %}'{{ns.funcdesc}}' AS aggregate ,{%endif%} *  {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
                  {{ source.join }} )
-              PIVOT({{func}}({{config.valCol1.name}}) FOR {{keycol}} IN ( {%if config.subqueryval1 !="" %}
+              PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if config.subqueryval1 !="" %}
                  {{config.subqueryval1}}
                 {%elif config.Colvol1 != "" %}
                    {{config.Colvol1}}  
                 {%else%}
-                ANY ORDER BY {{keycol}}
+                ANY ORDER BY {{ns.keycol}}
                 {%endif%})
                 {%if config.defvalue == true%} DEFAULT ON NULL ({{config.defaultval}}) {%endif%}
                 ) 
                 {%- if not loop.last -%} UNION {% endif %}
                 {%endfor%}
                 )
-        {%elif config.mulcol == true %}
-               {# Multiple Pivot Columns#}
-            {% set pcolumn, functions,subquery = config.aggfunc.get('items') | map(attribute='valCol.name') | list, config.aggfunc.get('items') | map(attribute='funcname') | list,config.aggfunc.get('items') | map(attribute='subqueryval') | list%}
-            
+        {%else %}
+            {# Multiple Pivot Columns#}
+            {% set ns.mggfunctions = config.aggfunc.get('items') | map(attribute='funcname') | list%}
+                  
             {#Filter column list#}
-
-            {%set flag = 0 %}
+              
            {%if config.samKeyColval == true%} 
-               {%for col in pcolumn%}
-                  {%set ns.filcol = ns.filcol + [config.samColvol] %}
+               {%for col in ns.pcolumn%}
+                  {%set ns.filcol = ns.filcol + [config.Colvol1] %}
                {%endfor%}
+
             {%else%}
-                {# Filter columns need to be explicitly specified for Multiple Pivot Columns#}
-                {%set ns.filcol = config.aggfunc.get('items') | map(attribute='Colvol') | list%}
-            {%endif%}
-                   
+                {%set ns.filcol = config.tabValueColumn.get('items') | map(attribute='Colvol1') | list%}
+            {%endif%}          
          
             {{ stage('Insert data into Pivot table') }}      
-
-            {%set keycol = config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name')|list|first%}
-           
 
             INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
              
              ( 
                 SELECT 
-                {%for func in functions %}
+                {%for func in ns.mggfunctions %}
                        {%for val1 in ns.filcol[ns.i].split(',') %}
                         {% set val = val1.strip() %}
-                      {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{pcolumn[ns.i]}}
+                      {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{ns.pcolumn[ns.i]}}
                       {%set ns.cnt = ns.cnt +1%}
                       {%if not loop.last %},{%endif%}
 				           {%endfor%}
@@ -100,20 +118,19 @@
                 {%endfor%}
                  FROM
               (SELECT
-              {%for col in pcolumn%}
+              {%for col in ns.pcolumn%}
                  {{col}},
-                 {{keycol}} AS {{keycol}}_{{col}}
+                 {{ns.keycol}} AS {{ns.keycol}}_{{col}}
                  {%if not loop.last%},{%endif%}
               {%endfor%}
               {{ source.join }})
-              {%for col in pcolumn%} 
-                PIVOT({{functions[loop.index0]}}({{col}}) FOR {{keycol}}_{{col}} IN ( 
+              {%for col in ns.pcolumn%} 
+                PIVOT({{ns.mggfunctions[loop.index0]}}({{col}}) FOR {{ns.keycol}}_{{col}} IN ( 
                 {%if ns.filcol[loop.index0] != None %}
                    {{ns.filcol[loop.index0]}}  
                 {%else%}
-                   ANY ORDER BY {{keycol}}
+                   ANY ORDER BY {{ns.keycol}}
                 {%endif%}){%if config.defvalue == true%} DEFAULT ON NULL ({{config.defaultval}}) {%endif%})
-			      {%endfor%}
-                )
+			      {%endfor%})
         {%endif%}   
 {%endif%}

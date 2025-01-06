@@ -29,6 +29,12 @@ metadata:
         - view
         - transient table
 
+      - displayName: Enable Tests
+        attributeName: testsEnabled
+        type: toggleButton
+        default: false
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
     - groupName: Pivot Options
       items:
       - displayName: Infer Structure of Pivot Data

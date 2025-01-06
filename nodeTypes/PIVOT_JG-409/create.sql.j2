@@ -7,8 +7,8 @@ does not permit copying or modification for any other purpose.
 #}
 {# == Node Type Version        : 1  == #}
 {# == Node Type Name           : PIVOT NODE == #}
-{# == Node Type Description    : This node creates == #}
-{#Release date:20240516 Version:1.0.0#}
+{# == Node Type Description    : This node transforms a narrow table to wider table ie. rows to columns on applying a transformation == #}
+{#Release date:20240106 Version:1.0.0#}
 
 {% if desiredState == currentState %}
 
@@ -112,7 +112,8 @@ select 1 = 0
                 {%endfor%}
                 )
         {%else %}
-               # Multiple Pivot Columns
+        
+           # Multiple Pivot Columns
             {% set ns.mggfunctions = desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list%}
                   
             #Filter column list
