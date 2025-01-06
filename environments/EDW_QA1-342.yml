@@ -1,5 +1,11 @@
 fileVersion: 1
 id: "342"
-mappingDefinitions: {}
+mappingDefinitions:
+  SOURCE:
+    database: ""
+    schema: ""
+  TARGET:
+    database: ""
+    schema: ""
 name: EDW_QA1
 type: Environment

@@ -1,0 +1,133 @@
+fileVersion: 1
+id: "410"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |
+    capitalized: MATCH_RECOGNIZE
+    short: MATCH_RECOGNIZE
+    plural: Stages
+    tagColor: '#2EB67D'
+
+    deployStrategy: advanced
+
+    config:
+
+    - groupName: Match Recognize Options
+      items:
+      - displayName: PARTITION BY
+        attributeName: partitionBy
+        type: columnDropdownSelector   
+        
+      - displayName: ORDER BY
+        attributeName: orderBy
+        type: columnDropdownSelector
+        
+      - displayName: MEASURES
+        attributeName: measures
+        type: textBox
+        syntax: sql
+        isRequired: false
+
+      -  type: dropdownSelector
+         displayName: Rows Per Match
+         attributeName: rowsPerMatch
+         default: ONE ROW PER MATCH
+         options:
+             - ONE ROW PER MATCH
+             - ALL ROWS PER MATCH
+
+      -  type: dropdownSelector
+         displayName: ALL ROWS PER MATCH
+         attributeName: allRowsPerMatch
+         default: SHOW EMPTY MATCHES
+         options:
+             - SHOW EMPTY MATCHES
+             - OMIT EMPTY MATCHES
+             - WITH UNMATCHED ROWS
+         enableIf: "{% if config.rowsPerMatch == 'ALL ROWS PER MATCH' %} true {% else %} false {% endif %}"
+
+      -  type: dropdownSelector
+         displayName: AFTER MATCH SKIP
+         attributeName: afterMatchSkip
+         default: PAST LAST ROW 
+         options:
+             - PAST LAST ROW 
+             - TO NEXT ROW
+             - TO 
+
+      -  type: dropdownSelector
+         displayName: TO
+         attributeName: to
+         default: FIRST
+         options:
+             - FIRST
+             - LAST
+         enableIf: "{% if config.afterMatchSkip == 'TO' %} true {% else %} false {% endif %}"
+
+      - displayName: PATTERN
+        attributeName: pattern
+        type: textBox
+        syntax: sql
+    	
+      - displayName: DEFINE 
+        attributeName: define 
+        type: textBox
+        syntax: sql
+        isRequired: false  
+
+    - groupName: Options
+      items:
+      - type: materializationSelector
+        default: table
+        options:
+        - table
+        - view
+        - transient table
+        isRequired: true
+
+      - type: overrideSQLToggle
+        enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
+        
+      - displayName: Truncate Before
+        attributeName: truncateBefore
+        type: toggleButton
+        default: true
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
+      - displayName: Enable Tests
+        attributeName: testsEnabled
+        type: toggleButton
+        default: false
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+      - type: multisourceToggle
+        enableIf: "{% if node.override.create.enabled %} false {% else %} true {% endif %}" 
+        
+      - displayName: Multi Source Strategy
+        attributeName: insertStrategy
+        type: dropdownSelector
+        default: INSERT
+        options:
+        - "INSERT"
+        - "UNION"
+        - "UNION ALL"
+        isRequired: false
+        enableIf: "{% if node.isMultisource %} true {% else %} false {% endif %}"
+
+
+      - displayName: Pre-SQL
+        attributeName: preSQL
+        type: textBox
+        syntax: sql
+        isRequired: false
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
+      - displayName: Post-SQL
+        attributeName: postSQL
+        type: textBox
+        syntax: sql
+        isRequired: false
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+name: Match Recognize
+type: NodeType

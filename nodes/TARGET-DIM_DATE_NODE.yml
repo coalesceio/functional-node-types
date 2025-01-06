@@ -1,13 +1,17 @@
 fileVersion: 1
-id: fb0e0af3-ff80-4079-998c-a32881f063c2
-name: DATE_NODE2
+id: 94998781-6bb4-433d-98c7-93efd3954091
+name: DIM_DATE_NODE
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
-    daysToGenerate: "2000"
+    daysToGenerate: "2500"
+    insertZeroKey: true
+    insertZeroKeyDate: 01-01-1900
+    insertZeroKeyStr: NA
+    insertZeroKeySurrogateKey: 01-01-1900
     postSQL: ""
     preSQL: ""
-    startingDate: DATEADD(DAY, -730, CURRENT_DATE)
+    startingDate: DATEADD(DAY, -200, CURRENT_DATE)
     testsEnabled: false
     truncateBefore: true
   database: ""
@@ -15,7 +19,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -24,13 +28,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: eaff33c2-6486-4339-81d7-427e16ee7c29
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: f422313b-d345-4f63-88d5-3ffb590c4670
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: DATE
         defaultValue: ""
         description: Date in the format YYYY-MM-DD
-        isDate: true
+        isBusinessKey: true
         name: DATE_KEY
         nullable: true
         sourceColumnReferences:
@@ -41,8 +45,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c356f127-6bae-4b61-9da5-aa6944745bda
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 98bae9cc-870f-4c18-841a-5021c9d4c741
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -58,8 +62,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 29967dd4-8b48-4211-8a2e-cd6b27a186a0
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: d87a0f6f-87da-43eb-ae8e-05021d8ac861
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -75,8 +79,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 12032d7c-56f6-4b7f-b72a-96345abb0cc0
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: b6e515c4-2b83-4d50-8095-f29975879d49
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: CHAR(3)
         defaultValue: ""
@@ -92,8 +96,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: be022fd1-fb2e-40b0-85bd-1b8796deba25
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 09b15b79-9fa7-4861-93a4-81d829bf4ba7
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -109,8 +113,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a2e3c516-f4a1-4721-af44-6e8773ce5137
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 13611b2f-f6ec-4f67-8074-dfa8e5bc8ff7
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -126,8 +130,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c34fd15c-18c2-47cb-8018-7792d1653bef
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 2ad2bc20-e026-41b2-94dd-5c291114fe42
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -143,8 +147,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a68ae181-9e85-4e27-ad44-57b86e986ca7
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 192abb72-2425-4e80-ae39-658d49fbf926
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -160,8 +164,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c5e9e6e1-d71f-4e52-b88d-d3d5758034e1
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 7612e822-ff47-4667-8da8-7991fef3c943
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -177,8 +181,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 14a41ca1-acc9-4690-b278-bd6715ddce9a
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 6419a8e0-2aec-4fc2-90c1-39ed31f70614
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -194,8 +198,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 0cdd0875-27cf-4516-a26c-acc5eaef4197
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: a6e54e58-1c21-4082-ad7d-bc8e1af3f02a
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -211,8 +215,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 021c11ba-6a9e-4c1d-a985-4b6b12494b4f
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: ce53e278-9166-4b26-b272-85772bf6ffbe
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -228,8 +232,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: eddf6924-9598-4d9b-9436-ece23582b09a
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 1f09c1ba-a7ad-4805-b496-28a8b096357c
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -240,6 +244,40 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'Y' ELSE 'N' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8ab34425-a28e-45ea-8cb7-9c5b3df3ea5a
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: d4ece5ec-46b5-4e83-8b28-60990dd77c2d
+          stepCounter: 94998781-6bb4-433d-98c7-93efd3954091
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -249,9 +287,9 @@ operation:
         dependencies: []
         join:
           joinCondition: ""
-        name: DATE_NODE2
+        name: DIM_DATE_NODE
         noLinkRefs: []
-  name: DATE_NODE2
+  name: DIM_DATE_NODE
   overrideSQL: false
   schema: ""
   sqlType: "404"
