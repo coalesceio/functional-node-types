@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 328cd0f4-2ec9-4c48-b9ae-522714027468
-name: PVT_QUARTERLY_SALES_TABLE
+id: 50e6afa1-8c3c-4ba4-981d-95f10c52968a
+name: PVT_QUARTERLY_SALES_TABLE1
 operation:
   config:
     Colvol1: ""
@@ -23,14 +23,14 @@ operation:
     tabKeyColumn:
       items:
         - keyColDropdown:
-            columnCounter: cd7db461-c6f6-407d-8760-eabdf16e206f
-            stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+            columnCounter: e6c0f692-ce0a-449d-a9ae-1b65b20ec539
+            stepCounter: 50e6afa1-8c3c-4ba4-981d-95f10c52968a
           keyColTextBox: QUARTER
     tabValueColumn:
       items:
         - valColDropdown:
-            columnCounter: 59f0f8b4-ddae-4786-baf2-970d807e01b9
-            stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+            columnCounter: 00bd375f-e439-47d7-af3b-706df5da8be0
+            stepCounter: 50e6afa1-8c3c-4ba4-981d-95f10c52968a
           valColTextBox: AMOUNT
     testsEnabled: false
     trunc: true
@@ -49,8 +49,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 59f0f8b4-ddae-4786-baf2-970d807e01b9
-          stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+          columnCounter: 00bd375f-e439-47d7-af3b-706df5da8be0
+          stepCounter: 50e6afa1-8c3c-4ba4-981d-95f10c52968a
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -63,8 +63,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: cd7db461-c6f6-407d-8760-eabdf16e206f
-          stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
+          columnCounter: e6c0f692-ce0a-449d-a9ae-1b65b20ec539
+          stepCounter: 50e6afa1-8c3c-4ba4-981d-95f10c52968a
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -86,9 +86,9 @@ operation:
             nodeName: QUARTERLY_SALES
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
-        name: PVT_QUARTERLY_SALES_TABLE
+        name: PVT_QUARTERLY_SALES_TABLE1
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES_TABLE
+  name: PVT_QUARTERLY_SALES_TABLE1
   overrideSQL: false
   schema: ""
   sqlType: "409"
