@@ -168,16 +168,6 @@ Pivoting ia crucial feature of data transformation.The [Pivot node](https://docs
 It is especially useful for converting narrow tables, such as one with columns for `empid`, `month`, and `sales`, 
 into wider tables, for example, `empid`, `jan_sales`, `feb_sales`, and `mar_sales`.
 
-### Pivot node Usage
-
-* Add a Pivot node on top of source node
-* Add the pivot columns,value columns ,aggregation operation from config
-* When you choose the pivot and value dropdown,ensure that the textbox alongside the dropdown is entered with Column name.This textBox information is required once the pivot table structure is synced into Coalesce.
-* The toggle 'Infer Structure of Pivot Data' is set to true when the node is created for the first time.
-* The toggle 'Single value column' is set to false, if you want a multi-dimensional pivot
-* Once the pivot table is created,the 'Re-Sync Columns' can be used to sync the structure of pivot table into Coalesce mapping grid.
-* For further pivot operations,keep the 'Infer Structure of Pivot Data' set to false
-
 ### Pivot Node Configuration
 
 Pivot has two configuration groups: 
@@ -185,6 +175,9 @@ Pivot has two configuration groups:
 * [Node Properties](#pivot-node-properties)
 * [General Options](#pivot-general-options)
 * [Pivot Options](#pivot-options)
+
+  ![image](https://github.com/user-attachments/assets/edd67d5d-7216-429a-a292-2fe4980d1a9e)
+
 
 #### Pivot Node Properties
 
@@ -197,6 +190,8 @@ Pivot has two configuration groups:
 
 #### Pivot General Options
 
+![image](https://github.com/user-attachments/assets/3e607c04-f5c8-40ed-8da8-018a5455f520)
+
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Create As** | Choose 'table', 'view' or 'transient table' |
@@ -206,6 +201,8 @@ Pivot has two configuration groups:
 #### Pivot Options
 
 ##### Single Pivot Column
+
+![image](https://github.com/user-attachments/assets/498aafd3-dba4-4d6e-92e7-ede9b54fef6a)
 
 | **Options** | **Description** |
 |-------------|-----------------|
@@ -221,6 +218,8 @@ Pivot has two configuration groups:
 
 ##### Multiple Pivot Columns
 
+![image](https://github.com/user-attachments/assets/7a9eded6-0ca3-4ed3-9541-b25c943cca51)
+
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Infer structure of Pivot table** | Toggle: True/False<br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
@@ -230,6 +229,16 @@ Pivot has two configuration groups:
 |**Value Column**|-Value Column(Dropdown) </br> -Value Column(textbox)</br> Values you want to populate in the new columns.</br>-Aggregate Functions</br>Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.</br>-Column Values </br> Enabled if the Pivot operation on same column values is false|
 |**Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')**|Specified list of column values for the pivot column|
 |**Default value for NULL**|Replace all NULL values in the pivot result with the specified default value. The default value can be any scalar expression that does not depend on the pivot and aggregation column|
+
+### Pivot node Usage
+
+* Add a Pivot node on top of source node
+* Add the pivot columns,value columns ,aggregation operation from config
+* When you choose the pivot and value dropdown,ensure that the textbox alongside the dropdown is entered with Column name.This textBox information is required once the pivot table structure is synced into Coalesce.
+* The toggle 'Infer Structure of Pivot Data' is required to be true when the node is created for the first time.
+* The toggle 'Single value column' is set to false, if you want a multi-dimensional pivot
+* Once the pivot table is created,the 'Re-Sync Columns' can be used to sync the structure of pivot table into Coalesce mapping grid.
+* For further pivot operations,keep the 'Infer Structure of Pivot Data' set to false
 
 ### Pivot Deployment
 ### Pivot Initial Deployment
