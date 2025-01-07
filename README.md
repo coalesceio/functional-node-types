@@ -2,7 +2,7 @@
 
 The Coalesce Functional Node Types Package includes:
 
-* [Date Dimension](#date-table)
+* [Date Dimension](#date-dimension)
 * [Pivot](#Pivot)
 * [Code](#code)
 
@@ -18,8 +18,9 @@ or weekend. Additional columns like fiscal year, fiscal quarter, holiday indicat
 
 The Date Dimension node type has two configuration groups:
 
-* [Node Properties](#date-table-node-properties)
-* [Options](#date-table-options)
+* [Node Properties](#date-dimension-node-properties)
+* [Options](#date-options)
+* [Additional options](#additional-options)
 
 ![Fact_config](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/assets/7216836/45d22ea5-32ca-49f5-a464-b266cb29b516)
 
@@ -125,7 +126,7 @@ The following stages are executed:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Rename Table\| Alter Column \| Delete Column \| Add Column \| Edit table description** | Alter table statement is executed to perform the alter operation |
+| **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
 
 #### Date Dimension Recreating the Views
 
@@ -262,9 +263,9 @@ The below stage is executed:
 
 | **Change** | **Stages Executed** |
 |------------|-------------------|
-| **View to table/transient table** |  Drop view <br/> Create or Replace Pivot table/transient table |
-| **Table/transient table to View** |  Drop table/transient table<br/> Create Pivot view |
-| **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Pivot table/transient table |
+| **View to table/transient table** |  Drop view </br> Create or Replace Pivot table/transient table |
+| **Table/transient table to View** |  Drop table/transient table</br> Create Pivot view |
+| **Table to transient table or vice versa** |  Drop table/transient table</br> Create or Replace Pivot table/transient table |
 
 ### Pivot Tables Undeployment
 If a Pivot Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Pivot node in the target environment will be dropped.
