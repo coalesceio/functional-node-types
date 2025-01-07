@@ -187,7 +187,7 @@ are detected<br/>If FALSE the node will not be deployed or will be dropped durin
 |-------------|-----------------|
 | **Create As** | Choose 'table', 'view' or 'transient table' |
 | **Truncate** | True/False toggle to enable or disable truncating the output columns |
-| **Enable Tests**||
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 
 #### Pivot Options
 
@@ -195,28 +195,28 @@ are detected<br/>If FALSE the node will not be deployed or will be dropped durin
 
 | **Options** | **Description** |
 |-------------|-----------------|
-| **Infer structure of Pivot table** ||
-| **Key column(Dropdown)**||
-| **Key column(textbox)**||
-| **Single Pivot column** ||
-|**Value Column(Dropdown)**||
-|**Value Column(textbox)**||
-|**Functions**||
-|**Subquery**||
+| **Infer structure of Pivot table** | Toggle: True/False <br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
+| **Pivot column**|**Pivot column(Dropdown)** </br> **Pivot column(textbox)**|
+| **Single value column** |Toggle: True/False Determines which if analysis of single or multiple value columns to be added.Value column is the column from the source table or subquery that contains the values from which column names will be generated. |
+|**Value Column(Dropdown)**|**Value Column(Dropdown)** </br> **Value Column(textbox)** Values you want to populate in the new columns.|
+|**Aggregate Functions**||
+|**Subquery**|Not mandatory.A sql query is expected.When a query is mentioned,pivot happens on all values found in the subquery|
 |**Exclude Columns**||
+|**Default value for NULL**||
 
 ##### Multiple Pivot Columns
 
 | **Options** | **Description** |
 |-------------|-----------------|
-| **Infer structure of Pivot table** ||
+| **Infer structure of Pivot table** | Toggle: True/False<br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
 | **Key column(Dropdown)**||
 | **Key column(textbox)**||
 | **Single Pivot column** ||
 |**Value Column(Dropdown)**||
 |**Value Column(textbox)**||
 |**Functions**||
-|**Filter Columns**||
+|**Column values()**||
+|**Default value for NULL**||
 
 
 ## Code
