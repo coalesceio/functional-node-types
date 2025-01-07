@@ -4,9 +4,9 @@ isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
-  nodeMetadataSpec: |
-    capitalized: Stage Date
-    short: DATE
+  nodeMetadataSpec: |-
+    capitalized: Date Dimension
+    short: DIM_DATE
     plural: Dates
     tagColor: 'black'
 
@@ -20,14 +20,19 @@ metadata:
         type: textBox
         syntax: sql
         default: 'DATEADD(DAY, -730, CURRENT_DATE)'
+        isRequired: true
+
       - displayName: Number of Days to Generate
         attributeName: daysToGenerate
         type: textBox
         default: '2000'
+        isRequired: true
+        
       - displayName: Generated Date Column Name
         attributeName: dateColumnName
         type: textBox
         default: '"DATE_COL"'
+        isRequired: true
 
     - groupName: Additional Options
       items:
@@ -49,6 +54,36 @@ metadata:
         isRequired: false
         enableIf: "{% if node.materializationType != 'view' %} true {% else %} false {% endif %}"
 
+      - type: toggleButton
+        attributeName: insertZeroKey
+        displayName: Insert Zero Key Record
+        default: false
+        enableIf: "{% if node.materializationType == 'table' or node.materializationType == 'transient table'%} true {% else %} false {% endif %}"
+
+      - displayName: Default String Value
+        attributeName: insertZeroKeyStr
+        type: textBox
+        defaultValue: "UNKNOWN"
+        isRequired: false
+        enableIf: "{% if config.insertZeroKey == true and node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - displayName: Default Surrogate Key Value
+        attributeName: insertZeroKeySurrogateKey
+        type: textBox
+        defaultValue: "0"
+        isRequired: false
+        enableIf: "{% if config.insertZeroKey == true and node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - displayName: Default Date Value (Date Format DD-MM-YYYY)
+        attributeName: insertZeroKeyDate
+        type: textBox
+        defaultValue: "01-01-1900"
+        isRequired: false
+        enableIf: "{% if config.insertZeroKey == true and node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - type: businessKeyColumns
+        isRequired: true
+        
       - displayName: Enable Tests
         attributeName: testsEnabled
         type: toggleButton
@@ -60,18 +95,22 @@ metadata:
         type: textBox
         syntax: sql
         isRequired: false
+        
       - displayName: Post-SQL
         attributeName: postSQL
         type: textBox
         syntax: sql
         isRequired: false
+        
     systemColumns:
     - displayName: DATE_KEY
       transform: '{{ config.dateColumnName }}'
       dataType: 'DATE'
       description: "Date in the format YYYY-MM-DD"
+      attributeName: isBusinessKey
       placement: beginning
-      attributeName: isDate
+      isBusinessKey: true
+
     - displayName: 'YEAR'
       transform: 'YEAR({{ config.dateColumnName }})'
       dataType: SMALLINT
@@ -144,5 +183,17 @@ metadata:
       description: "Flag to check weekend"
       placement: beginning
       attributeName: isFlagWeekEnd
-name: Date
+
+    - displayName: SYSTEM_CREATE_DATE
+      transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      dataType: TIMESTAMP
+      placement: end
+      attributeName: isSystemCreateDate
+
+    - displayName: SYSTEM_UPDATE_DATE
+      transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      dataType: TIMESTAMP
+      placement: end
+      attributeName: isSystemUpdateDate
+name: Date Dimension
 type: NodeType
