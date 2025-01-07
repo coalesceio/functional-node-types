@@ -2,8 +2,8 @@
 
 The Coalesce Functional Node Types Package includes:
 
-* [Pivot](#Pivot)
 * [Date Dimension](#date-table)
+* [Pivot](#Pivot)
 * [Code](#code)
 
 ---
