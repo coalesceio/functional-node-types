@@ -43,7 +43,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: SOURCE
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
