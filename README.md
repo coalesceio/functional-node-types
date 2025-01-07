@@ -2,6 +2,7 @@
 
 The Coalesce Functional Node Types Package includes:
 
+* [Pivot](#Pivot)
 * [Date Table](#date-table)
 * [Code](#code)
 
@@ -154,6 +155,8 @@ This is executed in below stage:
 | **Stage** | **Description** |
 |-----------|----------------|
 | **Drop table/view** | Removes the table or view from the environment |
+
+## Pivot
 
 ## Code
 
