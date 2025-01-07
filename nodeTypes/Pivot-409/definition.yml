@@ -5,7 +5,7 @@ metadata:
   defaultStorageLocation: null
   error: null
   nodeMetadataSpec: |
-    capitalized: PIVOT_JG
+    capitalized: PIVOT
     short: PVT
     plural: PIVOTS
     tagColor: '#29B2DB'
