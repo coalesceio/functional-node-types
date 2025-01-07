@@ -19,7 +19,8 @@ metadata:
       - displayName: Truncate Before
         attributeName: trunc
         type: toggleButton
-        default: false 
+        default: true
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
       
       - type: materializationSelector
         isRequired: true
@@ -168,5 +169,5 @@ metadata:
         type: textBox
         attributeName: defaultval
         enableIf: "{% if config.defvalue %} true {% else %} false {% endif %}"
-name: PIVOT_JG
+name: PIVOT
 type: NodeType

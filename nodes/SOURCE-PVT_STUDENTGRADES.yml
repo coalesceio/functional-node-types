@@ -1,26 +1,39 @@
 fileVersion: 1
-id: bab57f68-b104-406d-8bee-5e3605519bf5
+id: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
 name: PVT_STUDENTGRADES
 operation:
   config:
-    Colvol: ""
+    Colvol1: ""
     aggfunc:
       items:
-        - Colvol: null
-          funcname: MAX
-          subqueryval: null
-          valCol:
-            columnCounter: 841dcdc5-fb97-4023-ae26-4661913b526a
-            stepCounter: bab57f68-b104-406d-8bee-5e3605519bf5
-    defaultval: "0"
-    defvalue: true
-    filcolvol: false
-    keyCol:
-      columnCounter: ae3344eb-a24f-4409-97af-549938df41d4
-      stepCounter: bab57f68-b104-406d-8bee-5e3605519bf5
-    subquery: false
-    subqueryval: ""
-    truncateBefore: true
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: AVG
+        - funcname1: MAX
+    defaultval: ""
+    defvalue: false
+    exlcol:
+      items:
+        - exclcol1: null
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: 273630d7-dc0a-43fe-9db9-cf1030810e5e
+            stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
+          keyColTextBox: SUBJECT
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: f555d84b-2bae-48f4-8c19-d5bf76cab14c
+            stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
+          valColTextBox: GRADE
+    testsEnabled: false
+    trunc: true
   database: ""
   deployEnabled: true
   description: ""
@@ -32,8 +45,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 4cf85b33-37cc-4d6e-b72c-20ba670de633
-          stepCounter: bab57f68-b104-406d-8bee-5e3605519bf5
+          columnCounter: 5a2a68b6-3ae1-41a5-b8f2-386f5db32e11
+          stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -46,8 +59,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 841dcdc5-fb97-4023-ae26-4661913b526a
-          stepCounter: bab57f68-b104-406d-8bee-5e3605519bf5
+          columnCounter: 273630d7-dc0a-43fe-9db9-cf1030810e5e
+          stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -60,8 +73,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: ae3344eb-a24f-4409-97af-549938df41d4
-          stepCounter: bab57f68-b104-406d-8bee-5e3605519bf5
+          columnCounter: f555d84b-2bae-48f4-8c19-d5bf76cab14c
+          stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -88,7 +101,7 @@ operation:
   name: PVT_STUDENTGRADES
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

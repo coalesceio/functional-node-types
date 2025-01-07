@@ -12,6 +12,7 @@ operation:
         - funcname1: SUM
     defaultval: "0"
     defvalue: false
+    inferPivot: true
     keyCol:
       columnCounter: 0e0a0b5c-8b9d-4d0a-951a-96dbba29b720
       stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83
@@ -22,6 +23,20 @@ operation:
               FROM ANANDHIS_DEV.SOURCE_DATA.ad_campaign_types_by_quarter
               WHERE television = TRUE
               ORDER BY quarter
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: 0e0a0b5c-8b9d-4d0a-951a-96dbba29b720
+            stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: 4325734b-1d0b-4be8-a349-88d349c49d9b
+            stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: true
     valCol1:
       columnCounter: 4325734b-1d0b-4be8-a349-88d349c49d9b
       stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83
@@ -92,7 +107,7 @@ operation:
   name: PVT_QUARTERLY_SALES_SQUERY
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

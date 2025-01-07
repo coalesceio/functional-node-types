@@ -58,7 +58,7 @@ select 1 = 0
 			          {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
       {%else%}
-			         {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list%}
+			         {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
       {%endif%}
 
@@ -124,7 +124,7 @@ select 1 = 0
                {%endfor%}
 
             {%else%}
-                {%set ns.filcol = desiredState.config.tabValueColumn.get('items') | map(attribute='Colvol1') | list%}
+                {%set ns.filcol = desiredState.config.tabValueColumn.get('items') | map(attribute='Colvol') | list%}
             {%endif%}
             
             # Filter columns need to be explicitly specified for Multiple Pivot Columns

@@ -3,7 +3,7 @@ id: d2b79091-4158-4d94-a06d-58f4638403cd
 name: PVT_QUARTERLY_SALES_MULTI
 operation:
   config:
-    Colvol1: ""
+    Colvol1: "'2023_Q1','2023_Q2'"
     aggfunc:
       items:
         - Colvol: "'2023_Q1','2023_Q2'"
@@ -21,12 +21,34 @@ operation:
         - {}
     defaultval: "0"
     defvalue: false
+    inferPivot: true
     keyCol:
       columnCounter: 367875b8-5ff8-464d-823d-5694382330a8
       stepCounter: d2b79091-4158-4d94-a06d-58f4638403cd
     mulcol: true
+    samKeyColval: true
     sincol: false
     subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: 367875b8-5ff8-464d-823d-5694382330a8
+            stepCounter: d2b79091-4158-4d94-a06d-58f4638403cd
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - funcname: AVG
+          valColDropdown:
+            columnCounter: da8fa1b1-6dee-4d26-b645-ed749aa5f6c2
+            stepCounter: d2b79091-4158-4d94-a06d-58f4638403cd
+          valColTextBox: AMOUNT
+        - funcname: MAX
+          valColDropdown:
+            columnCounter: 4dad2dd1-db70-4481-be1c-af3961310ee6
+            stepCounter: d2b79091-4158-4d94-a06d-58f4638403cd
+          valColTextBox: DISCOUNT_PERCENT
+    testsEnabled: false
+    trunc: true
     truncateBefore: true
     valCol1:
       columnCounter: da8fa1b1-6dee-4d26-b645-ed749aa5f6c2
@@ -112,7 +134,7 @@ operation:
   name: PVT_QUARTERLY_SALES_MULTI
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

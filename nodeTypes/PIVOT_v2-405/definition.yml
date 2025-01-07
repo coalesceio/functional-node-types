@@ -122,5 +122,5 @@ metadata:
         type: textBox
         attributeName: defaultval
         enableIf: "{% if config.defvalue %} true {% else %} false {% endif %}"
-name: PIVOT
+name: PIVOT_v2
 type: NodeType

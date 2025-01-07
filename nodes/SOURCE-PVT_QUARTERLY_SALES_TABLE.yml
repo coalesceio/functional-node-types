@@ -13,12 +13,23 @@ operation:
         - funcname1: SUM
     defaultval: "0"
     defvalue: true
+    inferPivot: true
     keyCol:
       columnCounter: cd7db461-c6f6-407d-8760-eabdf16e206f
       stepCounter: 328cd0f4-2ec9-4c48-b9ae-522714027468
     mulcol: false
     sincol: true
     subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColDropdown: null
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown: null
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: true
     truncateBefore: true
     valCol1:
       columnCounter: 59f0f8b4-ddae-4786-baf2-970d807e01b9
@@ -76,7 +87,7 @@ operation:
   name: PVT_QUARTERLY_SALES_TABLE
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

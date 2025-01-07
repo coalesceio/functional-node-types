@@ -16,12 +16,27 @@ operation:
     exlcol:
       items:
         - exclcol1: null
+    inferPivot: true
     keyCol:
       columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
       stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
     mulcol: false
     sincol: true
     subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
+            stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: d95b765a-39e2-48e8-b777-9e766bab7d92
+            stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: true
     truncateBefore: true
     valCol1:
       columnCounter: d95b765a-39e2-48e8-b777-9e766bab7d92
@@ -93,7 +108,7 @@ operation:
   name: PVT_QUARTERLY_SALES_WO_DIS
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

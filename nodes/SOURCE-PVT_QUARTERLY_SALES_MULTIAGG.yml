@@ -15,18 +15,33 @@ operation:
         - funcname1: SUM
     defaultval: "0"
     defvalue: true
+    inferPivot: true
     keyCol:
       columnCounter: cf374aaf-59f7-4d6e-aebd-c21addcfa212
       stepCounter: 09437809-bf3a-44ee-abbf-bbc47987529e
     mulcol: false
     sincol: true
     subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: cf374aaf-59f7-4d6e-aebd-c21addcfa212
+            stepCounter: 09437809-bf3a-44ee-abbf-bbc47987529e
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: f9fa2be0-2171-4d0e-89ca-73621c51387b
+            stepCounter: 09437809-bf3a-44ee-abbf-bbc47987529e
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: true
     valCol1:
       columnCounter: f9fa2be0-2171-4d0e-89ca-73621c51387b
       stepCounter: 09437809-bf3a-44ee-abbf-bbc47987529e
   database: ""
   deployEnabled: true
-  description: ""
+  description: Multiple description
   isMultisource: false
   locationName: SOURCE
   materializationType: table
@@ -91,7 +106,7 @@ operation:
   name: PVT_QUARTERLY_SALES_MULTIAGG
   overrideSQL: false
   schema: ""
-  sqlType: "405"
+  sqlType: "409"
   type: sql
   version: 1
 type: Node
