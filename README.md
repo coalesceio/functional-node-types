@@ -167,9 +167,9 @@ into wider tables, for example, `empid`, `jan_sales`, `feb_sales`, and `mar_sale
 
 Pivot has two configuration groups: 
 
-*[Node Properties](#pivot-node-properties)
-*[General Options](#pivot-general-options)
-*[Pivot Options](#pivot-options)
+* [Node Properties](#pivot-node-properties)
+* [General Options](#pivot-general-options)
+* [Pivot Options](#pivot-options)
 
 #### Pivot Node Properties
 
