@@ -1,0 +1,112 @@
+{#
+    Copyright (c) 2023 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalsce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Version        : 1  == #}
+{# == Node Type Name           : PIVOT NODE == #}
+{# == Node Type Description    : This node creates work table,view and also override create sql for view with advanced deployment strategy == #}
+{#Release date:20240516 Version:1.0.0#}
+
+{% if desiredState == currentState %}
+
+{{ stage('Nothing to do.') }}
+select 1 = 0
+
+{% elif desiredState %} 
+
+{% set source = desiredState.sources[0] %}
+{%- set ns = namespace(aggfunctions=[]) %}
+{% set ns.aggfunctions = desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list%}
+
+       {% if currentState == undefined or currentState.storageLocations | length == 0  %}
+
+       {{ stage('Create Pivot Table') }}
+            CREATE OR REPLACE TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+              AS
+             ( {%for func in ns.aggfunctions%}
+                SELECT '{{func}}' AS aggregate ,*
+               {{ source.join }} 
+              PIVOT({{func}}({{desiredState.config.valCol.name}}) FOR {{desiredState.config.keyCol.name}} IN ( {%if desiredState.config.subquery == true %}
+                 {{desiredState.config.subqueryval}}
+                {%elif desiredState.config.filcolvol == true %}
+                   {{desiredState.config.Colvol}}  
+                {%else%}
+                ANY ORDER BY {{desiredState.config.keyCol.name}}
+                {%endif%})
+                {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
+                ) 
+                {%- if not loop.last -%} UNION {% endif %}
+                {%endfor%}
+                )
+            {%endif%}   
+        
+
+          {% if currentState != undefined and desiredState != undefined and currentState != desiredState %}
+
+                {# Change in materialization type #}
+				
+				{%if currentState.node.materializationType != desiredState.node.materializationType %}
+
+                     {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+
+                     {% if currentState.node.materializationType == 'view' %} 
+                      DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                     {% else %}
+                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                     {% endif %}
+                {%endif%}
+				
+                
+
+                {{ stage('Create Pivot Table') }}
+
+                      CREATE OR REPLACE TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+              AS
+             ( {%for func in ns.aggfunctions%}
+                SELECT *
+               {{ source.join }} 
+              PIVOT({{func}}({{desiredState.config.valCol.name}}) FOR {{desiredState.config.keyCol.name}} IN ( {%if desiredState.config.subquery == true %}
+                 {{desiredState.config.subqueryval}}
+                {%elif desiredState.config.filcolvol == true %}
+                   {{desiredState.config.Colvol}}  
+                {%else%}
+                ANY ORDER BY {{desiredState.config.keyCol.name}}
+                {%endif%})
+                {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
+                ) 
+                {%- if not loop.last -%} UNION {% endif %}
+                {%endfor%}
+                )
+                         
+        {% endif %}
+
+        
+        
+{% elif currentState != undefined and desiredState == undefined %}
+
+    {# Table or View Name #}
+    {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
+    {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
+    {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
+    
+    {% if currentState.node.materializationType == 'view' %}
+
+     {{ stage('Drop Table or View', true, "sql", "drop") }}
+     DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
+
+    {% else %}
+     
+       {{ stage('Drop ' + currentState.node.materializationType , true, "sql", "drop") }}
+       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
+
+    {% endif %}
+
+{%- else -%}
+
+{{ stage('Nothing to do.') }}
+select 1 = 0
+
+{% endif %}
