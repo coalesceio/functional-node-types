@@ -32,8 +32,12 @@ operation:
           keyColTextBox: null
     tabValueColumn:
       items:
-        - valColDropdown: null
+        - Colvol: null
+          funcname: null
+          valColDropdown: null
           valColTextBox: null
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
