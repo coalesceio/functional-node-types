@@ -168,6 +168,16 @@ Pivoting ia crucial feature of data transformation.The [Pivot node](https://docs
 It is especially useful for converting narrow tables, such as one with columns for `empid`, `month`, and `sales`, 
 into wider tables, for example, `empid`, `jan_sales`, `feb_sales`, and `mar_sales`.
 
+### Pivot node Usage
+
+* Add a Pivot node on top of source node
+* Add the pivot columns,value columns ,aggregation operation from config
+* When you choose the pivot and value dropdown,ensure that the textbox alongside the dropdown is entered with Column name.This textBox information is required once the pivot table structure is synced into Coalesce.
+* The toggle 'Infer Structure of Pivot Data' is set to true when the node is created for the first time.
+* The toggle 'Single value column' is set to false, if you want a multi-dimensional pivot
+* Once the pivot table is created,the 'Re-Sync Columns' can be used to sync the structure of pivot table into Coalesce mapping grid.
+* For further pivot operations,keep the 'Infer Structure of Pivot Data' set to false
+
 ### Pivot Node Configuration
 
 Pivot has two configuration groups: 
@@ -183,8 +193,7 @@ Pivot has two configuration groups:
 | **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
 | **Node Type** | (Required) Name of template used to create node objects |
 | **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes 
-are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
 #### Pivot General Options
 
@@ -200,14 +209,14 @@ are detected<br/>If FALSE the node will not be deployed or will be dropped durin
 
 | **Options** | **Description** |
 |-------------|-----------------|
-| **Infer structure of Pivot table** | Toggle: True/False <br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
-| **Pivot column**|**Pivot column(Dropdown)** </br> **Pivot column(textbox)**The column from the source table or subquery that will be aggregated and turned into new columns.|
+| **Infer structure of Pivot table** | Toggle: True/False <br/> True,it is the first run and the pivot table structure is yet to be determined</br>False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
+| **Pivot column**|Pivot column(Dropdown) </br>Pivot column(textbox)The column from the source table or subquery that will be aggregated and turned into new columns.|
 | **Single value column** |Toggle: True Determines which if analysis of single or multiple value columns to be added.Value column is the column from the source table or subquery that contains the values from which column names will be generated. |
-|**Value Column**|-Value Column(Dropdown)** </br> -Value Column(textbox)** Values you want to populate in the new columns.|
+|**Value Column**|-Value Column(Dropdown) </br> -Value Column(textbox) </br> Values you want to populate in the new columns.|
 |**Aggregate Functions**|Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.|
 |**Subquery -PIVOT column values**|Not mandatory.A sql query is expected.When a query is mentioned,pivot happens on all values found in the subquery|
-|**Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')**|Specified list of column values for the pivot column|
-|**Exclude Columns**|To specifically exclude columns from a pivot query|
+|**Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')**|Not mandatory.Specified list of column values for the pivot column|
+|**Exclude Columns**|Not mandatory.To specifically exclude columns from a pivot query|
 |**Default value for NULL**|Replace all NULL values in the pivot result with the specified default value. The default value can be any scalar expression that does not depend on the pivot and aggregation column|
 
 ##### Multiple Pivot Columns
@@ -215,10 +224,10 @@ are detected<br/>If FALSE the node will not be deployed or will be dropped durin
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Infer structure of Pivot table** | Toggle: True/False<br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
-| **Pivot column**|**Pivot column(Dropdown)** </br> **Pivot column(textbox)**The column from the source table or subquery that will be aggregated and turned into new columns.|
+| **Pivot column**|Pivot column(Dropdown) </br> Pivot column(textbox)</br> The column from the source table or subquery that will be aggregated and turned into new columns.|
 |**Pivot operation on same column values**|Toggle:True/False </br>- True If pivot is to applied to same pivot column values for multiple value columns</br>- False If pivot is to applied to differnt pivot column values for each value column|
 | **Single value column** |Toggle:False Determines which if analysis of single or multiple value columns to be done.Value column is the column from the source table or subquery that contains the values from which column names will be generated. |
-|**Value Column**|-Value Column(Dropdown)** </br> -Value Column(textbox)</br> Values you want to populate in the new columns.</br>-Aggregate Functions</br>Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.</br>-Column Values enabled if the Pivot operation on same column values is false|
+|**Value Column**|-Value Column(Dropdown) </br> -Value Column(textbox)</br> Values you want to populate in the new columns.</br>-Aggregate Functions</br>Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.</br>-Column Values </br> Enabled if the Pivot operation on same column values is false|
 |**Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')**|Specified list of column values for the pivot column|
 |**Default value for NULL**|Replace all NULL values in the pivot result with the specified default value. The default value can be any scalar expression that does not depend on the pivot and aggregation column|
 
@@ -264,3 +273,11 @@ This is executed in below stage:
 | **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/definition.yml)
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/run.sql.j2) |
+
+### Pivot code
+
+| **Component** | **Link** |
+|--------------|-----------|
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/definition.yml)|
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/create.sql.j2) |
+| **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/run.sql.j2)
