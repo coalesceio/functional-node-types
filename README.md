@@ -158,6 +158,67 @@ This is executed in below stage:
 
 ## Pivot
 
+Pivoting ia crucial feature of data transformation.The [Pivot node](https://docs.snowflake.com/en/sql-reference/constructs/pivot) in Coalesce transforms a table by turning the unique values from one column in the input expression into multiple columns and aggregating results where required on any remaining column values. This operation is specified in the `FROM` clause after the table name or subquery.  
+
+It is especially useful for converting narrow tables, such as one with columns for `empid`, `month`, and `sales`, 
+into wider tables, for example, `empid`, `jan_sales`, `feb_sales`, and `mar_sales`.
+
+### Pivot Node Configuration
+
+Pivot has two configuration groups: 
+
+*[Node Properties](#pivot-node-properties)
+*[General Options](#pivot-general-options)
+*[Pivot Options](#pivot-options)
+
+#### Pivot Node Properties
+
+| **Property** | **Description** |
+|--------------|-----------------|
+| **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
+| **Node Type** | (Required) Name of template used to create node objects |
+| **Description** | A description of the node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes 
+are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+
+#### Pivot General Options
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Create As** | Choose 'table', 'view' or 'transient table' |
+| **Truncate** | True/False toggle to enable or disable truncating the output columns |
+| **Enable Tests**||
+
+#### Pivot Options
+
+##### Single Pivot Column
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Infer structure of Pivot table** ||
+| **Key column(Dropdown)**||
+| **Key column(textbox)**||
+| **Single Pivot column** ||
+|**Value Column(Dropdown)**||
+|**Value Column(textbox)**||
+|**Functions**||
+|**Subquery**||
+|**Exclude Columns**||
+
+##### Multiple Pivot Columns
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Infer structure of Pivot table** ||
+| **Key column(Dropdown)**||
+| **Key column(textbox)**||
+| **Single Pivot column** ||
+|**Value Column(Dropdown)**||
+|**Value Column(textbox)**||
+|**Functions**||
+|**Filter Columns**||
+
+
 ## Code
 
 ### Date Table Code
