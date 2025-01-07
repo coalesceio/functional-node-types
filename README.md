@@ -254,6 +254,8 @@ When the PIVOT node is redeployed with any changes in table or config changes re
 
 The below stage is executed:
 
+| **Stage** | **Description** |
+|-----------|----------------|
 | **Create Pivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a pivot table in the target environment |
 
 #### Pivot Table Deploy Drop and Recreate Work View/Table/Transient Table
