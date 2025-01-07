@@ -14,8 +14,7 @@ operation:
     defaultval: ""
     defvalue: false
     exlcol:
-      items:
-        - exclcol1: null
+      items: []
     inferPivot: true
     samKeyColval: false
     sincol: true
