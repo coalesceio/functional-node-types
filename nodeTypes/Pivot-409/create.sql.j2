@@ -7,7 +7,7 @@ does not permit copying or modification for any other purpose.
 #}
 {# == Node Type Version        : 1  == #}
 {# == Node Type Name           : PIVOT NODE == #}
-{# == Node Type Description    : This node transforms a narrow table to wider table ie. rows to columns on applying a transformation == #}
+{# == Node Type Description    : This node transforms a narrow table to wider table.It is particularly useful when you want to convert unique row values from one column into multiple columns in the output, aggregating data in the process == #}
 {#Release date:20240106 Version:1.0.0#}
 
 {% if desiredState == currentState %}
@@ -68,7 +68,7 @@ select 1 = 0
 
         {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
          
-         # List of columns to be excluded from Pivot query
+         {# List of columns to be excluded from Pivot query#}
 
          {%if desiredState.config.exlcol == true %}
 
@@ -113,10 +113,10 @@ select 1 = 0
                 )
         {%else %}
         
-           # Multiple Pivot Columns
+           {# Multiple Pivot Columns#}
             {% set ns.mggfunctions = desiredState.config.aggfunc.get('items') | map(attribute='funcname') | list%}
                   
-            #Filter column list
+           {#Filter column list#}
               
            {%if desiredState.config.samKeyColval == true%} 
                {%for col in ns.pcolumn%}
@@ -127,7 +127,7 @@ select 1 = 0
                 {%set ns.filcol = desiredState.config.tabValueColumn.get('items') | map(attribute='Colvol') | list%}
             {%endif%}
             
-            # Filter columns need to be explicitly specified for Multiple Pivot Columns
+           {# Filter columns need to be explicitly specified for Multiple Pivot Columns#}
                            
             {{ stage('Create Pivot '+ desiredState.node.materializationType) }}             
               

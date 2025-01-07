@@ -44,7 +44,7 @@ metadata:
         default: false
       
       - type: tabular
-        displayName: 'Pivot Column-(Cannot add multiple key columns)'
+        displayName: 'Pivot Column-(Cannot add multiple pivot columns)'
         attributeName: tabKeyColumn
         isRequired: true
         columns:
@@ -145,18 +145,18 @@ metadata:
            isRequired: false
            displayName: Exclude Columns
           
-      - displayName: Pivot Columns
+      - displayName: Value Column
         attributeName: aggfunc
         isRequired: false
         enableIf: "{% if config.sincol %} false {% else %} false {% endif %}"
         type: tabular
         columns:
         
-        - displayName: Pivot Value Columns
+        - displayName: Value Column
           type: columnDropdownSelector
           attributeName: valCol
      
-        - displayName: Pivot Value Columns
+        - displayName: Value Column
           type: textBox
           attributeName: valColbox
              
