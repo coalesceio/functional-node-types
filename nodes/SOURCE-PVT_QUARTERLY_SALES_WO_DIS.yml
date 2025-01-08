@@ -11,8 +11,10 @@ operation:
     aggfunc1:
       items:
         - funcname1: SUM
+        - funcname1: AVG
+        - funcname1: MAX
     defaultval: "0"
-    defvalue: false
+    defvalue: true
     exlcol:
       items:
         - exclcol1: null
@@ -21,19 +23,15 @@ operation:
       columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
       stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
     mulcol: false
-    sincol: true
+    sincol: false
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
-            stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+        - keyColDropdown: null
           keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColDropdown:
-            columnCounter: d95b765a-39e2-48e8-b777-9e766bab7d92
-            stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+        - valColDropdown: null
           valColTextBox: AMOUNT
     testsEnabled: false
     trunc: true
@@ -64,34 +62,101 @@ operation:
               - columnCounter: a494b41f-2531-4f68-b2c8-93cd8761660b
                 stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: d95b765a-39e2-48e8-b777-9e766bab7d92
+          columnCounter: 0f1e1409-5952-4794-bf0e-396950f952bd
           stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(14)
+        defaultValue: ""
         description: ""
-        name: AMOUNT
+        name: AGGREGATE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: e8218ac9-18e9-4adf-bf36-88173ef46bc0
-                stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: b49eb19f-4cfa-4ae7-b53c-644c03cf7e9e
+          columnCounter: 79a004d4-bab8-4b11-96ab-04a443ed0386
           stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: NUMBER(38,6)
+        defaultValue: ""
         description: ""
-        name: QUARTER
+        name: "'2023_Q1'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: c4beafd7-8165-418c-843c-c94c1d491bf7
-                stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 611ed107-e9ba-4b88-83b7-c49a96e2470f
+          stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q2'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 894fce73-1698-45c0-8028-89ebcf4d9245
+          stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q3'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 56b1d3dd-ba05-4859-b3f6-970b38a45340
+          stepCounter: 7ef9963c-61cb-49a8-b3d0-57741658d16a
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q4'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

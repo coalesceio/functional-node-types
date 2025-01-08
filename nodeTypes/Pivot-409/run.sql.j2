@@ -29,7 +29,7 @@ does not permit copying or modification for any other purpose.
 			          {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
       {%else%}
-			         {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list%}
+			         {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
       {%endif%}
 
