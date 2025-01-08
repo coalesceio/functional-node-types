@@ -207,10 +207,10 @@ Pivot has two configuration groups:
 
 | **Options** | **Description** |
 |-------------|-----------------|
-| **Infer structure of Pivot table** | Toggle: True/False <br/> True,it is the first run and the pivot table structure is yet to be determined</br>False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
-| **Pivot column**|Pivot column(Dropdown) </br>Pivot column(textbox)The column from the source table or subquery that will be aggregated and turned into new columns.|
+| **Infer structure of Pivot table** | Toggle: True/False <br/> True,it is the first run and the pivot table structure is yet to be determined<br/>False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
+| **Pivot column**|Pivot column(Dropdown) <br/>Pivot column(textbox)The column from the source table or subquery that will be aggregated and turned into new columns.|
 | **Single value column** |Toggle: True Determines which if analysis of single or multiple value columns to be added.Value column is the column from the source table or subquery that contains the values from which column names will be generated. |
-|**Value Column**|-Value Column(Dropdown) </br> -Value Column(textbox) </br> Values you want to populate in the new columns.|
+|**Value Column**|-Value Column(Dropdown) <br/> -Value Column(textbox) <br/> Values you want to populate in the new columns.|
 |**Aggregate Functions**|Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.|
 |**Subquery -PIVOT column values**|Not mandatory.A sql query is expected.When a query is mentioned,pivot happens on all values found in the subquery|
 |**Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')**|Not mandatory.Specified list of column values for the pivot column|
@@ -224,10 +224,10 @@ Pivot has two configuration groups:
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Infer structure of Pivot table** | Toggle: True/False<br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
-| **Pivot column**|Pivot column(Dropdown) </br> Pivot column(textbox)</br> The column from the source table or subquery that will be aggregated and turned into new columns.|
-|**Pivot operation on same column values**|Toggle:True/False </br>- True If pivot is to applied to same pivot column values for multiple value columns</br>- False If pivot is to applied to differnt pivot column values for each value column|
+| **Pivot column**|Pivot column(Dropdown) <br/> Pivot column(textbox)<br/> The column from the source table or subquery that will be aggregated and turned into new columns.|
+|**Pivot operation on same column values**|Toggle:True/False <br/>- True If pivot is to applied to same pivot column values for multiple value columns<br/>- False If pivot is to applied to differnt pivot column values for each value column|
 | **Single value column** |Toggle:False Determines which if analysis of single or multiple value columns to be done.Value column is the column from the source table or subquery that contains the values from which column names will be generated. |
-|**Value Column**|-Value Column(Dropdown) </br> -Value Column(textbox)</br> Values you want to populate in the new columns.</br>-Aggregate Functions</br>Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.</br>-Column Values </br> Enabled if the Pivot operation on same column values is false|
+|**Value Column**|-Value Column(Dropdown) <br/> -Value Column(textbox)<br/> Values you want to populate in the new columns.<br/>-Aggregate Functions<br/>Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.<br/>-Column Values <br/> Enabled if the Pivot operation on same column values is false|
 |**Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')**|Specified list of column values for the pivot column|
 |**Default value for NULL**|Replace all NULL values in the pivot result with the specified default value. The default value can be any scalar expression that does not depend on the pivot and aggregation column|
 
@@ -263,9 +263,9 @@ The below stage is executed:
 
 | **Change** | **Stages Executed** |
 |------------|-------------------|
-| **View to table/transient table** |  Drop view </br> Create or Replace Pivot table/transient table |
-| **Table/transient table to View** |  Drop table/transient table</br> Create Pivot view |
-| **Table to transient table or vice versa** |  Drop table/transient table</br> Create or Replace Pivot table/transient table |
+| **View to table/transient table** |  Drop view <br/> Create or Replace Pivot table/transient table |
+| **Table/transient table to View** |  Drop table/transient table<br/> Create Pivot view |
+| **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Pivot table/transient table |
 
 ### Pivot Tables Undeployment
 If a Pivot Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Pivot node in the target environment will be dropped.
