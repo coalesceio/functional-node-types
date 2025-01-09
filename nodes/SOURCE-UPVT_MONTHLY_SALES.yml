@@ -1,0 +1,124 @@
+fileVersion: 1
+id: e6009614-ad43-4ef0-93db-461c871260c1
+name: UPVT_MONTHLY_SALES
+operation:
+  config:
+    nameColTextBox: ""
+    tabValueColumn:
+      items:
+        - {}
+    truncateBefore: true
+    valColTextBox: ""
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e9b2e712-b4ee-4e1f-8428-c7b6ab50456f
+          stepCounter: e6009614-ad43-4ef0-93db-461c871260c1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ac38c37e-22c4-4955-ab35-5df88fac1ce8
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f5804d9e-23ad-419d-b473-713f0fe4174c
+          stepCounter: e6009614-ad43-4ef0-93db-461c871260c1
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DEPT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2349ffab-b712-4d36-93b6-11210cc689c8
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e4e9a788-69e9-434a-99f6-fcad358a6b9c
+          stepCounter: e6009614-ad43-4ef0-93db-461c871260c1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: JAN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 31a631ac-0051-42c3-9c7f-262192770609
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a81c09e1-a93f-4644-bd19-63cf97e6f212
+          stepCounter: e6009614-ad43-4ef0-93db-461c871260c1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: FEB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6afeddce-3894-4a8c-a480-fbb69304b19d
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 49e7f017-1703-498b-89e9-b60c4c41caff
+          stepCounter: e6009614-ad43-4ef0-93db-461c871260c1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e546f930-33ae-4336-86ae-9aa0d4da510b
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 648774ef-df42-47b1-978f-4f76b627b16b
+          stepCounter: e6009614-ad43-4ef0-93db-461c871260c1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: APR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 074f272e-9dfb-43b7-abe6-3867c2f648be
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+        name: UPVT_MONTHLY_SALES
+        noLinkRefs: []
+  name: UPVT_MONTHLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node
