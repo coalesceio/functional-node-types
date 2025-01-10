@@ -6,111 +6,78 @@ Coalesce permits you to copy and modify this script for the purposes of using wi
 does not permit copying or modification for any other purpose.  
 #}
 {# == Node Type Version        : 1  == #}
-{# == Node Type Name           : Work Advanced deploy == #}
-{# == Node Type Description    : This node loads data into work table using config options distinct,groupby all,order by ,multi-source == #}
+{# == Node Type Name           : MATCH_RECOGNIZE NODE == #}
+{# == Node Type Description    : This node processes rows from a given data source to detect patterns. It genrates the query for MATCH_RECOGNIZE which accepts a set of rows from input table, and returns all matches for a given row pattern within this node. The pattern is defined similarly to a regular expression. == #}
 
 
- {# == To run data quality tests before data insertion == #}
+{# Table or Transient table Name #}
+    {% set targetObjectDatabase = ref_no_link(node.location.name, node.name).split('.')[0] %} 
+    {% set targetObjectSchema = ref_no_link(node.location.name, node.name).split('.')[1] %} 
+    {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
 
-{% for test in node.tests if config.testsEnabled %}
-        {% if test.runOrder == 'Before' %}
-            {{ test_stage(test.name, test.continueOnFailure) }}
-            {{ test.templateString }}
-        {% endif %}
-    {% endfor %}
+	{%- set ns = namespace(measureExpression = [],measureColumn=[],defineExpression=[],defineColumn =[],aliasExpressionColumn=[],varPartitionByColDropDown = [],varOrderByColDropDown=[],varPartitionByColText = [],varOrderByColText=[]) %}
 
-{% if node.materializationType == 'table' or node.materializationType == 'transient table'%}
-
- {# == Queries to be excuted before data insertion  == #}
- 
-	{% if config.preSQL %}
-		{{ stage('Pre-SQL') }}
-		{{ config.preSQL }}
-	{% endif %}	
-
-
-{# == Truncate data before data insertion  == #}
-	
-		{% if config.truncateBefore %}	
-			{{ stage('Truncate Stage Table') }}
+     {%set ns.varPartitionByColDropDown = config.partitionBy.get('items') | map(attribute='partitionByCol.name') | list%}
+ 	 {%set ns.varPartitionByColText = config.partitionBy.get('items') | map(attribute='partitionByColTextBox') | list%}
+     {%set ns.varOrderByColDropDown = config.orderBy.get('items') | map(attribute='orderByCol.name') | list%}
+ 	 {%set ns.varOrderByColText = config.orderBy.get('items') | map(attribute='orderByColTextBox') | list%}
+	 
+	 {%set ns.measureExpression = config.tabMeasures.get('items') | map(attribute='valMeasureExpression') | list%}
+     {%set ns.measureColumn = config.tabMeasures.get('items') | map(attribute='valMeasureColumnName') | list%}
+     {%set ns.aliasExpressionColumn = config.tabMeasures.get('items') | map(attribute='valAliasExpressionColumnName') | list%}
+     
+	 {%set ns.defineExpression = config.tabDefine.get('items') | map(attribute='valDefineExpression') | list%}
+     {%set ns.defineColumn = config.tabDefine.get('items') | map(attribute='valDefineColumnName') | list%}
+	 	
+     {% set source = sources[0] %}        
+      
+{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
+     {%if config.trunc %}
+  			{{ stage('Truncate Pivot Table') }}
 			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
-		{% endif %}
-	
-{# == Multi-Source option  == #}
-	
-		{% if config.insertStrategy in ['UNION', 'UNION ALL'] %}
-			{{ stage( config.insertStrategy + ' Sources' | string ) }}
-			INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
-				(
-					{% for col in columns %}
-						"{{ col.name }}"
-						{%- if not loop.last -%},{% endif %}
-					{% endfor %}
-				)
-		{% endif %}
-	
-	
-		{% for source in sources %}
-	
-			{% if config.insertStrategy == 'INSERT' %}
-				{{ stage('Insert ' + source.name | string ) }}
-	
-				INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
-				(
-					{% for col in source.columns %}
-						"{{ col.name }}"
-						{%- if not loop.last -%},{% endif %}
-					{% endfor %}
-				)
-			{% endif %}
-	
- 			SELECT 	*
-			{{ source.join }}
+     {%endif%}
+
+        
+        {{ stage('Insert data into Pivot table') }}
+
+            INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
+			 SELECT *  {{ source.join }}
+			 
 			MATCH_RECOGNIZE(
-			PARTITION BY {{ config.partitionBy.name }}
-			ORDER BY {{ config.orderBy.name }}
-			MEASURES
-			MATCH_NUMBER() AS match_number,
-			FIRST(price_date) AS start_date,
-			LAST(price_date) AS end_date,
-			COUNT(*) AS rows_in_sequence,
-			COUNT(row_with_price_decrease.*) AS num_decreases,
-			COUNT(row_with_price_increase.*) AS num_increases
-			{{config.rowsPerMatch}}
-			AFTER MATCH SKIP TO LAST row_with_price_increase
-			PATTERN(row_before_decrease row_with_price_decrease+ row_with_price_increase+)
-			DEFINE
-			row_with_price_decrease AS price < LAG(price),
-			row_with_price_increase AS price > LAG(price)
-			)
-			{% if config.insertStrategy in ['UNION', 'UNION ALL'] and not loop.last %}
-				{{config.insertStrategy}}
-			{% endif %}							 
-	
-		{% endfor %}
+			PARTITION BY 
+			{% for loopColumn in ns.varPartitionByColDropDown %}
+			{%- if loopColumn|trim == '' -%} {{ ns.varPartitionByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
+			{%- if not loop.last -%},{%- endif -%}
+			{% endfor %}
 
-{# == Queries to be excuted post data insertion  == #}
+			ORDER BY 
 			
-	{% if config.postSQL %}
-		{{ stage('Post-SQL') }}
-		{{ config.postSQL }}
-	{% endif %}
-{% endif %}
-
-{# == To run data quality tests after data insertion == #}
-
-{% if config.testsEnabled %}
-	{% for test in node.tests %}
-		{% if test.runOrder == 'After' %}
-			{{ test_stage(test.name, test.continueOnFailure) }}
-			{{ test.templateString }}
-        {% endif %}
-	{% endfor %}
-
-	{% for column in columns %}
-		{% for test in column.tests %}
-			{{ test_stage(column.name + ": " + test.name) }}
-			{{ test.templateString }}
-		{% endfor %}
-	{% endfor %}
-{% endif %}
+			{% for loopColumn in ns.varOrderByColDropDown %}
+			{%- if loopColumn|trim == '' -%} {{ ns.varOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
+			{%- if not loop.last -%},{%- endif -%}
+			{% endfor %}
+			
+            MEASURES
+			
+			{% for loopColumn in ns.measureColumn  %}
+			{{ ns.measureExpression [loop.index0] }} ({%- if loopColumn == 'None' -%} '' else {{loopColumn}} {%endif%}) AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{% endfor %}	 
+			
+			{{config.rowsPerMatch}}
+			
+            AFTER MATCH SKIP {{config.afterMatchSkip}} 
+            {{config.to}}  {{config.varAfterMatchSkip}}
+			
+            PATTERN
+            ( {{config.pattern}} )
+			
+            DEFINE
+			{% for loopColumn in ns.defineColumn %}
+			{{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} 	{%- if not loop.last -%},{%- endif -%}
+			{% endfor %}
+			)	
+			
+            {%- if config.varOrderBy|trim != '' -%}
+              ORDER BY {{config.varOrderBy|trim}}
+            {%- endif -%} 
+{%endif%}

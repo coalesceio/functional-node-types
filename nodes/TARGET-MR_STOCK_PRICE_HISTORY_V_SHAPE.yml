@@ -1,0 +1,123 @@
+fileVersion: 1
+id: 848c7475-42b6-4bf6-8086-27849a121d7d
+name: MR_STOCK_PRICE_HISTORY_V_SHAPE
+operation:
+  config:
+    afterMatchSkip: TO
+    allRowsPerMatch: SHOW EMPTY MATCHES
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 67d36e9f-4731-4f54-9e02-526a6e94cd12
+            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: 8d42c9e8-81bf-464e-b0c5-379a70880661
+            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+          partitionByColTextBox: null
+    pattern: ROW_BEFORE_DECREASE ROW_WITH_PRICE_DECREASE+ ROW_WITH_PRICE_INCREASE+
+    rowsPerMatch: ONE ROW PER MATCH
+    tabDefine:
+      items:
+        - valDefineColumnName: ROW_WITH_PRICE_DECREASE
+          valDefineExpression: PRICE < LAG(PRICE)
+        - valDefineColumnName: ROW_WITH_PRICE_INCREASE
+          valDefineExpression: PRICE > LAG(PRICE)
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_NUMBER
+        - valAliasExpressionColumnName: START_DATE
+          valMeasureColumnName: PRICE_DATE
+          valMeasureExpression: FIRST
+        - valAliasExpressionColumnName: END_DATE
+          valMeasureColumnName: PRICE_DATE
+          valMeasureExpression: LAST
+        - valAliasExpressionColumnName: ROWS_IN_SEQUENCE
+          valMeasureColumnName: "*"
+          valMeasureExpression: COUNT
+        - valAliasExpressionColumnName: NUM_DECREASES
+          valMeasureColumnName: ROW_WITH_PRICE_DECREASE.*
+          valMeasureExpression: COUNT
+        - valAliasExpressionColumnName: NUM_INCREASES
+          valMeasureColumnName: ROW_WITH_PRICE_INCREASE.*
+          valMeasureExpression: COUNT
+    testsEnabled: false
+    to: LAST
+    truncateBefore: true
+    varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
+    varOrderBy: COMPANY, MATCH_NUMBER
+  database: ""
+  deployEnabled: true
+  description: Report one summary row for each V shape
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8d42c9e8-81bf-464e-b0c5-379a70880661
+          stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 50af89f2-29ff-410c-8108-59dc07b434d4
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 67d36e9f-4731-4f54-9e02-526a6e94cd12
+          stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6d207333-4693-4ab5-9439-4fcd4ed79b64
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7da99cb4-ed19-41bb-94df-2625cecac4dd
+          stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cc6e9df6-7705-4e40-85f7-30f0411936c9
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: MR_STOCK_PRICE_HISTORY_V_SHAPE
+        noLinkRefs: []
+  name: MR_STOCK_PRICE_HISTORY_V_SHAPE
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

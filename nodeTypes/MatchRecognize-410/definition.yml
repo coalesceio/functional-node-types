@@ -6,78 +6,15 @@ metadata:
   error: null
   nodeMetadataSpec: |
     capitalized: MATCH_RECOGNIZE
-    short: MATCH_RECOGNIZE
-    plural: Stages
+    short: MR
+    plural: MATCH_RECOGNIZE
     tagColor: '#2EB67D'
 
     deployStrategy: advanced
+    isColumnResyncEnabled: true
 
     config:
-
-    - groupName: Match Recognize Options
-      items:
-      - displayName: PARTITION BY
-        attributeName: partitionBy
-        type: columnDropdownSelector   
-        
-      - displayName: ORDER BY
-        attributeName: orderBy
-        type: columnDropdownSelector
-        
-      - displayName: MEASURES
-        attributeName: measures
-        type: textBox
-        syntax: sql
-        isRequired: false
-
-      -  type: dropdownSelector
-         displayName: Rows Per Match
-         attributeName: rowsPerMatch
-         default: ONE ROW PER MATCH
-         options:
-             - ONE ROW PER MATCH
-             - ALL ROWS PER MATCH
-
-      -  type: dropdownSelector
-         displayName: ALL ROWS PER MATCH
-         attributeName: allRowsPerMatch
-         default: SHOW EMPTY MATCHES
-         options:
-             - SHOW EMPTY MATCHES
-             - OMIT EMPTY MATCHES
-             - WITH UNMATCHED ROWS
-         enableIf: "{% if config.rowsPerMatch == 'ALL ROWS PER MATCH' %} true {% else %} false {% endif %}"
-
-      -  type: dropdownSelector
-         displayName: AFTER MATCH SKIP
-         attributeName: afterMatchSkip
-         default: PAST LAST ROW 
-         options:
-             - PAST LAST ROW 
-             - TO NEXT ROW
-             - TO 
-
-      -  type: dropdownSelector
-         displayName: TO
-         attributeName: to
-         default: FIRST
-         options:
-             - FIRST
-             - LAST
-         enableIf: "{% if config.afterMatchSkip == 'TO' %} true {% else %} false {% endif %}"
-
-      - displayName: PATTERN
-        attributeName: pattern
-        type: textBox
-        syntax: sql
-    	
-      - displayName: DEFINE 
-        attributeName: define 
-        type: textBox
-        syntax: sql
-        isRequired: false  
-
-    - groupName: Options
+    - groupName: General Options
       items:
       - type: materializationSelector
         default: table
@@ -101,33 +38,136 @@ metadata:
         type: toggleButton
         default: false
         enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-      - type: multisourceToggle
-        enableIf: "{% if node.override.create.enabled %} false {% else %} true {% endif %}" 
+
+    - groupName: Match Recognize Options
+      items:
+      - type: tabular
+        displayName: PARTITION BY
+        attributeName: partitionBy
+        isRequired: true
         
-      - displayName: Multi Source Strategy
-        attributeName: insertStrategy
-        type: dropdownSelector
-        default: INSERT
-        options:
-        - "INSERT"
-        - "UNION"
-        - "UNION ALL"
-        isRequired: false
-        enableIf: "{% if node.isMultisource %} true {% else %} false {% endif %}"
+        columns:
+        - displayName: Column
+          type: columnDropdownSelector
+          attributeName: partitionByCol
+          isRequired: false
+
+        - displayName: Column
+          type: textBox
+          attributeName: partitionByColTextBox
+
+      - type: tabular
+        displayName: ORDER BY
+        attributeName: orderBy
+        isRequired: true
+        columns:
+        
+        - displayName: Column
+          type: columnDropdownSelector
+          attributeName: orderByCol
+          isRequired: false
+
+        - displayName: Column
+          type: textBox
+          attributeName: orderByTextBox
+
+     
+      - type: tabular
+        displayName: 'MEASURES'
+        attributeName: tabMeasures 
+        isRequired: true
+
+        columns:
+     
+        - displayName: Expression
+          type: textBox
+          attributeName: valMeasureExpression
+          isRequired: true
+         
+        - displayName: Column Name
+          type: textBox
+          attributeName: valMeasureColumnName
 
 
-      - displayName: Pre-SQL
-        attributeName: preSQL
+        - displayName: Alias of Expression Column Name
+          type: textBox
+          attributeName: valAliasExpressionColumnName
+          isRequired: true
+
+      -  type: dropdownSelector
+         displayName: Rows Per Match
+         attributeName: rowsPerMatch
+         default: ONE ROW PER MATCH
+         isRequired: true
+         options:
+             - ONE ROW PER MATCH
+             - ALL ROWS PER MATCH
+
+      -  type: dropdownSelector
+         displayName: ALL ROWS PER MATCH
+         attributeName: allRowsPerMatch
+         default: SHOW EMPTY MATCHES
+         isRequired: true
+         options:
+             - SHOW EMPTY MATCHES
+             - OMIT EMPTY MATCHES
+             - WITH UNMATCHED ROWS
+         enableIf: "{% if config.rowsPerMatch == 'ALL ROWS PER MATCH' %} true {% else %} false {% endif %}"
+
+      -  type: dropdownSelector
+         displayName: AFTER MATCH SKIP
+         attributeName: afterMatchSkip
+         isRequired: true
+         options:
+             - PAST LAST ROW 
+             - TO NEXT ROW
+             - TO 
+
+      -  type: dropdownSelector
+         displayName: TO
+         attributeName: to
+         default: ''
+         options:
+             - FIRST
+             - LAST
+         enableIf: "{% if config.afterMatchSkip == 'TO' %} true {% else %} false {% endif %}"
+
+
+      - displayName: AFTER MATCH SKIP VARIABLE NAME
+        attributeName: varAfterMatchSkip
         type: textBox
         syntax: sql
-        isRequired: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-
-      - displayName: Post-SQL
-        attributeName: postSQL
+        default: ''
+        enableIf: "{% if config.afterMatchSkip == 'TO' %} true {% else %} false {% endif %}"
+    	
+      - displayName: PATTERN
+        attributeName: pattern
         type: textBox
         syntax: sql
-        isRequired: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+        isRequired: true
+    	
+      - type: tabular
+        displayName: 'DEFINE'
+        attributeName: tabDefine 
+        isRequired: true
+        columns:
+      
+        - displayName: Expression
+          type: textBox
+          attributeName: valDefineExpression
+         
+        - displayName: Column Name
+          type: textBox
+          attributeName: valDefineColumnName
+
+      - displayName: ORDER BY COLUMNS
+        attributeName: varOrderBy
+        type: textBox
+        syntax: sql
+        default: ''
+    	
+
+
+        
 name: Match Recognize
 type: NodeType

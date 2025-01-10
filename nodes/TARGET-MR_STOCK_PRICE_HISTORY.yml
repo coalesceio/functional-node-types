@@ -1,0 +1,128 @@
+fileVersion: 1
+id: f102c7d9-e38d-4c85-b50d-944febd7669f
+name: MR_STOCK_PRICE_HISTORY
+operation:
+  config:
+    afterMatchSkip: PAST LAST ROW
+    allRowsPerMatch: OMIT EMPTY MATCHES
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 79ff5835-58d3-41f1-8d1f-31b2f63ec4c5
+            stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: c5c88fae-6eb8-441f-bdef-d1ffa0777ca4
+            stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+          partitionByColTextBox: null
+    pattern: (OVERAVG*)
+    rowsPerMatch: ALL ROWS PER MATCH
+    tabDefine:
+      items:
+        - valDefineColumnName: OVERAVG
+          valDefineExpression: |-
+            PRICE > AVG(PRICE) OVER (ROWS BETWEEN UNBOUNDED
+                                              PRECEDING AND UNBOUNDED FOLLOWING)
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_NUMBER
+    testsEnabled: false
+    to: ""
+    truncateBefore: true
+    varAfterMatchSkip: ""
+    varOrderBy: COMPANY, PRICE_DATE
+  database: ""
+  deployEnabled: true
+  description: Omit empty matches
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c5c88fae-6eb8-441f-bdef-d1ffa0777ca4
+          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 50af89f2-29ff-410c-8108-59dc07b434d4
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 79ff5835-58d3-41f1-8d1f-31b2f63ec4c5
+          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6d207333-4693-4ab5-9439-4fcd4ed79b64
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 502b797a-032c-4844-a5dd-4a62b5a39c70
+          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cc6e9df6-7705-4e40-85f7-30f0411936c9
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 440bdbfb-2e7f-43a6-abc1-27c88668b8d3
+          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STOCK_PRICE_HISTORY: 2963a56b-9320-436c-ad95-99ec4c96208a
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: MR_STOCK_PRICE_HISTORY
+        noLinkRefs: []
+  name: MR_STOCK_PRICE_HISTORY
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node
