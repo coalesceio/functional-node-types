@@ -57,11 +57,17 @@ metadata:
           - displayName: Column list
             type: columnDropdownSelector
             attributeName: valColDropdown
-            enableIf: "{% if config.inferPivot %} true {% else %} false {% endif %}"
+            enableIf: "{% if config.inferunpivot %} true {% else %} false {% endif %}"
          
           - displayName: Column list
             type: textBox
             attributeName: ColTextBox
+
+        - displayName: Include NULLS
+          attributeName: includenull
+          type: toggleButton
+          default: false
+        
       
 
      

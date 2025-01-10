@@ -50,15 +50,20 @@ select 1 = 0
                 {%endif%}
 
 
-          {%- set ns = namespace(pcolumn = []) %}
+          {%- set ns = namespace(pcolumn = [],collist = []) %}
   
          {#Infer Unpivot structure#}
           {%if desiredState.config.inferunpivot == true %}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
           {%else%}
-                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}
           {%endif%}
-           
+
+          {%for col in ns.pcolumn%}
+
+              {%set ns.collist = ns.collist + ['"'+col+'"']%}
+
+           {%endfor%}
 
          {% set source = desiredState.sources[0] %}
          {{ stage('Create Unpivot '+ desiredState.node.materializationType) }}             
@@ -69,8 +74,8 @@ select 1 = 0
              ( 
 
                SELECT *
-               FROM {{source.join}}
-               UNPIVOT ({{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.pcolumn}}))
+               {{source.join}}
+               UNPIVOT ({%if desiredState.config.includenull %}INCLUDE NULLS{%endif%}{{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
              )
          
         
