@@ -4,6 +4,7 @@ The Coalesce Functional Node Types Package includes:
 
 * [Date Dimension](#date-dimension)
 * [Pivot](#Pivot)
+* [Unpivot](#Unpivot)
 * [Code](#code)
 
 ---
@@ -171,7 +172,7 @@ into wider tables, for example, `empid`, `jan_sales`, `feb_sales`, and `mar_sale
 
 ### Pivot Node Configuration
 
-Pivot has two configuration groups: 
+Pivot has three configuration groups: 
 
 * [Node Properties](#pivot-node-properties)
 * [General Options](#pivot-general-options)
@@ -276,6 +277,86 @@ This is executed in below stage:
 |-----------|----------------|
 | **Drop table/view/transient table** | Removes the table or view from the environment |
 
+## Unpivot
+
+The [Unpivot node](https://docs.snowflake.com/en/sql-reference/constructs/unpivot#examples) in Coalesce rotates a table by transforming columns into rows. 
+UNPIVOT is not exactly the reverse of PIVOT because it cannot undo aggregations made by PIVOT.
+
+This operator can be used to transform a wide table (e.g. empid, jan_sales, feb_sales, mar_sales) into a narrower table (e.g. empid, month, sales).
+
+
+### Unpivot Node Configuration
+
+Unpivot has three configuration groups: 
+
+* [Node Properties](#unpivot-node-properties)
+* [General Options](#unpivot-general-options)
+* [Unpivot Options](#unpivot-options)
+
+
+#### Unpivot Node Properties
+
+| **Property** | **Description** |
+|--------------|-----------------|
+| **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
+| **Node Type** | (Required) Name of template used to create node objects |
+| **Description** | A description of the node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+
+
+#### Unpivot general Options
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Create As** | Choose 'table', 'view' or 'transient table' |
+| **Truncate** | True/False toggle to enable or disable truncating the output columns |
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
+
+#### Unpivot Options
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Infer structure of Pivot table** | Toggle: True/False<br/> True,it is the first run and the pivot table structure is yet to be determined.False,when the pivot table is created and generated columns have been Re-synced in Coalesce|
+| **Value-Coulmn** |Column that will hold the values from the unpivoted columns |
+| **Name-column** | Column that will hold the names of the unpivoted columns  |
+| **Column-list**| The names of the columns in the source table or subquery that will be rotated into a single pivot column|
+| **Include NULLS**| Specifies whether to include or exclude rows with NULLs|
+
+### Unpivot Deployment
+### Unpivot Initial Deployment
+When deployed for the first time into an environment the Unpivot node of materialization type table or view or transient table will execute the below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Unpivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a Unpivot table in the target environment |
+
+#### Unpivot Table Redeployment
+
+When the Unpivot node is redeployed with any changes in table or config changes result in re-creating the node
+
+The below stage is executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Unpivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a Unpivot table in the target environment |
+
+#### UnUnpivot Table Deploy Drop and Recreate Work View/Table/Transient Table
+
+| **Change** | **Stages Executed** |
+|------------|-------------------|
+| **View to table/transient table** |  Drop view <br/> Create or Replace Unpivot table/transient table |
+| **Table/transient table to View** |  Drop table/transient table<br/> Create Unpivot view |
+| **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Unpivot table/transient table |
+
+### Unpivot Tables Undeployment
+If a Unpivot Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Unpivot node in the target environment will be dropped.
+
+This is executed in below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Drop table/view/transient table** | Removes the table or view from the environment |
+
 ## Code
 
 ### Date Table Code
@@ -293,3 +374,11 @@ This is executed in below stage:
 | **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/definition.yml)|
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/run.sql.j2)
+
+### Univot code
+
+| **Component** | **Link** |
+|--------------|-----------|
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/definition.yml)|
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/create.sql.j2) |
+| **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/run.sql.j2)
