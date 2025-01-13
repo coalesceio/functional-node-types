@@ -66,6 +66,7 @@ select 1 = 0
            {%endfor%}
 
          {% set source = desiredState.sources[0] %}
+         {%set joinclause = source.join%}
          {{ stage('Create Unpivot '+ desiredState.node.materializationType) }}             
               
               
@@ -82,8 +83,9 @@ select 1 = 0
 		           {% endfor %}                
 			             {{desiredState.config.nameColTextBox}},
                    {{desiredState.config.valColTextBox}}
-               {{source.join}}
+               {{  get_clause(joinclause,'from')  }}
                UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS ( {%endif%}{{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}{%if desiredState.config.includenull %} ){%endif%})
+               {{ get_clause(joinclause) }}
              )
          
         

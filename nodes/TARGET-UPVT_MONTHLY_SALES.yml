@@ -12,6 +12,7 @@ operation:
         - ColTextBox: FEB
         - ColTextBox: MAR
         - ColTextBox: APR
+    testsEnabled: false
     truncateBefore: true
     valColTextBox: sales
   database: ""
@@ -19,7 +20,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: transient table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -92,14 +93,18 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          MONTHLY_SALES: 26da5965-720a-4bce-81e3-8fa55cab9ec9
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: SOURCE
             nodeName: MONTHLY_SALES
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+            WHERE SALES >= 100
+            ORDER BY SALES
         name: UPVT_MONTHLY_SALES
         noLinkRefs: []
   name: UPVT_MONTHLY_SALES

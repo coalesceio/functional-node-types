@@ -17,7 +17,16 @@ does not permit copying or modification for any other purpose.
 
       {% set source = sources[0] %}
       {%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
-      
+
+{# == To run data quality tests before data insertion == #}
+
+{% for test in node.tests if config.testsEnabled %}
+        {% if test.runOrder == 'Before' %}
+            {{ test_stage(test.name, test.continueOnFailure) }}
+            {{ test.templateString }}
+        {% endif %}
+    {% endfor %}
+
 {% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
 
   {% set source = sources[0] %}
@@ -134,3 +143,21 @@ does not permit copying or modification for any other purpose.
 			      {%endfor%})
         {%endif%}   
 {%endif%}
+
+{# == To run data quality tests after data insertion == #}
+
+{% if config.testsEnabled %}
+	{% for test in node.tests %}
+		{% if test.runOrder == 'After' %}
+			{{ test_stage(test.name, test.continueOnFailure) }}
+			{{ test.templateString }}
+        {% endif %}
+	{% endfor %}
+
+	{% for column in columns %}
+		{% for test in column.tests %}
+			{{ test_stage(column.name + ": " + test.name) }}
+			{{ test.templateString }}
+		{% endfor %}
+	{% endfor %}
+{% endif %}

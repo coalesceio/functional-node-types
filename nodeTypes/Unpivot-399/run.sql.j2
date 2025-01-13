@@ -11,6 +11,16 @@ does not permit copying or modification for any other purpose.
 {#Release date:20250107 Version:1.0.0#}
 
 {% set source = sources[0] %}
+{%set joinclause =source.join%}
+
+{# == To run data quality tests before data insertion == #}
+
+{% for test in node.tests if config.testsEnabled %}
+        {% if test.runOrder == 'Before' %}
+            {{ test_stage(test.name, test.continueOnFailure) }}
+            {{ test.templateString }}
+        {% endif %}
+{% endfor %}
 
 {% if (node.materializationType == 'table' or node.materializationType == 'transient table')%}
 {% if config.truncateBefore  %}
@@ -38,8 +48,35 @@ does not permit copying or modification for any other purpose.
 {{ stage('Insert ' + source.name | string ) }}
 INSERT INTO {{ this }}
  ( 
-               SELECT *
-               {{source.join}} 
+               SELECT 
+               {% for col in source.columns %}
+               
+                  {%if col.name not in ns.collist|join(',') and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
+			            {{ col.name }} , 
+                  {%endif%}
+		           {% endfor %}                
+			    {{config.nameColTextBox}},
+                {{config.valColTextBox}}
+               {{  get_clause(joinclause,'from')  }} 
                UNPIVOT {%if config.includenull %}INCLUDE NULLS ( {%endif%}{{config.valColTextBox}} FOR {{config.nameColTextBox}} IN ({{ns.collist|join(',')}}{%if config.includenull %} ){%endif%})
+               {{  get_clause(joinclause)  }}
              )
 {%endif%}
+
+{# == To run data quality tests after data insertion == #}
+
+{% if config.testsEnabled %}
+	{% for test in node.tests %}
+		{% if test.runOrder == 'After' %}
+			{{ test_stage(test.name, test.continueOnFailure) }}
+			{{ test.templateString }}
+        {% endif %}
+	{% endfor %}
+
+	{% for column in columns %}
+		{% for test in column.tests %}
+			{{ test_stage(column.name + ": " + test.name) }}
+			{{ test.templateString }}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
