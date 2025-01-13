@@ -17,7 +17,7 @@ operation:
     defvalue: false
     exlcol:
       items: []
-    inferPivot: true
+    inferPivot: false
     keyColTextBox1: "{{config.keyColDropdown}}"
     mulcol: true
     samKeyColval: false
@@ -25,12 +25,10 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown: null
-          keyColTextBox: QUARTER
+        - keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColDropdown: null
-          valColTextBox: AMOUNT
+        - valColTextBox: AMOUNT
   database: ""
   deployEnabled: true
   description: ""

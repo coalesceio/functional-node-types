@@ -14,7 +14,7 @@ operation:
         - funcname1: AVG
     defaultval: "0"
     defvalue: true
-    inferPivot: true
+    inferPivot: false
     keyCol:
       columnCounter: 14a2bcc1-804f-4963-af1c-3fb2aa2bdd0a
       stepCounter: 20424bb7-cf55-4d60-ae88-42549b584023
@@ -23,16 +23,10 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: 14a2bcc1-804f-4963-af1c-3fb2aa2bdd0a
-            stepCounter: 20424bb7-cf55-4d60-ae88-42549b584023
-          keyColTextBox: QUARTER
+        - keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColDropdown:
-            columnCounter: 9d907077-8857-437e-afd4-06a5fc8c16c5
-            stepCounter: 20424bb7-cf55-4d60-ae88-42549b584023
-          valColTextBox: AMOUNT
+        - valColTextBox: AMOUNT
     trunc: true
     truncateBefore: true
     valCol1:

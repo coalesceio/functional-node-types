@@ -1,6 +1,6 @@
 fileVersion: 1
 id: "171"
-name: PIVOT
+name: PIVOT AND UNPIVOT
 steps:
   - 09437809-bf3a-44ee-abbf-bbc47987529e
   - 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
@@ -11,10 +11,13 @@ steps:
   - 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
   - 69628d24-7a55-49ad-8dc6-d7b8e1e60860
   - 700ca829-ea39-412a-a66d-52a5254a1100
-  - 7ef9963c-61cb-49a8-b3d0-57741658d16a
+  - 84b76fcb-c964-4ccf-abd2-19d0945d5272
   - 88d50ba7-715a-4f1b-a71f-7b59d61b06a0
+  - 941060bb-be79-40e2-b8cf-857e706c237e
+  - b3105e76-efc9-4285-8981-4a4223721854
   - d2b79091-4158-4d94-a06d-58f4638403cd
   - e40c0135-0d98-4ac2-8789-effd9d558737
+  - e6009614-ad43-4ef0-93db-461c871260c1
   - f1624c85-a5f0-4167-8edc-7b865f25a88e
   - f276648a-0d59-4ea9-a552-9ac4da6d3b0c
 type: Subgraph
