@@ -1,0 +1,141 @@
+fileVersion: 1
+id: 941060bb-be79-40e2-b8cf-857e706c237e
+name: UPVT_MONTHLY_SALES_VIEW
+operation:
+  config:
+    includenull: true
+    inferunpivot: true
+    nameColTextBox: Store
+    tabValueColumn:
+      items:
+        - ColTextBox: JAN
+          valColDropdown:
+            columnCounter: 0115ed05-223d-4d55-b8f3-94f1b4c969a1
+            stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        - ColTextBox: FEB
+          valColDropdown:
+            columnCounter: d18ccf95-7c5a-4133-a0f5-56952ed19984
+            stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        - ColTextBox: MAR
+          valColDropdown:
+            columnCounter: 8c617ebd-6269-4e05-beb2-d091affc0aa9
+            stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        - ColTextBox: APR
+          valColDropdown:
+            columnCounter: 39b98958-df61-4700-8b51-a3b7a76d0c72
+            stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+    truncateBefore: true
+    valColTextBox: Quantity
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1a78c54b-407a-45db-9ff3-8a2e12674ce3
+          stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ac38c37e-22c4-4955-ab35-5df88fac1ce8
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 18f93383-f152-4110-832c-70eb62791f85
+          stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DEPT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2349ffab-b712-4d36-93b6-11210cc689c8
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0115ed05-223d-4d55-b8f3-94f1b4c969a1
+          stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: JAN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 31a631ac-0051-42c3-9c7f-262192770609
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d18ccf95-7c5a-4133-a0f5-56952ed19984
+          stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: FEB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6afeddce-3894-4a8c-a480-fbb69304b19d
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8c617ebd-6269-4e05-beb2-d091affc0aa9
+          stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e546f930-33ae-4336-86ae-9aa0d4da510b
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 39b98958-df61-4700-8b51-a3b7a76d0c72
+          stepCounter: 941060bb-be79-40e2-b8cf-857e706c237e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: APR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 074f272e-9dfb-43b7-abe6-3867c2f648be
+                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+        name: UPVT_MONTHLY_SALES_VIEW
+        noLinkRefs: []
+  name: UPVT_MONTHLY_SALES_VIEW
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node

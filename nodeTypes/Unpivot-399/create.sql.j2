@@ -72,10 +72,18 @@ select 1 = 0
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               AS
              ( 
-
-               SELECT *
+               SELECT 
+                  
+               {% for col in source.columns %}
+               
+                  {%if col.name not in ns.collist|join(',') and col.name|upper != desiredState.config.nameColTextBox|upper and col.name|upper != desiredState.config.valColTextBox|upper  %}
+			            {{ col.name }} , 
+                  {%endif%}
+		           {% endfor %}                
+			             {{desiredState.config.nameColTextBox}},
+                   {{desiredState.config.valColTextBox}}
                {{source.join}}
-               UNPIVOT ({%if desiredState.config.includenull %}INCLUDE NULLS{%endif%}{{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
+               UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS ( {%endif%}{{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}{%if desiredState.config.includenull %} ){%endif%})
              )
          
         

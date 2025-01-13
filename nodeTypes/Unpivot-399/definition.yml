@@ -23,7 +23,8 @@ metadata:
         default: table
         options:
         - table
-        enableIf: "false"
+        - view
+        - transient table
 
       - displayName: Truncate Before
         attributeName: truncateBefore

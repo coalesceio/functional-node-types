@@ -12,7 +12,8 @@ does not permit copying or modification for any other purpose.
 
 {% set source = sources[0] %}
 
-{% if config.truncateBefore %}
+{% if (node.materializationType == 'table' or node.materializationType == 'transient table')%}
+{% if config.truncateBefore  %}
 
     {{ stage('Truncate  Table') }}
     TRUNCATE IF EXISTS {{ this }}
@@ -39,5 +40,6 @@ INSERT INTO {{ this }}
  ( 
                SELECT *
                {{source.join}} 
-               UNPIVOT ({%if desiredState.config.includenull %}INCLUDE NULLS{%endif%} {{config.valColTextBox}} FOR {{config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
-)
+               UNPIVOT {%if config.includenull %}INCLUDE NULLS ( {%endif%}{{config.valColTextBox}} FOR {{config.nameColTextBox}} IN ({{ns.collist|join(',')}}{%if config.includenull %} ){%endif%})
+             )
+{%endif%}
