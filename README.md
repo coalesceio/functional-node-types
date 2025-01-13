@@ -284,7 +284,6 @@ UNPIVOT is not exactly the reverse of PIVOT because it cannot undo aggregations 
 
 This operator can be used to transform a wide table (e.g. empid, jan_sales, feb_sales, mar_sales) into a narrower table (e.g. empid, month, sales).
 
-
 ### Unpivot Node Configuration
 
 Unpivot has three configuration groups: 
@@ -303,8 +302,11 @@ Unpivot has three configuration groups:
 | **Description** | A description of the node's purpose |
 | **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
+ ![image](https://github.com/user-attachments/assets/edd67d5d-7216-429a-a292-2fe4980d1a9e)
 
 #### Unpivot general Options
+
+![image](https://github.com/user-attachments/assets/3e607c04-f5c8-40ed-8da8-018a5455f520)
 
 | **Options** | **Description** |
 |-------------|-----------------|
@@ -313,6 +315,7 @@ Unpivot has three configuration groups:
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 
 #### Unpivot Options
+![image](https://github.com/user-attachments/assets/45d4e9ae-8da3-46cf-b6bf-37ff693c8fa9)
 
 | **Options** | **Description** |
 |-------------|-----------------|
@@ -321,6 +324,16 @@ Unpivot has three configuration groups:
 | **Name-column** | Column that will hold the names of the unpivoted columns  |
 | **Column-list**| The names of the columns in the source table or subquery that will be rotated into a single pivot column|
 | **Include NULLS**| Specifies whether to include or exclude rows with NULLs|
+
+### Unpivot node Usage
+
+* Add a Unpivot node on top of source node
+* Add the Unpivot column list ,value column,name column in config
+* When you choose the Unpivot and value dropdown,ensure that the textbox alongside the dropdown is entered with Column name.This textBox information is required once the Unpivot table structure is synced into Coalesce.
+* The toggle 'Infer Structure of Unpivot Data' is required to be true when the node is created for the first time.
+* The toggle 'Single value column' is set to false, if you want a multi-dimensional Unpivot
+* Once the Unpivot table is created,the 'Re-Sync Columns' can be used to sync the structure of Unpivot table into Coalesce mapping grid.
+* For further Unpivot operations,keep the 'Infer Structure of Unpivot Data' set to false
 
 ### Unpivot Deployment
 ### Unpivot Initial Deployment
