@@ -1,0 +1,169 @@
+fileVersion: 1
+id: "416"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |-
+    capitalized: Node Profiler with Task
+    short: PROF
+    tagColor: blue
+    plural: Node Profilers
+    config:
+    - groupName: Sampling Options
+      items:
+      - displayName: Testing
+        attributeName: isTest
+        type: toggleButton
+        isRequired: true
+        default: true
+        name: createOrReplace
+      - displayName: Warehouse Override
+        attributeName: isWhOverride
+        type: toggleButton
+        isRequired: true
+        default: false
+      - displayName: Warehouse Name
+        attributeName: whOverrideName
+        type: textBox
+        isRequired: false
+        default: COMPUTE_WH
+        enableIf: "{% if config.isWhOverride == true %} true {% else %} false {% endif %}"
+      - displayName: Sample Mode
+        attributeName: sampleMode
+        type: dropdownSelector
+        default: Sample
+        options:
+          - Sample
+          - Full Table
+          - New Option
+        isRequired: false
+      - displayName: Percent or Fixed Number of Rows
+        attributeName: sampleOption
+        type: dropdownSelector
+        default: Fixed Row
+        options:
+          - Fixed Row
+          - Percentage
+        isRequired: false
+        enableIf: "{% if config.sampleMode == 'Sample' %} true {% else %} false {% endif %}"
+      - displayName: Number of Rows
+        attributeName: sampleRows
+        type: textBox
+        default: '1000'
+        isRequired: false
+        enableIf: "{% if config.sampleMode == 'Sample' and config.sampleOption == 'Fixed Row' %} true {% else %} false {% endif %}"
+      - displayName: Percentage
+        attributeName: samplePercent
+        type: textBox
+        default: '10'
+        isRequired: false
+        enableIf: "{% if config.sampleMode == 'Sample' and config.sampleOption == 'Percentage' %} true {% else %} false {% endif %}"
+    - groupName: Counts
+      items:
+      - displayName: Row Count
+        attributeName: isRowCount
+        type: toggleButton
+        isRequired: false
+        name: ROW_COUNT
+      - displayName: Distinct Count
+        attributeName: isDistinctCount
+        type: columnSelector
+        isRequired: false
+      - displayName: Null Count
+        attributeName: isNullCount
+        type: columnSelector
+        isRequired: false
+    - groupName: Min / Max / Avg
+      items:
+      - displayName: MAX Value
+        attributeName: isMaxMetric
+        type: columnSelector
+        isRequired: false
+      - displayName: MIN Value
+        attributeName: isMinMetric
+        type: columnSelector
+        isRequired: false
+      - displayName: Average Value
+        attributeName: isAvgMetric
+        type: columnSelector
+        isRequired: false
+    - groupName: Column Details
+      items:
+      - displayName: Top 100 Value Distribution
+        attributeName: valDist
+        type: columnSelector
+        isRequired: false
+      - displayName: Max Data Length
+        attributeName: valMaxLen
+        type: columnSelector
+        isRequired: false
+      - displayName: Min Data Length
+        attributeName: valMinLen
+        type: columnSelector
+        isRequired: false
+    - groupName: Sceduling Options
+      enableIf: "{% if config.isTest == false %} true {% else %} false {% endif %}"
+      items:
+      - displayName: Sceduling Options
+        attributeName: schedulingMode
+        type: dropdownSelector
+        default: None
+        options:
+          - None
+          - Warehouse Task
+          - Serverless Task
+        isRequired: false
+      - displayName: Select Warehouse on which to run task
+        attributeName: whName
+        type: textBox
+        default: 'COMPUTE_WH'
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Warehouse Task' %} true {% else %} false {% endif %}"
+      - displayName: Select initial serverless Warehouse size
+        attributeName: serverlessSize
+        type: dropdownSelector
+        default: 'MEDIUM'
+        options:
+          - XSMALL
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - XLARGE
+          - XXLARGE
+        isRequired: false
+        enableIf: "{% if config.schedulingMode == 'Serverless Task' %} true {% else %} false {% endif %}"
+      - displayName: Schedule profile job to run periodically based on ...
+        attributeName: schedulePeriodOption
+        type: dropdownSelector
+        default: Minutes
+        options:
+          - Minutes
+          - CRON
+        isRequired: false
+        enableIf: "{% if config.schedulingMode != 'None' %} true {% else %} false {% endif %}"
+      - displayName: Enter task schedule using minutes
+        attributeName: schedulePeriod
+        type: textBox
+        default: '60'
+        isRequired: false
+        enableIf: "{% if config.schedulingMode != 'None' and config.schedulePeriodOption == 'Minutes' %} true {% else %} false {% endif %}"
+      - displayName: Enter task schedule using CRON
+        attributeName: scheduleCRON
+        type: textBox
+        default: '5 0-23 * * * America/Los_Angeles'
+        isRequired: false
+        enableIf: "{% if config.schedulingMode != 'None' and config.schedulePeriodOption == 'CRON' %} true {% else %} false {% endif %}"
+    systemColumns:
+    - displayName: PROFILE_METRIC
+      transform: "NULL"
+      dataType: VARCHAR
+      placement: beginning
+      attributeName: isSystemUpdateDate
+    - displayName: SYSTEM_CREATE_DATE
+      transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      dataType: TIMESTAMP
+      placement: beginning
+      attributeName: isSystemCreateDate
+name: Data Profiling
+type: NodeType

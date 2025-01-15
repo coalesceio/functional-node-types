@@ -1,0 +1,195 @@
+{% set colIsDistinctCount = columns | selectattr(('isDistinctCount'), 'defined') | map(attribute='name') | list %}
+{% set colIsNullCount = columns | selectattr(('isNullCount'), 'defined') | map(attribute='name') | list %}
+{% set colIsMaxMetric = columns | selectattr(('isMaxMetric'), 'defined') | map(attribute='name') | list %}
+{% set colIsMinMetric = columns | selectattr(('isMinMetric'), 'defined') | map(attribute='name') | list %}
+{% set colIsAvgMetric = columns | selectattr(('isAvgMetric'), 'defined') | map(attribute='name') | list %}
+{% set colValDist = columns | selectattr(('valDist'), 'defined') | map(attribute='name') | list %}
+{% set colValMaxLen = columns | selectattr(('valMaxLen'), 'defined') | map(attribute='name') | list %}
+{% set colValMinLen = columns | selectattr(('valMinLen'), 'defined') | map(attribute='name') | list %}
+{% set colIsAvgMetricCalc = [] %}
+
+{%- for col in columns %}
+        {% if (col.name in colIsAvgMetric) and ((col.dataType == 'FLOAT') or (col.dataType[:6] == 'NUMBER')) %}
+            {% set colIsAvgMetricCalc = colIsAvgMetricCalc.append(col.name) %}
+        {% endif %}
+{% endfor %}
+
+{% set colUnique = (colIsDistinctCount + colIsNullCount + colIsMaxMetric + colIsMinMetric + colIsAvgMetricCalc + colValDist + colValMaxLen + colValMinLen) | unique | list %}
+
+{% set testMetrics = [] %}
+{%- if colIsDistinctCount | length > 0 %} 
+    {% set testMetrics = testMetrics + [('isDistinctCount',
+                                         'Distinct Count',
+                                         'COUNT(distinct "col_name" ) AS col_name_DISTINCT',
+                                         '_DISTINCT',
+                                         colIsDistinctCount)] %}
+{% endif %}
+{%- if colIsNullCount | length > 0 %} 
+    {% set testMetrics = testMetrics + [('isNullCount',
+                                         'Null Count',
+                                         'SUM(CASE WHEN "col_name" IS NULL THEN 1 ELSE 0 END) AS col_name_NULL',
+                                         '_NULL',
+                                         colIsNullCount)] %}
+{% endif %}
+{%- if colIsMaxMetric | length > 0 %} 
+    {% set testMetrics = testMetrics + [('isMaxMetric',
+                                         'Max Metric',
+                                         'MAX(col_name) AS col_name_MAX',
+                                         '_MAX',
+                                         colIsMaxMetric)] %}
+{% endif %}
+{%- if colIsMinMetric | length > 0 %} 
+    {% set testMetrics = testMetrics + [('isMinMetric',
+                                         'Min Metric',
+                                         'MIN(col_name) AS col_name_MIN',
+                                         '_MIN',
+                                         colIsMinMetric)] %}
+{% endif %}
+{%- if colIsAvgMetric | length > 0 %} 
+    {% set testMetrics = testMetrics + [('isAvgMetricCalc',
+                                         'Average Metric',
+                                         'AVG(col_name) AS col_name_AVG',
+                                         '_AVG',
+                                         colIsAvgMetricCalc)] %}
+{% endif %}
+{%- if colValDist | length > 0 %} 
+    {% set testMetrics = testMetrics + [('valDist',
+                                         'Value Distribution',
+                                         ' (select to_json(array_agg(object_construct(*))) from (select col_name, count(col_name) as OCCURANCES_col_name {{ sources[0].join }} group by col_name order by OCCURANCES_col_name desc limit 100)) AS col_name_VAL_DIST',
+                                         '_VAL_DIST',
+                                         colValDist)] %}
+{% endif %}
+{%- if colValMaxLen | length > 0 %} 
+    {% set testMetrics = testMetrics + [('valMaxLen',
+                                         'Maximum Value Length',
+                                         'max(case when "col_name" is not null then len("col_name") end) AS col_name_MAX_VAL_LEN',
+                                         '_MAX_VAL_LEN',
+                                         colValMaxLen)] %}
+{% endif %}
+{%- if colValMinLen | length > 0 %} 
+    {% set testMetrics = testMetrics + [('valMinLen',
+                                         'Minimum Value Length',
+                                         'min(case when "col_name" is not null then len("col_name") end) AS col_name_MIN_VAL_LEN',
+                                         '_MIN_VAL_LEN',
+                                         colValMinLen)] %}
+{% endif %}
+
+
+
+{{ stage('Create Profile Node Table') }}
+    {%- if config.isTest == true %} 
+        CREATE OR REPLACE TABLE {{ ref_no_link(node.location.name, node.name) }}
+    {% else %}
+        CREATE TABLE IF NOT EXISTS {{ ref_no_link(node.location.name, node.name) }}
+    {% endif %}
+    (
+        {% for col in columns %}
+            {%- if col.isSystemUpdateDate == true %} 
+                "{{ col.name }}" {{ col.dataType }},
+                {%- if col.description | length > 0 %} COMMENT '{{ col.description }}'{% endif %}
+            {% endif %}
+            {%- if col.isSystemCreateDate == true %} 
+                "{{ col.name }}" {{ col.dataType }},
+                {%- if col.description | length > 0 %} COMMENT '{{ col.description }}'{% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {%- if config.isRowCount == true %} 
+            "ROW_COUNT" VARCHAR,
+        {% endif %}
+
+        {%- for col in colUnique %} 
+            "{{ col }}" VARCHAR
+            {%- if col.description | length > 0 %} COMMENT '{{ col.description }}'{% endif %}
+        {%- if not loop.last -%}, {% endif %}
+        {% endfor %}
+    )
+    {%- if node.description | length > 0 %} COMMENT = '{{ node.description }}'{% endif %}
+
+{%- if config.isTest == false and config.schedulingMode != 'None' %} 
+{{ stage('Create Profile Node Task') }}
+    {%- if config.schedulingMode == 'Warehouse Task' %} 
+        {%- set taskType = 'WAREHOUSE = ' + config.whName %} 
+    {% else %}
+        {%- set taskType = 'USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = ' + config.serverlessSize %} 
+    {% endif %}
+    {%- if config.schedulePeriodOption == 'Minutes' %} 
+        {%- set schedule = 'SCHEDULE = ' + "'" + config.schedulePeriod + ' MINUTE' + "'" %} 
+    {% else %}
+        {%- set schedule = 'SCHEDULE = ' + "'" + 'USING CRON ' + config.scheduleCRON + "'" %} 
+    {% endif %}
+    {%- set db = ref_no_link(node.location.name, node.name).split('.')[0]  %} 
+    {%- set sch = ref_no_link(node.location.name, node.name).split('.')[1]  %} 
+    {%- set obj = "{{ node.name }}_TASK"  %} 
+    {%- set taskName = db + '.' + sch + '."' + obj + '"' %} 
+
+        CREATE OR REPLACE TASK {{ taskName }} {{ taskType}} {{ schedule}} AS 
+
+    INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
+    (
+        {% for col in columns %}
+            {%- if col.isSystemUpdateDate == true %} 
+                {{ col.name }},
+            {% endif %}
+            {%- if col.isSystemCreateDate == true %} 
+                {{ col.name }},
+            {% endif %}
+        {% endfor %}
+
+        {%- if config.isRowCount == true %} 
+            ROW_COUNT,
+        {% endif %}
+
+        {%- for col in colUnique %}
+            {{ col }}
+        {% if not loop.last %}, {% endif %}
+        {% endfor %}
+    )
+
+    WITH CTE AS (SELECT
+        {%- if config.isRowCount == true %} 
+            COUNT(*) AS ROW_COUNT,
+        {% endif %}
+
+    {% for metric, desc, calc, pFix, colList in testMetrics %}
+        {% for col in colList %}
+            {{ calc  | replace("col_name",col) }}
+            {% if not loop.last %}, {% endif %}
+        {% endfor %}
+        {% if not loop.last %}, {% endif %}
+    {% endfor %}
+
+    {{ sources[0].join }}
+    {% if config.sampleMode == 'Sample' %}
+        sample (
+        {% if config.sampleOption == 'Percentage' %}
+            {{ config.samplePercent }}
+        {% else %}
+            {{ config.sampleRows }} rows
+        {% endif %}
+        )
+    {% endif %}
+    )
+
+    {% for metric, desc, calc, pFix, colList in testMetrics %}
+        SELECT '{{ desc }}' AS METRIC,
+        {% for col in sources[0].columns if col.isSystemCreateDate -%}
+                {{ col.transform }},
+        {% endfor %}        
+        {%- if config.isRowCount == true %} 
+            ROW_COUNT,
+        {% endif %}
+
+
+        {% for col in colUnique %}
+            {% if col in colList %}
+                TO_CHAR({{ col }}{{pFix}})
+            {% else %}
+                NULL
+            {% endif %}
+            {% if not loop.last %}, {% endif %}
+        {% endfor %}
+        {% if not loop.last %}from CTE union{% endif %}
+    {% endfor %}
+    from CTE
+{% endif %}
