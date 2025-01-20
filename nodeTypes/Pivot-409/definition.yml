@@ -59,7 +59,7 @@ metadata:
           type: textBox
           attributeName: keyColTextBox
           isRequired: true
-        
+
       - displayName: Single value column 
         attributeName: sincol
         type: toggleButton
@@ -133,10 +133,16 @@ metadata:
         attributeName: Colvol1
         enableIf: "{% if config.sincol == true or config.samKeyColval == true %} true {% else %} false {% endif %}"
 
+      - displayName: Exclude column from target table
+        attributeName: excolval
+        type: toggleButton
+        enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
+        default: false
+      
       - displayName: Exclude columns from pivot query
         attributeName: exlcol
         isRequired: false
-        enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
+        enableIf: "{% if config.excolval %} true {% else %} false {% endif %}"
         type: tabular
         columns:
          
@@ -144,6 +150,13 @@ metadata:
            attributeName: exclcol1
            isRequired: false
            displayName: Exclude Columns
+           enableIf: "{% if config.inferPivot %} true {% else %} false {% endif %}"
+
+        -  type: textBox
+           attributeName: exclcoltxtBox       
+           isRequired: false
+           displayName: Exclude Columns
+        
           
       - displayName: Value Column
         attributeName: aggfunc

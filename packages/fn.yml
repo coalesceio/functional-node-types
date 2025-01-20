@@ -1,0 +1,16 @@
+config:
+  entities:
+    nodeTypes:
+      "404":
+        defaultStorageLocation: null
+        isDisabled: false
+      "409":
+        defaultStorageLocation: null
+        isDisabled: false
+  packageVariables: ""
+fileVersion: 1
+id: "@coalesce/functional-node-types"
+name: fn
+packageID: "@coalesce/functional-node-types"
+releaseID: 57da2187-ceaa-4e61-bc23-157aebd8abcc
+type: Package

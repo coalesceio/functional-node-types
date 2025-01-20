@@ -42,7 +42,25 @@ does not permit copying or modification for any other purpose.
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
       {%endif%}
 
+        {%if config.excolval == true%}
+         {%if  config.inferPivot == true %}
 
+            {% set exclcol = config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
+            {%for col in exclcol%}
+              {%set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
+            {%endfor%}
+            {%set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
+         {%else%}
+             
+             {% set exclcol = config.exlcol.get('items') | map(attribute='exclcoltxtBox') | list%} 
+
+            {%for col in exclcol%}
+              {%set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
+            {%endfor%}
+            {%set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
+
+          {%endif%}
+         {%endif%}
      {%if config.trunc %}
   			{{ stage('Truncate Pivot Table') }}
 			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
@@ -51,19 +69,6 @@ does not permit copying or modification for any other purpose.
       {%if config.sincol == true %}
 
              {% set ns.saggfunctions = config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
-         
-               {#List of columns to be excluded from Pivot query#}
-
-              {%if config.exlcol == true %}
-
-                  {% set exclcol = config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
-
-                  {%for col in exclcol%}
-                     {%set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
-                 {%endfor%}
-                 {%set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
-              {%endif%}
-
          
         {{ stage('Insert data into Pivot table') }}
 
@@ -96,7 +101,7 @@ does not permit copying or modification for any other purpose.
                 )
         {%else %}
             {# Multiple Pivot Columns#}
-            {% set ns.mggfunctions = config.aggfunc.get('items') | map(attribute='funcname') | list%}
+            {% set ns.mggfunctions = config.tabValueColumn.get('items') | map(attribute='funcname') | list%}
                   
             {#Filter column list#}
               

@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 700ca829-ea39-412a-a66d-52a5254a1100
-name: PVT_QUARTERLY_SALES_EXCL
+id: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+name: PVT_QUARTERLY_SALES_MULTI1
 operation:
   config:
     Colvol1: "'2023_Q1','2023_Q2'"
@@ -9,32 +9,36 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: MAX
+        - {}
     defaultval: ""
     defvalue: false
     exlcol:
       items:
-        - exclcol1:
-            columnCounter: 669616db-2d53-416d-8b8c-1eb62c0a9d72
-            stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-    inferPivot: false
-    keyCol:
-      columnCounter: da16e3e5-42d9-4d69-b214-191e90b41952
-      stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-    mulcol: false
-    sincol: true
+        - {}
+    inferPivot: true
+    samKeyColval: true
+    sincol: false
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: QUARTER
+        - keyColDropdown:
+            columnCounter: 84529a66-2f39-423b-9d20-4604186fbe1e
+            stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+          keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColTextBox: AMOUNT
+        - funcname: AVG
+          valColDropdown:
+            columnCounter: e9b5e411-bdda-4e4a-b300-3f99555adbf0
+            stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+          valColTextBox: AMOUNT
+        - funcname: MAX
+          valColDropdown:
+            columnCounter: 327a3b6a-675a-4dce-9090-2fb68a554633
+            stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+          valColTextBox: DISCOUNT_PERCENT
     testsEnabled: false
     trunc: true
-    valCol1:
-      columnCounter: 78d28dcd-bfce-444c-83bb-0d8625279e66
-      stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
   database: ""
   deployEnabled: true
   description: ""
@@ -46,8 +50,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: f272d5b5-3bef-4bb1-acb9-69b2ce98e5b7
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: 5ad752d0-bac4-47bc-9ab3-63f34368872d
+          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -60,8 +64,36 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 669616db-2d53-416d-8b8c-1eb62c0a9d72
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: e9b5e411-bdda-4e4a-b300-3f99555adbf0
+          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 84529a66-2f39-423b-9d20-4604186fbe1e
+          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 327a3b6a-675a-4dce-9090-2fb68a554633
+          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -72,44 +104,6 @@ operation:
               - columnCounter: f0482031-7ade-4d4d-8939-31e92999c55a
                 stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: c5da1b11-3a90-44e8-97eb-fce1dd54679b
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: "'2023_Q1'"
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 504c8e1c-f689-4b56-8b44-0070ce949dea
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: "'2023_Q2'"
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -121,9 +115,9 @@ operation:
             nodeName: QUARTERLY_SALES
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
-        name: PVT_QUARTERLY_SALES_EXCL
+        name: PVT_QUARTERLY_SALES_MULTI1
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES_EXCL
+  name: PVT_QUARTERLY_SALES_MULTI1
   overrideSQL: false
   schema: ""
   sqlType: "409"

@@ -35,8 +35,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: ac38c37e-22c4-4955-ab35-5df88fac1ce8
-                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+              - columnCounter: ba82d79b-baa6-4c43-8eeb-9194ebf17969
+                stepCounter: 367c5899-4df8-463d-ac35-97479767e8a3
             transform: ""
       - appliedColumnTests: {}
         columnReference:
@@ -49,8 +49,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 2349ffab-b712-4d36-93b6-11210cc689c8
-                stepCounter: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+              - columnCounter: 09638ace-8831-4f8e-96ad-405d3ae4dccc
+                stepCounter: 367c5899-4df8-463d-ac35-97479767e8a3
             transform: ""
       - acceptedValues:
           strictMatch: true
