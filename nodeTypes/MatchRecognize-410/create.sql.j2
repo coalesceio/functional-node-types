@@ -23,15 +23,12 @@ select 1 = 0
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
     
     {% if currentState.node.materializationType == 'view' %}
+       {{ stage('Drop Table or View', true, "sql", "drop") }}
+       DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
-     {{ stage('Drop Table or View', true, "sql", "drop") }}
-     DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
-
-    {% else %}
-     
+    {% else %}    
        {{ stage('Drop ' + currentState.node.materializationType , true, "sql", "drop") }}
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
-
     {% endif %}
 
 {% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
@@ -49,13 +46,38 @@ select 1 = 0
                 {%endif%}
                 {%endif%}
 				
-	{%- set ns = namespace(measureExpression = [],measureColumn=[],defineExpression=[],defineColumn =[],aliasExpressionColumn=[],varPartitionByColDropDown = [],varOrderByColDropDown=[],varPartitionByColText = [],varOrderByColText=[]) %}
+			{%if desiredState.config.inferMatchRecognize == false %}	
+			{{ stage('Create  Match Recognize '+ ' {{desiredState.node.materializationType}}' , true, "sql", "create") }}
+               CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                {% for col in desiredState.columns %}
+                    "{{ col.name }}" {{ col.dataType }}
+                    {%- if not col.nullable %} NOT NULL
+                        {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+                    {% endif %}
+                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+                )
+               {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
+			{%- else -%}	
+				
+	{%- set ns = namespace(measureExpression = [],measureColumn=[],defineExpression=[],defineColumn =[],aliasExpressionColumn=[],varPartitionByColDropDown = [],varOrderByColDropDown=[],varSelectOrderByColDropDown=[],varPartitionByColText = [],varOrderByColText=[],varSelectOrderByColText=[]) %}
+      
+	 {% if desiredState.config.togglePartitionBy == true %}
      {%set ns.varPartitionByColDropDown = desiredState.config.partitionBy.get('items') | map(attribute='partitionByCol.name') | list%}
  	 {%set ns.varPartitionByColText = desiredState.config.partitionBy.get('items') | map(attribute='partitionByColTextBox') | list%}
-     {%set ns.varOrderByColDropDown = desiredState.config.orderBy.get('items') | map(attribute='orderByCol.name') | list%}
- 	 {%set ns.varOrderByColText = desiredState.config.orderBy.get('items') | map(attribute='orderByColTextBox') | list%}
-		
+     {% endif %}
+	 {% if desiredState.config.toggleOrderBy == true %}
+	 {%set ns.varOrderByColDropDown = desiredState.config.orderBy.get('items') | map(attribute='orderByCol.name') | list%}
+ 	 {%set ns.varOrderByColText = desiredState.config.orderBy.get('items') | map(attribute='orderByTextBox') | list%}
+     {% endif %}
+	 {% if desiredState.config.toggleSelectOrderBy == true %}
+	 {%set ns.varSelectOrderByColDropDown = desiredState.config.selectOrderBy.get('items') | map(attribute='selectOrderByCol.name') | list%}
+ 	 {%set ns.varSelectOrderByColText = desiredState.config.selectOrderBy.get('items') | map(attribute='selectOrderByTextBox') | list%}
+	 {% endif %}
+	 
 	 {%set ns.measureExpression = desiredState.config.tabMeasures.get('items') | map(attribute='valMeasureExpression') | list%}
      {%set ns.measureColumn = desiredState.config.tabMeasures.get('items') | map(attribute='valMeasureColumnName') | list%}
      {%set ns.aliasExpressionColumn = desiredState.config.tabMeasures.get('items') | map(attribute='valAliasExpressionColumnName') | list%}
@@ -67,49 +89,56 @@ select 1 = 0
         {{ stage('Create Match Recognize '+ desiredState.node.materializationType) }}
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               AS
-             ( 
-			 SELECT *  {{ source.join }}
-			 
-			MATCH_RECOGNIZE(
-			PARTITION BY 
-
-			{% for loopColumn in ns.varPartitionByColDropDown %}
-			{%- if loopColumn|trim == '' -%} {{ ns.varPartitionByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
-			{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
-
-			ORDER BY 
-			
-			{% for loopColumn in ns.varOrderByColDropDown %}
-			{%- if loopColumn|trim == '' -%} {{ ns.varOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
-			{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
-			
-            MEASURES
-			
-			{% for loopColumn in ns.measureColumn  %}
-			{{ ns.measureExpression [loop.index0] }} (	{%- if loopColumn|trim != 'None' -%} {{loopColumn}} {%endif%} ) AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
-			{% endfor %}	 
-			
-			{{desiredState.config.rowsPerMatch}}
-			
-            AFTER MATCH SKIP {{desiredState.config.afterMatchSkip}} 
-            {{desiredState.config.to}}  {{desiredState.config.varAfterMatchSkip}}
-			
-            PATTERN
-            ( {{desiredState.config.pattern}} )
-			
-            DEFINE
-			{% for loopColumn in ns.defineColumn %}
-			{{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} 	{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
+            ( 
+              SELECT *  {{ source.join }}
+			   MATCH_RECOGNIZE(              
+			{%- for loopColumn in ns.varPartitionByColDropDown -%}
+			   {% if loop.first %} 
+			   PARTITION BY  
+			   {% endif %}
+			   {%- if loopColumn|trim == '' -%} 
+			   {{ ns.varPartitionByColText[loop.index0]}} 
+			   {%- else -%}  
+			   {{loopColumn}}  
+			   {%- endif -%} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor -%}
+			{%- for loopColumn in ns.varOrderByColDropDown -%}
+			   {% if loop.first %} 
+			   ORDER BY  
+			   {% endif %}
+			   {%- if loopColumn|trim == '' -%} 
+			   {{ ns.varOrderByColText[loop.index0]}} 
+			   {%- else -%}  
+			   {{loopColumn}}  
+			   {%- endif -%} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor -%}
+			{%- for loopColumn in ns.measureColumn  -%}
+			   {% if loop.first %} 
+			   MEASURES  
+			   {%- endif %}
+			   {{ ns.measureExpression [loop.index0] }} {%- if not '.' in ns.measureExpression [loop.index0]  -%} 
+			   ({%- if loopColumn|trim != 'None' -%} {{loopColumn}}{% endif %})  {% endif %} AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{%- endfor %}	 			
+			   {{ desiredState.config.rowsPerMatch }}   		
+            {%- if desiredState.config.afterMatchSkip|trim != '' %}
+			   AFTER MATCH SKIP {{desiredState.config.afterMatchSkip}}
+            {%- endif %} {{desiredState.config.to}} {{desiredState.config.varAfterMatchSkip}}
+			   PATTERN
+               ( {{desiredState.config.pattern}} )
+               DEFINE
+		    {%- for loopColumn in ns.defineColumn %}
+			    {{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor %}
 			)	
-			
-            {%- if desiredState.config.varOrderBy|trim != '' -%}
-              ORDER BY {{desiredState.config.varOrderBy|trim}}
-            {%- endif -%}
-           
+           	{% for loopColumn in ns.varSelectOrderByColDropDown %}
+			{%- if loop.first -%}
+			ORDER BY   
+			{% endif %}
+			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
+			{%- if not loop.last -%},{%- endif -%}
+			{% endfor %}
            )
+		   {% endif %}
 {%- else -%}
 
 {{ stage('Nothing to do.') }}

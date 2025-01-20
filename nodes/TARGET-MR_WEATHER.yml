@@ -1,0 +1,97 @@
+fileVersion: 1
+id: cd6784be-e705-4843-b498-edc36b7f22b4
+name: MR_WEATHER
+operation:
+  config:
+    afterMatchSkip: PAST LAST ROW
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: b7427c3d-4045-4acb-b6c4-42d271097e32
+            stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - {}
+    pattern: COLD WARM+
+    rowsPerMatch: ONE ROW PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: COLD
+          valDefineExpression: TEMP < 60
+        - valDefineColumnName: WARM
+          valDefineExpression: TEMP >= 60
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: DAY_COUNT
+          valMeasureColumnName: "*"
+          valMeasureExpression: COUNT
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b7427c3d-4045-4acb-b6c4-42d271097e32
+          stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: eed212cd-e68c-4035-bac3-17ebb190eefc
+                stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1f326864-769b-4e7f-87f1-a6a571f29125
+          stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: TEMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 37b7937e-659c-4308-8804-329c3717c1f2
+                stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: WEATHER
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'WEATHER') }} "WEATHER"
+        name: MR_WEATHER
+        noLinkRefs: []
+  name: MR_WEATHER
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

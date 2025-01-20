@@ -1,0 +1,148 @@
+fileVersion: 1
+id: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+name: MR_TRANSACTION_FACT
+operation:
+  config:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 73d26eba-7d5d-4a6e-a263-e7b8fc231107
+            stepCounter: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: ca3385a3-f0bd-49d6-a33e-03ee2eb9e082
+            stepCounter: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+          partitionByColTextBox: null
+    pattern: SMALL_TRANSFER{3,} LARGE_TRANSFER
+    rowsPerMatch: ONE ROW PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: "SMALL_TRANSFER "
+          valDefineExpression: |-
+            (AMOUNT < 2000) AND
+                                        LAST_VALUE(DATE) - FIRST_VALUE(DATE) < 30
+        - valDefineColumnName: "LARGE_TRANSFER "
+          valDefineExpression: |2
+             (AMOUNT >= 1000000 AND
+                      
+                                        LAST_VALUE(DATE) - FIRST_VALUE(DATE) < 30)
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_NUMBER
+        - valAliasExpressionColumnName: MATCH_SEQUENCE_NUMBER
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_SEQUENCE_NUMBER
+        - valAliasExpressionColumnName: CLASSIFIER
+          valMeasureColumnName: null
+          valMeasureExpression: CLASSIFIER
+        - valAliasExpressionColumnName: FR_DATE
+          valMeasureColumnName: SMALL_TRANSFER.DATE
+          valMeasureExpression: FIRST
+        - valAliasExpressionColumnName: LAST_TRANSFER_DATE
+          valMeasureColumnName: null
+          valMeasureExpression: LARGE_TRANSFER.DATE
+        - valAliasExpressionColumnName: LARGEST_AMOUNT_TRANSFERRED
+          valMeasureColumnName: null
+          valMeasureExpression: LARGE_TRANSFER.AMOUNT
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: true
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 73d26eba-7d5d-4a6e-a263-e7b8fc231107
+          stepCounter: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 493a5053-1679-41df-9814-fb91651d1c11
+                stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ca3385a3-f0bd-49d6-a33e-03ee2eb9e082
+          stepCounter: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: USER_ID
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0d1775a0-963b-4151-8bcc-84d2dc4f7cea
+                stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 155d96e5-b389-4135-bd2d-171cf18a87fd
+          stepCounter: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: EVENT
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1719d591-a213-4409-b6d5-18ba65ba0799
+                stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ac87fe27-4f45-4ab2-9370-0dccccffeb24
+          stepCounter: 5fb78bca-4d6a-4cc7-91bc-a7013b6a64f3
+        config: {}
+        dataType: NUMBER(18,2)
+        description: ""
+        name: AMOUNT
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 70127fcd-153b-431e-8e3e-699783d50b98
+                stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: TRANSACTION_FACT
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'TRANSACTION_FACT') }} "TRANSACTION_FACT"
+        name: MR_TRANSACTION_FACT
+        noLinkRefs: []
+  name: MR_TRANSACTION_FACT
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

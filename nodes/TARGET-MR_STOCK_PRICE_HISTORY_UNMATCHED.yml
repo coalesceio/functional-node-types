@@ -1,37 +1,33 @@
 fileVersion: 1
-id: f102c7d9-e38d-4c85-b50d-944febd7669f
-name: MR_STOCK_PRICE_HISTORY
+id: a8ba4410-1801-4eec-bb8e-6be741cb607a
+name: MR_STOCK_PRICE_HISTORY_UNMATCHED
 operation:
   config:
-    afterMatchSkip: PAST LAST ROW
-    allRowsPerMatch: OMIT EMPTY MATCHES
+    afterMatchSkip: TO
+    allRowsPerMatch: WITH UNMATCHED ROWS
     orderBy:
       items:
-        - orderByCol:
-            columnCounter: 79ff5835-58d3-41f1-8d1f-31b2f63ec4c5
-            stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+        - orderByCol: null
           orderByTextBox: null
     partitionBy:
       items:
-        - partitionByCol:
-            columnCounter: c5c88fae-6eb8-441f-bdef-d1ffa0777ca4
-            stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+        - partitionByCol: null
           partitionByColTextBox: null
-    pattern: (OVERAVG*)
-    rowsPerMatch: ALL ROWS PER MATCH
+    pattern: OVERAVG+
+    rowsPerMatch: ""
     selectOrderBy:
       items:
         - selectOrderByCol:
-            columnCounter: c5c88fae-6eb8-441f-bdef-d1ffa0777ca4
-            stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+            columnCounter: bdd18f2b-428d-4503-9eaf-1d27d3cac27b
+            stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
           selectOrderByTextBox: null
         - selectOrderByCol:
-            columnCounter: 79ff5835-58d3-41f1-8d1f-31b2f63ec4c5
-            stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+            columnCounter: 2368529a-ec3d-47c6-8872-615203d5fc24
+            stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
           selectOrderByTextBox: null
     tabDefine:
       items:
-        - valDefineColumnName: OVERAVG
+        - valDefineColumnName: "OVERAVG "
           valDefineExpression: |-
             PRICE > AVG(PRICE) OVER (ROWS BETWEEN UNBOUNDED
                                               PRECEDING AND UNBOUNDED FOLLOWING)
@@ -40,6 +36,9 @@ operation:
         - valAliasExpressionColumnName: MATCH_NUMBER
           valMeasureColumnName: null
           valMeasureExpression: MATCH_NUMBER
+        - valAliasExpressionColumnName: CL
+          valMeasureColumnName: null
+          valMeasureExpression: CLASSIFIER
     testsEnabled: false
     to: ""
     toggleOrderBy: true
@@ -47,10 +46,9 @@ operation:
     toggleSelectOrderBy: true
     truncateBefore: true
     varAfterMatchSkip: ""
-    varOrderBy: COMPANY, PRICE_DATE
   database: ""
   deployEnabled: true
-  description: Omit empty matches
+  description: WITH UNMATCHED ROWS
   isMultisource: false
   locationName: TARGET
   materializationType: table
@@ -59,8 +57,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c5c88fae-6eb8-441f-bdef-d1ffa0777ca4
-          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+          columnCounter: bdd18f2b-428d-4503-9eaf-1d27d3cac27b
+          stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -73,8 +71,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 79ff5835-58d3-41f1-8d1f-31b2f63ec4c5
-          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+          columnCounter: 2368529a-ec3d-47c6-8872-615203d5fc24
+          stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
         config: {}
         dataType: DATE
         description: ""
@@ -87,8 +85,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 502b797a-032c-4844-a5dd-4a62b5a39c70
-          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+          columnCounter: 6e921921-6947-4ae4-9bbf-f3313c4b8ee0
+          stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -104,8 +102,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 440bdbfb-2e7f-43a6-abc1-27c88668b8d3
-          stepCounter: f102c7d9-e38d-4c85-b50d-944febd7669f
+          columnCounter: ff1e5b9d-c926-4a28-ba85-4c6b09aebc03
+          stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
@@ -118,11 +116,29 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 13ffb356-34e0-49dd-8ba0-f3887b9df506
+          stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: CL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases:
-          STOCK_PRICE_HISTORY: 2963a56b-9320-436c-ad95-99ec4c96208a
+      - aliases: {}
         customSQL:
           customSQL: ""
         dependencies:
@@ -130,9 +146,9 @@ operation:
             nodeName: STOCK_PRICE_HISTORY
         join:
           joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
-        name: MR_STOCK_PRICE_HISTORY
+        name: MR_STOCK_PRICE_HISTORY_UNMATCHED
         noLinkRefs: []
-  name: MR_STOCK_PRICE_HISTORY
+  name: MR_STOCK_PRICE_HISTORY_UNMATCHED
   overrideSQL: false
   schema: ""
   sqlType: "410"

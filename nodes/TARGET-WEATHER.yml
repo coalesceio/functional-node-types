@@ -1,0 +1,58 @@
+fileVersion: 1
+id: 554e05fc-05b9-44d7-ba52-27b99924e438
+name: WEATHER
+operation:
+  database: ""
+  dataset: ""
+  deployEnabled: true
+  description: ""
+  locationName: TARGET
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: eed212cd-e68c-4035-bac3-17ebb190eefc
+          stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: DAY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 37b7937e-659c-4308-8804-329c3717c1f2
+          stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: TEMP
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    join:
+      joinCondition: FROM {{ ref('TARGET', 'WEATHER') }}
+  name: WEATHER
+  schema: ""
+  sqlType: Source
+  table: WEATHER
+  type: sourceInput
+  version: 1
+type: Node

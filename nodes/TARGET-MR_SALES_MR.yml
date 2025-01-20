@@ -1,0 +1,117 @@
+fileVersion: 1
+id: c3a03d3f-35c3-446e-bf91-74b5f612efa6
+name: MR_SALES_MR
+operation:
+  config:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 1e0144d4-299f-44bd-a054-518f469edffe
+            stepCounter: c3a03d3f-35c3-446e-bf91-74b5f612efa6
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - {}
+    pattern: first_date next_date last_date
+    rowsPerMatch: ""
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: "next_date "
+          valDefineExpression: next_date.amount > first_date.amount
+        - valDefineColumnName: "last_date "
+          valDefineExpression: last_date.amount > next_date.amount
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: start_date
+          valMeasureColumnName: null
+          valMeasureExpression: "first_date.transaction_date "
+        - valAliasExpressionColumnName: end_date
+          valMeasureColumnName: ""
+          valMeasureExpression: last_date.transaction_date
+        - valAliasExpressionColumnName: total_amount
+          valMeasureColumnName: sales.amount
+          valMeasureExpression: SUM
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3124e60c-284a-4ec4-aefd-ef57dc6e87f0
+          stepCounter: c3a03d3f-35c3-446e-bf91-74b5f612efa6
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: TRANSACTION_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6f80d8c5-fcd6-4913-9a53-d175ccc931a2
+                stepCounter: 963da858-6787-47be-8675-c7ff47ab559e
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1e0144d4-299f-44bd-a054-518f469edffe
+          stepCounter: c3a03d3f-35c3-446e-bf91-74b5f612efa6
+        config: {}
+        dataType: DATE
+        description: ""
+        name: TRANSACTION_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cd83df67-186c-465a-9c5e-966ea875760b
+                stepCounter: 963da858-6787-47be-8675-c7ff47ab559e
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3859ebf2-e5dc-44f2-a2fa-4dcbfa46caa5
+          stepCounter: c3a03d3f-35c3-446e-bf91-74b5f612efa6
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 12bbed1d-0b6c-4faa-81fe-be36d0a5b4ab
+                stepCounter: 963da858-6787-47be-8675-c7ff47ab559e
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: SALES_MR
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'SALES_MR') }} "SALES_MR"
+        name: MR_SALES_MR
+        noLinkRefs: []
+  name: MR_SALES_MR
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

@@ -1,0 +1,118 @@
+fileVersion: 1
+id: 4dd506e1-73d1-468d-816e-f8d79c959679
+name: MR_STOCK_PRICE_HISTORY_MEASURE
+operation:
+  config:
+    afterMatchSkip: PAST LAST ROW
+    allRowsPerMatch: ""
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: bcb1126f-62d9-4e3a-aab0-ff51d5cdcb72
+            stepCounter: 4dd506e1-73d1-468d-816e-f8d79c959679
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: 09f1a5e3-9a4b-4396-917e-2b6b3012be06
+            stepCounter: 4dd506e1-73d1-468d-816e-f8d79c959679
+          partitionByColTextBox: null
+    pattern: LT45 LT45
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - selectOrderByCol:
+            columnCounter: bcb1126f-62d9-4e3a-aab0-ff51d5cdcb72
+            stepCounter: 4dd506e1-73d1-468d-816e-f8d79c959679
+          selectOrderByTextBox: null
+    tabDefine:
+      items:
+        - valDefineColumnName: LT45
+          valDefineExpression: PRICE < 45.00
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: "\"FINAL FIRST(LT45.price)\""
+          valMeasureColumnName: LT45.PRICE
+          valMeasureExpression: FINAL FIRST
+        - valAliasExpressionColumnName: "\"FINAL LAST(LT45.price)\""
+          valMeasureColumnName: LT45.PRICE
+          valMeasureExpression: FINAL LAST
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: true
+    toggleSelectOrderBy: true
+    truncateBefore: true
+    varAfterMatchSkip: ""
+  database: ""
+  deployEnabled: true
+  description: Demonstrate symbol predicates in the MEASURES clause
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 09f1a5e3-9a4b-4396-917e-2b6b3012be06
+          stepCounter: 4dd506e1-73d1-468d-816e-f8d79c959679
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 50af89f2-29ff-410c-8108-59dc07b434d4
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bcb1126f-62d9-4e3a-aab0-ff51d5cdcb72
+          stepCounter: 4dd506e1-73d1-468d-816e-f8d79c959679
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 6d207333-4693-4ab5-9439-4fcd4ed79b64
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0afef8dc-e289-443a-9953-ec482216bf6d
+          stepCounter: 4dd506e1-73d1-468d-816e-f8d79c959679
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cc6e9df6-7705-4e40-85f7-30f0411936c9
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: |
+            FROM (select * From {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY" WHERE company = 'ABCD')
+        name: MR_STOCK_PRICE_HISTORY_MEASURE
+        noLinkRefs: []
+  name: MR_STOCK_PRICE_HISTORY_MEASURE
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

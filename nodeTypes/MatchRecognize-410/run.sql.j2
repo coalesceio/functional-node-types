@@ -15,12 +15,20 @@ does not permit copying or modification for any other purpose.
     {% set targetObjectSchema = ref_no_link(node.location.name, node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
 
-	{%- set ns = namespace(measureExpression = [],measureColumn=[],defineExpression=[],defineColumn =[],aliasExpressionColumn=[],varPartitionByColDropDown = [],varOrderByColDropDown=[],varPartitionByColText = [],varOrderByColText=[]) %}
-
+	{%- set ns = namespace(measureExpression = [],measureColumn=[],defineExpression=[],defineColumn =[],aliasExpressionColumn=[],varPartitionByColDropDown = [],varOrderByColDropDown=[],varSelectOrderByColDropDown=[],varPartitionByColText = [],varOrderByColText=[],varSelectOrderByColText=[]) %}
+      
+	 {% if config.togglePartitionBy == true %}
      {%set ns.varPartitionByColDropDown = config.partitionBy.get('items') | map(attribute='partitionByCol.name') | list%}
  	 {%set ns.varPartitionByColText = config.partitionBy.get('items') | map(attribute='partitionByColTextBox') | list%}
-     {%set ns.varOrderByColDropDown = config.orderBy.get('items') | map(attribute='orderByCol.name') | list%}
- 	 {%set ns.varOrderByColText = config.orderBy.get('items') | map(attribute='orderByColTextBox') | list%}
+     {% endif %}
+	 {% if config.toggleOrderBy == true %}
+	 {%set ns.varOrderByColDropDown = config.orderBy.get('items') | map(attribute='orderByCol.name') | list%}
+ 	 {%set ns.varOrderByColText = config.orderBy.get('items') | map(attribute='orderByTextBox') | list%}
+     {% endif %}
+	 {% if config.toggleSelectOrderBy == true %}
+	 {%set ns.varSelectOrderByColDropDown = config.selectOrderBy.get('items') | map(attribute='selectOrderByCol.name') | list%}
+ 	 {%set ns.varSelectOrderByColText = config.selectOrderBy.get('items') | map(attribute='selectOrderByTextBox') | list%}
+	 {% endif %}
 	 
 	 {%set ns.measureExpression = config.tabMeasures.get('items') | map(attribute='valMeasureExpression') | list%}
      {%set ns.measureColumn = config.tabMeasures.get('items') | map(attribute='valMeasureColumnName') | list%}
@@ -32,41 +40,48 @@ does not permit copying or modification for any other purpose.
      {% set source = sources[0] %}        
       
 {% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
-     {%if config.trunc %}
-  			{{ stage('Truncate Pivot Table') }}
+     {%if config.truncateBefore %}
+  			{{ stage('Truncate MATCH_RECOGNIZE Table') }}
 			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
      {%endif%}
 
         
-        {{ stage('Insert data into Pivot table') }}
+        {{ stage('Insert data into MATCH_RECOGNIZE table') }}
 
             INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
-			 SELECT *  {{ source.join }}
-			 
-			MATCH_RECOGNIZE(
-			PARTITION BY 
+            SELECT *  {{ source.join }}
+
+			MATCH_RECOGNIZE(              
 			{% for loopColumn in ns.varPartitionByColDropDown %}
+			{%- if loop.first -%} 
+
+			PARTITION BY  
+			{% endif %}
 			{%- if loopColumn|trim == '' -%} {{ ns.varPartitionByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
 			{%- if not loop.last -%},{%- endif -%}
 			{% endfor %}
 
-			ORDER BY 
-			
 			{% for loopColumn in ns.varOrderByColDropDown %}
+			{%- if loop.first -%}
+			ORDER BY   
+			{% endif %}
 			{%- if loopColumn|trim == '' -%} {{ ns.varOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
 			{%- if not loop.last -%},{%- endif -%}
 			{% endfor %}
 			
             MEASURES
-			
+	
 			{% for loopColumn in ns.measureColumn  %}
-			{{ ns.measureExpression [loop.index0] }} ({%- if loopColumn == 'None' -%} '' else {{loopColumn}} {%endif%}) AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{{ ns.measureExpression [loop.index0] }} (	{%- if loopColumn|trim != 'None' -%} {{loopColumn}} {%endif%} ) AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
 			{% endfor %}	 
 			
 			{{config.rowsPerMatch}}
-			
-            AFTER MATCH SKIP {{config.afterMatchSkip}} 
-            {{config.to}}  {{config.varAfterMatchSkip}}
+
+            {% if config.afterMatchSkip|trim != '' %}
+              AFTER MATCH SKIP {{config.afterMatchSkip}}
+            {% endif %}			
+            
+			{{config.to}}  {{config.varAfterMatchSkip}}
 			
             PATTERN
             ( {{config.pattern}} )
@@ -76,8 +91,11 @@ does not permit copying or modification for any other purpose.
 			{{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} 	{%- if not loop.last -%},{%- endif -%}
 			{% endfor %}
 			)	
-			
-            {%- if config.varOrderBy|trim != '' -%}
-              ORDER BY {{config.varOrderBy|trim}}
-            {%- endif -%} 
+           	{% for loopColumn in ns.varSelectOrderByColDropDown %}
+			{%- if loop.first -%}
+			ORDER BY   
+			{% endif %}
+			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
+			{%- if not loop.last -%},{%- endif -%}
+			{% endfor %}
 {%endif%}

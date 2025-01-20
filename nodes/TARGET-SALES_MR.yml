@@ -1,0 +1,77 @@
+fileVersion: 1
+id: 963da858-6787-47be-8675-c7ff47ab559e
+name: SALES_MR
+operation:
+  database: ""
+  dataset: ""
+  deployEnabled: true
+  description: ""
+  locationName: TARGET
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6f80d8c5-fcd6-4913-9a53-d175ccc931a2
+          stepCounter: 963da858-6787-47be-8675-c7ff47ab559e
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: TRANSACTION_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cd83df67-186c-465a-9c5e-966ea875760b
+          stepCounter: 963da858-6787-47be-8675-c7ff47ab559e
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: TRANSACTION_DATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 12bbed1d-0b6c-4faa-81fe-be36d0a5b4ab
+          stepCounter: 963da858-6787-47be-8675-c7ff47ab559e
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    join:
+      joinCondition: FROM {{ ref('TARGET', 'SALES_MR') }}
+  name: SALES_MR
+  schema: ""
+  sqlType: Source
+  table: SALES_MR
+  type: sourceInput
+  version: 1
+type: Node

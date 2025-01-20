@@ -1,0 +1,96 @@
+fileVersion: 1
+id: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+name: TRANSACTION_FACT
+operation:
+  database: ""
+  dataset: ""
+  deployEnabled: true
+  description: ""
+  locationName: TARGET
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 493a5053-1679-41df-9814-fb91651d1c11
+          stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: DATE
+        nullable: false
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0d1775a0-963b-4151-8bcc-84d2dc4f7cea
+          stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: USER_ID
+        nullable: false
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1719d591-a213-4409-b6d5-18ba65ba0799
+          stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: EVENT
+        nullable: false
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 70127fcd-153b-431e-8e3e-699783d50b98
+          stepCounter: 6a7a794f-76d7-4471-8372-a66fa24d7b1f
+        config: {}
+        dataType: NUMBER(18,2)
+        defaultValue: ""
+        description: ""
+        name: AMOUNT
+        nullable: false
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    join:
+      joinCondition: FROM {{ ref('TARGET', 'TRANSACTION_FACT') }}
+  name: TRANSACTION_FACT
+  schema: ""
+  sqlType: Source
+  table: TRANSACTION_FACT
+  type: sourceInput
+  version: 1
+type: Node
