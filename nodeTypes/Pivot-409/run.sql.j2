@@ -20,7 +20,7 @@ does not permit copying or modification for any other purpose.
 
 {# == To run data quality tests before data insertion == #}
 
-{% for test in node.tests if config.testsEnabled %}
+    {% for test in node.tests if config.testsEnabled %}
         {% if test.runOrder == 'Before' %}
             {{ test_stage(test.name, test.continueOnFailure) }}
             {{ test.templateString }}

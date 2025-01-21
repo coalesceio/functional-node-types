@@ -12,18 +12,21 @@ operation:
         - funcname1: SUM
     defaultval: ""
     defvalue: false
+    excolval: false
     exlcol:
       items: []
-    inferPivot: false
+    inferPivot: true
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: QUARTER
+        - keyColDropdown: null
+          keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColTextBox: AMOUNT
+        - valColDropdown: null
+          valColTextBox: AMOUNT
     testsEnabled: false
     trunc: true
   database: ""
@@ -49,6 +52,25 @@ operation:
               - columnCounter: 69f49490-43c5-46e2-97b3-632d105e0b98
                 stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 714c3285-b03f-4de5-baaa-a5302c168db5
+          stepCounter: 4e201ed7-382f-4bc8-ab9a-35da8e738b18
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: DISCOUNT_PERCENT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []

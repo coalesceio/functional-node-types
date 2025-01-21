@@ -3,7 +3,7 @@ id: 788de693-010b-473f-8bd2-3883b6467f2a
 name: PVT_QUARTERLY_SALES1
 operation:
   config:
-    Colvol1: "'2023_Q1','2023_Q2'"
+    Colvol1: ""
     aggfunc:
       items:
         - {}
@@ -16,17 +16,24 @@ operation:
     excolval: true
     exlcol:
       items:
-        - exclcoltxtBox: DISCOUNT_PERCENT
-    inferPivot: false
+        - exclcol1: null
+          exclcoltxtBox: DISCOUNT_PERCENT
+    inferPivot: true
     samKeyColval: false
     sincol: true
-    subqueryval1: ""
+    subqueryval1: |-
+      SELECT DISTINCT quarter
+              FROM ANANDHIS_DEV.SOURCE_DATA.ad_campaign_types_by_quarter
+              WHERE television = TRUE
+              ORDER BY quarter
     tabKeyColumn:
       items:
-        - keyColTextBox: QUARTER
+        - keyColDropdown: null
+          keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColTextBox: AMOUNT
+        - valColDropdown: null
+          valColTextBox: AMOUNT
     testsEnabled: false
     trunc: true
   database: ""
@@ -95,13 +102,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e8e106f9-54d8-4f5d-8ea5-3d1a7211b016
+          columnCounter: b594ef58-b04d-4c0a-ad49-8f37cbd2c63f
           stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
         description: ""
-        name: "'2023_Q2'"
+        name: "'2023_Q4'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:

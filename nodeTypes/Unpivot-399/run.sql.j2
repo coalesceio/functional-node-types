@@ -52,8 +52,7 @@ does not permit copying or modification for any other purpose.
 INSERT INTO {{ this }}
  ( 
                SELECT 
-               {% for col in source.columns %}
-               
+               {% for col in source.columns %}        
                   {%if col.name not in ns.collist|join(',') and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
 			            {{ get_source_transform(col) }} AS "{{ col.name }}",
                   {%endif%}
