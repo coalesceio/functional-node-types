@@ -102,7 +102,7 @@ does not permit copying or modification for any other purpose.
 			{%- endfor %}
 			)	
            	{% for loopColumn in ns.varSelectOrderByColDropDown %}
-			{%- if loop.first -%}
+			{%- if loop.first %}
 			ORDER BY   
 			{% endif %}
 			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
