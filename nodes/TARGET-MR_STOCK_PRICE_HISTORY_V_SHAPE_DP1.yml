@@ -68,7 +68,7 @@ operation:
     truncateBefore: true
     varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
   database: ""
-  deployEnabled: false
+  deployEnabled: true
   description: this is stock table
   isMultisource: false
   locationName: TARGET
