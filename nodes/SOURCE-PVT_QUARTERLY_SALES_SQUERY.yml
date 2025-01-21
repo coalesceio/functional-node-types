@@ -58,34 +58,44 @@ operation:
               - columnCounter: a494b41f-2531-4f68-b2c8-93cd8761660b
                 stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 4325734b-1d0b-4be8-a349-88d349c49d9b
+          columnCounter: a6b3336f-f4b5-4320-9054-488589a00265
           stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83
         config: {}
         dataType: NUMBER(38,0)
-        description: ""
-        name: AMOUNT
+        defaultValue: ""
+        description: QUARTER1-RESULTS
+        name: "'2023_Q1'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: e8218ac9-18e9-4adf-bf36-88173ef46bc0
-                stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 0e0a0b5c-8b9d-4d0a-951a-96dbba29b720
+          columnCounter: 37ae09a8-b783-4e9a-9839-9dfd7915790c
           stepCounter: 26c241a2-7fc0-42b1-884a-30570b20be83
         config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: QUARTER
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: QUARTER2-RESULTS
+        name: "'2023_Q4'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: c4beafd7-8165-418c-843c-c94c1d491bf7
-                stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

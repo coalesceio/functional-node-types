@@ -37,8 +37,12 @@ does not permit copying or modification for any other purpose.
      {%if config.inferPivot == true %}
 			          {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+                  {%if ns.keycol == null or ns.pcolumn == []%}
+                      {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
+                      {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+                  {%endif%}
       {%else%}
-			         {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
+			            {%set ns.keycol = config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
       {%endif%}
 
@@ -85,7 +89,7 @@ does not permit copying or modification for any other purpose.
                {%elif func == 'COUNT'%}
                  {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
                 {%endif%}
-                SELECT * FROM (SELECT {%if ns.saggfunctions | length >1 %}'{{ns.funcdesc}}' AS aggregate ,{%endif%} *  {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
+                SELECT * FROM (SELECT * {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
                  {{ source.join }} )
               PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if config.subqueryval1 !="" %}
                  {{config.subqueryval1}}
@@ -111,7 +115,7 @@ does not permit copying or modification for any other purpose.
                {%endfor%}
 
             {%else%}
-                {%set ns.filcol = config.tabValueColumn.get('items') | map(attribute='Colvol1') | list%}
+                {%set ns.filcol = config.tabValueColumn.get('items') | map(attribute='Colvol') | list%}
             {%endif%}          
          
             {{ stage('Insert data into Pivot table') }}      

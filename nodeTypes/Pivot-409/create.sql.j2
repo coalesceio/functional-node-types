@@ -57,6 +57,10 @@ select 1 = 0
      {%if desiredState.config.inferPivot == true %}
 			          {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+                  {%if ns.keycol == null or ns.pcolumn == [] %}                    
+                       {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
+                        {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+                  {%endif%}
       {%else%}
 			         {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
@@ -106,7 +110,7 @@ select 1 = 0
                {%elif func == 'COUNT'%}
                  {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
                 {%endif%}
-                SELECT * FROM (SELECT {%if ns.saggfunctions | length >1 %}'{{ns.funcdesc}}' AS aggregate ,{%endif%} *  {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
+                SELECT * FROM (SELECT * {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
                  {{ source.join }} )
               PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if desiredState.config.subqueryval1 !="" %}
                  {{desiredState.config.subqueryval1}}
