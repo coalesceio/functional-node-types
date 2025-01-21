@@ -15,27 +15,18 @@ operation:
     exlcol:
       items:
         - {}
-    inferPivot: true
+    inferPivot: false
     samKeyColval: true
     sincol: false
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: 84529a66-2f39-423b-9d20-4604186fbe1e
-            stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
-          keyColTextBox: QUARTER
+        - keyColTextBox: QUARTER
     tabValueColumn:
       items:
         - funcname: AVG
-          valColDropdown:
-            columnCounter: e9b5e411-bdda-4e4a-b300-3f99555adbf0
-            stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
           valColTextBox: AMOUNT
         - funcname: MAX
-          valColDropdown:
-            columnCounter: 327a3b6a-675a-4dce-9090-2fb68a554633
-            stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
           valColTextBox: DISCOUNT_PERCENT
     testsEnabled: false
     trunc: true
@@ -48,62 +39,82 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 5ad752d0-bac4-47bc-9ab3-63f34368872d
+          columnCounter: a44ab8b0-d8d0-4b45-a8d7-607fffd79fac
+          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+        config: {}
+        dataType: NUMBER(38,12)
+        defaultValue: ""
+        description: ""
+        name: AVG_2023_Q1_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: bfca0246-d861-4223-9653-86b3cae81a7e
+          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
+        config: {}
+        dataType: NUMBER(38,12)
+        defaultValue: ""
+        description: ""
+        name: AVG_2023_Q2_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a19ce694-5439-42c2-85c5-15f9539f9c18
           stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
         config: {}
         dataType: NUMBER(38,0)
+        defaultValue: ""
         description: ""
-        name: EMPID
+        name: MAX_2023_Q1_DISCOUNT_PERCENT
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 69f49490-43c5-46e2-97b3-632d105e0b98
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: e9b5e411-bdda-4e4a-b300-3f99555adbf0
+          columnCounter: 659ab6d1-8813-4f7e-94d3-bed42a0ec970
           stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
         config: {}
         dataType: NUMBER(38,0)
+        defaultValue: ""
         description: ""
-        name: AMOUNT
+        name: MAX_2023_Q2_DISCOUNT_PERCENT
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 84529a66-2f39-423b-9d20-4604186fbe1e
-          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: QUARTER
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 327a3b6a-675a-4dce-9090-2fb68a554633
-          stepCounter: 540e5c43-3a5d-40c6-9f1f-01feb905fc9a
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: DISCOUNT_PERCENT
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f0482031-7ade-4d4d-8939-31e92999c55a
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
-            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
