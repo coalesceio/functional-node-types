@@ -47,7 +47,7 @@ does not permit copying or modification for any other purpose.
       {%endif%}
 
         {%if config.excolval == true%}
-         {%if  config.inferPivot == true %}
+         {%if  config.inferPivot == true and (config.exlcol.get('items') | map(attribute='exclcol1') | list|first != None)%}
 
             {% set exclcol = config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
             {%for col in exclcol%}
@@ -89,7 +89,7 @@ does not permit copying or modification for any other purpose.
                {%elif func == 'COUNT'%}
                  {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
                 {%endif%}
-                SELECT * FROM (SELECT * {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
+                SELECT * FROM (SELECT * {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%} {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   
                  {{ source.join }} )
               PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if config.subqueryval1 !="" %}
                  {{config.subqueryval1}}

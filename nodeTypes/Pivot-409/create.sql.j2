@@ -68,7 +68,7 @@ select 1 = 0
 
          {# List of columns to be excluded from Pivot query#}
         {%if desiredState.config.excolval == true%}
-         {%if desiredState.config.inferPivot == true %}
+         {%if desiredState.config.inferPivot == true and (desiredState.config.exlcol.get('items') | map(attribute='exclcol1') | list|first != None) %}
 
             {% set exclcol = desiredState.config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
             {%for col in exclcol%}

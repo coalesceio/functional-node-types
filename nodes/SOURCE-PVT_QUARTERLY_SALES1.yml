@@ -3,7 +3,7 @@ id: 788de693-010b-473f-8bd2-3883b6467f2a
 name: PVT_QUARTERLY_SALES1
 operation:
   config:
-    Colvol1: ""
+    Colvol1: "'2023_Q1','2023_Q2'"
     aggfunc:
       items:
         - {}
@@ -16,30 +16,17 @@ operation:
     excolval: true
     exlcol:
       items:
-        - exclcol1:
-            columnCounter: a014950c-0e0d-40bb-bcac-57892357faa3
-            stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
-          exclcoltxtBox: DISCOUNT_PERCENT
-    inferPivot: true
+        - exclcoltxtBox: DISCOUNT_PERCENT
+    inferPivot: false
     samKeyColval: false
     sincol: true
-    subqueryval1: |-
-      SELECT DISTINCT quarter
-              FROM ANANDHIS_DEV.SOURCE_DATA.ad_campaign_types_by_quarter
-              WHERE television = TRUE
-              ORDER BY quarter
+    subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: 9db9ff9c-efc0-428f-ab2f-be0daa2886e3
-            stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
-          keyColTextBox: QUARTER
+        - keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColDropdown:
-            columnCounter: ca7e44bf-50dc-41d1-a97b-1087d0fb83d9
-            stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
-          valColTextBox: AMOUNT
+        - valColTextBox: AMOUNT
     testsEnabled: false
     trunc: true
   database: ""
@@ -65,48 +52,63 @@ operation:
               - columnCounter: 69f49490-43c5-46e2-97b3-632d105e0b98
                 stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: ca7e44bf-50dc-41d1-a97b-1087d0fb83d9
+          columnCounter: f86248f1-3c71-41de-8e95-69ff303c0b31
           stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(14)
+        defaultValue: ""
         description: ""
-        name: AMOUNT
+        name: AGGREGATE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 9db9ff9c-efc0-428f-ab2f-be0daa2886e3
+          columnCounter: 03f89c65-bd8e-4dd8-965e-5c81e18e54b8
           stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: NUMBER(38,6)
+        defaultValue: ""
         description: ""
-        name: QUARTER
+        name: "'2023_Q1'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: a014950c-0e0d-40bb-bcac-57892357faa3
+          columnCounter: e8e106f9-54d8-4f5d-8ea5-3d1a7211b016
           stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: NUMBER(38,6)
+        defaultValue: ""
         description: ""
-        name: DISCOUNT_PERCENT
+        name: "'2023_Q2'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f0482031-7ade-4d4d-8939-31e92999c55a
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

@@ -126,7 +126,7 @@ metadata:
       - displayName: Subquery -PIVOT column values
         type: textBox
         attributeName: subqueryval1
-        enableIf: "{% if config.sincol %} true {% else %} false {% endif %}"
+        enableIf: "{% if config.sincol%} true {% else %} false {% endif %}"
 
       - displayName: Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')
         type: textBox
