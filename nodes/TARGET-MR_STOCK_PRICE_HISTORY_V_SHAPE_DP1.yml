@@ -1,31 +1,35 @@
 fileVersion: 1
-id: 569aa74a-b7e2-4880-a2db-a8696b240c2f
-name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP_1
+id: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
 operation:
   config:
     afterMatchSkip: TO
     allRowsPerMatch: ""
-    inferMatchRecognize: false
+    inferMatchRecognize: true
     orderBy:
       items:
-        - orderByCol: null
-          orderByTextBox: PRICE_DATE
+        - orderByCol:
+            columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
+            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          orderByTextBox: ""
     partitionBy:
       items:
         - partitionByCol:
-            columnCounter: eb2fbb26-b066-4d20-9d13-c989e51276c7
-            stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+            columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
+            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
           partitionByColTextBox: null
     pattern: ROW_BEFORE_DECREASE ROW_WITH_PRICE_DECREASE+ ROW_WITH_PRICE_INCREASE+
     rowsPerMatch: ONE ROW PER MATCH
     selectOrderBy:
       items:
         - selectOrderByCol:
-            columnCounter: eb2fbb26-b066-4d20-9d13-c989e51276c7
-            stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+            columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
+            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
           selectOrderByTextBox: null
-        - selectOrderByCol: null
-          selectOrderByTextBox: MATCH_NUMBER
+        - selectOrderByCol:
+            columnCounter: c405a278-8523-406d-8177-01860a520b62
+            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          selectOrderByTextBox: ""
     tabDefine:
       items:
         - valDefineColumnName: ROW_WITH_PRICE_DECREASE
@@ -64,7 +68,7 @@ operation:
     truncateBefore: true
     varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: this is stock table
   isMultisource: false
   locationName: TARGET
@@ -74,8 +78,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: eb2fbb26-b066-4d20-9d13-c989e51276c7
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -91,8 +95,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 47418818-3ba2-40aa-b536-a14ea6920d72
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: c405a278-8523-406d-8177-01860a520b62
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: NUMBER(20,0)
         defaultValue: ""
@@ -110,8 +114,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 441db823-f1c6-4f91-b7b8-95f60663cfb1
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: 81678426-09c7-4b14-a4a4-3d7a31e9f0f7
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: DATE
         defaultValue: ""
@@ -129,8 +133,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: fc499f94-34a4-4308-8862-5b93fa54ef46
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: 42511b2c-1634-48fe-9118-046c1148e6c4
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: DATE
         defaultValue: ""
@@ -148,8 +152,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 7aec62cd-ae6d-453c-815d-ef231f3b3abb
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: d8d85738-b5e0-468b-9ca8-beecb482bdb2
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
@@ -167,8 +171,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: ac36ac71-cf91-4624-9e62-9c70c16b9b13
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: 88a98d27-830c-4c5b-b721-a7d833393492
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
@@ -186,8 +190,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 525fc3fe-3701-43f5-9dab-a7243da29066
-          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+          columnCounter: e66eb4fd-5b8e-4eb4-a0d9-1c08beca4d13
+          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
@@ -211,9 +215,9 @@ operation:
             nodeName: STOCK_PRICE_HISTORY
         join:
           joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
-        name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP_1
+        name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
         noLinkRefs: []
-  name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP_1
+  name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
   overrideSQL: false
   schema: ""
   sqlType: "410"
