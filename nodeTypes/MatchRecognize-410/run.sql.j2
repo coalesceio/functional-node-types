@@ -36,7 +36,10 @@ does not permit copying or modification for any other purpose.
      
 	 {%set ns.defineExpression = config.tabDefine.get('items') | map(attribute='valDefineExpression') | list%}
      {%set ns.defineColumn = config.tabDefine.get('items') | map(attribute='valDefineColumnName') | list%}
-	 	
+	 {%set ns.selectFunctionExpression = config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionExpression') | list%}
+     {%set ns.selectFunctionColumn = config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionColumnName') | list%}
+     {%set ns.aliasSelectFunctionColumn = config.tabSelectFunction.get('items') | map(attribute='valAliasSelectFunctionColumnName') | list%}
+	 
      {% set source = sources[0] %}        
       
 {% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
@@ -48,48 +51,55 @@ does not permit copying or modification for any other purpose.
         
         {{ stage('Insert data into MATCH_RECOGNIZE table') }}
 
-            INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
-            SELECT *  {{ source.join }}
-
+			INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
+			SELECT 
+			{% if config.toggleSelectFunction %}
+			{%- for loopColumn in ns.selectFunctionColumn  %}
+			{{ ns.selectFunctionExpression [loop.index0] }} {%- if not '.' in ns.selectFunctionExpression [loop.index0]  -%} 
+			({%- if loopColumn|trim != 'None' -%} {{loopColumn}}{% endif %})  {% endif %} AS {{ ns.aliasSelectFunctionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{%- endfor %}
+            {%- else -%} 			
+			  *  
+			{%- endif %}
+			{{ source.join }}
 			MATCH_RECOGNIZE(              
-			{% for loopColumn in ns.varPartitionByColDropDown %}
-			{%- if loop.first -%} 
-
+			{%- for loopColumn in ns.varPartitionByColDropDown -%}
+			{% if loop.first %} 
 			PARTITION BY  
 			{% endif %}
-			{%- if loopColumn|trim == '' -%} {{ ns.varPartitionByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
-			{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
-
-			{% for loopColumn in ns.varOrderByColDropDown %}
-			{%- if loop.first -%}
-			ORDER BY   
+			{%- if loopColumn|trim == '' -%} 
+			{{ ns.varPartitionByColText[loop.index0]}} 
+			{%- else -%}  
+			{{loopColumn}}  
+			{%- endif -%} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor -%}
+			{%- for loopColumn in ns.varOrderByColDropDown -%}
+			{% if loop.first %} 
+			ORDER BY  
 			{% endif %}
-			{%- if loopColumn|trim == '' -%} {{ ns.varOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
-			{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
-			
-            MEASURES
-	
-			{% for loopColumn in ns.measureColumn  %}
-			{{ ns.measureExpression [loop.index0] }} (	{%- if loopColumn|trim != 'None' -%} {{loopColumn}} {%endif%} ) AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
-			{% endfor %}	 
-			
-			{{config.rowsPerMatch}}
-
-            {% if config.afterMatchSkip|trim != '' %}
-              AFTER MATCH SKIP {{config.afterMatchSkip}}
-            {% endif %}			
-            
-			{{config.to}}  {{config.varAfterMatchSkip}}
-			
-            PATTERN
-            ( {{config.pattern}} )
-			
+			{%- if loopColumn|trim == '' -%} 
+			{{ ns.varOrderByColText[loop.index0]}} 
+			{%- else -%}  
+			{{loopColumn}}  
+			{%- endif -%} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor -%}
+			{%- for loopColumn in ns.measureColumn  -%}
+			{% if loop.first %} 
+			MEASURES  
+			{%- endif %}
+			{{ ns.measureExpression [loop.index0] }} {%- if not '.' in ns.measureExpression [loop.index0]  -%} 
+			({%- if loopColumn|trim != 'None' -%} {{loopColumn}}{% endif %})  {% endif %} AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{%- endfor %}	 			
+			{{ config.rowsPerMatch }}   		
+            {%- if config.afterMatchSkip|trim != '' %}
+			AFTER MATCH SKIP {{config.afterMatchSkip}}
+            {%- endif %} {{config.to}} {{config.varAfterMatchSkip}}
+			PATTERN
+               ( {{config.pattern}} )
             DEFINE
-			{% for loopColumn in ns.defineColumn %}
-			{{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} 	{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
+		    {%- for loopColumn in ns.defineColumn %}
+			 {{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor %}
 			)	
            	{% for loopColumn in ns.varSelectOrderByColDropDown %}
 			{%- if loop.first -%}
@@ -97,5 +107,5 @@ does not permit copying or modification for any other purpose.
 			{% endif %}
 			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
 			{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
+			{%- endfor %}
 {%endif%}

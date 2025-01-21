@@ -84,13 +84,26 @@ select 1 = 0
      
 	 {%set ns.defineExpression = desiredState.config.tabDefine.get('items') | map(attribute='valDefineExpression') | list%}
      {%set ns.defineColumn = desiredState.config.tabDefine.get('items') | map(attribute='valDefineColumnName') | list%}
+
+	 {%set ns.selectFunctionExpression = desiredState.config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionExpression') | list%}
+     {%set ns.selectFunctionColumn = desiredState.config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionColumnName') | list%}
+     {%set ns.aliasSelectFunctionColumn = desiredState.config.tabSelectFunction.get('items') | map(attribute='valAliasSelectFunctionColumnName') | list%}
+
 	 	
      {% set source = desiredState.sources[0] %}        
         {{ stage('Create Match Recognize '+ desiredState.node.materializationType) }}
-            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              AS
-            ( 
-              SELECT *  {{ source.join }}
+        CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+        AS( 
+			   SELECT 
+			{%- if desiredState.config.toggleSelectFunction %}
+			{%- for loopColumn in ns.selectFunctionColumn  %}
+			   {{ ns.selectFunctionExpression [loop.index0] }} {%- if not '.' in ns.selectFunctionExpression [loop.index0]  -%} 
+			   ({%- if loopColumn|trim != 'None' -%} {{loopColumn}}{% endif %})  {% endif %} AS {{ ns.aliasSelectFunctionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{%- endfor %}
+            {%- else -%} 			
+			  *  
+			{%- endif %}
+			   {{ source.join }}
 			   MATCH_RECOGNIZE(              
 			{%- for loopColumn in ns.varPartitionByColDropDown -%}
 			   {% if loop.first %} 
@@ -129,15 +142,15 @@ select 1 = 0
 		    {%- for loopColumn in ns.defineColumn %}
 			    {{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} {%- if not loop.last -%},{%- endif -%}
 			{%- endfor %}
-			)	
+			   )	
            	{% for loopColumn in ns.varSelectOrderByColDropDown %}
 			{%- if loop.first -%}
 			ORDER BY   
 			{% endif %}
 			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
 			{%- if not loop.last -%},{%- endif -%}
-			{% endfor %}
-           )
+			{%- endfor %}
+        )
 		   {% endif %}
 {%- else -%}
 

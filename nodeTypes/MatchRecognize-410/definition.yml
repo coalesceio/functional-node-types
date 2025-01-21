@@ -201,33 +201,33 @@ metadata:
         displayName: Enable below option to add functions like count,avg etc to select query of Match recognize,default is *.
 
       - displayName: Select Query Functions
-        attributeName: toggleSelectFunctions
+        attributeName: toggleSelectFunction
         type: toggleButton
         default: false
         
       - type: tabular
         displayName: ''
-        attributeName: tabFunctions
+        attributeName: tabSelectFunction
         isRequired: false
-        enableIf: "{% if config.toggleSelectFunctions %} true {% else %} false {% endif %}"    
+        enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"    
         columns:
      
         - displayName: Expression
           type: textBox
-          attributeName: valFunctionsExpression
+          attributeName: valSelectFunctionExpression
           isRequired: true
-          enableIf: "{% if config.toggleSelectFunctions %} true {% else %} false {% endif %}"     
+          enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"     
 
         - displayName: Column Name (OR Value to pass to Expression)
           type: textBox
-          attributeName: valFunctionsColumnName
-          enableIf: "{% if config.toggleSelectFunctions %} true {% else %} false {% endif %}"    
+          attributeName: valSelectFunctionColumnName
+          enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"    
 
         - displayName: Alias of Expression Column Name
           type: textBox
-          attributeName: valAliasExpressionFunctionsColumnName
+          attributeName: valAliasSelectFunctionColumnName
           isRequired: true
-          enableIf: "{% if config.toggleSelectFunctions %} true {% else %} false {% endif %}"    
+          enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"    
           
       - type: label
         attributeName: selectOrderByLabel
