@@ -65,7 +65,7 @@ operation:
     varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
   database: ""
   deployEnabled: true
-  description: ""
+  description: this is stock table
   isMultisource: false
   locationName: TARGET
   materializationType: table
@@ -115,7 +115,7 @@ operation:
         config: {}
         dataType: DATE
         defaultValue: ""
-        description: ""
+        description: This is start date
         name: START_DATE
         nullable: true
         primaryKey: false
@@ -135,7 +135,7 @@ operation:
         dataType: DATE
         defaultValue: ""
         description: ""
-        name: END_DATE
+        name: END_DATE_NEW
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -155,7 +155,7 @@ operation:
         defaultValue: ""
         description: ""
         name: ROWS_IN_SEQUENCE
-        nullable: true
+        nullable: false
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
