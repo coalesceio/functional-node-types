@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 569aa74a-b7e2-4880-a2db-a8696b240c2f
-name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP
+name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP_1
 operation:
   config:
     afterMatchSkip: TO
@@ -68,7 +68,7 @@ operation:
   description: this is stock table
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:
@@ -211,9 +211,9 @@ operation:
             nodeName: STOCK_PRICE_HISTORY
         join:
           joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
-        name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP
+        name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP_1
         noLinkRefs: []
-  name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP
+  name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP_1
   overrideSQL: false
   schema: ""
   sqlType: "410"
