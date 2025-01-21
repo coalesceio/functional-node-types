@@ -63,7 +63,7 @@ metadata:
       - displayName: Single value column 
         attributeName: sincol
         type: toggleButton
-        default: false
+        default: true
 
       - displayName: Pivot operation on same column values
         attributeName: samKeyColval

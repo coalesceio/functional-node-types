@@ -54,7 +54,12 @@ select 1 = 0
   
          {#Infer Unpivot structure#}
           {%if desiredState.config.inferunpivot == true %}
-                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+
+                  {%if desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown')|list|first == None%}
+                      {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%} 
+                   {%else%}
+                      {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+                    {%endif%}
           {%else%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}
           {%endif%}
@@ -74,14 +79,12 @@ select 1 = 0
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               AS
              ( 
-               SELECT 
-                  
+               SELECT                 
                {% for col in source.columns %}
-               
                   {%if col.name not in ns.collist|join(',') and col.name|upper != desiredState.config.nameColTextBox|upper and col.name|upper != desiredState.config.valColTextBox|upper  %}
-			            {{ col.name }} , 
+			            {{ get_source_transform(col) }} AS "{{ col.name }}", 
                   {%endif%}
-		           {% endfor %}                
+		        {% endfor %}                
 			             {{desiredState.config.nameColTextBox}},
                    {{desiredState.config.valColTextBox}}
                {{  get_clause(joinclause,'from')  }}

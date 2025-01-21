@@ -4,18 +4,12 @@ name: UPVT_FRUITINVENTORY_TRANS
 operation:
   config:
     includenull: true
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: store
     tabValueColumn:
       items:
         - ColTextBox: STOREA
-          valColDropdown:
-            columnCounter: 02e75cac-e4dd-4e0f-bfa9-38c7a21b6538
-            stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         - ColTextBox: STOREB
-          valColDropdown:
-            columnCounter: 0d20374c-7fb7-4064-8f59-49c9be019182
-            stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
     truncateBefore: true
     valColTextBox: Quantity
   database: ""
@@ -41,34 +35,64 @@ operation:
               - columnCounter: 98fbd3a4-17d8-4419-9d70-01fb94401454
                 stepCounter: b3105e76-efc9-4285-8981-4a4223721854
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 02e75cac-e4dd-4e0f-bfa9-38c7a21b6538
+          columnCounter: 881611d6-b883-4eff-871e-a9792f035e67
           stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: DATE
+        defaultValue: ""
         description: ""
-        name: STOREA
+        keyColumnType: None
+        name: LOAD_DATE
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 3946a3b3-a46b-4d36-8514-0e421f22f97d
-                stepCounter: b3105e76-efc9-4285-8981-4a4223721854
-            transform: ""
-      - appliedColumnTests: {}
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: current_date()
+        systemColumnType: None
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 0d20374c-7fb7-4064-8f59-49c9be019182
+          columnCounter: 60e06c7a-b48c-4487-84b2-d5ef573a9933
+          stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: STORE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ff33e599-1184-4339-b3e4-28c8e56a5465
           stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         config: {}
         dataType: NUMBER(38,0)
+        defaultValue: ""
         description: ""
-        name: STOREB
+        name: QUANTITY
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: a0762db7-24ac-4f83-8923-b4d6b9e2b0ac
-                stepCounter: b3105e76-efc9-4285-8981-4a4223721854
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

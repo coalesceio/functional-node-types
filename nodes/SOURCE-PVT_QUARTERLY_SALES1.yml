@@ -1,0 +1,129 @@
+fileVersion: 1
+id: 788de693-010b-473f-8bd2-3883b6467f2a
+name: PVT_QUARTERLY_SALES1
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: AVG
+        - funcname1: MAX
+    defaultval: ""
+    defvalue: false
+    excolval: true
+    exlcol:
+      items:
+        - exclcol1:
+            columnCounter: a014950c-0e0d-40bb-bcac-57892357faa3
+            stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+          exclcoltxtBox: DISCOUNT_PERCENT
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: |-
+      SELECT DISTINCT quarter
+              FROM ANANDHIS_DEV.SOURCE_DATA.ad_campaign_types_by_quarter
+              WHERE television = TRUE
+              ORDER BY quarter
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: 9db9ff9c-efc0-428f-ab2f-be0daa2886e3
+            stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: ca7e44bf-50dc-41d1-a97b-1087d0fb83d9
+            stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7ecffdc5-0595-4747-a7d6-8c4e96226d83
+          stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 69f49490-43c5-46e2-97b3-632d105e0b98
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ca7e44bf-50dc-41d1-a97b-1087d0fb83d9
+          stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9db9ff9c-efc0-428f-ab2f-be0daa2886e3
+          stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a014950c-0e0d-40bb-bcac-57892357faa3
+          stepCounter: 788de693-010b-473f-8bd2-3883b6467f2a
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: DISCOUNT_PERCENT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f0482031-7ade-4d4d-8939-31e92999c55a
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: PVT_QUARTERLY_SALES1
+        noLinkRefs: []
+  name: PVT_QUARTERLY_SALES1
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

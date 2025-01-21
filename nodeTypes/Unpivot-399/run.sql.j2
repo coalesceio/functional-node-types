@@ -35,6 +35,9 @@ does not permit copying or modification for any other purpose.
          {#Infer Unpivot structure#}
           {%if config.inferunpivot == true %}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+                  {%if ns.pcolumn == []%}
+                     {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}    
+                  {%endif%}
           {%else%}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}
           {%endif%}
@@ -52,7 +55,7 @@ INSERT INTO {{ this }}
                {% for col in source.columns %}
                
                   {%if col.name not in ns.collist|join(',') and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
-			            {{ col.name }} , 
+			            {{ get_source_transform(col) }} AS "{{ col.name }}",
                   {%endif%}
 		           {% endfor %}                
 			    {{config.nameColTextBox}},

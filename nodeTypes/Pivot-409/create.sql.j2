@@ -110,7 +110,8 @@ select 1 = 0
                {%elif func == 'COUNT'%}
                  {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
                 {%endif%}
-                SELECT * FROM (SELECT * {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%}
+                SELECT * FROM (
+                SELECT  * {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%} {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   
                  {{ source.join }} )
               PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if desiredState.config.subqueryval1 !="" %}
                  {{desiredState.config.subqueryval1}}
