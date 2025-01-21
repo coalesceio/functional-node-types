@@ -94,7 +94,7 @@ operation:
           columnCounter: 47418818-3ba2-40aa-b536-a14ea6920d72
           stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
         config: {}
-        dataType: NUMBER(18,0)
+        dataType: NUMBER(20,0)
         defaultValue: ""
         description: ""
         name: MATCH_NUMBER
