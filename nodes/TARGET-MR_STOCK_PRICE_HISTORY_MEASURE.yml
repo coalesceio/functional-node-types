@@ -45,7 +45,7 @@ operation:
     truncateBefore: true
     varAfterMatchSkip: ""
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: Demonstrate symbol predicates in the MEASURES clause
   isMultisource: false
   locationName: TARGET

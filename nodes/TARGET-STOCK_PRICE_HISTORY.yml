@@ -4,7 +4,7 @@ name: STOCK_PRICE_HISTORY
 operation:
   database: ""
   dataset: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   locationName: TARGET
   metadata:

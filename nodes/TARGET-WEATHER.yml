@@ -4,7 +4,7 @@ name: WEATHER
 operation:
   database: ""
   dataset: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   locationName: TARGET
   metadata:

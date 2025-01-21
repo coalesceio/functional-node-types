@@ -64,7 +64,7 @@ operation:
     varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
     varOrderBy: COMPANY, MATCH_NUMBER
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: Report one summary row for each V shape
   isMultisource: false
   locationName: TARGET

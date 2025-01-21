@@ -45,7 +45,7 @@ operation:
     truncateBefore: true
     varAfterMatchSkip: ""
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   isMultisource: false
   locationName: TARGET

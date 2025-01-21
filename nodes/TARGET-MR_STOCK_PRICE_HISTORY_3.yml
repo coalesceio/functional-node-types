@@ -39,7 +39,7 @@ operation:
     varAfterMatchSkip: ""
     varOrderBy: COMPANY, PRICE_DATE
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: Omit empty matches
   isMultisource: false
   locationName: TARGET
