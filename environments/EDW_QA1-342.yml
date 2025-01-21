@@ -3,7 +3,7 @@ id: "342"
 mappingDefinitions:
   SOURCE:
     database: POONAMM_DEV
-    schema: EDW_QA
+    schema: EDW_QA_1
   TARGET:
     database: POONAMM_DEV
     schema: EDW_QA_1
