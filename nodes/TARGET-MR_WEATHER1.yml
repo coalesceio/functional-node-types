@@ -1,6 +1,6 @@
 fileVersion: 1
-id: cd6784be-e705-4843-b498-edc36b7f22b4
-name: MR_WEATHER
+id: 8070e6fe-eaa6-4ca0-bcfb-95daab3e69ed
+name: MR_WEATHER1
 operation:
   config:
     afterMatchSkip: PAST LAST ROW
@@ -8,10 +8,8 @@ operation:
     inferMatchRecognize: true
     orderBy:
       items:
-        - orderByCol:
-            columnCounter: b7427c3d-4045-4acb-b6c4-42d271097e32
-            stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
-          orderByTextBox: null
+        - orderByCol: null
+          orderByTextBox: DAY_COUNT
     partitionBy:
       items:
         - {}
@@ -31,6 +29,9 @@ operation:
         - valAliasExpressionColumnName: DAY_COUNT
           valMeasureColumnName: "*"
           valMeasureExpression: COUNT
+    tabSelectFunction:
+      items:
+        - {}
     testsEnabled: false
     to: ""
     toggleOrderBy: true
@@ -48,34 +49,25 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: b7427c3d-4045-4acb-b6c4-42d271097e32
-          stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
+          columnCounter: e8ac164f-5cb2-406c-975a-186f254ebd7f
+          stepCounter: 8070e6fe-eaa6-4ca0-bcfb-95daab3e69ed
         config: {}
-        dataType: DATE
+        dataType: NUMBER(18,0)
+        defaultValue: ""
         description: ""
-        name: DAY
+        name: DAY_COUNT
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: eed212cd-e68c-4035-bac3-17ebb190eefc
-                stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1f326864-769b-4e7f-87f1-a6a571f29125
-          stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: TEMP
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 37b7937e-659c-4308-8804-329c3717c1f2
-                stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
-            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -87,9 +79,9 @@ operation:
             nodeName: WEATHER
         join:
           joinCondition: FROM {{ ref('TARGET', 'WEATHER') }} "WEATHER"
-        name: MR_WEATHER
+        name: MR_WEATHER1
         noLinkRefs: []
-  name: MR_WEATHER
+  name: MR_WEATHER1
   overrideSQL: false
   schema: ""
   sqlType: "410"

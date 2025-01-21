@@ -5,13 +5,11 @@ operation:
   config:
     afterMatchSkip: TO
     allRowsPerMatch: ""
-    inferMatchRecognize: true
+    inferMatchRecognize: false
     orderBy:
       items:
-        - orderByCol:
-            columnCounter: c2c26a24-7287-419b-b10f-cca7dc6e19b1
-            stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
-          orderByTextBox: null
+        - orderByCol: null
+          orderByTextBox: PRICE_DATE
     partitionBy:
       items:
         - partitionByCol:
@@ -88,34 +86,120 @@ operation:
               - columnCounter: 50af89f2-29ff-410c-8108-59dc07b434d4
                 stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: c2c26a24-7287-419b-b10f-cca7dc6e19b1
+          columnCounter: 47418818-3ba2-40aa-b536-a14ea6920d72
+          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 441db823-f1c6-4f91-b7b8-95f60663cfb1
           stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
         config: {}
         dataType: DATE
+        defaultValue: ""
         description: ""
-        name: PRICE_DATE
+        name: START_DATE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 6d207333-4693-4ab5-9439-4fcd4ed79b64
-                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: ac259094-60ee-46ef-b0e5-8fa319214825
+          columnCounter: fc499f94-34a4-4308-8862-5b93fa54ef46
           stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: DATE
+        defaultValue: ""
         description: ""
-        name: PRICE
+        name: END_DATE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: cc6e9df6-7705-4e40-85f7-30f0411936c9
-                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7aec62cd-ae6d-453c-815d-ef231f3b3abb
+          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: ROWS_IN_SEQUENCE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ac36ac71-cf91-4624-9e62-9c70c16b9b13
+          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: NUM_DECREASES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 525fc3fe-3701-43f5-9dab-a7243da29066
+          stepCounter: 569aa74a-b7e2-4880-a2db-a8696b240c2f
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: NUM_INCREASES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
