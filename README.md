@@ -385,7 +385,7 @@ Unpivot has three configuration groups:
 
 > 📘 **Deployment**
 >
-> Ensure 'Infer Pivot structure' set to false before deployment
+> Ensure 'Infer Unpivot structure' set to false before deployment
 
 When deployed for the first time into an environment the Unpivot node of materialization type table or view will execute the below stage:
 
