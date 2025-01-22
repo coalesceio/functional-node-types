@@ -1,0 +1,114 @@
+{#
+    Copyright (c) 2023 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalsce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Version        : 1  == #}
+{# == Node Type Name           : MATCH_RECOGNIZE NODE == #}
+{# == Node Type Description    :  The Match Recognize node type uses Snowflake SQL MATCH_RECOGNIZE clause to identify and process patterns in datasets(https://docs.snowflake.com/en/sql-reference/constructs/match_recognize). It helps identify events, trends, and anomalies by analyzing rows in sequence. It is useful for tasks like fraud detection, session tracking, and clickstream analysis, with options to customize patterns for different needs. == #}
+
+
+{# Table or Transient table Name #}
+    {% set targetObjectDatabase = ref_no_link(node.location.name, node.name).split('.')[0] %} 
+    {% set targetObjectSchema = ref_no_link(node.location.name, node.name).split('.')[1] %} 
+    {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
+
+	{%- set ns = namespace(measureExpression = [],measureColumn=[],defineExpression=[],defineColumn =[],aliasExpressionColumn=[],varPartitionByColDropDown = [],varOrderByColDropDown=[],varSelectOrderByColDropDown=[],varPartitionByColText = [],varOrderByColText=[],varSelectOrderByColText=[]) %}
+      
+	 {% if config.togglePartitionBy == true %}
+     {%set ns.varPartitionByColDropDown = config.partitionBy.get('items') | map(attribute='partitionByCol.name') | list%}
+ 	 {%set ns.varPartitionByColText = config.partitionBy.get('items') | map(attribute='partitionByColTextBox') | list%}
+     {% endif %}
+	 {% if config.toggleOrderBy == true %}
+	 {%set ns.varOrderByColDropDown = config.orderBy.get('items') | map(attribute='orderByCol.name') | list%}
+ 	 {%set ns.varOrderByColText = config.orderBy.get('items') | map(attribute='orderByTextBox') | list%}
+     {% endif %}
+	 {% if config.toggleSelectOrderBy == true %}
+	 {%set ns.varSelectOrderByColDropDown = config.selectOrderBy.get('items') | map(attribute='selectOrderByCol.name') | list%}
+ 	 {%set ns.varSelectOrderByColText = config.selectOrderBy.get('items') | map(attribute='selectOrderByTextBox') | list%}
+	 {% endif %}
+	 
+	 {%set ns.measureExpression = config.tabMeasures.get('items') | map(attribute='valMeasureExpression') | list%}
+     {%set ns.measureColumn = config.tabMeasures.get('items') | map(attribute='valMeasureColumnName') | list%}
+     {%set ns.aliasExpressionColumn = config.tabMeasures.get('items') | map(attribute='valAliasExpressionColumnName') | list%}
+     
+	 {%set ns.defineExpression = config.tabDefine.get('items') | map(attribute='valDefineExpression') | list%}
+     {%set ns.defineColumn = config.tabDefine.get('items') | map(attribute='valDefineColumnName') | list%}
+	 
+	 {% if config.toggleSelectFunction == true %}
+	 {%set ns.selectFunctionExpression = config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionExpression') | list%}
+     {%set ns.selectFunctionColumn = config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionColumnName') | list%}
+     {%set ns.aliasSelectFunctionColumn = config.tabSelectFunction.get('items') | map(attribute='valAliasSelectFunctionColumnName') | list%}
+	 {% endif %}
+	 
+     {% set source = sources[0] %}        
+      
+{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
+     {%if config.truncateBefore %}
+  			{{ stage('Truncate MATCH_RECOGNIZE Table') }}
+			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+     {%endif%}
+
+        
+        {{ stage('Insert data into MATCH_RECOGNIZE table') }}
+
+			INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
+			SELECT 
+			{% if config.toggleSelectFunction %}
+			{%- for loopColumn in ns.selectFunctionColumn  %}
+			{{ ns.selectFunctionExpression [loop.index0] }} {%- if not '.' in ns.selectFunctionExpression [loop.index0]  -%} 
+			({%- if loopColumn|trim != 'None' -%} {{loopColumn}}{% endif %})  {% endif %} AS {{ ns.aliasSelectFunctionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{%- endfor %}
+            {%- else -%} 			
+			  *  
+			{%- endif %}
+			{{ source.join }}
+			MATCH_RECOGNIZE(              
+			{%- for loopColumn in ns.varPartitionByColDropDown -%}
+			{% if loop.first %} 
+			PARTITION BY  
+			{% endif %}
+			{%- if loopColumn|trim == '' -%} 
+			{{ ns.varPartitionByColText[loop.index0]}} 
+			{%- else -%}  
+			{{loopColumn}}  
+			{%- endif -%} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor -%}
+			{%- for loopColumn in ns.varOrderByColDropDown -%}
+			{% if loop.first %} 
+			ORDER BY  
+			{% endif %}
+			{%- if loopColumn|trim == '' -%} 
+			{{ ns.varOrderByColText[loop.index0]}} 
+			{%- else -%}  
+			{{loopColumn}}  
+			{%- endif -%} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor -%}
+			{%- for loopColumn in ns.measureColumn  -%}
+			{% if loop.first %} 
+			MEASURES  
+			{%- endif %}
+			{{ ns.measureExpression [loop.index0] }} {%- if not '.' in ns.measureExpression [loop.index0]  -%} 
+			({%- if loopColumn|trim != 'None' -%} {{loopColumn}}{% endif %})  {% endif %} AS {{ ns.aliasExpressionColumn[loop.index0]}}	{%- if not loop.last -%},{%endif%}
+			{%- endfor %}	 			
+			{{ config.rowsPerMatch }}   		
+            {%- if config.afterMatchSkip|trim != '' %}
+			AFTER MATCH SKIP {{config.afterMatchSkip}}
+            {%- endif %} {{config.to}} {{config.varAfterMatchSkip}}
+			PATTERN
+               ( {{config.pattern}} )
+            DEFINE
+		    {%- for loopColumn in ns.defineColumn %}
+			 {{loopColumn}} AS {{ ns.defineExpression [loop.index0] }} {%- if not loop.last -%},{%- endif -%}
+			{%- endfor %}
+			)	
+           	{% for loopColumn in ns.varSelectOrderByColDropDown %}
+			{%- if loop.first %}
+			ORDER BY   
+			{% endif %}
+			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
+			{%- if not loop.last -%},{%- endif -%}
+			{%- endfor %}
+{%endif%}

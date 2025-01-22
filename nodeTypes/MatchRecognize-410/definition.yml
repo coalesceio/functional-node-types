@@ -1,0 +1,259 @@
+fileVersion: 1
+id: "410"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |
+    capitalized: MATCH_RECOGNIZE
+    short: MR
+    plural: MATCH_RECOGNIZE
+    tagColor: '#2EB67D'
+
+    deployStrategy: advanced
+    isColumnResyncEnabled: true
+
+    config:
+    - groupName: General Options
+      items:
+      - type: materializationSelector
+        default: table
+        options:
+        - table
+        - view
+        - transient table
+        isRequired: true
+
+      - type: overrideSQLToggle
+        enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
+        
+      - displayName: Truncate Before
+        attributeName: truncateBefore
+        type: toggleButton
+        default: true
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
+      - displayName: Enable Tests
+        attributeName: testsEnabled
+        type: toggleButton
+        default: false
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
+    - groupName: Match Recognize Infer Column Option
+      items:
+      - type: label
+        attributeName: inferMatchRecognizeLabel
+        displayName: Enable below option to generate the structure of the MATCH_RECOGNIZE query. Once the resync is complete, disable this option to create tables normally
+
+
+      - displayName: Infer Structure of Match Recognize Data
+        attributeName: inferMatchRecognize
+        type: toggleButton
+        default: false
+
+    - groupName: Partitioning & Ordering
+      items:
+      - displayName: Partition By
+        attributeName: togglePartitionBy
+        type: toggleButton
+        default: false
+
+      - type: tabular
+        displayName: Partition By Columns (**If the column is missing from the dropdown, add it in the text box)
+        attributeName: partitionBy
+        isRequired: false
+        enableIf: "{% if config.togglePartitionBy %} true {% else %} false {% endif %}"    
+        columns:
+        - displayName: Column Name
+          type: columnDropdownSelector
+          attributeName: partitionByCol
+          isRequired: false
+          enableIf: "{% if config.togglePartitionBy %} true {% else %} false {% endif %}"    
+        - displayName: Column Name
+          type: textBox
+          attributeName: partitionByColTextBox
+          enableIf: "{% if config.togglePartitionBy %} true {% else %} false {% endif %}"    
+
+      - displayName: Order By
+        attributeName: toggleOrderBy
+        type: toggleButton
+        default: false
+
+      - type: tabular
+        displayName: Order By (**If the column is missing from the dropdown, add it in the text box)
+        attributeName: orderBy
+        isRequired: false
+        enableIf: "{% if config.toggleOrderBy %} true {% else %} false {% endif %}"    
+        
+        columns:
+        
+        - displayName: Column Name
+          type: columnDropdownSelector
+          attributeName: orderByCol
+          isRequired: false
+          enableIf: "{% if config.toggleOrderBy %} true {% else %} false {% endif %}"    
+
+        - displayName: Column Name
+          type: textBox
+          attributeName: orderByTextBox
+          enableIf: "{% if config.toggleOrderBy %} true {% else %} false {% endif %}"    
+
+    - groupName: Output Specification
+      items: 
+      - type: tabular
+        displayName: 'Measures'
+        attributeName: tabMeasures 
+        isRequired: false
+
+        columns:
+     
+        - displayName: Expression
+          type: textBox
+          attributeName: valMeasureExpression
+          isRequired: true
+         
+        - displayName: Column Name (OR Value to pass to Expression)
+          type: textBox
+          attributeName: valMeasureColumnName
+
+
+        - displayName: Alias of Expression Column Name
+          type: textBox
+          attributeName: valAliasExpressionColumnName
+          isRequired: true
+
+    - groupName: Match Control
+      items: 
+      -  type: dropdownSelector
+         displayName: Rows per match
+         attributeName: rowsPerMatch
+         default: ''
+         isRequired: false
+         options:
+             - ''
+             - ONE ROW PER MATCH
+             - ALL ROWS PER MATCH
+
+      -  type: dropdownSelector
+         displayName: All rows per match
+         attributeName: allRowsPerMatch
+         default: ''
+         isRequired: false
+         options:
+             - ''
+             - SHOW EMPTY MATCHES
+             - OMIT EMPTY MATCHES
+             - WITH UNMATCHED ROWS
+         enableIf: "{% if config.rowsPerMatch == 'ALL ROWS PER MATCH' %} true {% else %} false {% endif %}"
+
+      -  type: dropdownSelector
+         displayName: After match skip
+         attributeName: afterMatchSkip
+         isRequired: false
+         options:
+             - ''
+             - PAST LAST ROW 
+             - TO NEXT ROW
+             - TO 
+
+      -  type: dropdownSelector
+         displayName: To
+         attributeName: to
+         default: ''
+         options:
+             - FIRST
+             - LAST
+         enableIf: "{% if config.afterMatchSkip == 'TO' %} true {% else %} false {% endif %}"
+
+      - displayName: After match skip variable name
+        attributeName: varAfterMatchSkip
+        type: textBox
+        syntax: sql
+        default: ''
+        enableIf: "{% if config.afterMatchSkip == 'TO' %} true {% else %} false {% endif %}"
+
+    - groupName: Pattern & Conditions
+      items: 	
+      - displayName: Pattern
+        attributeName: pattern
+        type: textBox
+        syntax: sql
+        isRequired: true
+    	
+      - type: tabular
+        displayName: Define
+        attributeName: tabDefine 
+        isRequired: true
+        columns:
+      
+        - displayName: Expression
+          type: textBox
+          attributeName: valDefineExpression
+         
+        - displayName: Column Name
+          type: textBox
+          attributeName: valDefineColumnName
+
+    - groupName: Select Query Options
+      items:
+      - type: label
+        attributeName: selectColumnLabel
+        displayName: Enable below option to add functions like count,avg etc to select query of Match recognize,default is *.
+
+      - displayName: Select Query Functions
+        attributeName: toggleSelectFunction
+        type: toggleButton
+        default: false
+        
+      - type: tabular
+        displayName: ''
+        attributeName: tabSelectFunction
+        isRequired: false
+        enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"    
+        columns:
+     
+        - displayName: Expression
+          type: textBox
+          attributeName: valSelectFunctionExpression
+          isRequired: true
+          enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"     
+
+        - displayName: Column Name (OR Value to pass to Expression)
+          type: textBox
+          attributeName: valSelectFunctionColumnName
+          enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"    
+
+        - displayName: Alias of Expression Column Name
+          type: textBox
+          attributeName: valAliasSelectFunctionColumnName
+          isRequired: true
+          enableIf: "{% if config.toggleSelectFunction %} true {% else %} false {% endif %}"    
+          
+      - type: label
+        attributeName: selectOrderByLabel
+        displayName: Enable below option to order by clause for the select query of Match recognize
+
+      - displayName: Select Query Order By
+        attributeName: toggleSelectOrderBy
+        type: toggleButton
+        default: false
+
+      - type: tabular
+        displayName: ''
+        attributeName: selectOrderBy
+        isRequired: false
+        enableIf: "{% if config.toggleSelectOrderBy %} true {% else %} false {% endif %}"        
+        columns:
+        
+        - displayName: Column
+          type: columnDropdownSelector
+          attributeName: selectOrderByCol
+          isRequired: false
+          enableIf: "{% if config.toggleSelectOrderBy %} true {% else %} false {% endif %}"
+            
+        - displayName: Column
+          type: textBox
+          attributeName: selectOrderByTextBox
+          enableIf: "{% if config.toggleSelectOrderBy %} true {% else %} false {% endif %}"        
+name: Match Recognize
+type: NodeType

@@ -148,14 +148,18 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          QUARTERLY_SALES_WO_DIS: e40c0135-0d98-4ac2-8789-effd9d558737
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: SOURCE
             nodeName: QUARTERLY_SALES_WO_DIS
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES_WO_DIS') }} "QUARTERLY_SALES_WO_DIS"
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'QUARTERLY_SALES_WO_DIS') }} "QUARTERLY_SALES_WO_DIS"
+            where EMPID >1
+            ORDER BY EMPID
         name: PVT_QUARTERLY_SALES_VIEW1
         noLinkRefs: []
   name: PVT_QUARTERLY_SALES_VIEW1
