@@ -9,6 +9,10 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Name           : PIVOT NODE == #}
 {# == Node Type Description    : This node transforms a narrow table to wider table.It is particularly useful when you want to convert unique row values from one column into multiple columns in the output, aggregating data in the process == #}
 {#Release date:20250107 Version:1.0.0#}
+{#Release date:20250107 Version:1.0.0#}
+{#Release date:20250116 Version:2.0.1 Released By:AS  Description: Fix for insert query failure #}
+{#Release date:20250122 Version:3.0.0 Released By:AS  Description: Deployment and Redeployment changes for Pivot node #}
+
 
 {# Table or Transient table Name #}
     {% set targetObjectDatabase = ref_no_link(node.location.name, node.name).split('.')[0] %} 
