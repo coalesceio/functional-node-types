@@ -1,16 +1,15 @@
 fileVersion: 1
-id: dad62854-c069-48cb-8d12-783e4129d895
-name: PVT_STUDENT_PERFORMANCE_QTR_RPT
+id: 40b45b30-2b07-47ba-9778-39966fcb6b90
+name: PVT_STUDENT_PERFORMANCE_VW
 operation:
   config:
-    Colvol1: "'Q1','Q2'"
+    Colvol1: ""
     aggfunc:
       items:
         - {}
     aggfunc1:
       items:
-        - funcname1: AVG
-        - funcname1: SUM
+        - funcname1: MAX
     defaultval: ""
     defvalue: false
     excolval: false
@@ -23,7 +22,7 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: TERM
+        - keyColTextBox: SUBJECT
     tabValueColumn:
       items:
         - valColTextBox: SCORE
@@ -33,15 +32,15 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
-  materializationType: table
+  locationName: TARGET
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: a98dca01-ac98-40bf-94e3-449e87aabe7f
-          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
+          columnCounter: 5ee3307b-5056-424d-ac7b-351999a621bd
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -54,16 +53,16 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: f0714969-856a-46c9-9451-82f32ea60814
-          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
+          columnCounter: db863aa1-f991-4de6-9955-689a3b1bed03
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
-        name: SUBJECT
+        name: TERM
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: b3be608d-900b-4e58-95b5-3eb1d0a81d66
+              - columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
                 stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
             transform: ""
       - acceptedValues:
@@ -71,13 +70,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d9bfbee7-93b7-49ec-a6f2-4e832cc043ab
-          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
+          columnCounter: e7050589-3c70-4304-a6cf-ea157a7837f7
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
-        dataType: VARCHAR(13)
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: AGGREGATE
+        name: "'English'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -90,32 +89,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a52b13eb-938c-4034-aa91-a57230d10572
-          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
+          columnCounter: e306c65c-a777-4e08-80bd-5ff10a9aea41
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
-        dataType: NUMBER(38,6)
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: "'Q1'"
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 2ad31abd-b8eb-488e-96dc-36dbb4c16f5b
-          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
-        config: {}
-        dataType: NUMBER(38,6)
-        defaultValue: ""
-        description: ""
-        name: "'Q2'"
+        name: "'Math'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -134,9 +114,9 @@ operation:
             nodeName: STUDENT_PERFORMANCE
         join:
           joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE_QTR_RPT
+        name: PVT_STUDENT_PERFORMANCE_VW
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE_QTR_RPT
+  name: PVT_STUDENT_PERFORMANCE_VW
   overrideSQL: false
   schema: ""
   sqlType: "409"

@@ -1,29 +1,29 @@
 fileVersion: 1
-id: 0892460b-3ffa-4c78-ba96-e764b8edcb86
-name: PVT_STUDENT_PERFORMANCE
+id: dad62854-c069-48cb-8d12-783e4129d895
+name: PVT_STUDENT_PERFORMANCE_QTR_RPT
 operation:
   config:
-    Colvol1: ""
+    Colvol1: "'Q1','Q2'"
     aggfunc:
       items:
         - {}
     aggfunc1:
       items:
         - funcname1: AVG
-        - funcname1: MAX
+        - funcname1: SUM
     defaultval: ""
     defvalue: false
-    excolval: true
+    excolval: false
     exlcol:
       items:
-        - exclcoltxtBox: TERM
+        - {}
     inferPivot: false
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: SUBJECT
+        - keyColTextBox: TERM
     tabValueColumn:
       items:
         - valColTextBox: SCORE
@@ -33,15 +33,15 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
+  locationName: TARGET
   materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 5adaf782-0504-43a7-9f93-6a5e6a3118cb
-          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
+          columnCounter: a98dca01-ac98-40bf-94e3-449e87aabe7f
+          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -52,13 +52,27 @@ operation:
               - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
                 stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
             transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f0714969-856a-46c9-9451-82f32ea60814
+          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: SUBJECT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b3be608d-900b-4e58-95b5-3eb1d0a81d66
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+            transform: ""
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 11e14f93-36d2-44c6-85ee-1528d932c8f1
-          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
+          columnCounter: d9bfbee7-93b7-49ec-a6f2-4e832cc043ab
+          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
         config: {}
         dataType: VARCHAR(13)
         defaultValue: ""
@@ -76,13 +90,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: db1f6ccb-d4c4-4a6b-90ae-628f6b7e9fc4
-          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
+          columnCounter: a52b13eb-938c-4034-aa91-a57230d10572
+          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
         description: ""
-        name: English
+        name: "'Q1'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -95,13 +109,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 85f7cfd5-7950-46a8-8b1b-5559bdd78c61
-          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
+          columnCounter: 2ad31abd-b8eb-488e-96dc-36dbb4c16f5b
+          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
         description: ""
-        name: "'Math'"
+        name: "'Q2'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -120,9 +134,9 @@ operation:
             nodeName: STUDENT_PERFORMANCE
         join:
           joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE
+        name: PVT_STUDENT_PERFORMANCE_QTR_RPT
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE
+  name: PVT_STUDENT_PERFORMANCE_QTR_RPT
   overrideSQL: false
   schema: ""
   sqlType: "409"

@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 40b45b30-2b07-47ba-9778-39966fcb6b90
-name: PVT_STUDENT_PERFORMANCE_VW
+id: 0892460b-3ffa-4c78-ba96-e764b8edcb86
+name: PVT_STUDENT_PERFORMANCE
 operation:
   config:
     Colvol1: ""
@@ -9,13 +9,14 @@ operation:
         - {}
     aggfunc1:
       items:
+        - funcname1: AVG
         - funcname1: MAX
     defaultval: ""
     defvalue: false
-    excolval: false
+    excolval: true
     exlcol:
       items:
-        - {}
+        - exclcoltxtBox: TERM
     inferPivot: false
     samKeyColval: false
     sincol: true
@@ -32,15 +33,15 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
-  materializationType: view
+  locationName: TARGET
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 5ee3307b-5056-424d-ac7b-351999a621bd
-          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
+          columnCounter: 5adaf782-0504-43a7-9f93-6a5e6a3118cb
+          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -51,32 +52,18 @@ operation:
               - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
                 stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: db863aa1-f991-4de6-9955-689a3b1bed03
-          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: TERM
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
-                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
-            transform: ""
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e7050589-3c70-4304-a6cf-ea157a7837f7
-          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
+          columnCounter: 11e14f93-36d2-44c6-85ee-1528d932c8f1
+          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(13)
         defaultValue: ""
         description: ""
-        name: "'English'"
+        name: AGGREGATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -89,10 +76,29 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e306c65c-a777-4e08-80bd-5ff10a9aea41
-          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
+          columnCounter: db1f6ccb-d4c4-4a6b-90ae-628f6b7e9fc4
+          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: English
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 85f7cfd5-7950-46a8-8b1b-5559bdd78c61
+          stepCounter: 0892460b-3ffa-4c78-ba96-e764b8edcb86
+        config: {}
+        dataType: NUMBER(38,6)
         defaultValue: ""
         description: ""
         name: "'Math'"
@@ -114,9 +120,9 @@ operation:
             nodeName: STUDENT_PERFORMANCE
         join:
           joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE_VW
+        name: PVT_STUDENT_PERFORMANCE
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE_VW
+  name: PVT_STUDENT_PERFORMANCE
   overrideSQL: false
   schema: ""
   sqlType: "409"
