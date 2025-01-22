@@ -3,18 +3,23 @@ id: a8ba4410-1801-4eec-bb8e-6be741cb607a
 name: MR_STOCK_PRICE_HISTORY_UNMATCHED
 operation:
   config:
-    afterMatchSkip: TO
+    afterMatchSkip: ""
     allRowsPerMatch: WITH UNMATCHED ROWS
+    inferMatchRecognize: false
     orderBy:
       items:
-        - orderByCol: null
+        - orderByCol:
+            columnCounter: 2368529a-ec3d-47c6-8872-615203d5fc24
+            stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
           orderByTextBox: null
     partitionBy:
       items:
-        - partitionByCol: null
+        - partitionByCol:
+            columnCounter: bdd18f2b-428d-4503-9eaf-1d27d3cac27b
+            stepCounter: a8ba4410-1801-4eec-bb8e-6be741cb607a
           partitionByColTextBox: null
     pattern: OVERAVG+
-    rowsPerMatch: ""
+    rowsPerMatch: ALL ROWS PER MATCH
     selectOrderBy:
       items:
         - selectOrderByCol:
@@ -43,6 +48,7 @@ operation:
     to: ""
     toggleOrderBy: true
     togglePartitionBy: true
+    toggleSelectFunction: false
     toggleSelectOrderBy: true
     truncateBefore: true
     varAfterMatchSkip: ""

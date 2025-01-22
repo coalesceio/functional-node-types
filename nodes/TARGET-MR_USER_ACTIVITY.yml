@@ -5,7 +5,7 @@ operation:
   config:
     afterMatchSkip: TO
     allRowsPerMatch: ""
-    inferMatchRecognize: true
+    inferMatchRecognize: false
     orderBy:
       items:
         - orderByCol:
@@ -99,6 +99,63 @@ operation:
               - columnCounter: a6cba17d-7848-4926-8933-6c0c4e640a53
                 stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5eddd82a-84d8-4a2b-ac64-65bb14bdbf6d
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 53e5530e-350a-4a47-8b7c-3017ac2c28af
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: EVENT_SEQ
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6d72706b-916c-4921-a4f2-e9cb813cab50
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: EVENT_COUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

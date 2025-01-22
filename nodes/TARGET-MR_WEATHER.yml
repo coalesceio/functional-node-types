@@ -5,13 +5,11 @@ operation:
   config:
     afterMatchSkip: PAST LAST ROW
     allRowsPerMatch: ""
-    inferMatchRecognize: true
+    inferMatchRecognize: false
     orderBy:
       items:
-        - orderByCol:
-            columnCounter: b7427c3d-4045-4acb-b6c4-42d271097e32
-            stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
-          orderByTextBox: null
+        - orderByCol: null
+          orderByTextBox: DAY
     partitionBy:
       items:
         - {}
@@ -48,34 +46,25 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: b7427c3d-4045-4acb-b6c4-42d271097e32
+          columnCounter: a9c9d36e-d825-4a69-9df3-535dfc5d17b8
           stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
         config: {}
-        dataType: DATE
+        dataType: NUMBER(18,0)
+        defaultValue: ""
         description: ""
-        name: DAY
+        name: DAY_COUNT
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: eed212cd-e68c-4035-bac3-17ebb190eefc
-                stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1f326864-769b-4e7f-87f1-a6a571f29125
-          stepCounter: cd6784be-e705-4843-b498-edc36b7f22b4
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: TEMP
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 37b7937e-659c-4308-8804-329c3717c1f2
-                stepCounter: 554e05fc-05b9-44d7-ba52-27b99924e438
-            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

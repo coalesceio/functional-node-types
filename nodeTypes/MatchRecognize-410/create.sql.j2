@@ -85,10 +85,11 @@ select 1 = 0
 	 {%set ns.defineExpression = desiredState.config.tabDefine.get('items') | map(attribute='valDefineExpression') | list%}
      {%set ns.defineColumn = desiredState.config.tabDefine.get('items') | map(attribute='valDefineColumnName') | list%}
 
+	 {% if desiredState.config.toggleSelectFunction == true %}
 	 {%set ns.selectFunctionExpression = desiredState.config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionExpression') | list%}
      {%set ns.selectFunctionColumn = desiredState.config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionColumnName') | list%}
      {%set ns.aliasSelectFunctionColumn = desiredState.config.tabSelectFunction.get('items') | map(attribute='valAliasSelectFunctionColumnName') | list%}
-
+     {% endif %}
 	 	
      {% set source = desiredState.sources[0] %}        
         {{ stage('Create Match Recognize '+ desiredState.node.materializationType) }}

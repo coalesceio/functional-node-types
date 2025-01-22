@@ -36,9 +36,12 @@ does not permit copying or modification for any other purpose.
      
 	 {%set ns.defineExpression = config.tabDefine.get('items') | map(attribute='valDefineExpression') | list%}
      {%set ns.defineColumn = config.tabDefine.get('items') | map(attribute='valDefineColumnName') | list%}
+	 
+	 {% if config.toggleSelectFunction == true %}
 	 {%set ns.selectFunctionExpression = config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionExpression') | list%}
      {%set ns.selectFunctionColumn = config.tabSelectFunction.get('items') | map(attribute='valSelectFunctionColumnName') | list%}
      {%set ns.aliasSelectFunctionColumn = config.tabSelectFunction.get('items') | map(attribute='valAliasSelectFunctionColumnName') | list%}
+	 {% endif %}
 	 
      {% set source = sources[0] %}        
       

@@ -5,6 +5,7 @@ operation:
   config:
     afterMatchSkip: PAST LAST ROW
     allRowsPerMatch: OMIT EMPTY MATCHES
+    inferMatchRecognize: true
     orderBy:
       items:
         - orderByCol:
@@ -19,6 +20,12 @@ operation:
           partitionByColTextBox: null
     pattern: (OVERAVG*)
     rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - selectOrderByCol:
+            columnCounter: f780d98a-7b78-4a94-a69f-146cba54e704
+            stepCounter: 20369bb1-8953-49ff-92fe-b9068d7c3998
+          selectOrderByTextBox: null
     tabDefine:
       items:
         - valDefineColumnName: OVERAVG
@@ -34,7 +41,8 @@ operation:
     to: ""
     toggleOrderBy: true
     togglePartitionBy: true
-    toggleSelectOrderBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: true
     truncateBefore: true
     varAfterMatchSkip: ""
     varOrderBy: COMPANY, PRICE_DATE

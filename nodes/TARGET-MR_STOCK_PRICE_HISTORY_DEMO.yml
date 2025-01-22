@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
-name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
+id: fc41c71b-1e70-4fe2-8473-7d27e3e51533
+name: MR_STOCK_PRICE_HISTORY_DEMO
 operation:
   config:
     afterMatchSkip: TO
@@ -9,27 +9,25 @@ operation:
     orderBy:
       items:
         - orderByCol:
-            columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
-            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
-          orderByTextBox: ""
+            columnCounter: a39cafae-c380-4d7b-b515-18160f00959f
+            stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
+          orderByTextBox: PRICE_DATE
     partitionBy:
       items:
         - partitionByCol:
-            columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
-            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+            columnCounter: 827ecd1c-f243-49ec-b4d1-724f1a9b4a5a
+            stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
           partitionByColTextBox: null
     pattern: ROW_BEFORE_DECREASE ROW_WITH_PRICE_DECREASE+ ROW_WITH_PRICE_INCREASE+
     rowsPerMatch: ONE ROW PER MATCH
     selectOrderBy:
       items:
         - selectOrderByCol:
-            columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
-            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+            columnCounter: 827ecd1c-f243-49ec-b4d1-724f1a9b4a5a
+            stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
           selectOrderByTextBox: null
-        - selectOrderByCol:
-            columnCounter: c405a278-8523-406d-8177-01860a520b62
-            stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
-          selectOrderByTextBox: ""
+        - selectOrderByCol: null
+          selectOrderByTextBox: MATCH_NUMBER
     tabDefine:
       items:
         - valDefineColumnName: ROW_WITH_PRICE_DECREASE
@@ -69,17 +67,17 @@ operation:
     varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
   database: ""
   deployEnabled: true
-  description: this is stock table
+  description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: transient table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: b8e99d91-cffc-478b-8cb9-bb165c2f9ff7
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: 827ecd1c-f243-49ec-b4d1-724f1a9b4a5a
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -95,10 +93,10 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c405a278-8523-406d-8177-01860a520b62
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: b7b6a5c6-81d3-44bd-8133-ef377ac49026
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
-        dataType: NUMBER(20,0)
+        dataType: NUMBER(18,0)
         defaultValue: ""
         description: ""
         name: MATCH_NUMBER
@@ -114,12 +112,12 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 81678426-09c7-4b14-a4a4-3d7a31e9f0f7
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: a0223723-d8e8-4a31-a559-3972814e980f
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
         dataType: DATE
         defaultValue: ""
-        description: This is start date
+        description: ""
         name: START_DATE
         nullable: true
         primaryKey: false
@@ -133,13 +131,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 42511b2c-1634-48fe-9118-046c1148e6c4
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: adde3135-a47f-41cb-83e7-d3a333db84d0
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
         dataType: DATE
         defaultValue: ""
         description: ""
-        name: END_DATE_NEW
+        name: END_DATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -152,14 +150,14 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d8d85738-b5e0-468b-9ca8-beecb482bdb2
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: 9e6cdaaf-bea0-411f-9369-cad673dab908
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
         description: ""
         name: ROWS_IN_SEQUENCE
-        nullable: false
+        nullable: true
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
@@ -171,8 +169,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 88a98d27-830c-4c5b-b721-a7d833393492
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: 43b163ef-fb75-41d3-9968-661dad9f78d4
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
@@ -190,8 +188,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e66eb4fd-5b8e-4eb4-a0d9-1c08beca4d13
-          stepCounter: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
+          columnCounter: afda94b5-f50b-42ad-a34a-48404004a71a
+          stepCounter: fc41c71b-1e70-4fe2-8473-7d27e3e51533
         config: {}
         dataType: NUMBER(18,0)
         defaultValue: ""
@@ -215,9 +213,9 @@ operation:
             nodeName: STOCK_PRICE_HISTORY
         join:
           joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
-        name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
+        name: MR_STOCK_PRICE_HISTORY_DEMO
         noLinkRefs: []
-  name: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
+  name: MR_STOCK_PRICE_HISTORY_DEMO
   overrideSQL: false
   schema: ""
   sqlType: "410"

@@ -5,7 +5,7 @@ operation:
   config:
     afterMatchSkip: TO
     allRowsPerMatch: SHOW EMPTY MATCHES
-    inferMatchRecognize: true
+    inferMatchRecognize: false
     orderBy:
       items:
         - orderByCol:
@@ -15,16 +15,16 @@ operation:
     partitionBy:
       items:
         - partitionByCol:
-            columnCounter: 8d42c9e8-81bf-464e-b0c5-379a70880661
-            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+            columnCounter: 019f5d4e-c265-4701-b838-dda842e27b2d
+            stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
           partitionByColTextBox: null
     pattern: ROW_BEFORE_DECREASE ROW_WITH_PRICE_DECREASE+ ROW_WITH_PRICE_INCREASE+
     rowsPerMatch: ONE ROW PER MATCH
     selectOrderBy:
       items:
         - selectOrderByCol:
-            columnCounter: 8d42c9e8-81bf-464e-b0c5-379a70880661
-            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+            columnCounter: 019f5d4e-c265-4701-b838-dda842e27b2d
+            stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
           selectOrderByTextBox: null
         - selectOrderByCol: null
           selectOrderByTextBox: MATCH_NUMBER

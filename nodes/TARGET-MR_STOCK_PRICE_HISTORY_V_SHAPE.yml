@@ -5,7 +5,7 @@ operation:
   config:
     afterMatchSkip: TO
     allRowsPerMatch: SHOW EMPTY MATCHES
-    inferMatchRecognize: true
+    inferMatchRecognize: false
     orderBy:
       items:
         - orderByCol:

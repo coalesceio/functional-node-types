@@ -5,6 +5,7 @@ operation:
   config:
     afterMatchSkip: PAST LAST ROW
     allRowsPerMatch: OMIT EMPTY MATCHES
+    inferMatchRecognize: false
     orderBy:
       items:
         - orderByCol:

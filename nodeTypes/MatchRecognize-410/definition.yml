@@ -117,7 +117,7 @@ metadata:
           attributeName: valMeasureColumnName
 
 
-        - displayName: Alias of Expression Column Name93949596979899100101102103104105106107108109110111112113114115116117118119120
+        - displayName: Alias of Expression Column Name
           type: textBox
           attributeName: valAliasExpressionColumnName
           isRequired: true

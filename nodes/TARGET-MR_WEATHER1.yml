@@ -5,11 +5,11 @@ operation:
   config:
     afterMatchSkip: PAST LAST ROW
     allRowsPerMatch: ""
-    inferMatchRecognize: true
+    inferMatchRecognize: false
     orderBy:
       items:
         - orderByCol: null
-          orderByTextBox: DAY_COUNT
+          orderByTextBox: TEMP
     partitionBy:
       items:
         - {}
