@@ -241,7 +241,7 @@ Pivot has three configuration groups:
 * The toggle 'Infer Structure of Pivot Data' is required to be true when the node is created for the first time.
 * The toggle 'Single value column' is set to false, if you want a multi-dimensional pivot
 * Once the pivot table is created,the 'Re-Sync Columns' can be used to sync the structure of pivot table into Coalesce mapping grid.
-  ![image](https://github.com/user-attachments/assets/1f4434a7-7b23-4187-8886-fb45b0ed6505)
+  ![image](https://github.com/user-attachments/assets/2f39a419-1662-41e3-9fda-eaaf08c8b1d3)
 * After Re-sync,recreate the table with 'Infer Structure of Pivot Data' set to false
 * If the above works, it should be deployable as is. Deploy will simply take the columns and execute a create table.
 * Hit run to insert data into table keeping the 'Infer Structure of Pivot Data' set to false
@@ -249,9 +249,9 @@ Pivot has three configuration groups:
 ### Pivot Deployment
 
 ### Points to note for deployment
-* Create table with ‘Infer UNPIVOT structure’ toggle enabled
+* Create table with ‘Infer PIVOT structure’ toggle enabled
 * Re-Sync columns to the mapping grid
-* Deploy with ‘Infer UNPIVOT structure’ toggle set to false
+* Deploy with ‘Infer PIVOT structure’ toggle set to false
 * Repeat the above steps if you see changes in column of table during redeployment.It is fine to skip for change in materialization type,change in target location or change in node name
 * Ensure the new columns added or dropped are part of the inferred UNPIVOT structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail
 > 📘 **Deployment**
@@ -350,6 +350,7 @@ Unpivot has three configuration groups:
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 
 #### Unpivot Options
+
 ![image](https://github.com/user-attachments/assets/45d4e9ae-8da3-46cf-b6bf-37ff693c8fa9)
 
 | **Options** | **Description** |
@@ -368,27 +369,61 @@ Unpivot has three configuration groups:
 * The toggle 'Infer Structure of Unpivot Data' is required to be true when the node is created for the first time.
 * The toggle 'Single value column' is set to false, if you want a multi-dimensional Unpivot
 * Once the Unpivot table is created,the 'Re-Sync Columns' can be used to sync the structure of Unpivot table into Coalesce mapping grid.
-* For further Unpivot operations,keep the 'Infer Structure of Unpivot Data' set to false
+* After Re-sync,recreate the table with 'Infer Structure of Unpivot Data' set to false
+  ![image](https://github.com/user-attachments/assets/79282085-e9b7-41e1-8bd2-68fdf98eeb00)
+* If the above works, it should be deployable as is. Deploy will simply take the columns and execute a create table.
+* Hit run to insert data into table keeping the 'Infer Structure of Pivot Data' set to false
 
-### Unpivot Deployment
-### Unpivot Initial Deployment
-When deployed for the first time into an environment the Unpivot node of materialization type table or view or transient table will execute the below stage:
+#### Unpivot Initial Deployment
+
+### Points to note for deployment
+* Create table with ‘Infer UNPIVOT structure’ toggle enabled
+* Re-Sync columns to the mapping grid
+* Deploy with ‘Infer UNPIVOT structure’ toggle set to false
+* Repeat the above steps if you see changes in column of table during redeployment.It is fine to skip for change in materialization type,change in target location or change in node name
+* Ensure the new columns added or dropped are part of the inferred UNPIVOT structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail
+
+> 📘 **Deployment**
+>
+> Ensure 'Infer Pivot structure' set to false before deployment
+
+When deployed for the first time into an environment the Unpivot node of materialization type table or view will execute the below stage:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Create Unpivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a Unpivot table in the target environment |
+| **Create Unpivot Table** | This will execute a CREATE OR REPLACE statement and create a table in the target environment |
+| **Create Unpivot View** | This will execute a CREATE OR REPLACE statement and create a view in the target environment |
 
-#### Unpivot Table Redeployment
+#### Unpivot Redeployment
 
-When the Unpivot node is redeployed with any changes in table or config changes result in re-creating the node
+After the Unpivot node with materialization type table/transient table/view has been deployed for the first time into a target environment, subsequent deployments may result in either altering the Unpivot Table or recreating the Unpivot table.
+Unpivot
+#### Altering the  Table and Transient Tables
 
-The below stage is executed:
+A few types of column or table changes will result in an ALTER statement to modify the Persistent Table in the target environment, whether these changes are made individually or all together:
+
+1. Changing table names
+2. Dropping existing columns
+3. Altering column data types
+4. Adding new columns
+
+The following stages are executed:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Create Unpivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a Unpivot table in the target environment |
+| **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
 
-#### UnUnpivot Table Deploy Drop and Recreate Work View/Table/Transient Table
+#### Unpivot Recreating the Views
+
+The subsequent deployment of Unpivot node of materialization type view with changes in view definition, adding table description or renaming view results in deleting the existing view and recreating the view.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Unpivot View** | Creates a new view with upUnpivotd definition |
+
+#### Unpivot Drop and Recreate View/Table/Transient Table
 
 | **Change** | **Stages Executed** |
 |------------|-------------------|
@@ -396,14 +431,15 @@ The below stage is executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Unpivot view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Unpivot table/transient table |
 
-### Unpivot Tables Undeployment
-If a Unpivot Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Unpivot node in the target environment will be dropped.
+### Unpivot Deploy Undeployment
+
+If a Unpivot Node of materialization type table/view/transient table are deleted from a Unpivotspace, that Unpivotspace is committed to Git and that commit deployed to a higher level environment then the UnpivotTable in the target environment will be dropped.
 
 This is executed in below stage:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Drop table/view/transient table** | Removes the table or view from the environment |
+| **Drop table/view** | Removes the table or view from the environment |
 
 ## Match Recognize
 
