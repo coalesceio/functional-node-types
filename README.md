@@ -241,27 +241,57 @@ Pivot has three configuration groups:
 * The toggle 'Infer Structure of Pivot Data' is required to be true when the node is created for the first time.
 * The toggle 'Single value column' is set to false, if you want a multi-dimensional pivot
 * Once the pivot table is created,the 'Re-Sync Columns' can be used to sync the structure of pivot table into Coalesce mapping grid.
-* For further pivot operations,keep the 'Infer Structure of Pivot Data' set to false
+* After Re-sync,recreate the table with 'Infer Structure of Pivot Data' set to false
+* Hit run to insert data into table keeping the 'Infer Structure of Pivot Data' set to false
 
 ### Pivot Deployment
-### Pivot Initial Deployment
-When deployed for the first time into an environment the Pivot node of materialization type table or view or transient table will execute the below stage:
+
+### Points to note for deployment
+* Create table with ‘Infer UNPIVOT structure’ toggle enabled
+* Re-Sync columns to the mapping grid
+* Deploy with ‘Infer UNPIVOT structure’ toggle set to false
+* Repeat the above steps if you see changes in column of table during redeployment.It is fine to skip for change in materialization type,change in target location or change in node name
+* Ensure the new columns added or dropped are part of the inferred UNPIVOT structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail
+
+#### Pivot Initial Deployment
+
+When deployed for the first time into an environment the Pivot node of materialization type table or view will execute the below stage:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Create Pivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a pivot table in the target environment |
+| **Create Pivot Table** | This will execute a CREATE OR REPLACE statement and create a table in the target environment |
+| **Create Pivot View** | This will execute a CREATE OR REPLACE statement and create a view in the target environment |
 
-#### Pivot Table Redeployment
+#### Pivot Redeployment
 
-When the PIVOT node is redeployed with any changes in table or config changes result in re-creating the node
+After the Pivot node with materialization type table/transient table/view has been deployed for the first time into a target environment, subsequent deployments may result in either altering the Pivot Table or recreating the Pivot table.
+Pivot
+#### Altering the  Table and Transient Tables
 
-The below stage is executed:
+A few types of column or table changes will result in an ALTER statement to modify the Persistent Table in the target environment, whether these changes are made individually or all together:
+
+1. Changing table names
+2. Dropping existing columns
+3. Altering column data types
+4. Adding new columns
+
+The following stages are executed:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Create Pivot Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a pivot table in the target environment |
+| **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
 
-#### Pivot Table Deploy Drop and Recreate Work View/Table/Transient Table
+#### Pivot Recreating the Views
+
+The subsequent deployment of Pivot node of materialization type view with changes in view definition, adding table description or renaming view results in deleting the existing view and recreating the view.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Pivot View** | Creates a new view with upPivotd definition |
+
+#### Pivot Drop and Recreate View/Table/Transient Table
 
 | **Change** | **Stages Executed** |
 |------------|-------------------|
@@ -269,16 +299,15 @@ The below stage is executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Pivot view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Pivot table/transient table |
 
-### Pivot Tables Undeployment
-If a Pivot Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Pivot node in the target environment will be dropped.
+### Pivot Deploy Undeployment
+
+If a Pivot Node of materialization type table/view/transient table are deleted from a workspace, that workspace is committed to Git and that commit deployed to a higher level environment then the PivotTable in the target environment will be dropped.
 
 This is executed in below stage:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Drop table/view/transient table** | Removes the table or view from the environment |
-
-## Unpivot
+| **Drop table/view** | Removes the table or view from the environment |## Unpivot
 
 The [Unpivot node](https://docs.snowflake.com/en/sql-reference/constructs/unpivot#examples) in Coalesce rotates a table by transforming columns into rows. 
 UNPIVOT is not exactly the reverse of PIVOT because it cannot undo aggregations made by PIVOT.
