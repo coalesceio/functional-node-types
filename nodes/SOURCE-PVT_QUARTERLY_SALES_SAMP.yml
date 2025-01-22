@@ -1,0 +1,149 @@
+fileVersion: 1
+id: 2ac201d9-4fc4-4448-a35c-6951aa0425e2
+name: PVT_QUARTERLY_SALES_SAMP
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: AVG
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 099e02c4-d7be-40bb-8efd-36c20d5f400d
+          stepCounter: 2ac201d9-4fc4-4448-a35c-6951aa0425e2
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a494b41f-2531-4f68-b2c8-93cd8761660b
+                stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f9cd38c6-c1bd-4494-bc7f-9491d9a0f420
+          stepCounter: 2ac201d9-4fc4-4448-a35c-6951aa0425e2
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q1'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 00968f8b-b40a-462e-a402-ee8044476dda
+          stepCounter: 2ac201d9-4fc4-4448-a35c-6951aa0425e2
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q2'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c258647d-bc30-474c-8e0e-1c76d02fdb6c
+          stepCounter: 2ac201d9-4fc4-4448-a35c-6951aa0425e2
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q3'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 472e595a-c73d-4073-9e46-d04d9dfdd8fc
+          stepCounter: 2ac201d9-4fc4-4448-a35c-6951aa0425e2
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q4'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES_WO_DIS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES_WO_DIS') }} "QUARTERLY_SALES_WO_DIS"
+        name: PVT_QUARTERLY_SALES_SAMP
+        noLinkRefs: []
+  name: PVT_QUARTERLY_SALES_SAMP
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

@@ -25,7 +25,10 @@ operation:
         - keyColTextBox: TERM
     tabValueColumn:
       items:
-        - valColTextBox: SUBJECT
+        - Colvol: null
+          funcname: null
+          valColDropdown: null
+          valColTextBox: SUBJECT
     testsEnabled: false
     trunc: true
   database: ""
