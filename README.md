@@ -5,6 +5,7 @@ The Coalesce Functional Node Types Package includes:
 * [Date Dimension](#date-dimension)
 * [Pivot](#Pivot)
 * [Unpivot](#Unpivot)
+* [Match Recognize](#match-recognize)
 * [Code](#code)
 
 ---
@@ -370,6 +371,136 @@ This is executed in below stage:
 |-----------|----------------|
 | **Drop table/view/transient table** | Removes the table or view from the environment |
 
+## Match Recognize
+
+The Match Recognize node type uses Snowflake's SQL MATCH_RECOGNIZE clause to identify and process patterns in datasets(https://docs.snowflake.com/en/sql-reference/constructs/match_recognize). It helps identify events, trends, and anomalies by analyzing rows in sequence. It is useful for tasks like fraud detection, session tracking, and clickstream analysis, with options to customize patterns for different needs.
+
+### Match Recognize Node Configuration
+
+Match Recognize has three configuration groups: 
+
+* [Node Properties](#Match-Recognize-node-properties)
+* [General Options](#Match-Recognize-general-options)
+* [Match Recognize Options](#Match-Recognize-options)
+
+
+#### Match Recognize Node Properties
+
+| **Property** | **Description** |
+|--------------|-----------------|
+| **Storage Location** | (Required) Storage Location where the Match Recognize Table will be created |
+| **Node Type** | (Required) Name of template used to create node objects |
+| **Description** | A description of the node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+
+#### Match Recognize General Options
+
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Create As** | Choose 'table', 'view' or 'transient table' |
+| **Truncate** | True/False toggle to enable or disable truncating the output columns |
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
+
+#### Match Recognize Infer Column Option
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Infer structure of Match Recognize table** | Toggle: True/False <br/> True,it is the first run and the Match Recognize table structure is yet to be determined<br/>False,when the Match Recognize table is created and generated columns have been Re-synced in Coalesce|
+
+#### Match Recognize Partitioning & Ordering
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Partition By** | Toggle: True/False <br/> True,Enable the Column Dropdown and Textbox to add columns for partitioning<br/>False,Disable the Dropdown and Textbox to add columns|
+| **Match Recognize Column**|Match Recognize column(Dropdown) <br/>Match Recognize column(textbox) The column from the source table or subquery that will be added in Partition By Clause of the Match Recognize Query|
+| **Order By** | Toggle: True/False <br/> True,Enable the Column Dropdown and Textbox to add columns for adding in order by clause<br/>False,Disable the Dropdown and Textbox to add columns|
+| **Match Recognize Column**|Match Recognize column(Dropdown) <br/>Match Recognize column(textbox)The column from the source table or subquery that will be added in Order By Clause of the Match Recognize Query|
+
+#### Match Recognize Output Specification
+
+##### Measures
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Expression** | Expression Textbox <br/> A function name to be added as part of major for e.g MATCH_NUMBER,COUNT etc|
+| **Column Name (OR Value to pass to Expression)**|Column Textbox <br/>Acolumn name or the value to the function mentioned in the expression of measures of the Match Recognize Query|
+| **Alias of Expression Column Name** | Alias Expression Textbox <br/> Alias of the expression  of measures of the Match Recognize Query|
+
+#### Match Recognize Match Control
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Rows Per Match** | (Dropdown) <br/> Specifies which rows are returned for a successful match.Select ONE ROW PER MATCH , ALL ROWS PER MATCH or BLANK if not required
+| **All Rows Per Match** | (Dropdown) <br/> Returns a row for each row that is part of the match. Select SHOW EMPTY MATCHES, OMIT EMPTY MATCHES , WITH UNMATCHED ROWS or BLANK if not required 
+| **After Match Skip** | (Dropdown) <br/> Specifies where to continue after a match. Select PAST LAST ROW , TO NEXT ROW, TO or BLANK (if not required )
+| **To** | (Dropdown) <br/> Continue matching at the first or last (default) row that was matched to the given symbol. Select  FIRST or LAST.
+| **After match skip variable name** | (Textbox) <br/> Add an alias name for the after match skip clause.
+
+#### Match Recognize Pattern & Conditions
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Pattern** | (Textbox) <br/> The pattern defines a valid sequence of rows that represents a match. The pattern is defined like a regular expression. (regex) and is built from symbols, operators, and quantifiers.
+
+##### Define
+| **Expression** | (Textbox) <br/> Defining symbols (also known as “pattern variables”) are the building blocks of the pattern.A symbol is defined by an expression.The 
+| **Column Name** | (Textbox) <br/> It is the symbol name of the expression
+
+
+#### Match Recognize Select Query Options
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Select Query Functions** | Toggle: True/False <br/> True,Enable Expression and columns to add aggregate functions to Select Query<br/>False,Disable the option|
+| **Expression** | Expression Textbox <br/> A function name to be added as part of major for e.g AVG,COUNT etc|
+| **Column Name (OR Value to pass to Expression)**|Column Textbox <br/>Acolumn name or the value to the function mentioned in the expression of select quey of the Match Recognize Query|
+| **Alias of Expression Column Name** | Alias Expression Textbox <br/> Alias of the expression  of select query of the Match Recognize Query|
+| **Select Query Order By** | Toggle: True/False <br/> True,Enable the Column Dropdown and Textbox to add columns for adding in order by clause of select query<br/>False,Disable the Dropdown and Textbox to add columns|
+| **Select Query Order By Column**|Select Query Order By column(Dropdown) <br/>Select Query Order By column(textbox).The column from the source table or subquery that will be added in Order By Clause of the Select Query|
+
+
+### Match Recognize node Usage
+
+* Add a Match Recognize node on top of source node
+* Add the Match Recognize options from config
+* When you choose the Match Recognize and value dropdown,ensure that the textbox alongside the dropdown is entered with Column name.This textBox information is required once the Match Recognize table structure is synced into Coalesce.
+* The toggle 'Infer Structure of Match Recognize Data' is required to be true when the node is created for the first time.
+* Once the Match Recognize table is created,the 'Re-Sync Columns' can be used to sync the structure of Match Recognize table into Coalesce mapping grid.
+* For further Match Recognize operations,keep the 'Infer Structure of Match Recognize Data' set to false
+
+### Match Recognize Deployment
+### Match Recognize Initial Deployment
+When deployed for the first time into an environment the Match Recognize node of materialization type table or view or transient table will execute the below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Match Recognize Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a Match Recognize table in the target environment |
+
+#### Match Recognize Table Redeployment
+
+When the Match Recognize node is redeployed with any changes in table or config changes result in re-creating the node
+
+The below stage is executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Match Recognize Table/transient table/view** | This will execute a CREATE OR REPLACE statement and create a Match Recognize table in the target environment |
+
+#### Match Recognize Table Deploy Drop and Recreate Work View/Table/Transient Table
+
+| **Change** | **Stages Executed** |
+|------------|-------------------|
+| **View to table/transient table** |  Drop view <br/> Create or Replace Match Recognize table/transient table |
+| **Table/transient table to View** |  Drop table/transient table<br/> Create Match Recognize view |
+| **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Match Recognize table/transient table |
+
+### Match Recognize Tables Undeployment
+If a Match Recognize Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Match Recognize node in the target environment will be dropped.
+
+This is executed in below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Drop table/view/transient table** | Removes the table or view from the environment |
+
+
+
 ## Code
 
 ### Date Table Code
@@ -395,3 +526,11 @@ This is executed in below stage:
 | **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/definition.yml)|
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/run.sql.j2)
+
+### Match Recognize code
+
+| **Component** | **Link** |
+|--------------|-----------|
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/definition.yml)|
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/create.sql.j2) |
+| **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/run.sql.j2)
