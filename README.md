@@ -241,9 +241,11 @@ Pivot has three configuration groups:
 * The toggle 'Infer Structure of Pivot Data' is required to be true when the node is created for the first time.
 * The toggle 'Single value column' is set to false, if you want a multi-dimensional pivot
 * Once the pivot table is created,the 'Re-Sync Columns' can be used to sync the structure of pivot table into Coalesce mapping grid.
+  ![image](https://github.com/user-attachments/assets/1f4434a7-7b23-4187-8886-fb45b0ed6505)
 * After Re-sync,recreate the table with 'Infer Structure of Pivot Data' set to false
+* If the above works, it should be deployable as is. Deploy will simply take the columns and execute a create table.
 * Hit run to insert data into table keeping the 'Infer Structure of Pivot Data' set to false
-
+  
 ### Pivot Deployment
 
 ### Points to note for deployment
@@ -252,6 +254,9 @@ Pivot has three configuration groups:
 * Deploy with ‘Infer UNPIVOT structure’ toggle set to false
 * Repeat the above steps if you see changes in column of table during redeployment.It is fine to skip for change in materialization type,change in target location or change in node name
 * Ensure the new columns added or dropped are part of the inferred UNPIVOT structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail
+> 📘 **Deployment**
+>
+> Ensure 'Infer Pivot structure' set to false before deployment
 
 #### Pivot Initial Deployment
 
