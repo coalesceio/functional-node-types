@@ -62,7 +62,7 @@ operation:
         dataType: NUMBER(18,0)
         defaultValue: ""
         description: ""
-        name: "'Q1'"
+        name: Q1
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -81,7 +81,7 @@ operation:
         dataType: NUMBER(18,0)
         defaultValue: ""
         description: ""
-        name: "'Q2'"
+        name: Q2
         nullable: true
         primaryKey: false
         sourceColumnReferences:
