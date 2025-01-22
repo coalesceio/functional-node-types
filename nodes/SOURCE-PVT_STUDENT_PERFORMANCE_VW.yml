@@ -1,15 +1,15 @@
 fileVersion: 1
-id: 80a1448b-8056-4a1e-b812-d4a32a496d33
-name: PVT_QUARTERLY_SALES
+id: 40b45b30-2b07-47ba-9778-39966fcb6b90
+name: PVT_STUDENT_PERFORMANCE_VW
 operation:
   config:
-    Colvol1: "'2023_Q1','2023_Q2'"
+    Colvol1: ""
     aggfunc:
       items:
         - {}
     aggfunc1:
       items:
-        - {}
+        - funcname1: MAX
     defaultval: ""
     defvalue: false
     excolval: false
@@ -17,18 +17,15 @@ operation:
       items:
         - {}
     inferPivot: false
-    samKeyColval: true
-    sincol: false
+    samKeyColval: false
+    sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: QUARTER
+        - keyColTextBox: SUBJECT
     tabValueColumn:
       items:
-        - funcname: AVG
-          valColTextBox: AMOUNT
-        - funcname: MAX
-          valColTextBox: DISCOUNT_PERCENT
+        - valColTextBox: SCORE
     testsEnabled: false
     trunc: true
   database: ""
@@ -36,60 +33,50 @@ operation:
   description: ""
   isMultisource: false
   locationName: SOURCE
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
+      - appliedColumnTests: {}
         columnReference:
-          columnCounter: 4d83f16f-6e84-444e-85f4-2084dd8311fd
-          stepCounter: 80a1448b-8056-4a1e-b812-d4a32a496d33
+          columnCounter: 5ee3307b-5056-424d-ac7b-351999a621bd
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
-        dataType: NUMBER(38,12)
-        defaultValue: ""
+        dataType: NUMBER(38,0)
         description: ""
-        name: AVG_2023_Q1_AMOUNT
+        name: STUDENT_ID
         nullable: true
-        primaryKey: false
         sourceColumnReferences:
-          - columnReferences: []
+          - columnReferences:
+              - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
             transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
+      - appliedColumnTests: {}
         columnReference:
-          columnCounter: 67e0fd37-d5a1-408a-87f0-59cf40627468
-          stepCounter: 80a1448b-8056-4a1e-b812-d4a32a496d33
+          columnCounter: db863aa1-f991-4de6-9955-689a3b1bed03
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
-        dataType: NUMBER(38,12)
-        defaultValue: ""
+        dataType: VARCHAR(16777216)
         description: ""
-        name: AVG_2023_Q2_AMOUNT
+        name: TERM
         nullable: true
-        primaryKey: false
         sourceColumnReferences:
-          - columnReferences: []
+          - columnReferences:
+              - columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
             transform: ""
-        transform: ""
-        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 2d65b833-afb8-4fe2-b1d2-3eb2f136a9e1
-          stepCounter: 80a1448b-8056-4a1e-b812-d4a32a496d33
+          columnCounter: e7050589-3c70-4304-a6cf-ea157a7837f7
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: MAX_2023_Q1_DISCOUNT_PERCENT
+        name: "'English'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -102,13 +89,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: db2de057-4610-4476-bd54-f9ddaf403f00
-          stepCounter: 80a1448b-8056-4a1e-b812-d4a32a496d33
+          columnCounter: e306c65c-a777-4e08-80bd-5ff10a9aea41
+          stepCounter: 40b45b30-2b07-47ba-9778-39966fcb6b90
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: MAX_2023_Q2_DISCOUNT_PERCENT
+        name: "'Math'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -124,12 +111,12 @@ operation:
           customSQL: ""
         dependencies:
           - locationName: SOURCE
-            nodeName: QUARTERLY_SALES
+            nodeName: STUDENT_PERFORMANCE
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
-        name: PVT_QUARTERLY_SALES
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_VW
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES
+  name: PVT_STUDENT_PERFORMANCE_VW
   overrideSQL: false
   schema: ""
   sqlType: "409"

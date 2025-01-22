@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
-name: QUARTERLY_SALES
+id: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+name: STUDENT_PERFORMANCE
 operation:
   database: ""
   dataset: ""
@@ -14,13 +14,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 69f49490-43c5-46e2-97b3-632d105e0b98
-          stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
+          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: EMPID
+        name: STUDENT_ID
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -33,32 +33,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
-          stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: AMOUNT
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
-          stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
+          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: QUARTER
+        name: TERM
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -71,13 +52,32 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: f0482031-7ade-4d4d-8939-31e92999c55a
-          stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+          columnCounter: b3be608d-900b-4e58-95b5-3eb1d0a81d66
+          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: SUBJECT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: bd861a16-5651-4924-855d-718266030fb6
+          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: DISCOUNT_PERCENT
+        name: SCORE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -86,11 +86,11 @@ operation:
         transform: ""
         uniqueKey: false
     join:
-      joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }}
-  name: QUARTERLY_SALES
+      joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }}
+  name: STUDENT_PERFORMANCE
   schema: ""
   sqlType: Source
-  table: QUARTERLY_SALES
+  table: STUDENT_PERFORMANCE
   type: sourceInput
   version: 1
 type: Node
