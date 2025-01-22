@@ -1,0 +1,222 @@
+fileVersion: 1
+id: d077617a-1d1d-46ac-b33e-659caec6d84a
+name: MR_STOCK_PRICE_HISTORY_V_SHAPE1
+operation:
+  config:
+    afterMatchSkip: TO
+    allRowsPerMatch: SHOW EMPTY MATCHES
+    inferMatchRecognize: true
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: cdd17857-92a7-4933-ac88-1d06ca03609b
+            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+          orderByTextBox: PRICE_DATE
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: 8d42c9e8-81bf-464e-b0c5-379a70880661
+            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+          partitionByColTextBox: null
+    pattern: ROW_BEFORE_DECREASE ROW_WITH_PRICE_DECREASE+ ROW_WITH_PRICE_INCREASE+
+    rowsPerMatch: ONE ROW PER MATCH
+    selectOrderBy:
+      items:
+        - selectOrderByCol:
+            columnCounter: 8d42c9e8-81bf-464e-b0c5-379a70880661
+            stepCounter: 848c7475-42b6-4bf6-8086-27849a121d7d
+          selectOrderByTextBox: null
+        - selectOrderByCol: null
+          selectOrderByTextBox: MATCH_NUMBER
+    tabDefine:
+      items:
+        - valDefineColumnName: ROW_WITH_PRICE_DECREASE
+          valDefineExpression: PRICE < LAG(PRICE)
+        - valDefineColumnName: ROW_WITH_PRICE_INCREASE
+          valDefineExpression: PRICE > LAG(PRICE)
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_NUMBER
+        - valAliasExpressionColumnName: START_DATE
+          valMeasureColumnName: PRICE_DATE
+          valMeasureExpression: FIRST
+        - valAliasExpressionColumnName: END_DATE
+          valMeasureColumnName: PRICE_DATE
+          valMeasureExpression: LAST
+        - valAliasExpressionColumnName: ROWS_IN_SEQUENCE
+          valMeasureColumnName: "*"
+          valMeasureExpression: COUNT
+        - valAliasExpressionColumnName: NUM_DECREASES
+          valMeasureColumnName: ROW_WITH_PRICE_DECREASE.*
+          valMeasureExpression: COUNT
+        - valAliasExpressionColumnName: NUM_INCREASES
+          valMeasureColumnName: ROW_WITH_PRICE_INCREASE.*
+          valMeasureExpression: COUNT
+    testsEnabled: false
+    to: LAST
+    toggleOrderBy: true
+    togglePartitionBy: true
+    toggleSelectFunction: false
+    toggleSelectOrderBy: true
+    truncateBefore: true
+    varAfterMatchSkip: ROW_WITH_PRICE_INCREASE
+    varOrderBy: COMPANY, MATCH_NUMBER
+  database: ""
+  deployEnabled: false
+  description: Report one summary row for each V shape
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019f5d4e-c265-4701-b838-dda842e27b2d
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 50af89f2-29ff-410c-8108-59dc07b434d4
+                stepCounter: 2963a56b-9320-436c-ad95-99ec4c96208a
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 149f55af-76a8-474b-934c-95f42017dd5f
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7dafcb72-af9f-4394-b23e-a6ae2635e9f8
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: START_DATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 732fda4a-fca1-4835-9b19-93ed0165d005
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: END_DATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 54e695e9-8747-4917-ae92-68abf0ccf19d
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: NUM_DECREASES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: abb0ac17-fa88-41d5-8210-fbf957482e69
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: ROWS_IN_SEQUENCE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: fe3d5498-3213-4cae-bd1b-47055b84262d
+          stepCounter: d077617a-1d1d-46ac-b33e-659caec6d84a
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: NUM_INCREASES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: MR_STOCK_PRICE_HISTORY_V_SHAPE1
+        noLinkRefs: []
+  name: MR_STOCK_PRICE_HISTORY_V_SHAPE1
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

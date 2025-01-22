@@ -117,7 +117,7 @@ metadata:
           attributeName: valMeasureColumnName
 
 
-        - displayName: Alias of Expression Column Name
+        - displayName: Alias of Expression Column Name93949596979899100101102103104105106107108109110111112113114115116117118119120
           type: textBox
           attributeName: valAliasExpressionColumnName
           isRequired: true
@@ -194,7 +194,7 @@ metadata:
           type: textBox
           attributeName: valDefineColumnName
 
-    - groupName: Select Query Order By Option
+    - groupName: Select Query Options
       items:
       - type: label
         attributeName: selectColumnLabel
@@ -239,7 +239,7 @@ metadata:
         default: false
 
       - type: tabular
-        displayName: Select Query Order By (Optional)
+        displayName: ''
         attributeName: selectOrderBy
         isRequired: false
         enableIf: "{% if config.toggleSelectOrderBy %} true {% else %} false {% endif %}"        

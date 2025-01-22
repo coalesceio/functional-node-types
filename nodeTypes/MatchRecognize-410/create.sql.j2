@@ -6,8 +6,8 @@ Coalesce permits you to copy and modify this script for the purposes of using wi
 does not permit copying or modification for any other purpose.  
 #}
 {# == Node Type Version        : 1  == #}
-{# == Node Type Name           : MATCH_RECOGNIZE NODE == #}
-{# == Node Type Description    : This node processes rows from a given data source to detect patterns. It genrates the query for MATCH_RECOGNIZE which accepts a set of rows from input table, and returns all matches for a given row pattern within this node. The pattern is defined similarly to a regular expression. == #}
+{# == Node Type Name           : Match Recognize NODE == #}
+{# == Node Type Description    : The Match Recognize node type uses Snowflake SQL MATCH_RECOGNIZE clause to identify and process patterns in datasets(https://docs.snowflake.com/en/sql-reference/constructs/match_recognize). It helps identify events, trends, and anomalies by analyzing rows in sequence. It is useful for tasks like fraud detection, session tracking, and clickstream analysis, with options to customize patterns for different needs. == #}
 
 
 {% if desiredState == currentState %}

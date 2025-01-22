@@ -44,6 +44,7 @@ operation:
     to: LAST
     toggleOrderBy: true
     togglePartitionBy: true
+    toggleSelectFunction: false
     toggleSelectOrderBy: false
     truncateBefore: true
     varAfterMatchSkip: UPGRADE
