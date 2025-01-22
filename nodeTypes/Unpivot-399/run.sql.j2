@@ -8,7 +8,7 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Version        : 1  == #}
 {# == Node Type Name           : UNPIVOT NODE == #}
 {# == Node Type Description    : This node transforms columns to rows. == #}
-{#Release date:20250113 Version:1.0.0#}
+{#Release date:20250122 Version:3.0.0#}
 
 {% set source = sources[0] %}
 {%set joinclause =source.join%}
@@ -35,6 +35,9 @@ does not permit copying or modification for any other purpose.
          {#Infer Unpivot structure#}
           {%if config.inferunpivot == true %}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+                  {%if ns.pcolumn == []%}
+                     {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}    
+                  {%endif%}
           {%else%}
                   {%set ns.pcolumn = config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}
           {%endif%}
@@ -49,10 +52,9 @@ does not permit copying or modification for any other purpose.
 INSERT INTO {{ this }}
  ( 
                SELECT 
-               {% for col in source.columns %}
-               
+               {% for col in source.columns %}        
                   {%if col.name not in ns.collist|join(',') and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
-			            {{ col.name }} , 
+			            {{ get_source_transform(col) }} AS "{{ col.name }}",
                   {%endif%}
 		           {% endfor %}                
 			    {{config.nameColTextBox}},
