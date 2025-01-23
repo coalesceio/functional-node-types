@@ -253,7 +253,7 @@ Pivot has three configuration groups:
 * Re-Sync columns to the mapping grid
 * Deploy with ‘Infer PIVOT structure’ toggle set to false
 * Repeat the above steps if you see changes in column of table during redeployment.It is fine to skip for change in materialization type,change in target location or change in node name
-* Ensure the new columns added or dropped are part of the inferred UNPIVOT structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail
+* Ensure the new columns added or dropped are part of the inferred PIVOT structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail
 > 📘 **Deployment**
 >
 > Ensure 'Infer Pivot structure' set to false before deployment
