@@ -510,6 +510,8 @@ Match Recognize has three configuration groups:
 | **Pattern** | (Textbox) <br/> The pattern defines a valid sequence of rows that represents a match. The pattern is defined like a regular expression. (regex) and is built from symbols, operators, and quantifiers.
 
 ##### Define
+| **Options** | **Description** |
+|-------------|-----------------|
 | **Expression** | (Textbox) <br/> Defining symbols (also known as “pattern variables”) are the building blocks of the pattern.A symbol is defined by an expression.The 
 | **Column Name** | (Textbox) <br/> It is the symbol name of the expression
 
