@@ -55,6 +55,16 @@ does not permit copying or modification for any other purpose.
         {{ stage('Insert data into MATCH_RECOGNIZE table') }}
 
 			INSERT INTO  {{ ref_no_link(node.location.name, node.name) }}
+            SELECT 
+			{%- for col in source.columns -%}  
+            {%- if col.transform =="" -%}      
+            "{{ col.name }}"
+            {%- else -%}
+            {{col.transform}} as "{{ col.name }}"
+            {%- endif -%}
+            {%- if not loop.last -%},{%- endif -%}
+            {%- endfor -%} FROM
+			(
 			SELECT 
 			{% if config.toggleSelectFunction %}
 			{%- for loopColumn in ns.selectFunctionColumn  %}
@@ -111,4 +121,5 @@ does not permit copying or modification for any other purpose.
 			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
 			{%- if not loop.last -%},{%- endif -%}
 			{%- endfor %}
+			)
 {%endif%}

@@ -138,28 +138,6 @@ metadata:
         isRequired: true
         enableIf: "{% if config.orderby %} true {% else %} false {% endif %}"
 
-
-      - displayName: ASOF Join
-        attributeName: asofJoin
-        type: toggleButton
-        default: true
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-
-      - type: tabular
-        displayName: 'ASOF column'
-        attributeName: asofColumn
-        columns:
-
-        -  type: columnDropdownSelector
-           displayName: LEFT Column Name
-           attributeName: leftColumnName
-
-        -  type: columnDropdownSelector
-           displayName: RIGHT Column Name
-           attributeName: rightColumnName
-        isRequired: true
-        enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
-
       - displayName: Pre-SQL
         attributeName: preSQL
         type: textBox
@@ -174,6 +152,61 @@ metadata:
         isRequired: false
         enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
+    - groupName: ASOF Join Options
+      items:
+      - displayName: ASOF Join
+        attributeName: asofJoin
+        type: toggleButton
+        default: true
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
+      - type: tabular
+        displayName: 'ASOF column'
+        attributeName: asofColumn
+        columns:
+
+        -  type: columnDropdownSelector
+           displayName: LEFT Column Name
+           attributeName: leftColumnName
+           isRequired: false
+           enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+
+        - displayName: Operator
+          attributeName: operationSign
+          type: textBox
+          isRequired: false
+          enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+        
+        -  type: columnDropdownSelector
+           displayName: RIGHT Column Name
+           attributeName: rightColumnName
+           isRequired: true
+           enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+
+      - displayName: ASOF Join
+        attributeName: asofJoinON
+        type: toggleButton
+        default: true
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+
+      - type: tabular
+        displayName: 'ASOF column ON (Optional)'
+        attributeName: asofColumnON
+        columns:
+
+        -  type: columnDropdownSelector
+           displayName: LEFT Column Name
+           attributeName: leftColumnNameON
+           isRequired: false
+           
+        -  type: columnDropdownSelector
+           displayName: RIGHT Column Name
+           attributeName: rightColumnNameON
+           isRequired: false
+           enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
+
+
+
     joinTemplate: |
       {%- set src = namespace() -%}
       {%- for dep in sources[0].dependencies -%}
@@ -184,7 +217,7 @@ metadata:
         {%- else %}
         ASOF JOIN 
         {{- ref_raw(dep.node.location.name, dep.node.name) }} "{{ dep.node.name }}"
-        ON {{ dep.node.name }}.{{config.joinKeyColumnName}} = <SITEID> 
+        ON {{ dep.node.name }}.{{config.leftColumnName}} = {{ dep.node.name }}.{{config.rightColumnName}} 
         {%- endif -%}
 
       {%endfor%}

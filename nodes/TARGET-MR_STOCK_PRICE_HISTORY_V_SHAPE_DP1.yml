@@ -144,7 +144,7 @@ operation:
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: ""
+            transform: CURRENT_DATE()
         transform: ""
         uniqueKey: false
       - acceptedValues:
