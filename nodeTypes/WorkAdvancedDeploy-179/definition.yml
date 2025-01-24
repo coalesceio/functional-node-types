@@ -138,6 +138,12 @@ metadata:
         isRequired: true
         enableIf: "{% if config.orderby %} true {% else %} false {% endif %}"
 
+      - displayName: ASOF Join
+        attributeName: asofJoinMain
+        type: toggleButton
+        default: false
+
+
       - displayName: Pre-SQL
         attributeName: preSQL
         type: textBox
@@ -153,8 +159,9 @@ metadata:
         enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
     - groupName: ASOF Join Options
+
       items:
-      - displayName: ASOF Join
+      - displayName: ASOF Join (MATCH_CONDITION)
         attributeName: asofJoin
         type: toggleButton
         default: true
@@ -163,7 +170,15 @@ metadata:
       - type: tabular
         displayName: 'ASOF column'
         attributeName: asofColumn
+        isRequired: false
+        enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
         columns:
+
+        - displayName: LEFT TABLE Name
+          attributeName: leftTable
+          type: textBox
+          isRequired: true 
+          enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
 
         -  type: columnDropdownSelector
            displayName: LEFT Column Name
@@ -176,14 +191,20 @@ metadata:
           type: textBox
           isRequired: false
           enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
-        
+
+        - displayName: RIGHT TABLE Name
+          attributeName: rightTable
+          type: textBox
+          isRequired: true 
+          enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+
         -  type: columnDropdownSelector
            displayName: RIGHT Column Name
            attributeName: rightColumnName
            isRequired: true
            enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
 
-      - displayName: ASOF Join
+      - displayName: ASOF Join ON
         attributeName: asofJoinON
         type: toggleButton
         default: true
@@ -192,22 +213,25 @@ metadata:
       - type: tabular
         displayName: 'ASOF column ON (Optional)'
         attributeName: asofColumnON
+        isRequired: false
+        enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
         columns:
 
         -  type: columnDropdownSelector
            displayName: LEFT Column Name
            attributeName: leftColumnNameON
            isRequired: false
-           
+           enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
         -  type: columnDropdownSelector
            displayName: RIGHT Column Name
            attributeName: rightColumnNameON
            isRequired: false
            enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
-
+      enableIf: "{% if config.asofJoinMain %} true {% else %} false {% endif %}"
 
 
     joinTemplate: |
+     {% set colL,tabL,colR,tabR,cnd = config.asofColumn .get('items') | map(attribute='leftColumnName.name') | list,config.asofColumn .get('items') | map(attribute='leftTable') | list, config.asofColumn .get('items') | map(attribute='rightColumnName.name') | list,config.asofColumn .get('items') | map(attribute='rightTable') | list,config.asofColumn .get('items') | map(attribute='operationSign') | list  %}
       {%- set src = namespace() -%}
       {%- for dep in sources[0].dependencies -%}
         {%- if loop.index == 1 -%}
@@ -215,11 +239,12 @@ metadata:
           {{- ref_raw(dep.node.location.name, dep.node.name) }} "{{ dep.node.name }}"
           {%- set src.name = dep.node.name -%}
         {%- else %}
+        {%- for col in colL %}
         ASOF JOIN 
-        {{- ref_raw(dep.node.location.name, dep.node.name) }} "{{ dep.node.name }}"
-        ON {{ dep.node.name }}.{{config.leftColumnName}} = {{ dep.node.name }}.{{config.rightColumnName}} 
+        {{tabR[loop.index0]}}
+        MATCH_CONDITION ({{tabL[loop.index0]}}.{{col}} {{cnd[loop.index0]}} {{tabR[loop.index0]}}.{{colR[loop.index0]}} )
+        {% endfor %}
         {%- endif -%}
-
       {%endfor%}
 name: Work Advanced Deploy
 type: NodeType
