@@ -535,8 +535,16 @@ Match Recognize has three configuration groups:
 * The toggle 'Infer Structure of Match Recognize Data' is required to be true when the node is created for the first time.
 * Once the Match Recognize table is created,the 'Re-Sync Columns' can be used to sync the structure of Match Recognize table into Coalesce mapping grid.
 * For further Match Recognize operations,keep the 'Infer Structure of Match Recognize Data' set to false
-
+  
 ### Match Recognize Deployment
+
+### Points to note for deployment
+* Create table with ‘Infer Structure of Match Recognize Data’ toggle enabled
+* Re-Sync columns to the mapping grid
+* Deploy with ‘Infer Structure of Match Recognize Data’ toggle set to false
+* Repeat the above steps if you see changes in column of table during redeployment.It is fine to skip for change in materialization type,change in target location or change in node name
+* Ensure the new columns added or dropped are part of the inferred Match Recognize structure and not added/dropped directly in the mapping grid.The deployment will succeed but insert will fail.
+
 ### Match Recognize Initial Deployment
 When deployed for the first time into an environment the Match Recognize node of materialization type table or view or transient table will execute the below stage:
 
