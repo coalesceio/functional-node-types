@@ -312,7 +312,9 @@ This is executed in below stage:
 
 | **Stage** | **Description** |
 |-----------|----------------|
-| **Drop table/view** | Removes the table or view from the environment |## Unpivot
+| **Drop table/view** | Removes the table or view from the environment |
+
+## Unpivot
 
 The [Unpivot node](https://docs.snowflake.com/en/sql-reference/constructs/unpivot#examples) in Coalesce rotates a table by transforming columns into rows. 
 UNPIVOT is not exactly the reverse of PIVOT because it cannot undo aggregations made by PIVOT.
