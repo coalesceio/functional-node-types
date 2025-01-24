@@ -601,7 +601,7 @@ This is executed in below stage:
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/run.sql.j2)
 
-### Univot code
+### Unpivot code
 
 | **Component** | **Link** |
 |--------------|-----------|
