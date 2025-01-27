@@ -4,7 +4,7 @@ isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
-  nodeMetadataSpec: |-
+  nodeMetadataSpec: |
     capitalized: Work Advanced Deploy
     short: WRK
     plural: Stages
@@ -166,85 +166,99 @@ metadata:
         type: toggleButton
         default: true
         enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+        
+      - type: toggleButton
+        displayName: ON
+        attributeName: asofJoinON
+        isRequired: false
+        default: false
+        enableIf: "{% if config.asofJoin and not config.asofJoinUSING %} true {% else %} false {% endif %}"
+
+      - type: toggleButton
+        displayName: USING
+        attributeName: asofJoinUSING
+        isRequired: false
+        default: false
+        enableIf: "{% if config.asofJoin and not config.asofJoinON %} true {% else %} false {% endif %}"
 
       - type: tabular
         displayName: 'ASOF column'
         attributeName: asofColumn
         isRequired: false
-        enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+        enableIf: "{% if (config.asofJoin) %} true {% else %} false {% endif %}"
         columns:
 
         - displayName: LEFT TABLE Name
           attributeName: leftTable
           type: textBox
           isRequired: true 
-          enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+
 
         -  type: columnDropdownSelector
            displayName: LEFT Column Name
            attributeName: leftColumnName
            isRequired: false
-           enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
+
 
         - displayName: Operator
           attributeName: operationSign
           type: textBox
           isRequired: false
-          enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
 
         - displayName: RIGHT TABLE Name
           attributeName: rightTable
           type: textBox
           isRequired: true 
-          enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
 
         -  type: columnDropdownSelector
            displayName: RIGHT Column Name
            attributeName: rightColumnName
            isRequired: true
-           enableIf: "{% if config.asofJoin %} true {% else %} false {% endif %}"
 
-      - displayName: ASOF Join ON
-        attributeName: asofJoinON
-        type: toggleButton
-        default: true
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-
-      - type: tabular
-        displayName: 'ASOF column ON (Optional)'
-        attributeName: asofColumnON
-        isRequired: false
-        enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
-        columns:
-
-        -  type: columnDropdownSelector
+        -  type: textBox
            displayName: LEFT Column Name
            attributeName: leftColumnNameON
            isRequired: false
-           enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
-        -  type: columnDropdownSelector
+           enableIf: "{% if (config.asofJoin and config.asofJoinON) %} true {% else %} false {% endif %}"
+        -  type: textBox
            displayName: RIGHT Column Name
            attributeName: rightColumnNameON
            isRequired: false
-           enableIf: "{% if config.asofJoinON %} true {% else %} false {% endif %}"
+           enableIf: "{% if (config.asofJoin and config.asofJoinON) %} true {% else %} false {% endif %}"
+        -  type: textBox
+           displayName: Using Column Name
+           attributeName: usingColumnName
+           isRequired: false
+           enableIf: "{% if (config.asofJoin and config.asofJoinUSING) %} true {% else %} false {% endif %}"
       enableIf: "{% if config.asofJoinMain %} true {% else %} false {% endif %}"
 
-
     joinTemplate: |
-     {% set colL,tabL,colR,tabR,cnd = config.asofColumn .get('items') | map(attribute='leftColumnName.name') | list,config.asofColumn .get('items') | map(attribute='leftTable') | list, config.asofColumn .get('items') | map(attribute='rightColumnName.name') | list,config.asofColumn .get('items') | map(attribute='rightTable') | list,config.asofColumn .get('items') | map(attribute='operationSign') | list  %}
+     {%- if config.asofJoin -%} 
+     {%- set colL,tabL,colR,tabR,cnd = config.asofColumn .get('items') | map(attribute='leftColumnName.name') | list,config.asofColumn .get('items') | map(attribute='leftTable') | list, config.asofColumn .get('items') | map(attribute='rightColumnName.name') | list,config.asofColumn .get('items') | map(attribute='rightTable') | list,config.asofColumn .
+     get('items') | map(attribute='operationSign') | list  -%}
+     {%- if config.asofJoinON -%} 
+     {%- set colL_ON,colR_ON = config.asofColumn .get('items') | map(attribute='leftColumnNameON') | list,config.asofColumn .get('items') |  map(attribute='rightColumnNameON') | list -%}
+     {%- endif -%} 
+     {%- if config.asofJoinUSING -%} 
+     {%- set col_USING = config.asofColumn .get('items') | map(attribute='usingColumnName') | list -%}
+     {%- endif -%} 
       {%- set src = namespace() -%}
       {%- for dep in sources[0].dependencies -%}
         {%- if loop.index == 1 -%}
-        FROM
-          {{- ref_raw(dep.node.location.name, dep.node.name) }} "{{ dep.node.name }}"
-          {%- set src.name = dep.node.name -%}
-        {%- else %}
+        FROM  {{- ref_raw(dep.node.location.name, dep.node.name) }} "{{ dep.node.name }}"
+        {%- set src.name = dep.node.name -%}
+        {%- else -%}
         {%- for col in colL %}
-        ASOF JOIN 
-        {{tabR[loop.index0]}}
-        MATCH_CONDITION ({{tabL[loop.index0]}}.{{col}} {{cnd[loop.index0]}} {{tabR[loop.index0]}}.{{colR[loop.index0]}} )
-        {% endfor %}
+        ASOF JOIN {{tabR[loop.index0]}}
+          MATCH_CONDITION ({{tabL[loop.index0]}}.{{col}} {{cnd[loop.index0]}} {{tabR[loop.index0]}}.{{colR[loop.index0]}} )
+        {%- if config.asofJoinON and colL_ON[loop.index0] !=None and colR_ON[loop.index0] !=None %} 
+          ON  ({{tabL[loop.index0]}}.{{colL_ON[loop.index0]}} = {{tabR[loop.index0]}}.{{colR_ON[loop.index0]}} )
+        {%- elif config.asofJoinUSING and col_USING[loop.index0] !=None -%} 
+          USING (col_USING[loop.index0])
         {%- endif -%}
-      {%endfor%}
+        {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+     {%- endif -%} 
 name: Work Advanced Deploy
 type: NodeType

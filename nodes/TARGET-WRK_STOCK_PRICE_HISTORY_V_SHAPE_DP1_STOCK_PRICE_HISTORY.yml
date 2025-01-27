@@ -8,21 +8,25 @@ operation:
         - leftColumnName:
             columnCounter: 7308df85-1f92-4c92-9b0b-ee85eefb1f67
             stepCounter: 54929413-c9e6-47da-8a85-68bbd664b778
+          leftColumnNameON: test1
           leftTable: MR_STOCK_PRICE_HISTORY
           operationSign: ">="
           rightColumnName:
             columnCounter: 7308df85-1f92-4c92-9b0b-ee85eefb1f67
             stepCounter: 54929413-c9e6-47da-8a85-68bbd664b778
+          rightColumnNameON: test2
           rightTable: yy
         - leftColumnName:
-            columnCounter: 64dbf6a2-4dd8-40cf-bf9a-665e09397cf7
+            columnCounter: 322138ac-20f4-4892-8f61-362d61075b5b
             stepCounter: 54929413-c9e6-47da-8a85-68bbd664b778
+          leftColumnNameON: null
           leftTable: MR_STOCK_PRICE_HISTORY
-          operationSign: <=
+          operationSign: <
           rightColumnName:
-            columnCounter: 64dbf6a2-4dd8-40cf-bf9a-665e09397cf7
+            columnCounter: f7fd85ee-7ece-42cb-bf91-c9dcc2abbf8f
             stepCounter: 54929413-c9e6-47da-8a85-68bbd664b778
-          rightTable: zz
+          rightColumnNameON: null
+          rightTable: sss
     asofColumnON:
       items:
         - leftColumnNameON:
@@ -221,22 +225,19 @@ operation:
     sourceMapping:
       - aliases:
           MR_STOCK_PRICE_HISTORY: f102c7d9-e38d-4c85-b50d-944febd7669f
-          MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1: 0ae9953c-7d1b-4cdd-9c21-0eebc4b2196f
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
             nodeName: MR_STOCK_PRICE_HISTORY
-          - locationName: TARGET
-            nodeName: MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1
         join:
-          joinCondition: |
+          joinCondition: |-
             FROM{{ ref('TARGET', 'MR_STOCK_PRICE_HISTORY') }} "MR_STOCK_PRICE_HISTORY"
-            
-            ASOF JOIN{{ ref('TARGET', 'MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1') }} "MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1"
-             MATCH_CONDITION (xx.START_DATE >= yy.START_DATE )
-               ASOF JOIN{{ ref('TARGET', 'MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1') }} "MR_STOCK_PRICE_HISTORY_V_SHAPE_DP1"
-               MATCH_CONDITION (xx.END_DATE_NEW <= zz.END_DATE_NEW )
+               ASOF JOIN yy
+                 MATCH_CONDITION (MR_STOCK_PRICE_HISTORY.START_DATE >= yy.START_DATE ) 
+                 ON  (MR_STOCK_PRICE_HISTORY.test1 = yy.test2 )
+               ASOF JOIN sss
+                 MATCH_CONDITION (MR_STOCK_PRICE_HISTORY.NUM_DECREASES < sss.NUM_INCREASES )
         name: WRK_STOCK_PRICE_HISTORY_V_SHAPE_DP1_STOCK_PRICE_HISTORY
         noLinkRefs: []
   name: WRK_STOCK_PRICE_HISTORY_V_SHAPE_DP1_STOCK_PRICE_HISTORY
