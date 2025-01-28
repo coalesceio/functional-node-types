@@ -1,0 +1,96 @@
+fileVersion: 1
+id: e45838c4-728a-4c30-a82d-9141557d72e6
+name: RIGHT_TABLE
+operation:
+  database: ""
+  dataset: ""
+  deployEnabled: true
+  description: ""
+  locationName: TARGET
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1a0fa5d3-aa3d-4dc9-9551-74951c511c80
+          stepCounter: e45838c4-728a-4c30-a82d-9141557d72e6
+        config: {}
+        dataType: VARCHAR(1)
+        defaultValue: ""
+        description: ""
+        name: C1
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 477a2c22-f366-446d-be24-12155a93bec6
+          stepCounter: e45838c4-728a-4c30-a82d-9141557d72e6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: C2
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c4945c06-c96f-4a20-822d-52cdfdb4fff1
+          stepCounter: e45838c4-728a-4c30-a82d-9141557d72e6
+        config: {}
+        dataType: TIME(9)
+        defaultValue: ""
+        description: ""
+        name: C3
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 862dac71-809b-4892-9709-6d1395756199
+          stepCounter: e45838c4-728a-4c30-a82d-9141557d72e6
+        config: {}
+        dataType: NUMBER(3,2)
+        defaultValue: ""
+        description: ""
+        name: C4
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    join:
+      joinCondition: FROM {{ ref('TARGET', 'RIGHT_TABLE') }}
+  name: RIGHT_TABLE
+  schema: ""
+  sqlType: Source
+  table: RIGHT_TABLE
+  type: sourceInput
+  version: 1
+type: Node
