@@ -1,5 +1,5 @@
 fileVersion: 1
-id: "426"
+id: "179"
 isDisabled: false
 metadata:
   defaultStorageLocation: null
@@ -188,22 +188,43 @@ metadata:
         enableIf: "{% if (config.asofJoin) %} true {% else %} false {% endif %}"
         columns:
 
-        - displayName: ASOF Join Table
-          attributeName: rightTable
-          type: textBox
-          isRequired: false 
-
-        - displayName: ASOF Join Condition
+        - displayName: LEFT TABLE Name
           attributeName: leftTable
           type: textBox
           isRequired: true 
 
+
+        -  type: columnDropdownSelector
+           displayName: LEFT Column Name
+           attributeName: leftColumnName
+           isRequired: false
+
+
+        - displayName: Operator
+          attributeName: operationSign
+          type: textBox
+          isRequired: false
+
+        - displayName: RIGHT TABLE Name
+          attributeName: rightTable
+          type: textBox
+          isRequired: true 
+
+        -  type: columnDropdownSelector
+           displayName: RIGHT Column Name
+           attributeName: rightColumnName
+           isRequired: true
+
         -  type: textBox
-           displayName: ON Condition
+           displayName: LEFT Column Name
            attributeName: leftColumnNameON
            isRequired: false
            enableIf: "{% if (config.asofJoin and config.asofJoinON) %} true {% else %} false {% endif %}"
-
+        -  type: textBox
+           displayName: RIGHT Column Name
+           attributeName: rightColumnNameON
+           isRequired: false
+           enableIf: "{% if (config.asofJoin and config.asofJoinON) %} true {% else %} false {% endif %}"
         -  type: textBox
            displayName: Using Column Name
            attributeName: usingColumnName
@@ -213,9 +234,10 @@ metadata:
 
     joinTemplate: |
      {%- if config.asofJoin -%} 
-     {%- set colL,tabR = config.asofColumn .get('items') | map(attribute='leftTable') | list,config.asofColumn .get('items') | map(attribute='rightTable') | list -%}
+     {%- set colL,tabL,colR,tabR,cnd = config.asofColumn .get('items') | map(attribute='leftColumnName.name') | list,config.asofColumn .get('items') | map(attribute='leftTable') | list, config.asofColumn .get('items') | map(attribute='rightColumnName.name') | list,config.asofColumn .get('items') | map(attribute='rightTable') | list,config.asofColumn .
+     get('items') | map(attribute='operationSign') | list  -%}
      {%- if config.asofJoinON -%} 
-     {%- set colL_ON = config.asofColumn .get('items') | map(attribute='leftColumnNameON') | list -%}
+     {%- set colL_ON,colR_ON = config.asofColumn .get('items') | map(attribute='leftColumnNameON') | list,config.asofColumn .get('items') |  map(attribute='rightColumnNameON') | list -%}
      {%- endif -%} 
      {%- if config.asofJoinUSING -%} 
      {%- set col_USING = config.asofColumn .get('items') | map(attribute='usingColumnName') | list -%}
@@ -228,9 +250,9 @@ metadata:
         {%- else -%}
         {%- for col in colL %}
         ASOF JOIN {{tabR[loop.index0]}}
-          MATCH_CONDITION ({{col}} )
-        {%- if config.asofJoinON and colL_ON[loop.index0] !=None %} 
-          ON  ({{colL_ON[loop.index0]}} )
+          MATCH_CONDITION ({{tabL[loop.index0]}}.{{col}} {{cnd[loop.index0]}} {{tabR[loop.index0]}}.{{colR[loop.index0]}} )
+        {%- if config.asofJoinON and colL_ON[loop.index0] !=None and colR_ON[loop.index0] !=None %} 
+          ON  ({{tabL[loop.index0]}}.{{colL_ON[loop.index0]}} = {{tabR[loop.index0]}}.{{colR_ON[loop.index0]}} )
         {%- elif config.asofJoinUSING and col_USING[loop.index0] !=None -%} 
           USING (col_USING[loop.index0])
         {%- endif -%}
@@ -238,5 +260,5 @@ metadata:
         {%- endif -%}
       {%- endfor -%}
      {%- endif -%} 
-name: Work Advanced Deploy TextBox
+name: Work Advanced Deploy1
 type: NodeType

@@ -1,0 +1,96 @@
+fileVersion: 1
+id: 33ac40f3-57bf-4e8d-9da5-077455eec47c
+name: OUTER_TABLE
+operation:
+  database: ""
+  dataset: ""
+  deployEnabled: true
+  description: ""
+  locationName: TARGET
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5d6c2ffb-3fa5-44ce-a336-910505d83a86
+          stepCounter: 33ac40f3-57bf-4e8d-9da5-077455eec47c
+        config: {}
+        dataType: VARCHAR(1)
+        defaultValue: ""
+        description: ""
+        name: C1
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 71eecdce-18e8-4f77-996e-c596d27a59b4
+          stepCounter: 33ac40f3-57bf-4e8d-9da5-077455eec47c
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: C2
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: bec61ff4-e600-4b18-8005-701225f37fdf
+          stepCounter: 33ac40f3-57bf-4e8d-9da5-077455eec47c
+        config: {}
+        dataType: TIME(9)
+        defaultValue: ""
+        description: ""
+        name: C3
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ed84bfc7-bc94-4e7e-a289-1fd3579390dd
+          stepCounter: 33ac40f3-57bf-4e8d-9da5-077455eec47c
+        config: {}
+        dataType: NUMBER(3,2)
+        defaultValue: ""
+        description: ""
+        name: C4
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    join:
+      joinCondition: FROM {{ ref('TARGET', 'OUTER_TABLE') }}
+  name: OUTER_TABLE
+  schema: ""
+  sqlType: Source
+  table: OUTER_TABLE
+  type: sourceInput
+  version: 1
+type: Node
