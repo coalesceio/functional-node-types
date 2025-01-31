@@ -37,7 +37,7 @@ operation:
     testsEnabled: false
     truncateBefore: false
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   isMultisource: false
   locationName: TARGET
@@ -230,7 +230,23 @@ operation:
           - locationName: TARGET
             nodeName: RIGHT_TABLE
         join:
-          joinCondition: ""
+          joinCondition: |2-
+
+
+
+               FROM  {{ ref('TARGET', 'LEFT_TABLE') }} "LEFT_TABLE"
+               ASOF JOIN {{ ref('TARGET', 'RIGHT_TABLE') }} "RIGHT_TABLE"
+               MATCH_CONDITION (LEFT_TABLE.C2 >= RIGHT_TABLE.C2 ) 
+               ON  (LEFT_TABLE.C1 = RIGHT_TABLE.C1 AND LEFT_TABLE.C4 = RIGHT_TABLE.C4 )
+               ASOF JOIN {{ ref('TARGET', 'OUTER_TABLE') }} "OUTER_TABLE"
+               MATCH_CONDITION (LEFT_TABLE.C2 >= OUTER_TABLE.C2 ) 
+               ON  (LEFT_TABLE.C1 = OUTER_TABLE.C1 AND LEFT_TABLE.C4 = OUTER_TABLE.C4 )
+               ASOF JOIN {{ ref('TARGET', 'RIGHT_TABLE') }} "RIGHT_TABLE"
+               MATCH_CONDITION (LEFT_TABLE.C2 >= RIGHT_TABLE.C2 ) 
+               ON  (LEFT_TABLE.C1 = RIGHT_TABLE.C1 AND LEFT_TABLE.C4 = RIGHT_TABLE.C4 )
+               ASOF JOIN {{ ref('TARGET', 'OUTER_TABLE') }} "OUTER_TABLE"
+               MATCH_CONDITION (LEFT_TABLE.C2 >= OUTER_TABLE.C2 ) 
+               ON  (LEFT_TABLE.C1 = OUTER_TABLE.C1 AND LEFT_TABLE.C4 = OUTER_TABLE.C4 )
         name: WRK_LEFT_TABLE_RIGHT_TABLE3
         noLinkRefs: []
   name: WRK_LEFT_TABLE_RIGHT_TABLE3

@@ -32,7 +32,7 @@ operation:
     testsEnabled: false
     truncateBefore: false
   database: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   isMultisource: false
   locationName: TARGET
@@ -166,13 +166,13 @@ operation:
           - locationName: TARGET
             nodeName: RIGHT_TABLE
         join:
-          joinCondition: |2-
-
-
-
+          joinCondition: |-
+            
+            
+            
                FROM  {{ ref('TARGET', 'LEFT_TABLE') }} "LEFT_TABLE"
                ASOF JOIN {{ ref('TARGET', 'RIGHT_TABLE') }} "RIGHT_TABLE"
-               MATCH_CONDITION (RIGHT_TABLE.C1>=LEFT_TABLE.C1 )
+               MATCH_CONDITION ("LEFT_TABLE"."C2">="RIGHT_TABLE"."C2" )
         name: WRK_RIGHT_TABLE_LEFT_TABLE3
         noLinkRefs: []
   name: WRK_RIGHT_TABLE_LEFT_TABLE3
