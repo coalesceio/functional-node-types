@@ -24,21 +24,21 @@ metadata:
         isRequired: true
 
       - type: overrideSQLToggle
-        enableIf: "{%- if node.materializationType == 'view' -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
         
       - type: toggleButton
         attributeName: clusterKey
         displayName: Cluster Key
         default: false
         isRequired: false
-        enableIf: "{%- if node.materializationType == 'table' or node.materializationType == 'transient table'  -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %} true {% else %} false {% endif %}"
 
       - type: toggleButton
         attributeName: clusterKeyExpressions
         displayName: Allow Expressions in Cluster Key
         default: false
         isRequired: false
-        enableIf: "{%- if config.clusterKey -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if config.clusterKey %} true {% else %} false {% endif %}"
 
       - type: tabular
         displayName: 'Cluster Key'
@@ -51,7 +51,7 @@ metadata:
            isRequired: false
       
         isRequired: false
-        enableIf: "{%- if (config.clusterKey and not config.clusterKeyExpressions) -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if (config.clusterKey and not config.clusterKeyExpressions) %} true {% else %} false {% endif %}"
 
       - type: tabular
         displayName: 'Cluster Key'
@@ -70,10 +70,10 @@ metadata:
            isRequired: false
       
         isRequired: false
-        enableIf: "{%- if (config.clusterKey and config.clusterKeyExpressions) -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if (config.clusterKey and config.clusterKeyExpressions) %} true {% else %} false {% endif %}"
 
       - type: multisourceToggle
-        enableIf: "{%- if node.override.create.enabled -%} false {% else -%} true {%- endif -%}" 
+        enableIf: "{% if node.override.create.enabled %} false {% else %} true {% endif %}" 
         
       - displayName: Multi Source Strategy
         attributeName: insertStrategy
@@ -84,39 +84,39 @@ metadata:
         - "UNION"
         - "UNION ALL"
         isRequired: true
-        enableIf: "{%- if node.isMultisource -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if node.isMultisource %} true {% else %} false {% endif %}"
 
       - displayName: Truncate Before
         attributeName: truncateBefore
         type: toggleButton
         default: true
-        enableIf: "{%- if node.materializationType == 'view' -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
       - displayName: Enable Tests
         attributeName: testsEnabled
         type: toggleButton
         default: false
-        enableIf: "{%- if node.materializationType == 'view' -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
       - displayName: Distinct
         attributeName: selectDistinct
         type: toggleButton
         default: false
-        enableIf: "{%- if config.groupByAll or  node.override.create.enabled -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if config.groupByAll or  node.override.create.enabled %} false {% else %} true {% endif %}"
 
 
       - displayName: Group By All
         attributeName: groupByAll
         type: toggleButton
         default: false
-        enableIf: "{%- if config.selectDistinct or  node.override.create.enabled -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if config.selectDistinct or  node.override.create.enabled %} false {% else %} true {% endif %}"
 
 
       - displayName: Order By
         attributeName: orderby
         type: toggleButton
         default: false
-        enableIf: "{%- if node.materializationType == 'view' -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
       - type: tabular
         displayName: 'Sort column'
@@ -136,7 +136,7 @@ metadata:
              - asc
            
         isRequired: true
-        enableIf: "{%- if config.orderby -%} true {%- else -%} false {%- endif -%}"
+        enableIf: "{% if config.orderby %} true {% else %} false {% endif %}"
 
       - displayName: ASOF Join
         attributeName: asofJoinMain
@@ -149,14 +149,14 @@ metadata:
         type: textBox
         syntax: sql
         isRequired: false
-        enableIf: "{%- if node.materializationType == 'view' -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
       - displayName: Post-SQL
         attributeName: postSQL
         type: textBox
         syntax: sql
         isRequired: false
-        enableIf: "{%- if node.materializationType == 'view' -%} false {%- else -%} true {%- endif -%}"
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
     - groupName: ASOF Join Options
 
@@ -257,5 +257,5 @@ metadata:
       {% endif -%}
       {% endfor -%}
      {%- endif -%} 
-name: Work Advanced Deploy
+name: Work Advanced Deploy ORG
 type: NodeType

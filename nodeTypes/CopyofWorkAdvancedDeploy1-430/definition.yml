@@ -1,11 +1,11 @@
 fileVersion: 1
-id: "179"
+id: "430"
 isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
   nodeMetadataSpec: |
-    capitalized: Work Advanced Deploy
+    capitalized: Copy of Work Advanced Deploy
     short: WRK
     plural: Stages
     tagColor: '#2EB67D'
@@ -260,5 +260,5 @@ metadata:
         {%- endif -%}
       {%- endfor -%}
      {%- endif -%} 
-name: Work Advanced Deploy1
+name: Copy of Work Advanced Deploy1
 type: NodeType
