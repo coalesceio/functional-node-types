@@ -6,11 +6,12 @@ operation:
     asofColumn:
       items:
         - matchCondition: LEFT_TABLE.C2 >= RIGHT_TABLE.C2
+          onCondition: LEFT_TABLE.C1 = RIGHT_TABLE.C1 AND LEFT_TABLE.C3 = RIGHT_TABLE.C3
           rightTable: RIGHT_TABLE
           rightTableSL: TARGET
     asofJoin: true
     asofJoinMain: true
-    asofJoinON: false
+    asofJoinON: true
     asofJoinUSING: false
     clusterKey: false
     clusterKeyConfig:
@@ -103,7 +104,7 @@ operation:
         config: {}
         dataType: VARCHAR(1)
         description: ""
-        name: C1_R
+        name: C1_R1
         nullable: true
         sourceColumnReferences:
           - columnReferences:
@@ -172,7 +173,8 @@ operation:
 
                FROM  {{ ref('TARGET', 'LEFT_TABLE') }} "LEFT_TABLE"
                ASOF JOIN {{ ref('TARGET', 'RIGHT_TABLE') }} "RIGHT_TABLE"
-               MATCH_CONDITION (LEFT_TABLE.C2 >= RIGHT_TABLE.C2 )
+               MATCH_CONDITION (LEFT_TABLE.C2 >= RIGHT_TABLE.C2 ) 
+               ON  (LEFT_TABLE.C1 = RIGHT_TABLE.C1 AND LEFT_TABLE.C3 = RIGHT_TABLE.C3 )
         name: WRK_RIGHT_TABLE_LEFT_TABLE2
         noLinkRefs: []
   name: WRK_RIGHT_TABLE_LEFT_TABLE2
