@@ -1,0 +1,129 @@
+fileVersion: 1
+id: 5802dd24-963c-49b5-a1e1-8afcdef8cd46
+name: PVT_STUDENT_PERFORMANCE_TBL
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: MAX
+    defaultval: ""
+    defvalue: false
+    excolval: true
+    exlcol:
+      items:
+        - exclcoltxtBox: TERM
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: SUBJECT
+    tabValueColumn:
+      items:
+        - valColTextBox: SCORE
+    testsEnabled: false
+    trunc: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1217a193-b740-4963-8dff-0dd02202d2a0
+          stepCounter: 5802dd24-963c-49b5-a1e1-8afcdef8cd46
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f7bc0bee-b6ee-4550-95ef-a3e064052482
+          stepCounter: 5802dd24-963c-49b5-a1e1-8afcdef8cd46
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'English'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5b56d362-a6fc-4569-bdce-067ead2a5980
+          stepCounter: 5802dd24-963c-49b5-a1e1-8afcdef8cd46
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'Math'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 839a8017-d908-4da2-81e4-234769e80f51
+          stepCounter: 5802dd24-963c-49b5-a1e1-8afcdef8cd46
+        config: {}
+        dataType: date
+        defaultValue: ""
+        description: ""
+        name: LOad_date
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: current_date()
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENT_PERFORMANCE
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_TBL
+        noLinkRefs: []
+  name: PVT_STUDENT_PERFORMANCE_TBL
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node
