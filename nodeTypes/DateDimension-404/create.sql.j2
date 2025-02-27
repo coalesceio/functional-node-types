@@ -31,7 +31,8 @@ does not permit copying or modification for any other purpose.
                 DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
             {% endif %}
         {% endif %}
-
+    
+      {% if currentState == undefined or currentState != desiredState %}
         {{ stage('Create Date View', true, "sql", "create") }}
 
         CREATE OR REPLACE VIEW {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
@@ -60,7 +61,7 @@ does not permit copying or modification for any other purpose.
 
             FROM CTE_DATE_GENERATOR	
         {% endfor %}
-
+      {%endif%}
     {% elif desiredState.node.materializationType == 'table' or desiredState.node.materializationType == 'transient table'  %}
         
         {# Figure out cluster key #}
