@@ -10,12 +10,8 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Description    : The Match Recognize node type uses Snowflake SQL MATCH_RECOGNIZE clause to identify and process patterns in datasets(https://docs.snowflake.com/en/sql-reference/constructs/match_recognize). It helps identify events, trends, and anomalies by analyzing rows in sequence. It is useful for tasks like fraud detection, session tracking, and clickstream analysis, with options to customize patterns for different needs. == #}
 
 
-{% if desiredState == currentState %}
 
-{{ stage('Nothing to do.') }}
-select 1 = 0
-
-{% elif desiredState == undefined %}
+{% if desiredState == undefined %}
 
     {# Table or View Name #}
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
@@ -153,9 +149,5 @@ select 1 = 0
 			{%- endfor %}
         )
 		   {% endif %}
-{%- else -%}
-
-{{ stage('Nothing to do.') }}
-select 1 = 0
 
 {% endif %}

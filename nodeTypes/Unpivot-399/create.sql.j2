@@ -10,12 +10,8 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Description    : This node transforms columns to rows.== #}
 {#Release date:20250122 Version:3.0.0#}
 
-{% if desiredState == currentState %}
 
-{{ stage('Nothing to do.') }}
-select 1 = 0
-
-{% elif desiredState == undefined %}
+{% if desiredState == undefined %}
 
     {# Table or View Name #}
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
@@ -88,7 +84,7 @@ select 1 = 0
 			             {{desiredState.config.nameColTextBox}},
                    {{desiredState.config.valColTextBox}}
                {{  get_clause(joinclause,'from')  }}
-               UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS ( {%endif%}{{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}{%if desiredState.config.includenull %} ){%endif%})
+               UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS {%endif%}({{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
                {{ get_clause(joinclause) }}
              )
          {%elif desiredState.config.inferunpivot == false and desiredState.node.materializationType != 'view'%}
@@ -192,7 +188,7 @@ select 1 = 0
                         {%- if not addDesCol.nullable %} NOT NULL
                             {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
                         {% endif %}
-                        {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDescol.description | escape }}'{% endif %}
+                        {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
                  {% endif %}
                {% endfor %}
 
@@ -284,9 +280,4 @@ select 1 = 0
 
          {%endif%}
         
-{%else%}
-
-{{ stage('Nothing to do.') }}
-select 1 = 0
-
 {% endif %}
