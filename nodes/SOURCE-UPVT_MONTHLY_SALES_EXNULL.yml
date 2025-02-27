@@ -4,26 +4,14 @@ name: UPVT_MONTHLY_SALES_EXNULL
 operation:
   config:
     includenull: false
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: Store
     tabValueColumn:
       items:
         - ColTextBox: JAN
-          valColDropdown:
-            columnCounter: 1bb44418-345a-40d4-b8a0-f83fdb0c5f99
-            stepCounter: c2afb828-5be3-4fc9-a832-354ede27714c
         - ColTextBox: FEB
-          valColDropdown:
-            columnCounter: de5af0d9-0a70-4560-873a-cc06ead3137d
-            stepCounter: c2afb828-5be3-4fc9-a832-354ede27714c
         - ColTextBox: MAR
-          valColDropdown:
-            columnCounter: cbdad436-3c3a-4828-add4-19a7ccab623b
-            stepCounter: c2afb828-5be3-4fc9-a832-354ede27714c
         - ColTextBox: APR
-          valColDropdown:
-            columnCounter: c8ccb933-7b12-47af-8577-b0a47a9eef1d
-            stepCounter: c2afb828-5be3-4fc9-a832-354ede27714c
     testsEnabled: false
     truncateBefore: true
     valColTextBox: Quantity
