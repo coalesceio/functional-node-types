@@ -18,7 +18,7 @@ operation:
     testsEnabled: false
     truncateBefore: true
   database: ""
-  deployEnabled: false
+  deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
@@ -37,6 +37,7 @@ operation:
         dataType: DATE
         defaultValue: ""
         description: Date in the format YYYY-MM-DD
+        isBusinessKey: true
         isDate: true
         name: DATE_KEY
         nullable: true
