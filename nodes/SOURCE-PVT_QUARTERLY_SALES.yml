@@ -1,82 +1,68 @@
 fileVersion: 1
-id: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
-name: PVT_QUARTERLY_SALES_VIEW1
+id: 561d3f9b-c269-4ce2-824f-479ec4150995
+name: PVT_QUARTERLY_SALES
 operation:
   config:
     Colvol1: ""
     aggfunc:
       items:
-        - Colvol: null
-          subqueryval: null
+        - {}
     aggfunc1:
       items:
         - funcname1: SUM
         - funcname1: AVG
-    defaultval: "0"
-    defvalue: true
+    defaultval: ""
+    defvalue: false
     excolval: false
-    inferPivot: false
-    keyCol: null
-    mulcol: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: true
+    samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: QUARTER
+        - keyColDropdown:
+            columnCounter: 3c42d65f-cab1-45e3-91ef-79d50b30deb3
+            stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
+          keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColTextBox: AMOUNT
-    truncateBefore: true
-    valCol1: null
+        - valColDropdown: null
+          valColTextBox: EMPID
+    testsEnabled: false
+    trunc: true
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: SOURCE
-  materializationType: view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d2bcac48-a22f-4b50-9ff0-2b90f42229c2
-          stepCounter: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
+          columnCounter: 1a6e3c41-db33-4f81-a056-2752d6da840a
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
         config: {}
         dataType: NUMBER(38,0)
         description: ""
-        name: EMPID
+        name: DISCOUNT_PERCENT
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: a494b41f-2531-4f68-b2c8-93cd8761660b
-                stepCounter: e40c0135-0d98-4ac2-8789-effd9d558737
+              - columnCounter: f0482031-7ade-4d4d-8939-31e92999c55a
+                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
             transform: ""
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 8214cfad-02af-4d77-9ebf-e48e6d0f9ef1
-          stepCounter: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
-        config: {}
-        dataType: VARCHAR(14)
-        defaultValue: ""
-        description: ""
-        name: AGGREGATE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e053ed8a-18cb-4983-878f-d99c39b62464
-          stepCounter: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
+          columnCounter: 96169ffe-ed94-493a-be64-27763c136354
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
@@ -94,8 +80,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6a5224bb-ee75-4fdc-b732-ff6f3823f293
-          stepCounter: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
+          columnCounter: fd74f34d-dcfa-47bd-89b2-7974224b3220
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
@@ -113,8 +99,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 439a3316-7924-4014-86fc-494a251819ab
-          stepCounter: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
+          columnCounter: 1d866e90-4d76-4719-afc5-98361161abeb
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
@@ -132,8 +118,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 455e3d6e-236d-44cd-92f8-3abfacbcf640
-          stepCounter: 69628d24-7a55-49ad-8dc6-d7b8e1e60860
+          columnCounter: e417bf36-fc75-4aca-b514-64e2fdbd8f23
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
         config: {}
         dataType: NUMBER(38,6)
         defaultValue: ""
@@ -146,24 +132,58 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ff429567-30c5-4262-b460-41ad35857cd7
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 29f28ffd-9ffd-43c0-b0ea-6a0fbb215c96
+          stepCounter: 561d3f9b-c269-4ce2-824f-479ec4150995
+        config: {}
+        dataType: VARCHAR(13)
+        defaultValue: ""
+        description: ""
+        name: AGGREGATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases:
-          QUARTERLY_SALES_WO_DIS: e40c0135-0d98-4ac2-8789-effd9d558737
+      - aliases: {}
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: SOURCE
-            nodeName: QUARTERLY_SALES_WO_DIS
+            nodeName: QUARTERLY_SALES
         join:
-          joinCondition: |-
-            FROM {{ ref('SOURCE', 'QUARTERLY_SALES_WO_DIS') }} "QUARTERLY_SALES_WO_DIS"
-            where EMPID >1
-            ORDER BY EMPID
-        name: PVT_QUARTERLY_SALES_VIEW1
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: PVT_QUARTERLY_SALES
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES_VIEW1
+  name: PVT_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
   sqlType: "409"

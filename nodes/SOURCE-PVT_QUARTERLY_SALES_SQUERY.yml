@@ -12,6 +12,7 @@ operation:
         - funcname1: SUM
     defaultval: "0"
     defvalue: false
+    excolval: false
     inferPivot: false
     keyCol:
       columnCounter: 0e0a0b5c-8b9d-4d0a-951a-96dbba29b720

@@ -16,6 +16,7 @@ operation:
           valColDropdown:
             columnCounter: 0d20374c-7fb7-4064-8f59-49c9be019182
             stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
+    testsEnabled: false
     truncateBefore: true
     valColTextBox: Quantity
   database: ""

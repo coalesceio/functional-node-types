@@ -60,7 +60,7 @@ INSERT INTO {{ this }}
 			    {{config.nameColTextBox}},
                 {{config.valColTextBox}}
                {{  get_clause(joinclause,'from')  }} 
-               UNPIVOT {%if config.includenull %}INCLUDE NULLS ( {%endif%}{{config.valColTextBox}} FOR {{config.nameColTextBox}} IN ({{ns.collist|join(',')}}{%if config.includenull %} ){%endif%})
+               UNPIVOT {%if config.includenull %}INCLUDE NULLS {%endif%}({{config.valColTextBox}} FOR {{config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
                {{  get_clause(joinclause)  }}
              )
 {%endif%}

@@ -30,6 +30,7 @@ operation:
         dataType: DATE
         defaultValue: ""
         description: Date in the format YYYY-MM-DD
+        isBusinessKey: true
         isDate: true
         name: DATE_KEY
         nullable: true
