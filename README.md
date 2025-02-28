@@ -154,6 +154,10 @@ The following stages are executed:
 
 ![CreateSQL](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/assets/7216836/0296abf8-0747-4ae8-8478-0782e5e2e545)
 
+### Redeployment with no changes 
+
+If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+
 ### Date Dimension Deploy Undeployment
 
 If a Date Dimension Node of materialization type table/view/transient table are deleted from a Datespace, that Datespace is committed to Git and that commit deployed to a higher level environment then the DateTable in the target environment will be dropped.
@@ -304,6 +308,10 @@ The following stages are executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Pivot view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Pivot table/transient table |
 
+### Redeployment with no changes 
+
+If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+
 ### Pivot Deploy Undeployment
 
 If a Pivot Node of materialization type table/view/transient table are deleted from a workspace, that workspace is committed to Git and that commit deployed to a higher level environment then the PivotTable in the target environment will be dropped.
@@ -328,7 +336,6 @@ Unpivot has three configuration groups:
 * [Node Properties](#unpivot-node-properties)
 * [General Options](#unpivot-general-options)
 * [Unpivot Options](#unpivot-options)
-
 
 #### Unpivot Node Properties
 
@@ -433,6 +440,10 @@ The following stages are executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Unpivot view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Unpivot table/transient table |
 
+### Redeployment with no changes 
+
+If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+
 ### Unpivot Deploy Undeployment
 
 If a Unpivot Node of materialization type table/view/transient table are deleted from a Unpivotspace, that Unpivotspace is committed to Git and that commit deployed to a higher level environment then the UnpivotTable in the target environment will be dropped.
@@ -481,6 +492,7 @@ Match Recognize has three configuration groups:
 | **Infer structure of Match Recognize table** | Toggle: True/False <br/> True,it is the first run and the Match Recognize table structure is yet to be determined<br/>False,when the Match Recognize table is created and generated columns have been Re-synced in Coalesce|
 
 #### Match Recognize Partitioning & Ordering
+
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Partition By** | Toggle: True/False <br/> True,Enable the Column Dropdown and Textbox to add columns for partitioning<br/>False,Disable the Dropdown and Textbox to add columns|
@@ -528,7 +540,6 @@ Match Recognize has three configuration groups:
 | **Select Query Order By** | Toggle: True/False <br/> True,Enable the Column Dropdown and Textbox to add columns for adding in order by clause of select query<br/>False,Disable the Dropdown and Textbox to add columns|
 | **Select Query Order By Column**|Select Query Order By column(Dropdown) <br/>Select Query Order By column(textbox).The column from the source table or subquery that will be added in Order By Clause of the Select Query|
 
-
 ### Match Recognize node Usage
 
 * Add a Match Recognize node on top of source node
@@ -572,6 +583,10 @@ The below stage is executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Match Recognize view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Match Recognize table/transient table |
 
+### Redeployment with no changes 
+
+If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+
 ### Match Recognize Tables Undeployment
 If a Match Recognize Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Match Recognize node in the target environment will be dropped.
 
@@ -580,8 +595,6 @@ This is executed in below stage:
 | **Stage** | **Description** |
 |-----------|----------------|
 | **Drop table/view/transient table** | Removes the table or view from the environment |
-
-
 
 ## Code
 
