@@ -185,7 +185,12 @@ Pivot has three configuration groups:
 
   ![image](https://github.com/user-attachments/assets/edd67d5d-7216-429a-a292-2fe4980d1a9e)
 
+### Pivot limitations
 
+* Currently, the PIVOT semantic doesn’t allow multiple aggregations
+* A pivot query that doesn’t use dynamic pivot can return output with duplicate columns. We recommend avoiding output with duplicate columns. A dynamic pivot query deduplicates duplicate columns.
+* A pivot query that doesn’t use dynamic pivot might fail if it attempts to CAST a VARIANT column to a different data type. Dynamic pivot queries don’t have this limitation.
+  
 #### Pivot Node Properties
 
 | **Property** | **Description** |
