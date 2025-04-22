@@ -329,6 +329,13 @@ UNPIVOT is not exactly the reverse of PIVOT because it cannot undo aggregations 
 
 This operator can be used to transform a wide table (e.g. empid, jan_sales, feb_sales, mar_sales) into a narrower table (e.g. empid, month, sales).
 
+### Unpivot limitations
+
+* It cannot reverse aggregations performed by PIVOT
+* It requires that all columns have the same data type.In case if the columns from source have diffrent data types,ensure the data types are type casted in an upstream node before adding a UNPIVOT node.
+* UNPIVOT cannot be used in dynamic tables or stored procedures
+* Ensure that your data is structured and formatted correctly, as any inconsistencies may affect the unpivoting process. It's important to check for any missing values, duplicate entries, or data types that are not compatible with the unpivot function.
+
 ### Unpivot Node Configuration
 
 Unpivot has three configuration groups: 
