@@ -1,0 +1,104 @@
+fileVersion: 1
+id: f402d50a-22b3-48fd-8ede-7beadf50a654
+name: VW_STORE_SALES_RN
+operation:
+  config:
+    compcol: false
+    insertStrategy: UNION
+    ntileval: ""
+    oprt: ">"
+    orderBy:
+      items:
+        - colName:
+            columnCounter: b5134a89-d784-44c3-a92a-cea2cccadab1
+            stepCounter: f402d50a-22b3-48fd-8ede-7beadf50a654
+    orderby: true
+    orderbycolumn:
+      items:
+        - sortColName:
+            columnCounter: e5dcecf6-4e0d-45b1-82be-68ac0d830f92
+            stepCounter: f402d50a-22b3-48fd-8ede-7beadf50a654
+          sortOrder: desc
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: b5134a89-d784-44c3-a92a-cea2cccadab1
+            stepCounter: f402d50a-22b3-48fd-8ede-7beadf50a654
+    partitionby: true
+    qualify: true
+    selectDistinct: false
+    sortorder: desc
+    val: "3"
+    winfunc: ROW_NUMBER
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b5134a89-d784-44c3-a92a-cea2cccadab1
+          stepCounter: f402d50a-22b3-48fd-8ede-7beadf50a654
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STORE_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 081ba6bd-1fac-47ea-b3bf-99aa39d7e769
+                stepCounter: f58ea1b1-cf12-434f-9a01-3bc0711df80c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e1f02ac0-9f28-48b6-9195-01e5d91245a3
+          stepCounter: f402d50a-22b3-48fd-8ede-7beadf50a654
+        config: {}
+        dataType: DATE
+        description: ""
+        name: SALES_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3863c198-b196-4a7d-bf57-e7874ae147fd
+                stepCounter: f58ea1b1-cf12-434f-9a01-3bc0711df80c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e5dcecf6-4e0d-45b1-82be-68ac0d830f92
+          stepCounter: f402d50a-22b3-48fd-8ede-7beadf50a654
+        config: {}
+        dataType: NUMBER(10,2)
+        description: ""
+        name: TOTAL_SALES
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 23ae997c-08ac-45ad-a3bf-1e524b4abfdd
+                stepCounter: f58ea1b1-cf12-434f-9a01-3bc0711df80c
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STORE_SALES: f58ea1b1-cf12-434f-9a01-3bc0711df80c
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STORE_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STORE_SALES') }} "STORE_SALES"
+        name: VW_STORE_SALES_RN
+        noLinkRefs: []
+  name: VW_STORE_SALES_RN
+  overrideSQL: false
+  schema: ""
+  sqlType: "459"
+  type: sql
+  version: 1
+type: Node

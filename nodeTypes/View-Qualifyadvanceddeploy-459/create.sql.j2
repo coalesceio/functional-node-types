@@ -1,0 +1,96 @@
+{#
+    Copyright (c) 2023 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalsce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Version        : 1  == #}
+{# == Node Type Name           : View-Qualify Advanced Deploy == #}
+{# == Node Type Description    : This node creates a view with an addition of qualify filter == #}
+
+
+
+{%if currentState != undefined and desiredState == undefined %}
+
+    {# Table or View Name #}
+    {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
+    {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
+    {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
+
+     {{ stage('Drop View', true, "sql", "drop") }}
+     DROP VIEW IF EXISTS {{ fullyQualifiedTargetObjectName }}
+
+
+{% elif desiredState %}
+
+        {% if currentState != undefined %}
+            
+		  {# Change Node Name or Change Storage Location #}
+            {# Storage Location Tests #}
+            {# Test  #}
+                    {% set ns = namespace(storageLocationTest= true) %}
+            {%if currentState.storageLocations|length == 0%}          
+              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+              {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+               
+            {%else %}   
+            {# Current target node mappings #}
+            {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+            {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
+			{% endif %}		 
+        
+            {# Desired target node mappings #}
+            {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
+            {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
+            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}           
+            
+             {% if currentDatabaseSchema != desiredDatabaseSchema %}
+                {% set ns.storageLocationTest = false %}
+             {% endif %}
+			
+			  {% if (ns.storageLocationTest == false or currentState.node.name != desiredState.node.name) %}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+              {%endif%}
+			  
+        {% endif %}
+
+	   {% if currentState == undefined or currentState != desiredState %}
+          
+        {{ stage('Create View', true, "sql", "create") }}
+        
+        CREATE OR REPLACE VIEW {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+        (
+            {% for col in desiredState.columns %}
+                "{{ col.name }}"
+                {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                {%- if not loop.last -%}, {% endif %}
+            {% endfor %}
+        )
+        {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+        AS
+        {% for source in desiredState.sources %}
+            SELECT
+            {% for col in source.columns %}
+                {{ get_source_transform(col) }} AS "{{ col.name }}"
+                {%- if not loop.last -%}, {% endif %}
+            {% endfor %}
+
+            {{ source.join }}
+             {%if desiredState.config.qualify -%}
+             {%if desiredState.config.compcol and desiredState.config.winfunc not in('ROW_NUMBER','RANK','DENSE_RANK','PERCENT_RANK','NTILE','CUME_DIST') -%}               
+                   QUALIFY {{source.columns[0].sourceColumns[0].node.name}}{{'.'~desiredState.config.winfuncColName.name}} {{desiredState.config.oprt}} {%if desiredState.config.winfuncColName is not defined or desiredState.config.winfuncColName is none%}{{desiredState.config.winfunc~'()'}}  {%else%} {{desiredState.config.winfunc~'('}}{{source.columns[0].sourceColumns[0].node.name}}{{'.'~desiredState.config.winfuncColName.name~')'}} {%endif%}
+              OVER ({%if desiredState.config.partitionby %}PARTITION BY  {{ partition_by() }}{% endif %}{% if desiredState.config.orderby %} {{ sortorder_by_colv() }} {% endif %})
+             {%else -%}
+              QUALIFY {%if desiredState.config. winfunc in ('ROW_NUMBER','RANK','DENSE_RANK','PERCENT_RANK','CUME_DIST') %}{{desiredState.config.winfunc~'()'}} {%elif desiredState.config.winfunc == 'NTILE' %} {{desiredState.config.winfunc~'('}}{{desiredState.config.ntileval~')'}}
+               {%else%} {{desiredState.config.winfunc~'('}}{{source.columns[0].sourceColumns[0].node.name}}{{'.'~desiredState.config.winfuncColName.name~')'}} {%endif%}
+              OVER ( {%if desiredState.config.partitionby %}PARTITION BY  {{ partition_by() }}{% endif %}{% if desiredState.config.orderby %} {{ sortorder_by_colv() }} {% endif %}) {{desiredState.config.oprt}} {{desiredState.config.val}}
+              {%endif%}
+             {%endif%}
+        {% endfor %}
+    {% endif %}	
+	
+{%endif%}

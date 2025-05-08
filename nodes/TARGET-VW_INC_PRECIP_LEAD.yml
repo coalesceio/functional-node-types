@@ -1,0 +1,120 @@
+fileVersion: 1
+id: 0113f35c-d946-4bd5-9437-c50e05d602c0
+name: VW_INC_PRECIP_LEAD
+operation:
+  config:
+    compcol: true
+    insertStrategy: UNION
+    ntileval: ""
+    oprt: ">"
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 041657be-e15e-476d-a077-c22a6c8bfab3
+            stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+    orderby: true
+    orderbycolumn:
+      items:
+        - sortColName:
+            columnCounter: d702f6ad-3c59-4a46-ae10-806af11d5cd1
+            stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+          sortOrder: asc
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 7cc44c20-325f-43ba-8de9-83ba4e9ceb37
+            stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+    partitionby: true
+    qualify: true
+    sortorder: desc
+    val: ""
+    winfunc: LEAD
+    winfuncColName:
+      columnCounter: d702f6ad-3c59-4a46-ae10-806af11d5cd1
+      stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 041657be-e15e-476d-a077-c22a6c8bfab3
+          stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: START_TIME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fe74c0eb-7f0b-4fe2-a3af-4235f901b63b
+                stepCounter: 1a61911b-809c-4089-951f-8e9976ef3b60
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d702f6ad-3c59-4a46-ae10-806af11d5cd1
+          stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+        config: {}
+        dataType: NUMBER(3,2)
+        description: ""
+        name: PRECIP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5b23327f-8e49-43a9-acbf-be620b55b908
+                stepCounter: 1a61911b-809c-4089-951f-8e9976ef3b60
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7cc44c20-325f-43ba-8de9-83ba4e9ceb37
+          stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: CITY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1e4eb28e-23ff-4e48-8c0c-6bc821698793
+                stepCounter: 1a61911b-809c-4089-951f-8e9976ef3b60
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 96eeea20-c741-4ffd-832e-f3ea30a61aae
+          stepCounter: 0113f35c-d946-4bd5-9437-c50e05d602c0
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: COUNTY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 22b14055-45d3-46d0-b9a3-2be4cb0c802c
+                stepCounter: 1a61911b-809c-4089-951f-8e9976ef3b60
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          HEAVY_WEATHER: 1a61911b-809c-4089-951f-8e9976ef3b60
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: HEAVY_WEATHER
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'HEAVY_WEATHER') }} "HEAVY_WEATHER"
+        name: VW_INC_PRECIP_LEAD
+        noLinkRefs: []
+  name: VW_INC_PRECIP_LEAD
+  overrideSQL: false
+  schema: ""
+  sqlType: "459"
+  type: sql
+  version: 1
+type: Node

@@ -1,9 +1,8 @@
 fileVersion: 1
-id: 88d50ba7-715a-4f1b-a71f-7b59d61b06a0
-name: STUDENTGRADES
+id: e5dba363-2623-44d5-9d99-47776ab195d9
+name: STUDENT_SAMP
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -14,32 +13,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: f5eeba19-06cf-45f0-a1aa-af6461232b64
-          stepCounter: 88d50ba7-715a-4f1b-a71f-7b59d61b06a0
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: STUDENTID
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e664b8c0-3a68-47f3-82f2-5a7e991c7f33
-          stepCounter: 88d50ba7-715a-4f1b-a71f-7b59d61b06a0
+          columnCounter: 5824d47e-b885-46cc-99b0-370fc6e0e365
+          stepCounter: e5dba363-2623-44d5-9d99-47776ab195d9
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: SUBJECT
+        name: FIRST_NAME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -52,13 +32,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e879431d-554f-4537-bc52-4c579df0bffc
-          stepCounter: 88d50ba7-715a-4f1b-a71f-7b59d61b06a0
+          columnCounter: 084bbd75-94a5-478c-9427-6d3422ed33cd
+          stepCounter: e5dba363-2623-44d5-9d99-47776ab195d9
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: GRADE
+        name: LAST_NAME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -66,12 +46,28 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SAMPLE_SOURCE', 'STUDENTGRADES') }}
-  name: STUDENTGRADES
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 334486f0-17e5-4733-8f07-138b61938646
+          stepCounter: e5dba363-2623-44d5-9d99-47776ab195d9
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: DATE_OF_BIRTH
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: STUDENT_SAMP
   schema: ""
   sqlType: Source
-  table: STUDENTGRADES
   type: sourceInput
   version: 1
 type: Node

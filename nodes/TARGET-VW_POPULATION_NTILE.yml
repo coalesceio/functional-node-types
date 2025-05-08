@@ -1,0 +1,67 @@
+fileVersion: 1
+id: ac28067a-7034-4210-a270-2de6f42c0cbd
+name: VW_POPULATION_NTILE
+operation:
+  config:
+    compcol: false
+    ntileval: "5"
+    oprt: "="
+    orderby: true
+    orderbycolumn:
+      items:
+        - sortColName:
+            columnCounter: 8ec1f4b0-ac99-42c9-b8d2-5ae84d750d3d
+            stepCounter: ac28067a-7034-4210-a270-2de6f42c0cbd
+          sortOrder: desc
+    partitionBy:
+      items:
+        - {}
+    partitionby: false
+    qualify: true
+    sortorder: desc
+    val: "2"
+    winfunc: NTILE
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8ec1f4b0-ac99-42c9-b8d2-5ae84d750d3d
+          stepCounter: ac28067a-7034-4210-a270-2de6f42c0cbd
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: POP_ID
+        nullable: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1ca6e8d7-ef24-4066-bcd7-f2fb194a7d03
+                stepCounter: 6e1c4b8c-1d4e-49d6-8727-eb603d0aa27d
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          POPULATION: 6e1c4b8c-1d4e-49d6-8727-eb603d0aa27d
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: POPULATION
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'POPULATION') }} "POPULATION"
+        name: VW_POPULATION_NTILE
+        noLinkRefs: []
+  name: VW_POPULATION_NTILE
+  overrideSQL: false
+  schema: ""
+  sqlType: "459"
+  type: sql
+  version: 1
+type: Node

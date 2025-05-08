@@ -1,9 +1,8 @@
 fileVersion: 1
-id: b3105e76-efc9-4285-8981-4a4223721854
-name: FRUITINVENTORY
+id: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
+name: STUDENTS_SAMP
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -14,13 +13,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 98fbd3a4-17d8-4419-9d70-01fb94401454
-          stepCounter: b3105e76-efc9-4285-8981-4a4223721854
+          columnCounter: cdfeaf7c-285c-4ee3-8f96-323a9d90f6c8
+          stepCounter: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: FRUITNAME
+        name: NAME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -33,13 +32,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 3946a3b3-a46b-4d36-8514-0e421f22f97d
-          stepCounter: b3105e76-efc9-4285-8981-4a4223721854
+          columnCounter: 5c59a8b7-d705-4a20-ad9c-af023583b932
+          stepCounter: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: STOREA
+        name: GRADE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -52,13 +51,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a0762db7-24ac-4f83-8923-b4d6b9e2b0ac
-          stepCounter: b3105e76-efc9-4285-8981-4a4223721854
+          columnCounter: 5e768198-7355-4c4e-87ef-3a314643eb09
+          stepCounter: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: STOREB
+        name: COUNTRY
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -66,12 +65,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'FRUITINVENTORY') }}
-  name: FRUITINVENTORY
+  name: STUDENTS_SAMP
   schema: ""
   sqlType: Source
-  table: FRUITINVENTORY
   type: sourceInput
   version: 1
 type: Node

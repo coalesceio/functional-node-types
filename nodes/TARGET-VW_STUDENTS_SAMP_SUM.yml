@@ -1,0 +1,98 @@
+fileVersion: 1
+id: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+name: VW_STUDENTS_SAMP_SUM
+operation:
+  config:
+    compcol: false
+    insertStrategy: UNION
+    ntileval: ""
+    oprt: ">"
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 6f21e6d4-7a36-4d1c-ad64-850cd505f101
+            stepCounter: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 450b8b69-6248-4879-ae08-12bcdf55efca
+            stepCounter: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+    qualify: true
+    sortorder: desc
+    val: "80"
+    winfunc: SUM
+    winfuncColName:
+      columnCounter: 6f21e6d4-7a36-4d1c-ad64-850cd505f101
+      stepCounter: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a0147feb-78ca-455c-b78a-785e8db68da0
+          stepCounter: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cdfeaf7c-285c-4ee3-8f96-323a9d90f6c8
+                stepCounter: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6f21e6d4-7a36-4d1c-ad64-850cd505f101
+          stepCounter: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: GRADE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5c59a8b7-d705-4a20-ad9c-af023583b932
+                stepCounter: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 450b8b69-6248-4879-ae08-12bcdf55efca
+          stepCounter: 1af302b2-f85a-45a7-aacf-be61e8cc3f92
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COUNTRY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5e768198-7355-4c4e-87ef-3a314643eb09
+                stepCounter: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STUDENTS_SAMP: bb8ffa7e-3f1b-4e4d-85d1-2d4042e3571d
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENTS_SAMP
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENTS_SAMP') }} "STUDENTS_SAMP"
+        name: VW_STUDENTS_SAMP_SUM
+        noLinkRefs: []
+  name: VW_STUDENTS_SAMP_SUM
+  overrideSQL: false
+  schema: ""
+  sqlType: "459"
+  type: sql
+  version: 1
+type: Node

@@ -1,10 +1,9 @@
 fileVersion: 1
-id: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
-name: STUDENT_PERFORMANCE
+id: f58ea1b1-cf12-434f-9a01-3bc0711df80c
+name: STORE_SALES
 operation:
   database: ""
-  dataset: ""
-  deployEnabled: true
+  deployEnabled: false
   description: ""
   locationName: SOURCE
   metadata:
@@ -14,13 +13,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: 081ba6bd-1fac-47ea-b3bf-99aa39d7e769
+          stepCounter: f58ea1b1-cf12-434f-9a01-3bc0711df80c
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: STUDENT_ID
+        name: STORE_ID
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -33,13 +32,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: 3863c198-b196-4a7d-bf57-e7874ae147fd
+          stepCounter: f58ea1b1-cf12-434f-9a01-3bc0711df80c
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: DATE
         defaultValue: ""
         description: ""
-        name: TERM
+        name: SALES_DATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -52,13 +51,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b3be608d-900b-4e58-95b5-3eb1d0a81d66
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: 23ae997c-08ac-45ad-a3bf-1e524b4abfdd
+          stepCounter: f58ea1b1-cf12-434f-9a01-3bc0711df80c
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: NUMBER(10,2)
         defaultValue: ""
         description: ""
-        name: SUBJECT
+        name: TOTAL_SALES
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -66,31 +65,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: bd861a16-5651-4924-855d-718266030fb6
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: SCORE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }}
-  name: STUDENT_PERFORMANCE
+  name: STORE_SALES
   schema: ""
   sqlType: Source
-  table: STUDENT_PERFORMANCE
   type: sourceInput
   version: 1
 type: Node
