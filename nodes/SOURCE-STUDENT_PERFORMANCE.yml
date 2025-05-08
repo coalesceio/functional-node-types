@@ -3,7 +3,6 @@ id: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
 name: STUDENT_PERFORMANCE
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -85,12 +84,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }}
   name: STUDENT_PERFORMANCE
   schema: ""
   sqlType: Source
-  table: STUDENT_PERFORMANCE
   type: sourceInput
   version: 1
 type: Node

@@ -1,0 +1,35 @@
+fileVersion: 1
+id: 6e1c4b8c-1d4e-49d6-8727-eb603d0aa27d
+name: POPULATION
+operation:
+  database: ""
+  deployEnabled: false
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1ca6e8d7-ef24-4066-bcd7-f2fb194a7d03
+          stepCounter: 6e1c4b8c-1d4e-49d6-8727-eb603d0aa27d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: POP_ID
+        nullable: false
+        primaryKey: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: POPULATION
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

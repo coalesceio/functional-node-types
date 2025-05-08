@@ -3,7 +3,6 @@ id: 88d50ba7-715a-4f1b-a71f-7b59d61b06a0
 name: STUDENTGRADES
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -66,12 +65,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SAMPLE_SOURCE', 'STUDENTGRADES') }}
   name: STUDENTGRADES
   schema: ""
   sqlType: Source
-  table: STUDENTGRADES
   type: sourceInput
   version: 1
 type: Node

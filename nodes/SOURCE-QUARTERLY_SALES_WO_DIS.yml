@@ -3,7 +3,6 @@ id: e40c0135-0d98-4ac2-8789-effd9d558737
 name: QUARTERLY_SALES_WO_DIS
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -66,12 +65,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES_WO_DIS') }}
   name: QUARTERLY_SALES_WO_DIS
   schema: ""
   sqlType: Source
-  table: QUARTERLY_SALES_WO_DIS
   type: sourceInput
   version: 1
 type: Node

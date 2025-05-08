@@ -3,7 +3,6 @@ id: 367c5899-4df8-463d-ac35-97479767e8a3
 name: MONTHLY_SALES
 operation:
   database: ""
-  dataset: ""
   deployEnabled: true
   description: ""
   locationName: SOURCE
@@ -123,12 +122,9 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-    join:
-      joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }}
   name: MONTHLY_SALES
   schema: ""
   sqlType: Source
-  table: MONTHLY_SALES
   type: sourceInput
   version: 1
 type: Node
