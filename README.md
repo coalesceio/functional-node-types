@@ -6,7 +6,7 @@ The Coalesce Functional Node Types Package includes:
 * [Pivot](#Pivot)
 * [Unpivot](#Unpivot)
 * [Match Recognize](#match-recognize)
-* [View-Qualify advanced deploy](#view-qualify-advanced-deploy]
+* [View-Qualify advanced deploy](#view-qualify-advanced-deploy)
 * [Code](#code)
 
 ---
