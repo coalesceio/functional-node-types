@@ -6,6 +6,7 @@ The Coalesce Functional Node Types Package includes:
 * [Pivot](#Pivot)
 * [Unpivot](#Unpivot)
 * [Match Recognize](#match-recognize)
+* [View-Qualify advanced deploy](#view-qualify-advanced-deploy]
 * [Code](#code)
 
 ---
@@ -608,6 +609,101 @@ This is executed in below stage:
 |-----------|----------------|
 | **Drop table/view/transient table** | Removes the table or view from the environment |
 
+## View-Qualify advanced deploy
+
+The Coalesce View-Qualify advanced deploy UDN is a versatile node that allows you to develop and deploy a View in Snowflake with an added QUALIFY filter.
+
+A view allows the result of a query to be accessed as if it were a table. Views serve a variety of purposes, including combining, segregating, and protecting data.In a SELECT statement, the QUALIFY clause filters the results of window functions.
+
+[QUALIFY](https://docs.snowflake.com/en/sql-reference/constructs/qualify) does with window functions what HAVING does with aggregate functions and GROUP BY clauses.
+
+### View Node Configuration
+
+The View node type has two configuration groups:
+
+* [Node Properties](#view-node-properties)
+* [Options](#view-options)
+
+![View-qualify NC](https://github.com/user-attachments/assets/6cf9f488-488f-4b0c-bf77-ab1b56f40b6c)
+
+#### View Node Properties
+
+| **Properties** | **Description** |
+|----------|-------------|
+| **Storage Location** | Storage Location where the WORK will be created |
+| **Node Type** | Name of template used to create node objects |
+| **Description** | A description of the node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
+
+#### View Options
+
+| **Options** | **Description** |
+|---------|-------------|
+| **QUALIFY filter** | Toggle: True/False<br/>**True**: Quaify filter on a window function is added to the view definition and the configs related to qualify filter are displayed <br/>**False**: A simple view is created |
+| **Window functions** | A drop down with the list of window functions is visible.Window function to be used in QULAIFY filter predicate is chosen.  |
+| **Window function column name**|The window fucntion is applied to this specific column.This is not required for window functions like 'ROW_NUMBER','RANK','DENSE_RANK','PERCENT_RANK','NTILE'|
+| **Constant value-desired number of buckets**|Enabled whn the window function chosen is "NTILE"|
+| **Partition By** | Toggle: True/False<br/>**True**: Lists the columns to be used for partitioning window function <br/>**False**: Partition by column drop down is invisible.Check [preferences](#preferences) for more info |
+| **Order By** | Toggle: True/False<br/>**True**: Sort column and sort order drop down are visible and are required to form order by clause<br/>**False**: Sort column and sort order drop down are invisible.Check [preferences](#preferences) for more info |
+| **Operator** | A drop with the list of comparison operators are listed down |
+| **Compare return value of function with window column** | Toggle: True/False<br/>**True**: The return value of window function is compared with the column chosen for window function <br/>**False**: Compared with an expected value entered in the config below|
+| **Expected value**| The expected value possibly an integer to compare the results of window function|
+
+![View-Qialify options](https://github.com/user-attachments/assets/67a7d373-d437-4eaf-b30b-2deda610b4ba)
+
+### Preferences
+
+* PARTITION BY is optional.You can omit PARTITION BY if you want to treat the entire result set as one partition.
+* ORDER BY is also optional.But it is required for ranking or cumulative functions where order matters (e.g., ROW_NUMBER(), RANK(), LAG(), LEAD())
+* ORDER BY is optional for functions like AVG(), SUM(), etc., unless you want cumulative behavior.
+  
+### View Joins
+
+Join conditions and other clauses like where, qualify can be specified in the join space next to mapping of columns in the Coalesce app.
+
+> 📘 **Specify Group by Clauses**
+>
+> Best Practice is to specify group by clauses in this space if you are not opting for the group by all provided in OPTIONS config.
+
+### View Deployment
+
+#### View Initial Deployment
+
+When deployed for the first time into an environment the View node will execute the Create View stage.
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create View** | This will execute a CREATE OR REPLACE statement and create a View in the target environment |
+
+#### View Redeployment
+
+The subsequent deployment of View node with changes in node name or node location results in deleting the existing view and recreating the view.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Drop View** | Removes existing view |
+| **Create View** | Creates new view with updated definition |
+
+Changes in QUALIFY filter or view definition results in recreating the view.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create View** | Creates new view with updated definition |
+
+#### View Undeployment
+
+If a View Node is deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the View in the target environment will be dropped.
+
+This is executed in the below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Drop View** | Removes the view from the environment |
+
 ## Code
 
 ### Date Table Code
@@ -641,3 +737,13 @@ This is executed in below stage:
 | **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/definition.yml)|
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/run.sql.j2)
+
+### View-Qualify advanced deploy
+
+| **Component** | **Link** |
+|--------------|-----------|
+| **Node definition** | [definition.yml](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/definition.yml) |
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/create.sql.j2) |
+
+[Macros](https://github.com/coalesceio/functional-node-types/blob/main/macros/macro-1.yml)
+
