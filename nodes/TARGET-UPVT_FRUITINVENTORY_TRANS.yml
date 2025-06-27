@@ -4,18 +4,12 @@ name: UPVT_FRUITINVENTORY_TRANS
 operation:
   config:
     includenull: true
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: store
     tabValueColumn:
       items:
         - ColTextBox: STOREA
-          valColDropdown:
-            columnCounter: 02e75cac-e4dd-4e0f-bfa9-38c7a21b6538
-            stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         - ColTextBox: STOREB
-          valColDropdown:
-            columnCounter: 0d20374c-7fb7-4064-8f59-49c9be019182
-            stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
     testsEnabled: false
     truncateBefore: true
     valColTextBox: Quantity
@@ -44,34 +38,45 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 02e75cac-e4dd-4e0f-bfa9-38c7a21b6538
+          columnCounter: 264cc22e-208f-4cf4-b73d-e70715c0cff7
           stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
         description: ""
-        name: STOREA
+        name: STORE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 3946a3b3-a46b-4d36-8514-0e421f22f97d
                 stepCounter: b3105e76-efc9-4285-8981-4a4223721854
             transform: ""
+        transform: ""
+        uniqueKey: false
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 0d20374c-7fb7-4064-8f59-49c9be019182
+          columnCounter: 33a82786-b80d-4bd7-b27e-4394a7dc12d0
           stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         config: {}
         dataType: NUMBER(38,0)
+        defaultValue: ""
         description: ""
-        name: STOREB
+        name: QUANTITY
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: a0762db7-24ac-4f83-8923-b4d6b9e2b0ac
                 stepCounter: b3105e76-efc9-4285-8981-4a4223721854
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
+    description: ""
+    destinationName: ""
     enabledColumnTestIDs: []
+    materializationOption: ""
     sourceMapping:
       - aliases: {}
         customSQL:

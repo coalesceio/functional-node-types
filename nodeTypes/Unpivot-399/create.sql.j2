@@ -77,7 +77,7 @@ does not permit copying or modification for any other purpose.
              ( 
                SELECT                 
                {% for col in source.columns %}
-                  {%if col.name not in ns.collist|join(',') and col.name|upper != desiredState.config.nameColTextBox|upper and col.name|upper != desiredState.config.valColTextBox|upper  %}
+                  {%if col.name not in ns.pcolumn and col.name|upper != desiredState.config.nameColTextBox|upper and col.name|upper != desiredState.config.valColTextBox|upper  %}
 			            {{ get_source_transform(col) }} AS "{{ col.name }}", 
                   {%endif%}
 		        {% endfor %}                
