@@ -90,7 +90,7 @@ does not permit copying or modification for any other purpose.
          {%elif desiredState.config.inferunpivot == false and desiredState.node.materializationType != 'view'%}
 
             {% if currentState == undefined or (currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType)  %}
-               {{ stage('Create Pivot '+ ' {{desiredState.node.materializationType}}' , true, "sql", "create") }}
+               {{ stage('Create Unpivot '+ ' {{desiredState.node.materializationType}}' , true, "sql", "create") }}
                CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               (
                 {% for col in desiredState.columns %}

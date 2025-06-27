@@ -1,0 +1,112 @@
+fileVersion: 1
+id: 422a3d8a-f268-450b-85da-c76f48e80622
+name: UPVT_PROJECT_STATUS_SUMMARY
+operation:
+  config:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: Quarter
+    tabValueColumn:
+      items:
+        - ColTextBox: STATUS_Q1
+        - ColTextBox: STATUS_Q2
+        - ColTextBox: STATUS_Q3
+        - ColTextBox: STATUS_Q4
+    testsEnabled: false
+    truncateBefore: true
+    valColTextBox: Status
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 643617a8-5e69-4cbd-b462-6046020827b8
+          stepCounter: 422a3d8a-f268-450b-85da-c76f48e80622
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e9706d42-7e60-4486-bfed-db9720900568
+                stepCounter: a0f9d5a8-01f6-4666-acc0-51d8bf0ecd83
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b781cd93-c9f1-4bb6-929f-63dbb96da6ac
+          stepCounter: 422a3d8a-f268-450b-85da-c76f48e80622
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a31c4baa-593a-458d-9bb7-48c159c50d0c
+                stepCounter: a0f9d5a8-01f6-4666-acc0-51d8bf0ecd83
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 98cce883-de1f-4b5b-a05a-009166f5eb48
+          stepCounter: 422a3d8a-f268-450b-85da-c76f48e80622
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: QUARTER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 15a47d66-8386-4f20-9f88-97c6455f4565
+          stepCounter: 422a3d8a-f268-450b-85da-c76f48e80622
+        config: {}
+        dataType: VARCHAR(20)
+        defaultValue: ""
+        description: ""
+        name: STATUS
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PROJECT_STATUS_SUMMARY
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'PROJECT_STATUS_SUMMARY') }} "PROJECT_STATUS_SUMMARY"
+        name: UPVT_PROJECT_STATUS_SUMMARY
+        noLinkRefs: []
+  name: UPVT_PROJECT_STATUS_SUMMARY
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node
