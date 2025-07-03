@@ -64,62 +64,44 @@ operation:
               - columnCounter: 876ce430-72c3-4607-960d-95da38421749
                 stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 32bb5c88-38c6-4362-a08f-d43832840779
+          columnCounter: a6823b6c-5793-4682-81ca-14b9beefd4ce
+          stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: QUARTER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 13c2e07c-2b99-483e-ac91-4c2f3c9af738
           stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
         config: {}
         dataType: VARCHAR(20)
+        defaultValue: ""
         description: ""
-        name: STATUS_Q1
+        name: STATUS
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 3dae046b-2110-4c79-b895-53c3d91a2b44
-                stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: b7522f87-04e3-473e-9335-52e2971a073c
-          stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
-        config: {}
-        dataType: VARCHAR(20)
-        description: ""
-        name: STATUS_Q2
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 6d92ade2-a45e-447a-9cfe-0745334447d1
-                stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: c891b97b-abee-4f03-94da-585511779630
-          stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
-        config: {}
-        dataType: VARCHAR(20)
-        description: ""
-        name: STATUS_Q3
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 13000524-4cc9-4316-820a-c47c8efa630b
-                stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 24c73e31-ced4-41d4-8224-e81dd4f5519b
-          stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
-        config: {}
-        dataType: VARCHAR(20)
-        description: ""
-        name: STATUS_Q4
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 1f7d8c7a-7cd4-4b3f-8b02-7e95e2049daf
-                stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
-            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

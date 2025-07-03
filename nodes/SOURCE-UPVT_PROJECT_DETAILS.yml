@@ -4,12 +4,14 @@ name: UPVT_PROJECT_DETAILS
 operation:
   config:
     includenull: false
-    inferunpivot: false
+    inferunpivot: true
     nameColTextBox: VALUE
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
+          valColDropdown: null
         - ColTextBox: PROJECT_DESCRIPTION
+          valColDropdown: null
     testsEnabled: false
     truncateBefore: true
     valColTextBox: ATTRIBUTE
@@ -33,8 +35,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: f0f11138-7337-49e2-9913-9d2a823c5b5f
-                stepCounter: dd011c1e-55fd-4e1a-8118-2ab008a72313
+              - columnCounter: d6d411ca-1b3c-4d31-bf7a-4c4b64290977
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
             transform: ""
       - appliedColumnTests: {}
         columnReference:
@@ -47,8 +49,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 67a5420f-0de2-4287-8db2-5197835d3026
-                stepCounter: dd011c1e-55fd-4e1a-8118-2ab008a72313
+              - columnCounter: 3f29fc9b-6b5c-4ae5-be25-fb2a94faa374
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
             transform: ""
       - appliedColumnTests: {}
         columnReference:
@@ -61,8 +63,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 7af7e30f-fc89-43b7-baff-2e8afd1bd069
-                stepCounter: dd011c1e-55fd-4e1a-8118-2ab008a72313
+              - columnCounter: 4e1ce074-0938-43b5-984c-198baf57e719
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
             transform: ""
       - acceptedValues:
           strictMatch: true
