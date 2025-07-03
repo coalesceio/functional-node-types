@@ -103,7 +103,7 @@ operation:
   name: STG_PROJECT_DETAILS
   overrideSQL: false
   schema: ""
-  sqlType: Stage
+  sqlType: bt:::204
   type: sql
   version: 1
 type: Node
