@@ -23,7 +23,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
+  locationName: TARGET
   materializationType: view
   metadata:
     appliedNodeTests: []
@@ -101,14 +101,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          STG_PROJECT_DETAILS1: 724aca78-ae78-4386-b441-f0524d338cf3
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: SOURCE
+          - locationName: TARGET
             nodeName: STG_PROJECT_DETAILS1
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'STG_PROJECT_DETAILS1') }} "STG_PROJECT_DETAILS1"
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS1') }} "STG_PROJECT_DETAILS1"
         name: UPVT_PROJECT_DETAILS1
         noLinkRefs: []
   name: UPVT_PROJECT_DETAILS1
