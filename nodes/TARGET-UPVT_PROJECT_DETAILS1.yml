@@ -106,10 +106,10 @@ operation:
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: TARGET
+          - locationName: TARGET_ACC
             nodeName: STG_PROJECT_DETAILS1
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS1') }} "STG_PROJECT_DETAILS1"
+          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_PROJECT_DETAILS1') }} "STG_PROJECT_DETAILS1"
         name: UPVT_PROJECT_DETAILS1
         noLinkRefs: []
   name: UPVT_PROJECT_DETAILS1
