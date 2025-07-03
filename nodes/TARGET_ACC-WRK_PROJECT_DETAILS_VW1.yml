@@ -33,7 +33,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: TARGET
+  locationName: TARGET_ACC
   materializationType: view
   metadata:
     appliedNodeTests: []
