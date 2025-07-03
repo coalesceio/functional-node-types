@@ -44,20 +44,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 050aef8b-b98f-4086-b388-8073c2d3e80f
-          stepCounter: e7cf72e8-c701-4650-b43b-f4e6cc6fbd70
-        config: {}
-        dataType: VARCHAR(100)
-        description: ""
-        name: PROJECT_NAME
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 4013e2a2-7978-41f9-b00d-a653b94cda56
-                stepCounter: bd1805bc-142a-4b5c-a230-2b0cb1bb8c04
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 184a4697-9e99-495c-99fa-b4ed05249770
           stepCounter: e7cf72e8-c701-4650-b43b-f4e6cc6fbd70
         config: {}
@@ -70,20 +56,44 @@ operation:
               - columnCounter: 2fe8f54c-5adc-4764-bc8f-fc89b14694b1
                 stepCounter: bd1805bc-142a-4b5c-a230-2b0cb1bb8c04
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 663208ff-7899-44e9-a788-5932b8c947c7
+          columnCounter: a1cc5505-db90-4f3d-a382-fd2726f11d32
+          stepCounter: e7cf72e8-c701-4650-b43b-f4e6cc6fbd70
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: VALUE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e6e397e3-e2eb-4c27-8d15-116cf38b1857
           stepCounter: e7cf72e8-c701-4650-b43b-f4e6cc6fbd70
         config: {}
         dataType: VARCHAR(255)
+        defaultValue: ""
         description: ""
-        name: PROJECT_DESCRIPTION
+        name: ATTRIBUTES
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 1f579fc6-8957-4a0c-92c8-ed9d95c72edd
-                stepCounter: bd1805bc-142a-4b5c-a230-2b0cb1bb8c04
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
