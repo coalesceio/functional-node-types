@@ -1,0 +1,109 @@
+fileVersion: 1
+id: e013facf-aee2-402e-bd0d-691440f7d877
+name: STG_PROJECT_DETAILS
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2832b1d8-dbff-44c9-8ee8-58d40c2395cf
+          stepCounter: e013facf-aee2-402e-bd0d-691440f7d877
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6d411ca-1b3c-4d31-bf7a-4c4b64290977
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 10289aff-cb14-453b-b05d-39740a822b12
+          stepCounter: e013facf-aee2-402e-bd0d-691440f7d877
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73e8b3d-6375-44be-80db-b2ab895747cd
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b8898af9-f5f4-4276-84f9-0dca336f93fb
+          stepCounter: e013facf-aee2-402e-bd0d-691440f7d877
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3f29fc9b-6b5c-4ae5-be25-fb2a94faa374
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5bcc97ee-4b0e-486a-955c-2e3b37dce159
+          stepCounter: e013facf-aee2-402e-bd0d-691440f7d877
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4e1ce074-0938-43b5-984c-198baf57e719
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d59f8791-a154-4631-9874-9f8175ea52a2
+          stepCounter: e013facf-aee2-402e-bd0d-691440f7d877
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: PROJECT_DESCRIPTION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5c1e9ca9-912d-48d9-986f-a5efea3c832f
+                stepCounter: 68dea1b3-23b0-49fa-8b10-f911a649f93b
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PROJECT_DETAILS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'PROJECT_DETAILS') }} "PROJECT_DETAILS"
+        name: STG_PROJECT_DETAILS
+        noLinkRefs: []
+  name: STG_PROJECT_DETAILS
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node
