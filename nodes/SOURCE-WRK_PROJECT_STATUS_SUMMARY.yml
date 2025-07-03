@@ -1,0 +1,150 @@
+fileVersion: 1
+id: 0511e63c-2919-4c71-97db-7901ccba08c3
+name: WRK_PROJECT_STATUS_SUMMARY
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0ff86f25-0424-47fa-aca5-4954fd720100
+          stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7b7fe965-aca2-46a5-9a25-691c30b40b95
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 876ce430-72c3-4607-960d-95da38421749
+          stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 24a0ea52-dccc-4089-9040-d9a6ccbd5e7a
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3dae046b-2110-4c79-b895-53c3d91a2b44
+          stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q1
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5e0bfa68-d267-4200-b6fb-13e79e8cc790
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6d92ade2-a45e-447a-9cfe-0745334447d1
+          stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q2
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4e0b7a59-5b69-47f5-8902-0c9f0c98a3b4
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 13000524-4cc9-4316-820a-c47c8efa630b
+          stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q3
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b0675078-e65b-456c-b87d-4c123536b57c
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1f7d8c7a-7cd4-4b3f-8b02-7e95e2049daf
+          stepCounter: 0511e63c-2919-4c71-97db-7901ccba08c3
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q4
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da845ce4-0a2a-426c-b3c0-b6271394ad2a
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PROJECT_STATUS_SUMMARY
+        join:
+          joinCondition: |2-
+
+
+
+
+             
+              FROM  {{ ref('SOURCE', 'PROJECT_STATUS_SUMMARY') }} PROJECT_STATUS_SUMMARY
+        name: WRK_PROJECT_STATUS_SUMMARY
+        noLinkRefs: []
+  name: WRK_PROJECT_STATUS_SUMMARY
+  overrideSQL: false
+  schema: ""
+  sqlType: bnt:::179
+  type: sql
+  version: 1
+type: Node
