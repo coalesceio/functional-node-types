@@ -4,26 +4,14 @@ name: UPVT_PROJECT_STATUS_SUMMARY1
 operation:
   config:
     includenull: false
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: Quarter
     tabValueColumn:
       items:
         - ColTextBox: STATUS_Q1
-          valColDropdown:
-            columnCounter: 32bb5c88-38c6-4362-a08f-d43832840779
-            stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
         - ColTextBox: STATUS_Q2
-          valColDropdown:
-            columnCounter: b7522f87-04e3-473e-9335-52e2971a073c
-            stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
         - ColTextBox: STATUS_Q3
-          valColDropdown:
-            columnCounter: c891b97b-abee-4f03-94da-585511779630
-            stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
         - ColTextBox: STATUS_Q4
-          valColDropdown:
-            columnCounter: 24c73e31-ced4-41d4-8224-e81dd4f5519b
-            stepCounter: 8ff7aef6-f8a7-4e28-ade1-fb214ed36455
     testsEnabled: false
     truncateBefore: false
     valColTextBox: Status
