@@ -123,14 +123,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          STG_PROJECT_STATUS_SUMMARY2: 214e45c6-cc60-493e-92e5-2c3507ca310c
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: SOURCE
+          - locationName: TARGET
             nodeName: STG_PROJECT_STATUS_SUMMARY2
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'STG_PROJECT_STATUS_SUMMARY2') }} "STG_PROJECT_STATUS_SUMMARY2"
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_STATUS_SUMMARY2') }} "STG_PROJECT_STATUS_SUMMARY2"
         name: UPVT_STG_PROJECT_STATUS_SUMMARY2
         noLinkRefs: []
   name: UPVT_STG_PROJECT_STATUS_SUMMARY2
