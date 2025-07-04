@@ -1,0 +1,142 @@
+fileVersion: 1
+id: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+name: UPVT_STG_PROJECT_STATUS_SUMMARY2
+operation:
+  config:
+    includenull: false
+    inferunpivot: true
+    nameColTextBox: Value
+    tabValueColumn:
+      items:
+        - ColTextBox: STATUS_Q1
+          valColDropdown:
+            columnCounter: 31317712-8c31-4b1e-88e2-c8258a305743
+            stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        - ColTextBox: STATUS_Q2
+          valColDropdown:
+            columnCounter: 9a9b98fe-f726-43ab-93b8-1741eefab858
+            stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        - ColTextBox: STATUS_Q3
+          valColDropdown:
+            columnCounter: 117a59ea-df9b-4738-a62d-939282fa8056
+            stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        - ColTextBox: STATUS_Q4
+          valColDropdown:
+            columnCounter: ca288b70-5843-4ca8-85b6-2cd99622ee9b
+            stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+    testsEnabled: false
+    truncateBefore: true
+    valColTextBox: Attributes
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e2a5b09e-d81c-4f6f-84ff-8fb1bff659b0
+          stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 61ac0f60-d98c-424f-a8fe-9b6f3a988be5
+                stepCounter: 214e45c6-cc60-493e-92e5-2c3507ca310c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2bdf75c9-83b0-4ebf-bdb0-4b24b58f3c9f
+          stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 663d1ef5-b6a7-4f34-8baa-7b20d7710a0a
+                stepCounter: 214e45c6-cc60-493e-92e5-2c3507ca310c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 31317712-8c31-4b1e-88e2-c8258a305743
+          stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q1
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1ea860ef-dc66-4657-9a6d-67c69760c314
+                stepCounter: 214e45c6-cc60-493e-92e5-2c3507ca310c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9a9b98fe-f726-43ab-93b8-1741eefab858
+          stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q2
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2623cd06-29ed-4d55-bfaf-1ac29fbd6eaf
+                stepCounter: 214e45c6-cc60-493e-92e5-2c3507ca310c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 117a59ea-df9b-4738-a62d-939282fa8056
+          stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q3
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e2a3d26b-d633-4857-9a9f-10f8606074db
+                stepCounter: 214e45c6-cc60-493e-92e5-2c3507ca310c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ca288b70-5843-4ca8-85b6-2cd99622ee9b
+          stepCounter: 7bfc85c2-d2d8-4c78-a445-44e7ee92f4cf
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q4
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ce6f6884-f086-4788-9ae0-9cb722b9a7fa
+                stepCounter: 214e45c6-cc60-493e-92e5-2c3507ca310c
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STG_PROJECT_STATUS_SUMMARY2
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STG_PROJECT_STATUS_SUMMARY2') }} "STG_PROJECT_STATUS_SUMMARY2"
+        name: UPVT_STG_PROJECT_STATUS_SUMMARY2
+        noLinkRefs: []
+  name: UPVT_STG_PROJECT_STATUS_SUMMARY2
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node

@@ -1,0 +1,142 @@
+fileVersion: 1
+id: 3cd95035-0a93-41d3-8cce-659b276d73f6
+name: STG_PROJECT_STATUS_SUMMARY1
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d0c35298-9244-4342-8468-ac6e96b03277
+          stepCounter: 3cd95035-0a93-41d3-8cce-659b276d73f6
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7b7fe965-aca2-46a5-9a25-691c30b40b95
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 40dac6f2-125c-49a9-b438-e8e3ef0120df
+          stepCounter: 3cd95035-0a93-41d3-8cce-659b276d73f6
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 24a0ea52-dccc-4089-9040-d9a6ccbd5e7a
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 993978e1-e13f-49a8-b34e-cf4ffdf3fcd8
+          stepCounter: 3cd95035-0a93-41d3-8cce-659b276d73f6
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q1
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5e0bfa68-d267-4200-b6fb-13e79e8cc790
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9a12514b-b394-4ddc-b130-1bd860bd26d1
+          stepCounter: 3cd95035-0a93-41d3-8cce-659b276d73f6
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q2
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4e0b7a59-5b69-47f5-8902-0c9f0c98a3b4
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: aaf0a88b-a626-4450-8259-0dd10ae997e3
+          stepCounter: 3cd95035-0a93-41d3-8cce-659b276d73f6
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q3
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b0675078-e65b-456c-b87d-4c123536b57c
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 92890167-7da9-4bc0-9b26-dc48a36c4fc9
+          stepCounter: 3cd95035-0a93-41d3-8cce-659b276d73f6
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q4
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da845ce4-0a2a-426c-b3c0-b6271394ad2a
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PROJECT_STATUS_SUMMARY
+        join:
+          joinCondition: |2-
+
+
+
+
+             
+              FROM  {{ ref('SOURCE', 'PROJECT_STATUS_SUMMARY') }} PROJECT_STATUS_SUMMARY
+        name: STG_PROJECT_STATUS_SUMMARY1
+        noLinkRefs: []
+  name: STG_PROJECT_STATUS_SUMMARY1
+  overrideSQL: false
+  schema: ""
+  sqlType: bt:::204
+  type: sql
+  version: 1
+type: Node
