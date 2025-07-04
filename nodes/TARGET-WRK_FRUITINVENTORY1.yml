@@ -1,0 +1,109 @@
+fileVersion: 1
+id: 8c9d1bc3-a46e-4c7b-aebb-bfaca358697e
+name: WRK_FRUITINVENTORY1
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f48c7c4d-6ac4-4b12-a2e7-5962c4f59fac
+          stepCounter: 8c9d1bc3-a46e-4c7b-aebb-bfaca358697e
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: FRUITNAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 129e2155-62c4-4243-afe8-9cf405b3cb14
+                stepCounter: bd91eae7-8ea4-4e95-b820-e6b9ccc6a30d
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2f3d6f5b-41d8-4ca3-8016-49d6a2adefb4
+          stepCounter: 8c9d1bc3-a46e-4c7b-aebb-bfaca358697e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STOREA
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c11b5b20-31f4-4d4e-ac62-db5b0fa9af60
+                stepCounter: bd91eae7-8ea4-4e95-b820-e6b9ccc6a30d
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b4853246-70fe-49be-90b3-6c7e940cb33d
+          stepCounter: 8c9d1bc3-a46e-4c7b-aebb-bfaca358697e
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STOREB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: dc65dea3-07f0-410a-848b-fac5b133fe4f
+                stepCounter: bd91eae7-8ea4-4e95-b820-e6b9ccc6a30d
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          WRK_FRUITINVENTORY: bd91eae7-8ea4-4e95-b820-e6b9ccc6a30d
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: WRK_FRUITINVENTORY
+        join:
+          joinCondition: |-
+            
+            
+            
+            
+             
+              FROM  {{ ref('TARGET', 'WRK_FRUITINVENTORY') }} WRK_FRUITINVENTORY
+        name: WRK_FRUITINVENTORY1
+        noLinkRefs: []
+  name: WRK_FRUITINVENTORY1
+  overrideSQL: false
+  schema: ""
+  sqlType: bnt:::179
+  type: sql
+  version: 1
+type: Node
