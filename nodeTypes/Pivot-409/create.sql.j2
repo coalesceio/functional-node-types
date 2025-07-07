@@ -22,12 +22,12 @@ does not permit copying or modification for any other purpose.
     
     {% if currentState.node.materializationType == 'view' %}
 
-     {{ stage('Drop Table or View', true, "sql", "drop") }}
+     {{ stage('Drop Table or View') }}
      DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
     {% else %}
      
-       {{ stage('Drop ' + currentState.node.materializationType , true, "sql", "drop") }}
+       {{ stage('Drop ' + currentState.node.materializationType) }}
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
     {% endif %}
@@ -87,6 +87,32 @@ does not permit copying or modification for any other purpose.
 
          
    {%if desiredState.config.inferPivot == true or desiredState.node.materializationType == 'view' %}
+
+           {%if currentState.node.materializationType == desiredState.node.materializationType == 'view' %}
+		  
+            {%if currentState.storageLocations|length == 0%}          
+              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+               {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+               
+            {%else %}  
+              {# Current target node mappings #}
+              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+              {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
+            {% endif %}      
+       
+            {# Desired target node mappings #}
+            {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
+            {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
+            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
+			
+            {% if  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name,true, "sql", "drop")) }}
+                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
+            {% endif %}
+
+
       {%if desiredState.config.sincol == true %}
 
         {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
@@ -141,7 +167,7 @@ does not permit copying or modification for any other purpose.
             
            {# Filter columns need to be explicitly specified for Multiple Pivot Columns#}
                            
-            {{ stage('Create Pivot '+ desiredState.node.materializationType) }}             
+            {{ stage('Create Pivot '+ desiredState.node.materializationType,true, "sql", "create") }}             
               
               
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
