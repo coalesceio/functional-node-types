@@ -69,7 +69,7 @@ does not permit copying or modification for any other purpose.
          {% set source = desiredState.sources[0] %}
          {%set joinclause = source.join%}
       {%if desiredState.config.inferunpivot == true or desiredState.node.materializationType == 'view' %}
-         {{ stage('Create Unpivot '+ desiredState.node.materializationType, true, "sql", "create") }}             
+         {{ stage('Create Unpivot '+ desiredState.node.materializationType) }}             
               
               
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
@@ -83,9 +83,9 @@ does not permit copying or modification for any other purpose.
 		        {% endfor %}                
 			             {{desiredState.config.nameColTextBox}},
                    {{desiredState.config.valColTextBox}}
-               {{  get_clause(joinclause,'from')  }}
+               {{  source.join  }}
                UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS {%endif%}({{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
-               {{ get_clause(joinclause) }}
+               
              )
          {%elif desiredState.config.inferunpivot == false and desiredState.node.materializationType != 'view'%}
 

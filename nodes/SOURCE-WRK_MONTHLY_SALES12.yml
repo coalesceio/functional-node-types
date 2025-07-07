@@ -1,0 +1,142 @@
+fileVersion: 1
+id: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+name: WRK_MONTHLY_SALES12
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: eec729b7-fab3-4c75-8a21-f2e68daf72b3
+          stepCounter: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: dae36bbb-99ca-4c2b-ac66-fe6d0d992ed7
+                stepCounter: f1d8ad0f-8825-471b-a68c-c6ccb375b492
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 35daf460-80f7-432c-b890-07f911e424bd
+          stepCounter: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DEPT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0ffea7a3-e960-4756-8444-9ec540b25c6e
+                stepCounter: f1d8ad0f-8825-471b-a68c-c6ccb375b492
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 032d7e13-9119-48fe-83b5-ebffa4e167d4
+          stepCounter: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: JAN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d83ecdf8-a346-4bde-b98f-4733c446e557
+                stepCounter: f1d8ad0f-8825-471b-a68c-c6ccb375b492
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d98f3c4b-52f6-40df-9927-431bdd8eae45
+          stepCounter: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: FEB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0ef9f3b1-67f9-46e6-9e67-ede2fec1de67
+                stepCounter: f1d8ad0f-8825-471b-a68c-c6ccb375b492
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c8b6af5a-6c4a-47b0-a5e2-c0bb41ee8d77
+          stepCounter: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a72d8318-79e4-4c7f-870f-ce1e0fad9a9f
+                stepCounter: f1d8ad0f-8825-471b-a68c-c6ccb375b492
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a107f1b1-9058-4a38-bb25-9ea62433c121
+          stepCounter: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: APR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 95e29d19-bab1-4861-b021-459c23a08fb3
+                stepCounter: f1d8ad0f-8825-471b-a68c-c6ccb375b492
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: |2-
+
+
+
+
+             
+              FROM  {{ ref('SOURCE', 'MONTHLY_SALES') }} MONTHLY_SALES
+        name: WRK_MONTHLY_SALES12
+        noLinkRefs: []
+  name: WRK_MONTHLY_SALES12
+  overrideSQL: false
+  schema: ""
+  sqlType: bt:::204
+  type: sql
+  version: 1
+type: Node
