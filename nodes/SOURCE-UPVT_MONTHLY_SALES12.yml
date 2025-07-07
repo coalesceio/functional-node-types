@@ -4,26 +4,14 @@ name: UPVT_MONTHLY_SALES12
 operation:
   config:
     includenull: false
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: Month
     tabValueColumn:
       items:
         - ColTextBox: JAN
-          valColDropdown:
-            columnCounter: ca03b8f0-aac0-4801-8f1c-eb93971744b3
-            stepCounter: 5ede417b-1aed-41bb-9330-471e56c650d6
         - ColTextBox: FEB
-          valColDropdown:
-            columnCounter: 1701c366-4626-4876-be98-0b5b0a81473c
-            stepCounter: 5ede417b-1aed-41bb-9330-471e56c650d6
         - ColTextBox: MAR
-          valColDropdown:
-            columnCounter: 4810e561-616b-42b6-84eb-8d0f6cf204d8
-            stepCounter: 5ede417b-1aed-41bb-9330-471e56c650d6
         - ColTextBox: APR
-          valColDropdown:
-            columnCounter: 652137b9-9e22-4700-b463-cd4d91e76f6c
-            stepCounter: 5ede417b-1aed-41bb-9330-471e56c650d6
     testsEnabled: false
     truncateBefore: true
     valColTextBox: Sales
