@@ -88,7 +88,7 @@ does not permit copying or modification for any other purpose.
      {% endif %}
 	 	
      {% set source = desiredState.sources[0] %}        
-        {{ stage('Create Match Recognize '+ desiredState.node.materializationType) }}
+        {{ stage('Create Match Recognize '+ desiredState.node.materializationType,true, "sql", "create") }}
         CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
         AS( 
 			   SELECT 
