@@ -10,7 +10,6 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Description    : This node transforms columns to rows.== #}
 {#Release date:20250122 Version:3.0.0#}
 
-
 {% if desiredState == undefined %}
 
     {# Table or View Name #}
@@ -92,7 +91,7 @@ does not permit copying or modification for any other purpose.
             {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
 			
             {% if  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name,true, "sql", "drop")) }}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
                 DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
             {% endif %}
 			
