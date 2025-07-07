@@ -123,14 +123,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          WRK_MONTHLY_SALES12: 6e2b2a80-3a62-4dfa-b1c3-ab5c69f030ec
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: SOURCE
+          - locationName: TARGET
             nodeName: WRK_MONTHLY_SALES12
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'WRK_MONTHLY_SALES12') }} "WRK_MONTHLY_SALES12"
+          joinCondition: FROM {{ ref('TARGET', 'WRK_MONTHLY_SALES12') }} "WRK_MONTHLY_SALES12"
         name: UPVT_MONTHLY_SALES12
         noLinkRefs: []
   name: UPVT_MONTHLY_SALES12
