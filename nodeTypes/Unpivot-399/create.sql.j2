@@ -39,7 +39,7 @@ does not permit copying or modification for any other purpose.
                      {% if currentState.node.materializationType == 'view' %} 
                       DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                      {% else %}
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name, true, "sql", "drop") }}
+                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                      {% endif %}
               {%endif%}
             {%endif%}
