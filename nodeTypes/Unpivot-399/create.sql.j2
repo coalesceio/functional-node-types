@@ -32,7 +32,8 @@ does not permit copying or modification for any other purpose.
 
 {% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
 
-            {%if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
+            {%if currentState != undefined %}
+             {%if currentState.node.materializationType != desiredState.node.materializationType %}
                      {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
 
                      {% if currentState.node.materializationType == 'view' %} 
@@ -40,6 +41,7 @@ does not permit copying or modification for any other purpose.
                      {% else %}
                       DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name, true, "sql", "drop") }}
                      {% endif %}
+              {%endif%}
             {%endif%}
 
         {# Build Unpivot Column List #}
@@ -69,7 +71,8 @@ does not permit copying or modification for any other purpose.
 
       {%if desiredState.config.inferunpivot == true or desiredState.node.materializationType == 'view' %}
 
-        {%if currentState.node.materializationType == desiredState.node.materializationType == 'view' %}
+      {%if currentState !=undefined %}
+        {%if currentState.node.materializationType == desiredState.node.materializationType == 'view'  %}
 		  
             {%if currentState.storageLocations|length == 0%}          
               {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
@@ -94,6 +97,7 @@ does not permit copying or modification for any other purpose.
             {% endif %}
 			
 		  {%endif%}
+        {%endif%}
         
          {{ stage('Create Unpivot '+ desiredState.node.materializationType, true, "sql", "create") }}                   
               

@@ -29,7 +29,8 @@ metadata:
       - displayName: Truncate Before
         attributeName: truncateBefore
         type: toggleButton
-        default: true
+        default: false
+        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
       - displayName: Enable Tests
         attributeName: testsEnabled

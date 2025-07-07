@@ -1,0 +1,111 @@
+fileVersion: 1
+id: 9f68f4aa-f992-4ddc-9cf9-e66c613003a2
+name: UPVT_PROJECT_DETAILS121
+operation:
+  config:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: ProAttributes
+    tabValueColumn:
+      items:
+        - ColTextBox: PROJECT_NAME
+        - ColTextBox: PROJECT_ID
+        - ColTextBox: PROJECT_DESCRIPTION
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: ProValues
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 29ff3eff-cb4e-43a0-a141-06032df0fd97
+          stepCounter: 9f68f4aa-f992-4ddc-9cf9-e66c613003a2
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ea49b6a0-f5ea-4f8d-91c6-1375ea8bfda6
+                stepCounter: 10e9640f-a956-4bf7-980a-12a9a2071dbb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6adb0b2b-76b2-4373-88fa-b599693a3cd1
+          stepCounter: 9f68f4aa-f992-4ddc-9cf9-e66c613003a2
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 54630327-babc-4da2-9f7d-0976261caa92
+                stepCounter: 10e9640f-a956-4bf7-980a-12a9a2071dbb
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f5b132a7-bee3-42f5-a27d-758b0e665314
+          stepCounter: 9f68f4aa-f992-4ddc-9cf9-e66c613003a2
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: PROATTRIBUTES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 163124a0-a61e-41b9-bcd1-c41f5e6b14fa
+          stepCounter: 9f68f4aa-f992-4ddc-9cf9-e66c613003a2
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: PROVALUES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_PROJECT_DETAILS12
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS12') }} "STG_PROJECT_DETAILS12"
+        name: UPVT_PROJECT_DETAILS121
+        noLinkRefs: []
+  name: UPVT_PROJECT_DETAILS121
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node
