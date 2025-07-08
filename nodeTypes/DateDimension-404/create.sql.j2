@@ -26,9 +26,28 @@ does not permit copying or modification for any other purpose.
     {%elif desiredState.node.materializationType == 'view' %}
 
         {% if currentState != undefined %}
+            {%if currentState.storageLocations|length == 0%}          
+              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+               {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+               
+            {%else %}  
+            {# Current target node mappings #}
+            {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+            {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
+            {% endif %}      
+       
+            {# Desired target node mappings #}
+            {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
+            {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
+            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  		
             {% if currentState.node.materializationType != 'view' %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
                 DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+            {% elif  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
+                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
             {% endif %}
         {% endif %}
     
@@ -110,7 +129,7 @@ does not permit copying or modification for any other purpose.
                       DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                 {% endif %}
                  
-                {{ stage('Create Work '+ ' {{desiredState.node.materializationType}}' , true, "sql", "create") }}
+                {{ stage('Create Work '+ ' {{desiredState.node.materializationType}}') }}
                CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
                 {% for col in desiredState.columns %}
@@ -125,10 +144,10 @@ does not permit copying or modification for any other purpose.
                {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
                {% if desiredState.config.clusterKey == true %}
-                  {{ stage('Apply Table Clustering', true, "sql", "create") }}
+                  {{ stage('Apply Table Clustering') }}
                  ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
 
-                   {{ stage('Resume Recluster Table', true, "sql", "create") }}
+                   {{ stage('Resume Recluster Table') }}
                   ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
 
                {% endif %}
@@ -136,7 +155,7 @@ does not permit copying or modification for any other purpose.
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0  %}
-            {{ stage('Create Date '+ ' {{desiredState.node.materializationType}}' , true, "sql", "create") }}
+            {{ stage('Create Date '+ ' {{desiredState.node.materializationType}}') }}
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
@@ -151,10 +170,10 @@ does not permit copying or modification for any other purpose.
             {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
         {% if desiredState.config.clusterKey == true %}
-            {{ stage('Apply Table Clustering', true, "sql", "create") }}
+            {{ stage('Apply Table Clustering') }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
 
-            {{ stage('Resume Recluster Table', true, "sql", "create") }}
+            {{ stage('Resume Recluster Table') }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
         {% endif %}
 
@@ -206,7 +225,7 @@ does not permit copying or modification for any other purpose.
 
             {# Rename / Move Object #}
             {% if (nsVariables.storageLocationTest == false or currentState.node.name != desiredState.node.name) %}
-                {{ stage('Rename and / or Move Table', true, "sql", "alter") }}
+                {{ stage('Rename and / or Move Table') }}
                 {% set srcSchName = currentState.node.location.name %}
                 {% set cdb = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='database') | first %}
                 {% set csch = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='schema') | first %}
@@ -217,7 +236,7 @@ does not permit copying or modification for any other purpose.
 
             {# Change table description #}
             {% if (nsVariables.nodeCommentTest == false or currentState.node.description != desiredState.node.description) %}
-                 {{ stage('Change table description', true, "sql", "alter") }}
+                 {{ stage('Change table description') }}
                  ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 SET COMMENT = '{{ desiredState.node.description | escape }}'
             {% endif %}
@@ -231,7 +250,7 @@ does not permit copying or modification for any other purpose.
                 {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
 
                     {% if nsVariables.colchanges == 1 %}
-                        {{ stage('Drop Columns', true, "sql", "alter") }}
+                        {{ stage('Drop Columns') }}
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                         DROP COLUMN 
                     {% else %}
@@ -248,7 +267,7 @@ does not permit copying or modification for any other purpose.
                 {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
 
                     {% if nsVariables.colchanges == 1 %}
-                        {{ stage('Add Columns', true, "sql", "alter") }}
+                        {{ stage('Add Columns') }}
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                         ADD COLUMN
                     {% else %}
@@ -267,7 +286,7 @@ does not permit copying or modification for any other purpose.
                 {% if renameCurCol.id in desiredState.columns | map(attribute="id") %}
                     {% set desiredColumnName = desiredState.columns | selectattr('id', 'equalto', renameCurCol.id) | map(attribute='name') | first %}
                     {% if renameCurCol.name != desiredColumnName %}
-                        {{ stage('Rename Column ' + renameCurCol.name, true, "sql", "alter") }}
+                        {{ stage('Rename Column ' + renameCurCol.name) }}
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                         RENAME COLUMN "{{ renameCurCol.name }}"
                         TO "{{ desiredColumnName }}"
@@ -302,7 +321,7 @@ does not permit copying or modification for any other purpose.
                         {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
 
                         {% if nsVariables.colchanges == 1 %}
-                            {{ stage('Change Column Attributes', true, "sql", "alter") }}
+                            {{ stage('Change Column Attributes') }}
                             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                             MODIFY
                         {% endif %}
@@ -382,7 +401,7 @@ does not permit copying or modification for any other purpose.
 
                 {% endif %}
 
-                {{ stage('Recluster TABLE', true, "sql", "create") }}
+                {{ stage('Recluster TABLE') }}
                 ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 {{ nsVariables.finalClusterKey }}
 
@@ -402,12 +421,12 @@ does not permit copying or modification for any other purpose.
     
     {% if currentState.node.materializationType == 'view' %}
 
-     {{ stage('Drop Table or View', true, "sql", "drop") }}
+     {{ stage('Drop Table or View') }}
      DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
     {% else %}
      
-       {{ stage('Drop ' + currentState.node.materializationType , true, "sql", "drop") }}
+       {{ stage('Drop ' + currentState.node.materializationType) }}
        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
     {% endif %}

@@ -18,7 +18,7 @@ does not permit copying or modification for any other purpose.
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
 
-     {{ stage('Drop View', true, "sql", "drop") }}
+     {{ stage('Drop View') }}
      DROP VIEW IF EXISTS {{ fullyQualifiedTargetObjectName }}
 
 
@@ -29,7 +29,7 @@ does not permit copying or modification for any other purpose.
 		  {# Change Node Name or Change Storage Location #}
             {# Storage Location Tests #}
             {# Test  #}
-                    {% set ns = namespace(storageLocationTest= true) %}
+            {% set ns = namespace(storageLocationTest= true) %}
             {%if currentState.storageLocations|length == 0%}          
               {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
               {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
