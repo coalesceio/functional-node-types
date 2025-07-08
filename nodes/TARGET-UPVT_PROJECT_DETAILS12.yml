@@ -77,7 +77,7 @@ operation:
           columnCounter: 8c3ea09e-6a1c-4b28-bfb8-06c0345d8693
           stepCounter: 121fb27c-b141-458e-8767-1397ce81b8fd
         config: {}
-        dataType: VARCHAR(100)
+        dataType: STRING
         defaultValue: ""
         description: ""
         name: ATTRIBUTE
