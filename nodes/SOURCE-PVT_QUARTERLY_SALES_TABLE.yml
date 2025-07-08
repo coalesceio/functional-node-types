@@ -59,8 +59,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: b975b5cc-d990-49e1-a2d4-06ddb78dcb18
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+              - columnCounter: 26e10521-c430-410e-9188-29ddd3868b7a
+                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
             transform: ""
       - appliedColumnTests: {}
         columnReference:
@@ -73,8 +73,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 01902cca-9995-4889-bb96-8768dc3be778
-                stepCounter: 5c39ddcb-7dc2-48e6-8709-c2f9794fa26c
+              - columnCounter: f507873f-ba84-4420-9614-5179bb37e333
+                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
             transform: ""
     cteString: ""
     enabledColumnTestIDs: []
