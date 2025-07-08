@@ -77,29 +77,10 @@ operation:
           columnCounter: 8c3ea09e-6a1c-4b28-bfb8-06c0345d8693
           stepCounter: 121fb27c-b141-458e-8767-1397ce81b8fd
         config: {}
-        dataType: VARCHAR(255)
+        dataType: VARCHAR(100)
         defaultValue: ""
         description: ""
         name: ATTRIBUTE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 80e7fecd-6895-4ba7-80cf-388e12494067
-          stepCounter: 121fb27c-b141-458e-8767-1397ce81b8fd
-        config: {}
-        dataType: VARCHAR(16777216)
-        defaultValue: ""
-        description: ""
-        name: PROJECT_ID
         nullable: true
         primaryKey: false
         sourceColumnReferences:
