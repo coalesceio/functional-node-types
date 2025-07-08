@@ -16,22 +16,16 @@ operation:
     exlcol:
       items:
         - {}
-    inferPivot: true
+    inferPivot: false
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: 8d89af1f-56b2-4fac-a610-a677bcc9befb
-            stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
-          keyColTextBox: SUBJECT
+        - keyColTextBox: SUBJECT
     tabValueColumn:
       items:
-        - valColDropdown:
-            columnCounter: c59c6cfc-879e-42a8-a634-9f2fd33bd195
-            stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
-          valColTextBox: SCORE
+        - valColTextBox: SCORE
     testsEnabled: false
     trunc: false
   database: ""

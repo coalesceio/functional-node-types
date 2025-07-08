@@ -73,20 +73,6 @@ operation:
               - columnCounter: 8c3ea09e-6a1c-4b28-bfb8-06c0345d8693
                 stepCounter: 121fb27c-b141-458e-8767-1397ce81b8fd
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 38d14ba0-efba-4e67-98c8-8c06a6427b42
-          stepCounter: a397bfa4-56d7-46f0-938e-fc2ea2e2ae4c
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: PROJECT_ID
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 80e7fecd-6895-4ba7-80cf-388e12494067
-                stepCounter: 121fb27c-b141-458e-8767-1397ce81b8fd
-            transform: ""
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
