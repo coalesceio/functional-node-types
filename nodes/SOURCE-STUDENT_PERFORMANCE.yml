@@ -1,0 +1,92 @@
+fileVersion: 1
+id: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+name: STUDENT_PERFORMANCE
+operation:
+  database: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ea85cab1-6ec6-4b9f-aed1-d78f9ea9681e
+          stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7ebe12f8-1232-497c-b053-02233469fab6
+          stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: TERM
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 12f1ca5d-e18f-4349-8867-818c15fdd97a
+          stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: SUBJECT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 32e96463-5a9d-417f-b00b-fff45717c7bf
+          stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: SCORE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: STUDENT_PERFORMANCE
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

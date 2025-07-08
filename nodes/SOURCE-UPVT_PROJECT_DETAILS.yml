@@ -92,14 +92,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          WRK_PROJECT_DETAILS: b8ca64d1-6b93-42c0-ab10-957fc3be7f4e
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: TARGET
+          - locationName: TARGET_ACC
             nodeName: WRK_PROJECT_DETAILS
         join:
-          joinCondition: FROM {{ ref('TARGET', 'WRK_PROJECT_DETAILS') }} "WRK_PROJECT_DETAILS"
+          joinCondition: FROM {{ ref('TARGET_ACC', 'WRK_PROJECT_DETAILS') }} "WRK_PROJECT_DETAILS"
         name: UPVT_PROJECT_DETAILS
         noLinkRefs: []
   name: UPVT_PROJECT_DETAILS
