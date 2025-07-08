@@ -1,6 +1,6 @@
 fileVersion: 1
 id: e5b1f515-e59d-4e7d-bbde-f4f7de972f4e
-name: PVT_STUDENT_PERFORMANCE123
+name: PVT_STUDENT_PERFORMANCE1234
 operation:
   config:
     Colvol1: ""
@@ -112,12 +112,12 @@ operation:
           customSQL: ""
         dependencies:
           - locationName: TARGET_ACC
-            nodeName: STG_STUDENT_PERFORMANCE
+            nodeName: STG_STUDENT_PERFORMANCE12
         join:
-          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE') }} "STG_STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE123
+          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE12') }} "STG_STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE1234
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE123
+  name: PVT_STUDENT_PERFORMANCE1234
   overrideSQL: false
   schema: ""
   sqlType: "409"

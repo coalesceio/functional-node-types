@@ -33,7 +33,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: SOURCE
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:
@@ -96,14 +96,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          STG_STUDENT_PERFORMANCE: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET_ACC
-            nodeName: STG_STUDENT_PERFORMANCE
+            nodeName: STG_STUDENT_PERFORMANCE12
         join:
-          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE') }} "STG_STUDENT_PERFORMANCE"
+          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE12') }} "STG_STUDENT_PERFORMANCE"
         name: PVT_STUDENT_PERFORMANCE_TBL
         noLinkRefs: []
   name: PVT_STUDENT_PERFORMANCE_TBL

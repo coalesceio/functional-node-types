@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
-name: STG_STUDENT_PERFORMANCE
+name: STG_STUDENT_PERFORMANCE12
 operation:
   config:
     insertStrategy: INSERT
@@ -84,9 +84,9 @@ operation:
             nodeName: STUDENT_PERFORMANCE
         join:
           joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
-        name: STG_STUDENT_PERFORMANCE
+        name: STG_STUDENT_PERFORMANCE12
         noLinkRefs: []
-  name: STG_STUDENT_PERFORMANCE
+  name: STG_STUDENT_PERFORMANCE12
   overrideSQL: false
   schema: ""
   sqlType: Stage

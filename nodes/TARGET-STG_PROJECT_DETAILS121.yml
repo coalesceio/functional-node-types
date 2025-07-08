@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 10e9640f-a956-4bf7-980a-12a9a2071dbb
-name: STG_PROJECT_DETAILS12
+name: STG_PROJECT_DETAILS121
 operation:
   config:
     insertStrategy: INSERT
@@ -99,9 +99,9 @@ operation:
             nodeName: STG_PROJECT_DETAILS
         join:
           joinCondition: FROM {{ ref('TARGET_ACC', 'STG_PROJECT_DETAILS') }} "STG_PROJECT_DETAILS"
-        name: STG_PROJECT_DETAILS12
+        name: STG_PROJECT_DETAILS121
         noLinkRefs: []
-  name: STG_PROJECT_DETAILS12
+  name: STG_PROJECT_DETAILS121
   overrideSQL: false
   schema: ""
   sqlType: Stage
