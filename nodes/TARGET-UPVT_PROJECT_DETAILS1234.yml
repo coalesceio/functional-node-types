@@ -1,6 +1,6 @@
 fileVersion: 1
 id: f95ce85e-3515-4608-aea6-f48f2f021ec9
-name: UPVT_PROJECT_DETAILS123
+name: UPVT_PROJECT_DETAILS1234
 operation:
   config:
     includenull: false
@@ -101,9 +101,9 @@ operation:
             nodeName: WRK_PROJECT_DETAILS
         join:
           joinCondition: FROM {{ ref('TARGET_ACC', 'WRK_PROJECT_DETAILS') }} "WRK_PROJECT_DETAILS"
-        name: UPVT_PROJECT_DETAILS123
+        name: UPVT_PROJECT_DETAILS1234
         noLinkRefs: []
-  name: UPVT_PROJECT_DETAILS123
+  name: UPVT_PROJECT_DETAILS1234
   overrideSQL: false
   schema: ""
   sqlType: "399"
