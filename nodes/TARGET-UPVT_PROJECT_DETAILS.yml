@@ -19,7 +19,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:

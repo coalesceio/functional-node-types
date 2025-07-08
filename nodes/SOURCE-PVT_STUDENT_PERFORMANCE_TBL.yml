@@ -1,0 +1,121 @@
+fileVersion: 1
+id: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+name: PVT_STUDENT_PERFORMANCE_TBL
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: MAX
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: 8d89af1f-56b2-4fac-a610-a677bcc9befb
+            stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+          keyColTextBox: SUBJECT
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: c59c6cfc-879e-42a8-a634-9f2fd33bd195
+            stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+          valColTextBox: SCORE
+    testsEnabled: false
+    trunc: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 294f966a-ddd1-4f32-988a-946ecbf43f22
+          stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f8bc707f-ffb5-4bc8-a19e-110f9f511c9a
+                stepCounter: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 003e380f-d654-40fd-8044-b36965ec03ef
+          stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: TERM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3ed8ae54-44f9-4bf9-a869-a328f92975b5
+                stepCounter: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8d89af1f-56b2-4fac-a610-a677bcc9befb
+          stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: SUBJECT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 13cd1872-0bcc-4666-bf5b-66a4c2523fe4
+                stepCounter: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c59c6cfc-879e-42a8-a634-9f2fd33bd195
+          stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: SCORE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ad16b104-e920-44a7-aa43-2eb8a70a0474
+                stepCounter: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET_ACC
+            nodeName: STG_STUDENT_PERFORMANCE
+        join:
+          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE') }} "STG_STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_TBL
+        noLinkRefs: []
+  name: PVT_STUDENT_PERFORMANCE_TBL
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node
