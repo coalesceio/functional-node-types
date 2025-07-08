@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
-name: PVT_STUDENT_PERFORMANCE_TBL
+name: PVT_STUDENT_PERFORMANCE_TBL1
 operation:
   config:
     Colvol1: ""
@@ -56,7 +56,7 @@ operation:
           columnCounter: 003e380f-d654-40fd-8044-b36965ec03ef
           stepCounter: 2f1bfa8b-6503-4d70-a75e-a8fab20b4aba
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: STRING
         description: ""
         name: TERM
         nullable: true
@@ -105,9 +105,9 @@ operation:
             nodeName: STG_STUDENT_PERFORMANCE12
         join:
           joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE12') }} "STG_STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE_TBL
+        name: PVT_STUDENT_PERFORMANCE_TBL1
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE_TBL
+  name: PVT_STUDENT_PERFORMANCE_TBL1
   overrideSQL: false
   schema: ""
   sqlType: "409"
