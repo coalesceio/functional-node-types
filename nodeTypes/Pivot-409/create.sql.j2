@@ -88,8 +88,8 @@ does not permit copying or modification for any other purpose.
          
    {%if desiredState.config.inferPivot == true or desiredState.node.materializationType == 'view' %}
 
-         {%if currentState != undefined%}
-           {%if currentState.node.materializationType == desiredState.node.materializationType == 'view' %}
+        {%if currentState != undefined%}
+          {%if currentState.node.materializationType == desiredState.node.materializationType == 'view' %}
 		  
             {%if currentState.storageLocations|length == 0%}          
               {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
@@ -113,6 +113,7 @@ does not permit copying or modification for any other purpose.
                 DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
             {% endif %}
          {%endif%}
+        {%endif%}
 
       {%if desiredState.config.sincol == true %}
 
