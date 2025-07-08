@@ -1,6 +1,6 @@
 fileVersion: 1
-id: e5b1f515-e59d-4e7d-bbde-f4f7de972f4e
-name: PVT_STUDENT_PERFORMANCE123
+id: 525efbe7-2e13-48f1-9e19-1876383bbd7c
+name: PVT_STUDENT_PERFORMANCE_VW
 operation:
   config:
     Colvol1: ""
@@ -16,16 +16,22 @@ operation:
     exlcol:
       items:
         - {}
-    inferPivot: false
+    inferPivot: true
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: SUBJECT
+        - keyColDropdown:
+            columnCounter: d22947e6-0f70-40ed-972a-90e70e8093c7
+            stepCounter: 525efbe7-2e13-48f1-9e19-1876383bbd7c
+          keyColTextBox: SUBJECT
     tabValueColumn:
       items:
-        - valColTextBox: SCORE
+        - valColDropdown:
+            columnCounter: bdecab9c-fb30-4882-a80a-9a35b7d7338c
+            stepCounter: 525efbe7-2e13-48f1-9e19-1876383bbd7c
+          valColTextBox: SCORE
     testsEnabled: false
     trunc: false
   database: ""
@@ -39,8 +45,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 9f22cf55-c6dd-4404-9eda-34b3e7f1138e
-          stepCounter: e5b1f515-e59d-4e7d-bbde-f4f7de972f4e
+          columnCounter: 8e2e43e9-892c-499d-87d9-23148929d4e6
+          stepCounter: 525efbe7-2e13-48f1-9e19-1876383bbd7c
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -48,13 +54,13 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: f8bc707f-ffb5-4bc8-a19e-110f9f511c9a
-                stepCounter: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+              - columnCounter: 63bdcd70-876c-4e31-916f-359404f02ef9
+                stepCounter: 16319486-119a-4c62-b629-c87181cec814
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 1149fc10-003a-4423-84ca-4cd527978e70
-          stepCounter: e5b1f515-e59d-4e7d-bbde-f4f7de972f4e
+          columnCounter: 3e4d963b-fe84-44e5-a17c-beedf44f66d5
+          stepCounter: 525efbe7-2e13-48f1-9e19-1876383bbd7c
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -62,16 +68,16 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 3ed8ae54-44f9-4bf9-a869-a328f92975b5
-                stepCounter: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+              - columnCounter: 13d063d7-c0e0-48d3-a120-445666ca3724
+                stepCounter: 16319486-119a-4c62-b629-c87181cec814
             transform: ""
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6b744d25-9e9d-4338-ab29-29310aa8b34e
-          stepCounter: e5b1f515-e59d-4e7d-bbde-f4f7de972f4e
+          columnCounter: edd9118c-bcae-4b87-9224-e0d4986618a8
+          stepCounter: 525efbe7-2e13-48f1-9e19-1876383bbd7c
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -89,8 +95,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: f51656da-418d-4351-911e-b16e0405766a
-          stepCounter: e5b1f515-e59d-4e7d-bbde-f4f7de972f4e
+          columnCounter: ec79e51c-4267-4c89-855c-db8b3c34d9c6
+          stepCounter: 525efbe7-2e13-48f1-9e19-1876383bbd7c
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -106,18 +112,17 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases:
-          STG_STUDENT_PERFORMANCE: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+      - aliases: {}
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: TARGET_ACC
-            nodeName: STG_STUDENT_PERFORMANCE
+          - locationName: TARGET
+            nodeName: WRK_STUDENT_PERFORMANCE
         join:
-          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE') }} "STG_STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE123
+          joinCondition: FROM {{ ref('TARGET', 'WRK_STUDENT_PERFORMANCE') }} "WRK_STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_VW
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE123
+  name: PVT_STUDENT_PERFORMANCE_VW
   overrideSQL: false
   schema: ""
   sqlType: "409"

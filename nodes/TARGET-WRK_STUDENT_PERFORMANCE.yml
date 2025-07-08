@@ -1,0 +1,122 @@
+fileVersion: 1
+id: 16319486-119a-4c62-b629-c87181cec814
+name: WRK_STUDENT_PERFORMANCE
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 63bdcd70-876c-4e31-916f-359404f02ef9
+          stepCounter: 16319486-119a-4c62-b629-c87181cec814
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ea85cab1-6ec6-4b9f-aed1-d78f9ea9681e
+                stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 13d063d7-c0e0-48d3-a120-445666ca3724
+          stepCounter: 16319486-119a-4c62-b629-c87181cec814
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: TERM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7ebe12f8-1232-497c-b053-02233469fab6
+                stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 40496919-99be-4670-98ee-7053a59fb989
+          stepCounter: 16319486-119a-4c62-b629-c87181cec814
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: SUBJECT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 12f1ca5d-e18f-4349-8867-818c15fdd97a
+                stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d073891d-9aab-455f-b824-540e7c5b9510
+          stepCounter: 16319486-119a-4c62-b629-c87181cec814
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: SCORE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 32e96463-5a9d-417f-b00b-fff45717c7bf
+                stepCounter: 9b3e3f02-32c1-4e48-83e8-63464055ef88
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENT_PERFORMANCE
+        join:
+          joinCondition: |2-
+
+
+
+
+             
+              FROM  {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} STUDENT_PERFORMANCE
+        name: WRK_STUDENT_PERFORMANCE
+        noLinkRefs: []
+  name: WRK_STUDENT_PERFORMANCE
+  overrideSQL: false
+  schema: ""
+  sqlType: bnt:::179
+  type: sql
+  version: 1
+type: Node
