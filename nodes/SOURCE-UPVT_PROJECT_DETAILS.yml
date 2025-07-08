@@ -4,22 +4,13 @@ name: UPVT_PROJECT_DETAILS
 operation:
   config:
     includenull: false
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: Value
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_ID
-          valColDropdown:
-            columnCounter: 64186298-2101-4626-8349-d223cc9def55
-            stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
         - ColTextBox: PROJECT_NAME
-          valColDropdown:
-            columnCounter: beec2f55-4bca-4bb6-9bd8-2128945c56f3
-            stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
         - ColTextBox: PROJECT_DESCRIPTION
-          valColDropdown:
-            columnCounter: 4caf1874-6c06-4182-842c-b1ff23d197de
-            stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
     testsEnabled: false
     truncateBefore: false
     valColTextBox: Attribute
@@ -48,20 +39,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: beec2f55-4bca-4bb6-9bd8-2128945c56f3
-          stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
-        config: {}
-        dataType: VARCHAR(100)
-        description: ""
-        name: PROJECT_NAME
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: b030e1be-f647-4f64-b4d1-6eaddfd15456
-                stepCounter: b8ca64d1-6b93-42c0-ab10-957fc3be7f4e
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: c60cb1ba-a85e-42e2-8a2d-03254114e897
           stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
         config: {}
@@ -74,34 +51,44 @@ operation:
               - columnCounter: 26da139b-cd57-4ee5-96c6-1d48d6b82037
                 stepCounter: b8ca64d1-6b93-42c0-ab10-957fc3be7f4e
             transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 64186298-2101-4626-8349-d223cc9def55
+          columnCounter: e8dd52e2-2bac-40d8-b21e-23e53d63f422
           stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
         config: {}
-        dataType: VARCHAT(100)
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
         description: ""
-        name: PROJECT_ID
+        name: VALUE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: ff4c2349-75b7-46ed-aa71-a4bef214957a
-                stepCounter: b8ca64d1-6b93-42c0-ab10-957fc3be7f4e
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 4caf1874-6c06-4182-842c-b1ff23d197de
+          columnCounter: 550e327a-19ce-4ad1-99c8-1a5002f901a1
           stepCounter: f95ce85e-3515-4608-aea6-f48f2f021ec9
         config: {}
-        dataType: VARCHAR(255)
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
         description: ""
-        name: PROJECT_DESCRIPTION
+        name: ATTRIBUTE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: beb1f700-d62a-402d-96da-1296f4dd498a
-                stepCounter: b8ca64d1-6b93-42c0-ab10-957fc3be7f4e
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
