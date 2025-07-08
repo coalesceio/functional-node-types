@@ -194,14 +194,14 @@ operation:
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: SOURCE
-            nodeName: STG_ORDERS
           - locationName: TARGET
             nodeName: DIM_DATE12
+          - locationName: TARGET
+            nodeName: STG_ORDERS
         join:
           joinCondition: |-
             FROM {{ ref('TARGET', 'DIM_DATE12') }} "DIM_DATE12"
-            INNER JOIN {{ ref('SOURCE', 'STG_ORDERS') }} "STG_ORDERS"
+            INNER JOIN {{ ref('TARGET', 'STG_ORDERS') }} "STG_ORDERS"
             ON "DIM_DATE12"."DATE_KEY" = "STG_ORDERS"."O_ORDERDATE"
         name: STG_DIM_DATE12_ORDERS
         noLinkRefs: []
