@@ -4,18 +4,12 @@ name: UPVT_PROJECT_DETAILS_VW
 operation:
   config:
     includenull: false
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: Value
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
-          valColDropdown:
-            columnCounter: 8a2ea8ea-6100-4832-a95d-b598f5b53e85
-            stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
         - ColTextBox: PROJECT_DESCRIPTION
-          valColDropdown:
-            columnCounter: e26b0420-1dca-463f-bdbe-5c81e119cdbb
-            stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
     testsEnabled: false
     truncateBefore: false
     valColTextBox: Attribute
