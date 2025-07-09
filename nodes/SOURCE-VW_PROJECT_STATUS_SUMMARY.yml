@@ -1,0 +1,138 @@
+fileVersion: 1
+id: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+name: VW_PROJECT_STATUS_SUMMARY
+operation:
+  config:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: true
+    orderbycolumn:
+      items:
+        - sortColName:
+            columnCounter: 7f8bf25e-27b1-4c2f-9918-08029591d298
+            stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+          sortOrder: desc
+    partitionBy:
+      items:
+        - {}
+    partitionby: false
+    qualify: true
+    val: "1001"
+    winfunc: FIRST_VALUE
+    winfuncColName:
+      columnCounter: 7f8bf25e-27b1-4c2f-9918-08029591d298
+      stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7f8bf25e-27b1-4c2f-9918-08029591d298
+          stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7b7fe965-aca2-46a5-9a25-691c30b40b95
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 805615ba-79d7-4834-8cbd-d7f7beb5b54f
+          stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 24a0ea52-dccc-4089-9040-d9a6ccbd5e7a
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7f11ec2b-f7c0-4a21-8827-64d90454290d
+          stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q1
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5e0bfa68-d267-4200-b6fb-13e79e8cc790
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2babb676-3165-41c2-ac5e-d91adfdbbc73
+          stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q2
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4e0b7a59-5b69-47f5-8902-0c9f0c98a3b4
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: dd050b57-32e0-49b7-8c8e-91d5495b6ef3
+          stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q3
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b0675078-e65b-456c-b87d-4c123536b57c
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2c95124f-38f8-494c-b3f4-80aeeba250c7
+          stepCounter: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
+        config: {}
+        dataType: VARCHAR(20)
+        description: ""
+        name: STATUS_Q4
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da845ce4-0a2a-426c-b3c0-b6271394ad2a
+                stepCounter: 1c4d62b1-7ee0-4da9-aa4d-00b9ae44cf90
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PROJECT_STATUS_SUMMARY
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'PROJECT_STATUS_SUMMARY') }} "PROJECT_STATUS_SUMMARY"
+        name: VW_PROJECT_STATUS_SUMMARY
+        noLinkRefs: []
+  name: VW_PROJECT_STATUS_SUMMARY
+  overrideSQL: false
+  schema: ""
+  sqlType: "459"
+  type: sql
+  version: 1
+type: Node

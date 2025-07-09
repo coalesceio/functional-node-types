@@ -1,0 +1,121 @@
+fileVersion: 1
+id: cde22cad-7118-452c-bbf8-69f5204f5d4c
+name: UPVT_PROJECT_DETAILS136
+operation:
+  config:
+    includenull: false
+    inferunpivot: true
+    nameColTextBox: VAL
+    tabValueColumn:
+      items:
+        - ColTextBox: PROJECT_NAME
+          valColDropdown:
+            columnCounter: 44874003-74a1-4718-906d-890848bcef6e
+            stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+        - ColTextBox: PROJECT_DESCRIPTION
+          valColDropdown:
+            columnCounter: b5b5510d-fc39-4ca0-817d-102fa6027962
+            stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: Attribute
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 93943ab1-9954-4690-add3-0029b981e67d
+          stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 028359d9-bf32-4efe-82c8-f53800faf26f
+                stepCounter: 98237ccf-5514-411e-96ad-4ca4c7ec7ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 44874003-74a1-4718-906d-890848bcef6e
+          stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d8b26bfd-44d1-4aa2-9443-fd8c5146a28b
+                stepCounter: 98237ccf-5514-411e-96ad-4ca4c7ec7ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 24850e5c-e299-439e-819c-214bbf29f8b4
+          stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b473695a-e451-475a-b6b9-2a10ff89bef1
+                stepCounter: 98237ccf-5514-411e-96ad-4ca4c7ec7ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1b195134-9ef7-4963-8bd1-57b28cd52369
+          stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f50c2640-df36-4f75-9c5a-5f87bc95f32f
+                stepCounter: 98237ccf-5514-411e-96ad-4ca4c7ec7ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b5b5510d-fc39-4ca0-817d-102fa6027962
+          stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: PROJECT_DESCRIPTION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 436e29f4-3fc8-4443-ad51-1c8c0606ff8d
+                stepCounter: 98237ccf-5514-411e-96ad-4ca4c7ec7ce7
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STG_PROJECT_DETAILS136: 98237ccf-5514-411e-96ad-4ca4c7ec7ce7
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_PROJECT_DETAILS136
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS136') }} "STG_PROJECT_DETAILS136"
+        name: UPVT_PROJECT_DETAILS136
+        noLinkRefs: []
+  name: UPVT_PROJECT_DETAILS136
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node
