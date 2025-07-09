@@ -4,18 +4,12 @@ name: UPVT_PROJECT_DETAILS136
 operation:
   config:
     includenull: false
-    inferunpivot: true
+    inferunpivot: false
     nameColTextBox: VAL
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
-          valColDropdown:
-            columnCounter: 44874003-74a1-4718-906d-890848bcef6e
-            stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
         - ColTextBox: PROJECT_DESCRIPTION
-          valColDropdown:
-            columnCounter: b5b5510d-fc39-4ca0-817d-102fa6027962
-            stepCounter: cde22cad-7118-452c-bbf8-69f5204f5d4c
     testsEnabled: false
     truncateBefore: false
     valColTextBox: Attribute
