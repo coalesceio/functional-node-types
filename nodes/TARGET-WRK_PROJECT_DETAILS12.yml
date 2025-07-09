@@ -1,0 +1,136 @@
+fileVersion: 1
+id: f330330c-3a23-4fbd-b41e-26c250052333
+name: WRK_PROJECT_DETAILS12
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 17f7d289-c975-4b87-b535-992c5101baff
+          stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 18e4e002-967d-482b-a898-bcb722f39e78
+                stepCounter: a21fdee4-4bde-4d66-bfa8-efd87a0ede6e
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 53ed54c9-01fa-4081-a929-7d203aec0f8b
+          stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c3b6d992-f8e5-4bc1-9302-4ab9e39b3923
+                stepCounter: a21fdee4-4bde-4d66-bfa8-efd87a0ede6e
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b1f036b6-9da0-4a48-a272-7fdaf8263d08
+          stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3407e5d6-6b5e-4763-8b16-5fa2106a2ef6
+                stepCounter: a21fdee4-4bde-4d66-bfa8-efd87a0ede6e
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c61d4e8c-d938-46da-81af-90eca4862030
+          stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7b52d96a-e759-41f8-bb94-479b66d8b616
+                stepCounter: a21fdee4-4bde-4d66-bfa8-efd87a0ede6e
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 39e46eb9-b060-4448-ae9f-d6f1907f0eaa
+          stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: PROJECT_DESCRIPTION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b433e38d-159f-4c39-b9b3-f4dfccfbd3f1
+                stepCounter: a21fdee4-4bde-4d66-bfa8-efd87a0ede6e
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: WRK_PROJECT_DETAILS
+        join:
+          joinCondition: |2-
+
+
+
+
+             
+              FROM  {{ ref('TARGET', 'WRK_PROJECT_DETAILS') }} WRK_PROJECT_DETAILS
+        name: WRK_PROJECT_DETAILS12
+        noLinkRefs: []
+  name: WRK_PROJECT_DETAILS12
+  overrideSQL: false
+  schema: ""
+  sqlType: bnt:::179
+  type: sql
+  version: 1
+type: Node

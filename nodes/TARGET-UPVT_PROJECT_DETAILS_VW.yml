@@ -1,0 +1,130 @@
+fileVersion: 1
+id: 85474ab0-c13b-4f71-9221-7e433d436d36
+name: UPVT_PROJECT_DETAILS_VW
+operation:
+  config:
+    includenull: false
+    inferunpivot: true
+    nameColTextBox: Value
+    tabValueColumn:
+      items:
+        - ColTextBox: PROJECT_NAME
+          valColDropdown:
+            columnCounter: 8a2ea8ea-6100-4832-a95d-b598f5b53e85
+            stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+        - ColTextBox: PROJECT_DESCRIPTION
+          valColDropdown:
+            columnCounter: e26b0420-1dca-463f-bdbe-5c81e119cdbb
+            stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: Attribute
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1f0c8e82-da66-41bd-8392-74f8f3037264
+          stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 17f7d289-c975-4b87-b535-992c5101baff
+                stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ae7aeb65-d4e9-408a-8c61-af242a2f4c09
+          stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b1f036b6-9da0-4a48-a272-7fdaf8263d08
+                stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8050e05c-d189-48ea-9436-1f1927c372ae
+          stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c61d4e8c-d938-46da-81af-90eca4862030
+                stepCounter: f330330c-3a23-4fbd-b41e-26c250052333
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f73e744a-0b6f-453e-bda2-76bfd413cfef
+          stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: VALUE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ed995900-30df-4b3f-9dc9-c42b71ba6e02
+          stepCounter: 85474ab0-c13b-4f71-9221-7e433d436d36
+        config: {}
+        dataType: VARCHAR(255)
+        defaultValue: ""
+        description: ""
+        name: ATTRIBUTE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: WRK_PROJECT_DETAILS12
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'WRK_PROJECT_DETAILS12') }} "WRK_PROJECT_DETAILS12"
+        name: UPVT_PROJECT_DETAILS_VW
+        noLinkRefs: []
+  name: UPVT_PROJECT_DETAILS_VW
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node
