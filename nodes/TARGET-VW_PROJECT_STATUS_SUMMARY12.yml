@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 9c6d93cc-2cc2-4e30-9d8f-97ec7d2760fe
-name: VW_PROJECT_STATUS_SUMMARY
+name: VW_PROJECT_STATUS_SUMMARY12
 operation:
   config:
     compcol: false
@@ -27,7 +27,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
+  locationName: TARGET
   materializationType: view
   metadata:
     appliedNodeTests: []
@@ -127,9 +127,9 @@ operation:
             nodeName: PROJECT_STATUS_SUMMARY
         join:
           joinCondition: FROM {{ ref('SOURCE', 'PROJECT_STATUS_SUMMARY') }} "PROJECT_STATUS_SUMMARY"
-        name: VW_PROJECT_STATUS_SUMMARY
+        name: VW_PROJECT_STATUS_SUMMARY12
         noLinkRefs: []
-  name: VW_PROJECT_STATUS_SUMMARY
+  name: VW_PROJECT_STATUS_SUMMARY12
   overrideSQL: false
   schema: ""
   sqlType: "459"
