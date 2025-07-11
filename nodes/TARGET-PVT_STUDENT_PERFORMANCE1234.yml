@@ -107,14 +107,14 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          STG_STUDENT_PERFORMANCE: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
+          STG_STUDENT_PERFORMANCE123: 8aaa0c22-fd5e-4dc4-a2eb-ed261405da47
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET_ACC
-            nodeName: STG_STUDENT_PERFORMANCE12
+            nodeName: STG_STUDENT_PERFORMANCE123
         join:
-          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE12') }} "STG_STUDENT_PERFORMANCE"
+          joinCondition: FROM {{ ref('TARGET_ACC', 'STG_STUDENT_PERFORMANCE123') }} "STG_STUDENT_PERFORMANCE123"
         name: PVT_STUDENT_PERFORMANCE1234
         noLinkRefs: []
   name: PVT_STUDENT_PERFORMANCE1234
