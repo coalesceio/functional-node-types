@@ -29,8 +29,7 @@ does not permit copying or modification for any other purpose.
 
 {% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
 
-              {%if currentState != defined and currentState.node.materializationType != desiredState.node.materializationType %}
-
+              {%if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
 
                      {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
 
