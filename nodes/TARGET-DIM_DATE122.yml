@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 6d22e71b-9746-4f92-b2bd-7ec854666543
-name: DIM_DATE12
+name: DIM_DATE122
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
@@ -287,9 +287,9 @@ operation:
         dependencies: []
         join:
           joinCondition: ""
-        name: DIM_DATE12
+        name: DIM_DATE122
         noLinkRefs: []
-  name: DIM_DATE12
+  name: DIM_DATE122
   overrideSQL: false
   schema: ""
   sqlType: "404"

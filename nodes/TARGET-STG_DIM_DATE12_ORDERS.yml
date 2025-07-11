@@ -189,20 +189,20 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          DIM_DATE12: 6d22e71b-9746-4f92-b2bd-7ec854666543
+          DIM_DATE122: 6d22e71b-9746-4f92-b2bd-7ec854666543
           STG_ORDERS: 0ec2a2b4-7276-445c-9070-1723546d385e
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
-            nodeName: DIM_DATE12
+            nodeName: DIM_DATE122
           - locationName: TARGET
             nodeName: STG_ORDERS
         join:
           joinCondition: |-
-            FROM {{ ref('TARGET', 'DIM_DATE12') }} "DIM_DATE12"
+            FROM {{ ref('TARGET', 'DIM_DATE122') }} "DIM_DATE122"
             INNER JOIN {{ ref('TARGET', 'STG_ORDERS') }} "STG_ORDERS"
-            ON "DIM_DATE12"."DATE_KEY" = "STG_ORDERS"."O_ORDERDATE"
+            ON "DIM_DATE122"."DATE_KEY" = "STG_ORDERS"."O_ORDERDATE"
         name: STG_DIM_DATE12_ORDERS
         noLinkRefs: []
   name: STG_DIM_DATE12_ORDERS

@@ -93,14 +93,14 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          STG_PROJECT_DETAILS121: 10e9640f-a956-4bf7-980a-12a9a2071dbb
+          STG_PROJECT_DETAILS122: 10e9640f-a956-4bf7-980a-12a9a2071dbb
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
-            nodeName: STG_PROJECT_DETAILS121
+            nodeName: STG_PROJECT_DETAILS122
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS121') }} "STG_PROJECT_DETAILS121"
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS122') }} "STG_PROJECT_DETAILS122"
         name: UPVT_PROJECT_DETAILS121
         noLinkRefs: []
   name: UPVT_PROJECT_DETAILS121

@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 121fb27c-b141-458e-8767-1397ce81b8fd
-name: UPVT_PROJECT_DETAILS12
+name: UPVT_PROJECT_DETAILS1223
 operation:
   config:
     includenull: false
@@ -18,7 +18,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: transient table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -43,7 +43,7 @@ operation:
         config: {}
         dataType: NUMBER(38,0)
         description: ""
-        name: ID
+        name: ID1
         nullable: true
         sourceColumnReferences:
           - columnReferences:
@@ -92,17 +92,17 @@ operation:
     enabledColumnTestIDs: []
     sourceMapping:
       - aliases:
-          STG_PROJECT_DETAILS12: 10e9640f-a956-4bf7-980a-12a9a2071dbb
+          STG_PROJECT_DETAILS122: 10e9640f-a956-4bf7-980a-12a9a2071dbb
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
-            nodeName: STG_PROJECT_DETAILS121
+            nodeName: STG_PROJECT_DETAILS122
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS121') }} "STG_PROJECT_DETAILS12"
-        name: UPVT_PROJECT_DETAILS12
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS122') }} "STG_PROJECT_DETAILS122"
+        name: UPVT_PROJECT_DETAILS1223
         noLinkRefs: []
-  name: UPVT_PROJECT_DETAILS12
+  name: UPVT_PROJECT_DETAILS1223
   overrideSQL: false
   schema: ""
   sqlType: "399"

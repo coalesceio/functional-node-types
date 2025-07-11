@@ -370,19 +370,21 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          DIM_DATE122: 6d22e71b-9746-4f92-b2bd-7ec854666543
+          WRK_ORDERS_VW: edb5c01f-6ac0-4e46-a8bf-c8e03f981f1e
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
-            nodeName: DIM_DATE12
+            nodeName: DIM_DATE122
           - locationName: TARGET
             nodeName: WRK_ORDERS_VW
         join:
           joinCondition: |-
             FROM {{ ref('TARGET', 'WRK_ORDERS_VW') }} "WRK_ORDERS_VW"
-            INNER JOIN {{ ref('TARGET', 'DIM_DATE12') }} "DIM_DATE12"
-            ON "WRK_ORDERS_VW"./*COLUMN*/ = "DIM_DATE12"./*COLUMN*/
+            INNER JOIN {{ ref('TARGET', 'DIM_DATE122') }} "DIM_DATE122"
+            ON "WRK_ORDERS_VW"."O_ORDERDATE" = "DIM_DATE122".DATE_KEY
         name: STG_ORDERS_VW_DIM_DATE12
         noLinkRefs: []
   name: STG_ORDERS_VW_DIM_DATE12

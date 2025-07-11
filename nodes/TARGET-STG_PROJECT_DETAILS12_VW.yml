@@ -76,14 +76,15 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          UPVT_PROJECT_DETAILS1223: 121fb27c-b141-458e-8767-1397ce81b8fd
         customSQL:
           customSQL: ""
         dependencies:
           - locationName: TARGET
-            nodeName: UPVT_PROJECT_DETAILS12
+            nodeName: UPVT_PROJECT_DETAILS1223
         join:
-          joinCondition: FROM {{ ref('TARGET', 'UPVT_PROJECT_DETAILS12') }} "UPVT_PROJECT_DETAILS12"
+          joinCondition: FROM {{ ref('TARGET', 'UPVT_PROJECT_DETAILS1223') }} "UPVT_PROJECT_DETAILS1223"
         name: STG_PROJECT_DETAILS12_VW
         noLinkRefs: []
   name: STG_PROJECT_DETAILS12_VW
