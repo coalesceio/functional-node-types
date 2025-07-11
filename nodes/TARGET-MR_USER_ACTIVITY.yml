@@ -1,0 +1,178 @@
+fileVersion: 1
+id: f44fd51e-826f-4a26-9adf-cab22448c25c
+name: MR_USER_ACTIVITY
+operation:
+  config:
+    afterMatchSkip: TO
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 2b958e3f-1854-4c97-a5c2-b3bb9c74f6c5
+            stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+          orderByTextBox: null
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: 16a7cbb3-d6c1-4e34-9c2c-12815038b1b6
+            stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+          partitionByColTextBox: null
+    pattern: SIGNUP UPGRADE+ DOWNGRADE*
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: UPGRADE
+          valDefineExpression: EVENT_TYPE = 'UPGRADE'
+        - valDefineColumnName: DOWNGRADE
+          valDefineExpression: "EVENT_TYPE = 'DOWNGRADE'  "
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_NUMBER
+        - valAliasExpressionColumnName: EVENT_SEQ
+          valMeasureColumnName: null
+          valMeasureExpression: MATCH_SEQUENCE_NUMBER
+        - valAliasExpressionColumnName: EVENT_COUNT
+          valMeasureColumnName: "*"
+          valMeasureExpression: COUNT
+    testsEnabled: false
+    to: LAST
+    toggleOrderBy: true
+    togglePartitionBy: true
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: UPGRADE
+  database: ""
+  deployEnabled: false
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 16a7cbb3-d6c1-4e34-9c2c-12815038b1b6
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: CUSTOMER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2dcdc7d0-bad2-4f3b-81cf-b57bdf79a88b
+                stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2b958e3f-1854-4c97-a5c2-b3bb9c74f6c5
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: DATE
+        description: ""
+        name: EVENT_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 57a328a5-e113-4ee9-a37c-bd7c170317d1
+                stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 120cfb1a-d48b-4e34-93d0-5f847e404a3b
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: EVENT_TYPE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a6cba17d-7848-4926-8933-6c0c4e640a53
+                stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5eddd82a-84d8-4a2b-ac64-65bb14bdbf6d
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 53e5530e-350a-4a47-8b7c-3017ac2c28af
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: EVENT_SEQ
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6d72706b-916c-4921-a4f2-e9cb813cab50
+          stepCounter: f44fd51e-826f-4a26-9adf-cab22448c25c
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: EVENT_COUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: USER_ACTIVITY
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'USER_ACTIVITY') }} "USER_ACTIVITY"
+        name: MR_USER_ACTIVITY
+        noLinkRefs: []
+  name: MR_USER_ACTIVITY
+  overrideSQL: false
+  schema: ""
+  sqlType: "410"
+  type: sql
+  version: 1
+type: Node

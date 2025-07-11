@@ -1,0 +1,73 @@
+fileVersion: 1
+id: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+name: USER_ACTIVITY
+operation:
+  database: ""
+  deployEnabled: false
+  description: ""
+  locationName: TARGET
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2dcdc7d0-bad2-4f3b-81cf-b57bdf79a88b
+          stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: CUSTOMER_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 57a328a5-e113-4ee9-a37c-bd7c170317d1
+          stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: EVENT_DATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a6cba17d-7848-4926-8933-6c0c4e640a53
+          stepCounter: 1b2fcf92-1d73-4186-aa24-b997456c7b31
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: EVENT_TYPE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: USER_ACTIVITY
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

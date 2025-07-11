@@ -43,7 +43,7 @@ does not permit copying or modification for any other purpose.
             {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
             {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  		
             {% if currentState.node.materializationType != 'view' %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
                 DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
             {% elif  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
                 {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
