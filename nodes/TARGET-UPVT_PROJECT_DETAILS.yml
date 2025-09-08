@@ -45,9 +45,7 @@ operation:
         name: PROJECT_ID
         nullable: true
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 001248b4-2be2-4dbb-80ad-c95003b29e41
-                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
+          - columnReferences: []
             transform: ""
       - appliedColumnTests: {}
         columnReference:
