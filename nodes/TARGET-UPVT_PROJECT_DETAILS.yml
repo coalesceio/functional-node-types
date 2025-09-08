@@ -1,0 +1,138 @@
+fileVersion: 1
+id: 8e1e7693-0a87-4866-876f-b803601f21dc
+name: UPVT_PROJECT_DETAILS
+operation:
+  config:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: NAME_COL
+    tabValueColumn:
+      items:
+        - ColTextBox: NAME
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: VAL_COL
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2c8780c7-b810-4bd3-9d4b-012d82acec96
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: PROJECT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: eb11bf84-8468-4ca3-bb92-7ff552a4a908
+                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c2fad42e-9be1-4380-aa82-28f31c3da006
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 270d446e-3553-4cfc-96e7-e791967221e2
+                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7a8ad356-0c1c-4015-a2e9-e87554b1f085
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 001248b4-2be2-4dbb-80ad-c95003b29e41
+                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e61c4bd0-ed01-4f56-8398-492658d7d32f
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: VARCHAR(255)
+        description: ""
+        name: PROJECT_DESCRIPTION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: bb6c675b-ced5-483c-a265-7aa3a9454c77
+                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 999a82ac-75c0-494a-8a4e-d570ccf6a335
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: NAME_COL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: dfb8bfb4-ce39-4026-b32f-27e4ce6fcf9a
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: VARCHAR(100)
+        defaultValue: ""
+        description: ""
+        name: VAL_COL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STG_PROJECT_DETAILS: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_PROJECT_DETAILS
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS') }} "STG_PROJECT_DETAILS"
+        name: UPVT_PROJECT_DETAILS
+        noLinkRefs: []
+  name: UPVT_PROJECT_DETAILS
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node
