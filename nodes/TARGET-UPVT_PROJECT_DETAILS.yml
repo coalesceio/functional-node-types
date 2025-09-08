@@ -9,6 +9,7 @@ operation:
     tabValueColumn:
       items:
         - ColTextBox: NAME
+        - ColTextBox: PROJECT_NAME
     testsEnabled: true
     truncateBefore: true
     valColTextBox: VALUE_COL
@@ -21,20 +22,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 91dc0fe7-faf5-419f-91b0-e6981afedbec
-          stepCounter: bafc3eb2-8cfe-450b-af2f-5f49b1e57336
-        config: {}
-        dataType: VARCHAR(100)
-        description: ""
-        name: PROJECT_NAME
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: eb11bf84-8468-4ca3-bb92-7ff552a4a908
-                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 68c1ec14-de50-4c92-b9ea-fcb7e0ca0264
