@@ -112,7 +112,7 @@ operation:
           - locationName: TARGET
             nodeName: STG_PROJECT_DETAILS
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS') }} "STG_PROJECT_DETAILS"
+          joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS') }} "STG_PROJECT_DETAILS" WHERE "NAME" = 'Tanvi'
         name: UPVT_PROJECT_DETAILS
         noLinkRefs: []
   name: UPVT_PROJECT_DETAILS
