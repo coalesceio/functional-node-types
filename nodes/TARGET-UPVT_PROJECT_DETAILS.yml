@@ -9,7 +9,7 @@ operation:
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
-    testsEnabled: false
+    testsEnabled: true
     truncateBefore: false
     valColTextBox: VAL_COL
   database: ""
