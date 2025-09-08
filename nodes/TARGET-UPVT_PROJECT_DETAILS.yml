@@ -11,7 +11,7 @@ operation:
         - ColTextBox: NAME
     testsEnabled: false
     truncateBefore: false
-    valColTextBox: VAL_COL
+    valColTextBox: VAL_COL_NC
   database: ""
   deployEnabled: true
   description: ""
