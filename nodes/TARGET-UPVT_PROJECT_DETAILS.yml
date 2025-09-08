@@ -9,8 +9,8 @@ operation:
     tabValueColumn:
       items:
         - ColTextBox: NAME
-    testsEnabled: false
-    truncateBefore: false
+    testsEnabled: true
+    truncateBefore: true
     valColTextBox: VALUE_COL
   database: ""
   deployEnabled: true
