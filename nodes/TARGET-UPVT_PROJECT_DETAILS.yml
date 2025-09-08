@@ -8,10 +8,10 @@ operation:
     nameColTextBox: NAME_COL
     tabValueColumn:
       items:
-        - ColTextBox: NAME
+        - ColTextBox: PROJECT_NAME
     testsEnabled: false
     truncateBefore: false
-    valColTextBox: VAL_COL_NC
+    valColTextBox: VAL_COL
   database: ""
   deployEnabled: true
   description: ""
@@ -21,20 +21,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 38329b10-1f26-42ae-8af6-06c3b837447e
-          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
-        config: {}
-        dataType: VARCHAR(100)
-        description: ""
-        name: PROJECT_NAME
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: eb11bf84-8468-4ca3-bb92-7ff552a4a908
-                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: b00ba9fd-cacb-452b-9f3f-5c1b944a9f69
@@ -104,7 +90,7 @@ operation:
           columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
-        dataType: VARCHAR(16777216)
+        dataType: VARCHAR(100)
         defaultValue: ""
         description: ""
         name: VAL_COL
