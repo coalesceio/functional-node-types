@@ -72,6 +72,7 @@ does not permit copying or modification for any other purpose.
                     sourceLinkDiff      = [],
                     truncateBeforeDiff  = [],
                     testsEnabledDiff    = [],
+                    valueDiff           = [],
                     metaDataChanges     = [],
                     metadataUpdate      = 'Metadata Update'
                 ) %}
@@ -498,6 +499,33 @@ does not permit copying or modification for any other purpose.
 
                 {% if nsMetaVariables.testsEnabledTest == false %}
                     {{ update_metadata("Test Enanbled", nsMetaVariables.testsEnabledDiff, "Test Enanbled") }}
+                {% endif %}
+
+                {# =========================================================
+                tabValueColumn comparison
+                ========================================================= #}
+                {% set desiredStateValues = desiredState.config.tabValueColumn
+                                            | replace('/*', '/ *') 
+                                            | replace('*/', '* /') %}
+                {% set currentStateValues = currentState.config.tabValueColumn
+                                            | replace('/*', '/ *') 
+                                            | replace('*/', '* /') %}
+
+                {% if desiredStateValues != currentStateValues %}
+                    {% set _ = nsMetaVariables.valueDiff.append({
+                        "is": desiredStateValues,
+                        "was": currentStateValues }) %}
+
+                    {{ update_metadata("tabValueColumn", nsMetaVariables.valueDiff, "tabValueColumn") }}
+                {% endif %}
+
+                {# =========================================================
+                includenull comparison
+                ========================================================= #}
+                {% if desiredState.config.includenull != currentState.config.includenull %}
+                    {{ update_metadata("includenull", {
+                        "is": desiredState.config.includenull,
+                        "was": currentState.config.includenull }, "includenull") }}
                 {% endif %}
 
                 {# =========================================================
