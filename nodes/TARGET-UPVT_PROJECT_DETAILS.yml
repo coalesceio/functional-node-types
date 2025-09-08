@@ -3,7 +3,7 @@ id: bafc3eb2-8cfe-450b-af2f-5f49b1e57336
 name: UPVT_PROJECT_DETAILS
 operation:
   config:
-    includenull: false
+    includenull: true
     inferunpivot: false
     nameColTextBox: NAME_COL
     tabValueColumn:
