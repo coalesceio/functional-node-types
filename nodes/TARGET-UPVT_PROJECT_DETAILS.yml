@@ -104,7 +104,7 @@ operation:
           columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
-        dataType: VARCHAR(100)
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
         name: VAL_COL
