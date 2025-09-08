@@ -19,9 +19,16 @@ operation:
   locationName: TARGET
   materializationType: table
   metadata:
-    appliedNodeTests: []
+    appliedNodeTests:
+      - continueOnFailure: false
+        description: ""
+        name: Test
+        runOrder: After
+        templateString: wrte3t5
     columns:
-      - appliedColumnTests: {}
+      - appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: b00ba9fd-cacb-452b-9f3f-5c1b944a9f69
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -35,7 +42,9 @@ operation:
               - columnCounter: 270d446e-3553-4cfc-96e7-e791967221e2
                 stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
             transform: ""
-      - appliedColumnTests: {}
+      - appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: 3d708ad7-f0aa-40b3-a689-7704ef33df6e
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -47,7 +56,9 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+      - appliedColumnTests:
+          hasNull: true
+          isDistinct: false
         columnReference:
           columnCounter: 6031bc70-b0da-4444-bf97-f46570bc0d76
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -64,7 +75,9 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: true
         columnReference:
           columnCounter: 5bfcf025-b3f4-4382-896f-3f53dc585562
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -83,7 +96,9 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -100,7 +115,9 @@ operation:
         transform: ""
         uniqueKey: false
     cteString: ""
-    enabledColumnTestIDs: []
+    enabledColumnTestIDs:
+      - hasNull
+      - isDistinct
     sourceMapping:
       - aliases:
           STG_PROJECT_DETAILS: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
