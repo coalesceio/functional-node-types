@@ -5,7 +5,7 @@ operation:
   config:
     afterMatchSkip: ""
     allRowsPerMatch: ""
-    inferMatchRecognize: false
+    inferMatchRecognize: true
     orderBy:
       items:
         - {}
@@ -19,7 +19,8 @@ operation:
         - {}
     tabDefine:
       items:
-        - {}
+        - valDefineColumnName: null
+          valDefineExpression: null
     tabMeasures:
       items:
         - {}

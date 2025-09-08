@@ -29,7 +29,9 @@ operation:
           keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColDropdown: null
+        - Colvol: null
+          funcname: table
+          valColDropdown: null
           valColTextBox: EMPID
     testsEnabled: false
     trunc: true

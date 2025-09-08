@@ -2,10 +2,9 @@
     Copyright (c) 2023 Coalesce. All rights reserved.
 This script and its associated documentation are confidential and proprietary to Coalesce.
 Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
-Coalesce permits you to copy and modify this script for the purposes of using with Coalsce but
+Coalesce permits you to copy and modify this script for the purposes of using with Coalesce but
 does not permit copying or modification for any other purpose.  
 #}
-{# == Node Type Version        : 1  == #}
 {# == Node Type Name           : UNPIVOT NODE == #}
 {# == Node Type Description    : This node transforms columns to rows.== #}
 {#Release date:20250122 Version:3.0.0#}
@@ -59,6 +58,23 @@ does not permit copying or modification for any other purpose.
                     {%endif%}
           {%else%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='ColTextBox')|list%}
+
+                {# =========================================================
+                Initialize metadata tracking variables
+                ========================================================= #}
+                {% set nsMetaVariables = namespace(
+                    transformTest       = true,
+                    sourceLinkTest      = true,
+                    testsEnabledTest    = true,
+                    metaDataChanged     = false,
+                    joinDiff            = [],
+                    transformDiff       = [],
+                    sourceLinkDiff      = [],
+                    truncateBeforeDiff  = [],
+                    testsEnabledDiff    = [],
+                    metaDataChanges     = [],
+                    metadataUpdate      = 'Metadata Update'
+                ) %}
           {%endif%}
 
           {%for col in ns.pcolumn%}
@@ -134,6 +150,9 @@ does not permit copying or modification for any other purpose.
                 {% endfor %}
                )
               {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+
+                {# Metadata changes detected #}
+                {% set nsMetaVariables.metaDataChanged = true %}
            {% endif %}
            
             {% if currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType%}
@@ -174,6 +193,9 @@ does not permit copying or modification for any other purpose.
 
                      ALTER TABLE  "{{cdb}}"."{{csch}}"."{{currentState.node.name}}"
                      RENAME TO   {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+
+                    {# Metadata changes detected #}
+                    {% set nsMetaVariables.metaDataChanged = true %}
                  {% endif %}
 
                  {# Change table description #}
@@ -181,6 +203,9 @@ does not permit copying or modification for any other purpose.
                     {{ stage('Change table description') }}
                       ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                      SET COMMENT = '{{ desiredState.node.description | escape }}'
+
+                    {# Metadata changes detected #}
+                    {% set nsMetaVariables.metaDataChanged = true %}
                  {% endif %}
                  
 
@@ -199,6 +224,9 @@ does not permit copying or modification for any other purpose.
                         , 
                     {% endif %}
                     "{{ dropCurCol.name }}"
+
+                    {# Metadata changes detected #}
+                    {% set nsMetaVariables.metaDataChanged = true %}
                   {% endif %}
                  {% endfor %}
 
@@ -220,6 +248,9 @@ does not permit copying or modification for any other purpose.
                             {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
                         {% endif %}
                         {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
+
+                    {# Metadata changes detected #}
+                    {% set nsMetaVariables.metaDataChanged = true %}
                  {% endif %}
                {% endfor %}
 
@@ -233,6 +264,9 @@ does not permit copying or modification for any other purpose.
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                         RENAME COLUMN "{{ renameCurCol.name }}"
                         TO "{{ desiredColumnName }}"
+
+                        {# Metadata changes detected #}
+                        {% set nsMetaVariables.metaDataChanged = true %}
                     {% endif %}
                  {% endif %}
                 {% endfor %}
@@ -301,12 +335,183 @@ does not permit copying or modification for any other purpose.
                             {% endif %}
                             {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
                         {% endif %}
+
+                        {# Metadata changes detected #}
+                        {% set nsMetaVariables.metaDataChanged = true %}
                         
                     {% else %}
                                             
                     {% endif %}
                 {% endif %}
             {% endfor %}     
+
+            {% if nsMetaVariables.metaDataChanged == false %}
+
+                {# =========================================================
+                Join comparison
+                ========================================================= #}
+                {% set desiredStateSources = desiredState.sources[0].join | replace("{{", '"{{"') | replace("}}", '"}}"') | replace('/*', '/ *') | replace('*/', '* /') %}
+                {% set currentStateSources = currentState.sources[0].join | replace("{{", '"{{"') | replace("}}", '"}}"') | replace('/*', '/ *') | replace('*/', '* /') %}
+
+                {# Same number of sources — compare join transformations #}
+                {% if desiredStateSources != currentStateSources %}
+                    {% set _ = nsMetaVariables.joinDiff.append({
+                        "is": desiredStateSources,
+                        "was": currentStateSources }) %}
+
+                    {{ update_metadata("Join", nsMetaVariables.joinDiff, "Join") }}
+                {% endif %}
+
+                {# =========================================================
+                Transformation and column source changes comparison (per column)
+                ========================================================= #}
+                {% for col in desiredState.sources[0].columns %}
+
+                    {# Try to get matching column #}
+                    {% set matched_column = currentState.sources[0].columns
+                        | selectattr('id', 'equalto', col.id)
+                        | first
+                    %}
+
+                    {% if matched_column %}
+
+                        {# Transformation Changes #}
+                        {% set currentTransform = currentState.sources[0].columns
+                            | selectattr('id', 'equalto', col.id)
+                            | map(attribute='transform')
+                            | first
+                            | default('')
+                        %}
+
+                        {% if currentTransform != col.transform %}
+                            {% set nsMetaVariables.transformTest = false %}
+                            {% set _ = nsMetaVariables.transformDiff.append({
+                                "Column Name": col.name,
+                                "is": col.transform | replace('/*', '/ *') | replace('*/', '* /'),
+                                "was": currentTransform | replace('/*', '/ *') | replace('*/', '* /')
+                            }) %}
+                        {% endif %}
+
+                        {# Column Source Changes #}
+                        {% set currentSource = currentState.sources[0].columns
+                            | selectattr('id', 'equalto', col.id)
+                            | map(attribute='sourceColumns')
+                            | first
+                            | default('')
+                        %}
+
+                        {% if currentSource != col.sourceColumns %}
+                            {% set nsMetaVariables.sourceLinkTest = false %}
+                            {% set _ = nsMetaVariables.sourceLinkDiff.append({
+                                "Column Name": col.name,
+                                "is": (col.sourceColumns | selectattr('node','defined') | map(attribute='node.name') | first) | default('') ~ "-" ~ (col.sourceColumns | selectattr('column','defined') | map(attribute='column.name') | first) | default(''),
+                                "was": (currentSource | selectattr('node','defined') | map(attribute='node.name') | first) | default('') ~ "-" ~ (currentSource | selectattr('column','defined') | map(attribute='column.name') | first) | default('')
+                            }) %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if nsMetaVariables.transformTest == false %}
+                    {{ update_metadata("Transform", nsMetaVariables.transformDiff, "Transform") }}
+                {% endif %}
+
+                {% if nsMetaVariables.sourceLinkTest == false %}
+                    {{ update_metadata("Source Link", nsMetaVariables.sourceLinkDiff, "Source Link") }}
+                {% endif %}
+
+                {# =========================================================
+                Truncate Table comparison
+                ========================================================= #}
+                {% if currentState.config.truncateBefore != desiredState.config.truncateBefore %}
+                    {% set _ = nsMetaVariables.truncateBeforeDiff.append({
+                        "is": desiredState.config.truncateBefore,
+                        "was": currentState.config.truncateBefore
+                    }) %}
+
+                    {{ update_metadata("Truncate Before", nsMetaVariables.truncateBeforeDiff, "Truncate Before") }}
+
+                {% endif %}
+
+                {# =========================================================
+                Test Enabled comparison (per column)
+                ========================================================= #}
+                {% if desiredState.config.testsEnabled != currentState.config.testsEnabled %}
+
+                        {% set nsMetaVariables.testsEnabledTest = false %}
+                        {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                            "is": desiredState.config.testsEnabled,
+                            "was": currentState.config.testsEnabled
+                        }) %}
+
+                {% elif desiredState.config.testsEnabled and currentState.config.testsEnabled %}
+
+                    {# Changes in Node Tests #}
+                    {% if currentState.node.tests | length != desiredState.node.tests | length %}
+
+                        {% set nsMetaVariables.testsEnabledTest = false %}
+                        {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                            "is": desiredState.node.tests | map(attribute="name") | list | sort ,
+                            "was": currentState.node.tests | map(attribute="name") | list | sort
+                        }) %}
+                    {% else %}
+                        {% for dtest in desiredState.node.tests %}
+                            {% set ctest = (currentState.node.tests | selectattr("name", "equalto", dtest.name) | first) %}
+
+                            {% if ctest != dtest %}
+                                {% set nsMetaVariables.testsEnabledTest = false %}
+                                {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                                    "is": dtest | replace('/*', '/ *') | replace('*/', '* /'),
+                                    "was": ctest | replace('/*', '/ *') | replace('*/', '* /')
+                                }) %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {# Changes in Column tests #}
+                    {% for src in desiredState.sources %}
+
+                        {% set matchingSource = currentState.sources | selectattr('name', 'equalto', src.name) | first %}
+
+                        {% if matchingSource %}
+                            {% for col in src.columns %}
+                                {% set currentTest = matchingSource.columns
+                                    | selectattr('id', 'equalto', col.id)
+                                    | map(attribute='tests')
+                                    | first
+                                    | default('')
+                                %}
+
+                                {% if currentTest != col.tests %}
+                                    {% set nsMetaVariables.testsEnabledTest = false %}
+                                    {% set cTests = currentTest | map(attribute="name") | list | sort %}
+                                    {% set dTests = col.tests | map(attribute="name") | list | sort %}
+                                    {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                                        "Column Name": col.name,
+                                        "is": dTests,
+                                        "was": cTests
+                                    }) %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if nsMetaVariables.testsEnabledTest == false %}
+                    {{ update_metadata("Test Enanbled", nsMetaVariables.testsEnabledDiff, "Test Enanbled") }}
+                {% endif %}
+
+                {# =========================================================
+                Handle detected metadata changes and update
+                ========================================================= #}
+                {% if nsMetaVariables.metaDataChanges | length == 0 %}
+                    {{ stage('Metadata Update-Default') }}
+                {% else %}
+                    {{ stage(nsMetaVariables.metadataUpdate) }}
+                    -- Metadata changes detected
+                    /* {{ nsMetaVariables.metaDataChanges }} */
+                {% endif %}
+                select 1=0
+            {% endif %}
             {%endif%}
 
          {%endif%}

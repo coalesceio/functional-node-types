@@ -4,12 +4,18 @@ name: UPVT_FRUITINVENTORY_TRANS
 operation:
   config:
     includenull: true
-    inferunpivot: false
+    inferunpivot: true
     nameColTextBox: store
     tabValueColumn:
       items:
         - ColTextBox: STOREA
+          valColDropdown:
+            columnCounter: 264cc22e-208f-4cf4-b73d-e70715c0cff7
+            stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
         - ColTextBox: STOREB
+          valColDropdown:
+            columnCounter: 264cc22e-208f-4cf4-b73d-e70715c0cff7
+            stepCounter: 84b76fcb-c964-4ccf-abd2-19d0945d5272
     testsEnabled: false
     truncateBefore: true
     valColTextBox: Quantity
