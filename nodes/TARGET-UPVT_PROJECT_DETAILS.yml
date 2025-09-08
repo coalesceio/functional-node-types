@@ -9,7 +9,6 @@ operation:
     tabValueColumn:
       items:
         - ColTextBox: NAME
-        - ColTextBox: PROJECT_NAME
     testsEnabled: true
     truncateBefore: true
     valColTextBox: VALUE_COL
