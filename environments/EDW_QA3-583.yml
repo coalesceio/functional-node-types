@@ -1,0 +1,11 @@
+fileVersion: 1
+id: "583"
+mappingDefinitions:
+  SOURCE:
+    database: ANANDHIS_DEV
+    schema: SOURCE_DATA
+  TARGET:
+    database: TANVI_DEV
+    schema: QA
+name: EDW_QA3
+type: Environment
