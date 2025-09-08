@@ -62,7 +62,7 @@ operation:
           - columnReferences:
               - columnCounter: bb6c675b-ced5-483c-a265-7aa3a9454c77
                 stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
-            transform: ""
+            transform: UPPER(PROJECT_DESCRIPTION)
       - acceptedValues:
           strictMatch: true
           values: []
