@@ -3,12 +3,13 @@ id: bafc3eb2-8cfe-450b-af2f-5f49b1e57336
 name: UPVT_PROJECT_DETAILS
 operation:
   config:
-    includenull: true
-    inferunpivot: false
+    includenull: false
+    inferunpivot: true
     nameColTextBox: NAME_COL
     tabValueColumn:
       items:
-        - ColTextBox: NAME
+        - ColTextBox: PROJECT_DESCRIPTION
+          valColDropdown: null
     testsEnabled: true
     truncateBefore: true
     valColTextBox: VALUE_COL
@@ -49,20 +50,6 @@ operation:
               - columnCounter: 001248b4-2be2-4dbb-80ad-c95003b29e41
                 stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: a9163c6e-964d-47a7-a0c1-1e762260a2af
-          stepCounter: bafc3eb2-8cfe-450b-af2f-5f49b1e57336
-        config: {}
-        dataType: VARCHAR(255)
-        description: ""
-        name: PROJECT_DESCRIPTION
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: bb6c675b-ced5-483c-a265-7aa3a9454c77
-                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
-            transform: UPPER(PROJECT_DESCRIPTION)
       - acceptedValues:
           strictMatch: true
           values: []
@@ -90,7 +77,7 @@ operation:
           columnCounter: 93a0fdb7-5770-4a48-af06-07f1e0cb6837
           stepCounter: bafc3eb2-8cfe-450b-af2f-5f49b1e57336
         config: {}
-        dataType: VARCHAR(100)
+        dataType: VARCHAR(255)
         defaultValue: ""
         description: ""
         name: VALUE_COL
