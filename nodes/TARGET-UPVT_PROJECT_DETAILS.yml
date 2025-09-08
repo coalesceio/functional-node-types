@@ -1,5 +1,5 @@
 fileVersion: 1
-id: 8e1e7693-0a87-4866-876f-b803601f21dc
+id: 20b0d3ac-7431-4163-a93d-59ccd43e343b
 name: UPVT_PROJECT_DETAILS
 operation:
   config:
@@ -11,7 +11,7 @@ operation:
         - ColTextBox: NAME
     testsEnabled: false
     truncateBefore: false
-    valColTextBox: VAL_COL1
+    valColTextBox: VAL_COL
   database: ""
   deployEnabled: true
   description: ""
@@ -23,8 +23,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 2c8780c7-b810-4bd3-9d4b-012d82acec96
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+          columnCounter: 38329b10-1f26-42ae-8af6-06c3b837447e
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: VARCHAR(100)
         description: ""
@@ -37,8 +37,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c2fad42e-9be1-4380-aa82-28f31c3da006
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+          columnCounter: b00ba9fd-cacb-452b-9f3f-5c1b944a9f69
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -51,8 +51,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 7a8ad356-0c1c-4015-a2e9-e87554b1f085
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+          columnCounter: 3d708ad7-f0aa-40b3-a689-7704ef33df6e
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -65,8 +65,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: e61c4bd0-ed01-4f56-8398-492658d7d32f
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+          columnCounter: 6031bc70-b0da-4444-bf97-f46570bc0d76
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: VARCHAR(255)
         description: ""
@@ -82,8 +82,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 999a82ac-75c0-494a-8a4e-d570ccf6a335
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+          columnCounter: 5bfcf025-b3f4-4382-896f-3f53dc585562
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
@@ -101,29 +101,10 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: befd4a49-73d8-4af4-a1c0-4515d41609b5
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+          columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: VARCHAR(100)
-        defaultValue: ""
-        description: ""
-        name: VAL_COL1
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: dfb8bfb4-ce39-4026-b32f-27e4ce6fcf9a
-          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
-        config: {}
-        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
         name: VAL_COL
