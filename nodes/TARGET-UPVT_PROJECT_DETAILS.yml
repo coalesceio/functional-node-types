@@ -4,12 +4,11 @@ name: UPVT_PROJECT_DETAILS
 operation:
   config:
     includenull: false
-    inferunpivot: true
-    nameColTextBox: NAME_COL
+    inferunpivot: false
+    nameColTextBox: NAME_COL1
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_DESCRIPTION
-          valColDropdown: null
     testsEnabled: true
     truncateBefore: true
     valColTextBox: VALUE_COL
@@ -81,6 +80,25 @@ operation:
         defaultValue: ""
         description: ""
         name: VALUE_COL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 689a7947-d65a-4edc-bb6f-85c5ae8404d8
+          stepCounter: bafc3eb2-8cfe-450b-af2f-5f49b1e57336
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: NAME_COL1
         nullable: true
         primaryKey: false
         sourceColumnReferences:
