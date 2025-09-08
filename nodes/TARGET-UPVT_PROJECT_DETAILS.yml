@@ -11,7 +11,7 @@ operation:
         - ColTextBox: NAME
     testsEnabled: false
     truncateBefore: false
-    valColTextBox: VAL_COL
+    valColTextBox: VAL_COL1
   database: ""
   deployEnabled: true
   description: ""
@@ -101,10 +101,29 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: dfb8bfb4-ce39-4026-b32f-27e4ce6fcf9a
+          columnCounter: befd4a49-73d8-4af4-a1c0-4515d41609b5
           stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
         config: {}
         dataType: VARCHAR(100)
+        defaultValue: ""
+        description: ""
+        name: VAL_COL1
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: dfb8bfb4-ce39-4026-b32f-27e4ce6fcf9a
+          stepCounter: 8e1e7693-0a87-4866-876f-b803601f21dc
+        config: {}
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
         name: VAL_COL
