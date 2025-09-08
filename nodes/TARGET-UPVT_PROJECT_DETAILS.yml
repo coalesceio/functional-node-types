@@ -25,6 +25,11 @@ operation:
         name: Test
         runOrder: After
         templateString: wrte3t5
+      - continueOnFailure: true
+        description: ""
+        name: Test 1
+        runOrder: After
+        templateString: e7
     columns:
       - appliedColumnTests:
           hasNull: false
@@ -57,8 +62,8 @@ operation:
           - columnReferences: []
             transform: ""
       - appliedColumnTests:
-          hasNull: true
-          isDistinct: false
+          hasNull: false
+          isDistinct: true
         columnReference:
           columnCounter: 6031bc70-b0da-4444-bf97-f46570bc0d76
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -76,8 +81,8 @@ operation:
           strictMatch: true
           values: []
         appliedColumnTests:
-          hasNull: false
-          isDistinct: true
+          hasNull: true
+          isDistinct: false
         columnReference:
           columnCounter: 5bfcf025-b3f4-4382-896f-3f53dc585562
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
