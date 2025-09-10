@@ -1,0 +1,79 @@
+fileVersion: 1
+id: b1c4ae94-1cd0-4cfb-9df3-69247da1422b
+name: V_SALES_DATA1
+operation:
+  config:
+    insertStrategy: UNION
+    selectDistinct: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8b7b61c6-4249-4e8e-886c-2f6960048450
+          stepCounter: b1c4ae94-1cd0-4cfb-9df3-69247da1422b
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: REGION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 703c0a24-b812-49d1-9104-181286fcc817
+                stepCounter: ed839624-6ac5-4be7-a691-ebdee7972c59
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 448abb76-f73d-4c7c-83bf-b55a86b7e729
+          stepCounter: b1c4ae94-1cd0-4cfb-9df3-69247da1422b
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: PRODUCT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fd1b0e2a-a45b-4334-a07d-4e92856989f8
+                stepCounter: ed839624-6ac5-4be7-a691-ebdee7972c59
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: fbcc301e-52fa-4d19-ac50-531aca037690
+          stepCounter: b1c4ae94-1cd0-4cfb-9df3-69247da1422b
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: SALES_AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 72755970-350f-4460-8923-8156d9888bb2
+                stepCounter: ed839624-6ac5-4be7-a691-ebdee7972c59
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          V_SALES_DATA: ed839624-6ac5-4be7-a691-ebdee7972c59
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: V_SALES_DATA
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'V_SALES_DATA') }} "V_SALES_DATA"
+        name: V_SALES_DATA1
+        noLinkRefs: []
+  name: V_SALES_DATA1
+  overrideSQL: false
+  schema: ""
+  sqlType: View
+  type: sql
+  version: 1
+type: Node

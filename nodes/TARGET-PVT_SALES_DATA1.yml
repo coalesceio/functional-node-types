@@ -1,0 +1,132 @@
+fileVersion: 1
+id: c88ab57c-ee4d-4606-a186-c9137f250a4d
+name: PVT_SALES_DATA1
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: MAX
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: REGION
+    tabValueColumn:
+      items:
+        - valColDropdown: null
+          valColTextBox: SALES_AMOUNT
+    testsEnabled: false
+    trunc: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 35ef3020-2d5e-467f-8b6b-dfb245805e18
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: PRODUCT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e28b7aed-a601-4948-8b9c-19b7af5b0956
+                stepCounter: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 81562b6d-54c4-4bc5-bb19-3385fecf0025
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'East'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e02f52db-8874-4ed5-b32a-0866524be480
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'North'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1ef592e2-58d3-4fc1-9b02-68551e754059
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'South'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STG_SALES_DATA: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_SALES_DATA
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA"
+        name: PVT_SALES_DATA1
+        noLinkRefs: []
+  name: PVT_SALES_DATA1
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

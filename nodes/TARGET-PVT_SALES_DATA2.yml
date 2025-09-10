@@ -1,0 +1,80 @@
+fileVersion: 1
+id: 058bcb11-8c11-4d12-a9bd-e0080100a96e
+name: PVT_SALES_DATA2
+operation:
+  config:
+    Colvol1: "'North'"
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - {}
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: false
+    samKeyColval: true
+    sincol: false
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: REGION
+    tabValueColumn:
+      items:
+        - funcname: MIN
+          valColTextBox: SALES_AMOUNT
+    testsEnabled: false
+    trunc: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 95d84ac2-e3f8-400b-b52c-a33adb6f01e4
+          stepCounter: 058bcb11-8c11-4d12-a9bd-e0080100a96e
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: MIN_NORTH_SALES_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STG_SALES_DATA: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: STG_SALES_DATA
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA"
+        name: PVT_SALES_DATA2
+        noLinkRefs: []
+  name: PVT_SALES_DATA2
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node
