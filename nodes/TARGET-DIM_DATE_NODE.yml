@@ -3,17 +3,17 @@ id: 3bb66d04-4736-4c00-b124-f5ad77370532
 name: DIM_DATE_NODE
 operation:
   config:
-    dateColumnName: "\"DATE_COLUMN\""
-    daysToGenerate: "2000"
-    insertZeroKey: false
+    dateColumnName: "\"DATE_COLUMN_NC\"/*comment*/"
+    daysToGenerate: 1000/*comment*/
+    insertZeroKey: true
     insertZeroKeyDate: ""
     insertZeroKeyStr: ""
     insertZeroKeySurrogateKey: ""
-    postSQL: ""
-    preSQL: ""
-    startingDate: DATEADD(DAY, -730, CURRENT_DATE)
-    testsEnabled: false
-    truncateBefore: false
+    postSQL: select current_timestamp /*comment*/
+    preSQL: select current_timestamp /*comment*/
+    startingDate: DATEADD(DAY, -500, CURRENT_DATE)/*comment*/
+    testsEnabled: true
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
@@ -51,6 +51,7 @@ operation:
         dataType: SMALLINT
         defaultValue: ""
         description: Year in the format YYYY
+        isBusinessKey: true
         isYear: true
         name: YEAR
         nullable: true
