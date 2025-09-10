@@ -13,7 +13,7 @@ operation:
     preSQL: ""
     startingDate: DATEADD(DAY, -730, CURRENT_DATE)
     testsEnabled: false
-    truncateBefore: true
+    truncateBefore: false
   database: ""
   deployEnabled: true
   description: ""
