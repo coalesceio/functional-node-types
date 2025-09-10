@@ -56,25 +56,6 @@ operation:
           strictMatch: true
           values: []
         appliedColumnTests:
-          hasNull: true
-          isDistinct: true
-        columnReference:
-          columnCounter: 54e4fe68-ec4f-4bc7-8bdc-6a4cb905b6e5
-          stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
-        config: {}
-        dataType: SMALLINT
-        defaultValue: ""
-        description: Month in the format MM
-        isMonth: true
-        name: MONTH
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: MONTH({{ config.dateColumnName }})
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests:
           hasNull: false
           isDistinct: false
         columnReference:
@@ -109,6 +90,25 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: MONTHNAME({{ config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests:
+          hasNull: true
+          isDistinct: true
+        columnReference:
+          columnCounter: 54e4fe68-ec4f-4bc7-8bdc-6a4cb905b6e5
+          stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Month in the format MM
+        isMonth: true
+        name: MONTH
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: MONTH({{ config.dateColumnName }})
       - acceptedValues:
           strictMatch: true
           values: []
