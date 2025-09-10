@@ -188,13 +188,10 @@ does not permit copying or modification for any other purpose.
             ========================================================= #}
             {% set nsMetaVariables = namespace(
                 transformTest       = true,
-                sourceLinkTest      = true,
                 testsEnabledTest    = true,
                 insertZeroKeyTest   = true,
                 metaDataChanged     = false,
-                joinDiff            = [],
                 transformDiff       = [],
-                sourceLinkDiff      = [],
                 dateColumnNameDiff  = [],
                 businessDiff        = [],
                 preSQLDiff          = [],
@@ -454,21 +451,6 @@ does not permit copying or modification for any other purpose.
             {% if nsMetaVariables.metaDataChanged == false %}
 
                 {# =========================================================
-                Join comparison
-                ========================================================= #}
-                {% set desiredStateSources = desiredState.sources[0].join | replace("{{", '"{{"') | replace("}}", '"}}"') | replace('/*', '/ *') | replace('*/', '* /') %}
-                {% set currentStateSources = currentState.sources[0].join | replace("{{", '"{{"') | replace("}}", '"}}"') | replace('/*', '/ *') | replace('*/', '* /') %}
-
-                {# Same number of sources — compare join transformations #}
-                {% if desiredStateSources != currentStateSources %}
-                    {% set _ = nsMetaVariables.joinDiff.append({
-                        "is": desiredStateSources,
-                        "was": currentStateSources }) %}
-
-                    {{ update_metadata("Join", nsMetaVariables.joinDiff, "Join") }}
-                {% endif %}
-
-                {# =========================================================
                 Transformation and column source changes comparison (per column)
                 ========================================================= #}
                 {% for col in desiredState.sources[0].columns %}
@@ -497,32 +479,11 @@ does not permit copying or modification for any other purpose.
                                 "was": currentTransform | replace('/*', '/ *') | replace('*/', '* /')
                             }) %}
                         {% endif %}
-
-                        {# Column Source Changes #}
-                        {% set currentSource = currentState.sources[0].columns
-                            | selectattr('id', 'equalto', col.id)
-                            | map(attribute='sourceColumns')
-                            | first
-                            | default('')
-                        %}
-
-                        {% if currentSource != col.sourceColumns %}
-                            {% set nsMetaVariables.sourceLinkTest = false %}
-                            {% set _ = nsMetaVariables.sourceLinkDiff.append({
-                                "Column Name": col.name,
-                                "is": (col.sourceColumns | selectattr('node','defined') | map(attribute='node.name') | first) | default('') ~ "-" ~ (col.sourceColumns | selectattr('column','defined') | map(attribute='column.name') | first) | default(''),
-                                "was": (currentSource | selectattr('node','defined') | map(attribute='node.name') | first) | default('') ~ "-" ~ (currentSource | selectattr('column','defined') | map(attribute='column.name') | first) | default('')
-                            }) %}
-                        {% endif %}
                     {% endif %}
                 {% endfor %}
 
                 {% if nsMetaVariables.transformTest == false %}
                     {{ update_metadata("Transform", nsMetaVariables.transformDiff, "Transform") }}
-                {% endif %}
-
-                {% if nsMetaVariables.sourceLinkTest == false %}
-                    {{ update_metadata("Source Link", nsMetaVariables.sourceLinkDiff, "Source Link") }}
                 {% endif %}
 
                 {# =========================================================
@@ -557,8 +518,8 @@ does not permit copying or modification for any other purpose.
                 ========================================================= #}
                 {% if currentState.config.dateColumnName != desiredState.config.dateColumnName %}
                     {% set _ = nsMetaVariables.dateColumnNameDiff.append({
-                        "is": desiredState.config.dateColumnName,
-                        "was": currentState.config.dateColumnName
+                        "is": desiredState.config.dateColumnName | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.dateColumnName | replace('/*', '/ *') | replace('*/', '* /')
                     }) %}
 
                     {{ update_metadata("dateColumnName", nsMetaVariables.dateColumnNameDiff, "dateColumnName") }}
