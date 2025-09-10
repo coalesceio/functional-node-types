@@ -531,8 +531,8 @@ does not permit copying or modification for any other purpose.
                 ========================================================= #}
                 {% if currentState.config.daysToGenerate != desiredState.config.daysToGenerate %}
                     {% set _ = nsMetaVariables.daysToGenerateDiff.append({
-                        "is": desiredState.config.daysToGenerate,
-                        "was": currentState.config.daysToGenerate
+                        "is": desiredState.config.daysToGenerate | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.daysToGenerate | replace('/*', '/ *') | replace('*/', '* /')
                     }) %}
 
                     {{ update_metadata("daystoGenerate", nsMetaVariables.daysToGenerateDiff, "daystoGenerate") }}
@@ -544,8 +544,8 @@ does not permit copying or modification for any other purpose.
                 ========================================================= #}
                 {% if currentState.config.postSQL != desiredState.config.postSQL %}
                     {% set _ = nsMetaVariables.postSQLDiff.append({
-                        "is": desiredState.config.postSQL,
-                        "was": currentState.config.postSQL
+                        "is": desiredState.config.postSQL | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.postSQL | replace('/*', '/ *') | replace('*/', '* /')
                     }) %}
 
                     {{ update_metadata("postSQL", nsMetaVariables.postSQLDiff, "postSQL") }}
@@ -557,8 +557,8 @@ does not permit copying or modification for any other purpose.
                 ========================================================= #}
                 {% if currentState.config.preSQL != desiredState.config.preSQL %}
                     {% set _ = nsMetaVariables.preSQLDiff.append({
-                        "is": desiredState.config.preSQL,
-                        "was": currentState.config.preSQL
+                        "is": desiredState.config.preSQL | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.preSQL | replace('/*', '/ *') | replace('*/', '* /')
                     }) %}
 
                     {{ update_metadata("preSQL", nsMetaVariables.preSQLDiff, "preSQL") }}
@@ -570,8 +570,8 @@ does not permit copying or modification for any other purpose.
                 ========================================================= #}
                 {% if currentState.config.startingDate != desiredState.config.startingDate %}
                     {% set _ = nsMetaVariables.startingDateDiff.append({
-                        "is": desiredState.config.startingDate,
-                        "was": currentState.config.startingDate
+                        "is": desiredState.config.startingDate | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.startingDate | replace('/*', '/ *') | replace('*/', '* /')
                     }) %}
 
                     {{ update_metadata("startingDate", nsMetaVariables.startingDateDiff, "startingDate") }}
