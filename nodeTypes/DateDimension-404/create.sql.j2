@@ -473,8 +473,6 @@ does not permit copying or modification for any other purpose.
 
                         {% if currentTransform != col.transform %}
                             {% set nsMetaVariables.transformTest = false %}
-                            {{stage('1')}}
-                            /*{{col.transform | replace('/*', '------')}}*/
                             {% set _ = nsMetaVariables.transformDiff.append({
                                 "Column Name": col.name,
                                 "is": col.transform | replace('/*', '/ *') | replace('*/', '* /'),
