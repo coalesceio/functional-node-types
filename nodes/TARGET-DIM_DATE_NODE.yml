@@ -5,7 +5,7 @@ operation:
   config:
     dateColumnName: "\"DATE_COLUMN_NC\""
     daysToGenerate: 1000/*comment*/
-    insertZeroKey: true
+    insertZeroKey: false
     insertZeroKeyDate: 11-11-1111/*comment*/
     insertZeroKeyStr: "'NA'/*comment*/"
     insertZeroKeySurrogateKey: 0/*comment*/
@@ -13,13 +13,13 @@ operation:
     preSQL: select current_timestamp /*comment*/
     startingDate: DATEADD(DAY, -100, CURRENT_DATE)/*comment*/
     testsEnabled: true
-    truncateBefore: true
+    truncateBefore: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests:
       - continueOnFailure: true
@@ -65,7 +65,6 @@ operation:
         dataType: SMALLINT
         defaultValue: ""
         description: Year in the format YYYY
-        isBusinessKey: true
         isYear: true
         name: YEAR
         nullable: true
