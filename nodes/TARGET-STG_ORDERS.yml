@@ -151,7 +151,7 @@ operation:
           columnCounter: 1e2dad58-365b-47ea-8e0a-4a9b44fcba22
           stepCounter: 23d4dbec-780c-46f8-b465-8996c91a0974
         config: {}
-        dataType: ""
+        dataType: VARCHAR(50)
         defaultValue: ""
         description: ""
         keyColumnType: None
