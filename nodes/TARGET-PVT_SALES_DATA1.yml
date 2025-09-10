@@ -16,7 +16,7 @@ operation:
     exlcol:
       items:
         - {}
-    inferPivot: true
+    inferPivot: false
     samKeyColval: false
     sincol: true
     subqueryval1: ""
@@ -25,7 +25,9 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColDropdown: null
+        - Colvol: null
+          funcname: table
+          valColDropdown: null
           valColTextBox: SALES_AMOUNT
     testsEnabled: false
     trunc: true

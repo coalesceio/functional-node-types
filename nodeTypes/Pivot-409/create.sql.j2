@@ -52,12 +52,12 @@ does not permit copying or modification for any other purpose.
 
      {# Infer Pivot true #}
      {%if desiredState.config.inferPivot == true %}
-			          {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
+			          {#{%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
                   {%if ns.keycol == null or ns.pcolumn == [] %}                    
                        {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
                         {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
-                  {%endif%}
+                  {%endif%}#}
       {%else%}
 			         {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
                   {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
