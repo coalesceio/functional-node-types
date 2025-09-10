@@ -56,25 +56,6 @@ operation:
           strictMatch: true
           values: []
         appliedColumnTests:
-          hasNull: false
-          isDistinct: false
-        columnReference:
-          columnCounter: bb58f1ff-1851-4aee-8e41-b4f1094a5cb1
-          stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
-        config: {}
-        dataType: SMALLINT
-        defaultValue: ""
-        description: Year in the format YYYY
-        isYear: true
-        name: YEAR
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: YEAR({{ config.dateColumnName }})
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests:
           hasNull: true
           isDistinct: true
         columnReference:
@@ -90,6 +71,25 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: MONTH({{ config.dateColumnName }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
+        columnReference:
+          columnCounter: bb58f1ff-1851-4aee-8e41-b4f1094a5cb1
+          stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Year in the format YYYY
+        isYear: true
+        name: YEAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: YEAR({{ config.dateColumnName }})
       - acceptedValues:
           strictMatch: true
           values: []
