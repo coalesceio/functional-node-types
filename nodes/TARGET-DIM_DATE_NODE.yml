@@ -27,6 +27,11 @@ operation:
         name: Test
         runOrder: After
         templateString: /*comment*/
+      - continueOnFailure: true
+        description: ""
+        name: Test 1
+        runOrder: After
+        templateString: ""
     columns:
       - acceptedValues:
           strictMatch: true
@@ -72,7 +77,7 @@ operation:
           values: []
         appliedColumnTests:
           hasNull: true
-          isDistinct: false
+          isDistinct: true
         columnReference:
           columnCounter: 54e4fe68-ec4f-4bc7-8bdc-6a4cb905b6e5
           stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
@@ -109,7 +114,7 @@ operation:
           strictMatch: true
           values: []
         appliedColumnTests:
-          hasNull: false
+          hasNull: true
           isDistinct: true
         columnReference:
           columnCounter: 012fe0f7-c077-4dd4-bbb1-10eb35207494
@@ -148,7 +153,7 @@ operation:
           values: []
         appliedColumnTests:
           hasNull: false
-          isDistinct: false
+          isDistinct: true
         columnReference:
           columnCounter: 044d4bb8-7f55-4c9c-aa6d-d01bf2dfdc90
           stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
@@ -275,7 +280,7 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'Y' ELSE 'N' END
+            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'A' ELSE 'B' END
       - acceptedValues:
           strictMatch: true
           values: []
