@@ -3,7 +3,7 @@ id: 3bb66d04-4736-4c00-b124-f5ad77370532
 name: DIM_DATE_NODE
 operation:
   config:
-    dateColumnName: "\"DATE_COLUMN_NC\"/*comment*/"
+    dateColumnName: "\"DATE_COLUMN_NC\""
     daysToGenerate: 1000/*comment*/
     insertZeroKey: true
     insertZeroKeyDate: 11-11-1111/*comment*/
