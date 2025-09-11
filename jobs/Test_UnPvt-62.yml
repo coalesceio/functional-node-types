@@ -2,5 +2,5 @@ excludeSelector: ""
 fileVersion: 1
 id: "62"
 includeSelector: "{ location: SOURCE name: PROJECT_DETAILS } OR { location: TARGET name: STG_PROJECT_DETAILS } OR { location: TARGET name: UPVT_PROJECT_DETAILS }"
-name: Test_Job
+name: Test_UnPvt
 type: Job
