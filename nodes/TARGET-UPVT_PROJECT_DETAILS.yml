@@ -5,7 +5,7 @@ operation:
   config:
     includenull: true
     inferunpivot: false
-    nameColTextBox: NAME_COL
+    nameColTextBox: NAME_COL1
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
