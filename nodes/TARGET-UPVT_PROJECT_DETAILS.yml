@@ -24,12 +24,7 @@ operation:
         description: ""
         name: Test
         runOrder: After
-        templateString: wrte3t5
-      - continueOnFailure: true
-        description: ""
-        name: Test 1
-        runOrder: After
-        templateString: e7
+        templateString: wrte3t5/*Comment*/
     columns:
       - appliedColumnTests:
           hasNull: false
@@ -50,7 +45,8 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: true
         columnReference:
           columnCounter: 3d708ad7-f0aa-40b3-a689-7704ef33df6e
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -70,7 +66,7 @@ operation:
         uniqueKey: false
       - appliedColumnTests:
           hasNull: false
-          isDistinct: true
+          isDistinct: false
         columnReference:
           columnCounter: 6031bc70-b0da-4444-bf97-f46570bc0d76
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
@@ -83,13 +79,13 @@ operation:
           - columnReferences:
               - columnCounter: bb6c675b-ced5-483c-a265-7aa3a9454c77
                 stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
-            transform: UPPER(PROJECT_DESCRIPTION)
+            transform: UPPER(PROJECT_DESCRIPTION)/*Comment*/
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests:
           hasNull: true
-          isDistinct: false
+          isDistinct: true
         columnReference:
           columnCounter: 5bfcf025-b3f4-4382-896f-3f53dc585562
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
