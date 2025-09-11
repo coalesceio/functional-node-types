@@ -42,28 +42,6 @@ operation:
               - columnCounter: 270d446e-3553-4cfc-96e7-e791967221e2
                 stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests:
-          hasNull: true
-        columnReference:
-          columnCounter: 3d708ad7-f0aa-40b3-a689-7704ef33df6e
-          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
-        config: {}
-        dataType: VARCHAR(16777216)
-        defaultValue: ""
-        description: ""
-        name: PROJECT_ID
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 001248b4-2be2-4dbb-80ad-c95003b29e41
-                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
-            transform: ""
-        transform: ""
-        uniqueKey: false
       - appliedColumnTests:
           hasNull: false
           isDistinct: false
@@ -98,6 +76,28 @@ operation:
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests:
+          hasNull: true
+        columnReference:
+          columnCounter: 3d708ad7-f0aa-40b3-a689-7704ef33df6e
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: PROJECT_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 001248b4-2be2-4dbb-80ad-c95003b29e41
+                stepCounter: ab5fe1e6-4810-4196-9fc3-d4438bbd68cc
             transform: ""
         transform: ""
         uniqueKey: false
