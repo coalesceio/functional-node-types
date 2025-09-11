@@ -608,11 +608,16 @@ does not permit copying or modification for any other purpose.
                     {# =========================================================
                     aggfunc1 comparison
                     ========================================================= #}
-                    {% if desiredState.config.aggfunc1 != currentState.config.aggfunc1 %}
+
+                    {% if ((desiredState.config.aggfunc1.get("items") or []) | length == (currentState.config.aggfunc1.get("items") or []) | length == 1
+                    or ((desiredState.config.aggfunc1.get("items") or []) | length > 1 and (currentState.config.aggfunc1.get("items") or []) | length > 1))
+                    and desiredState.config.aggfunc1 != currentState.config.aggfunc1 %}
                         {{ update_metadata("aggFunctions", {
                             "is": desiredState.config.aggfunc1.get('items') | map(attribute="funcname1") | list | sort,
                             "was": currentState.config.aggfunc1.get('items') | map(attribute="funcname1") | list | sort },
                             "aggFunctions") }}
+                    {% else %}
+                        {% set nsMetaVariables.metaDataChanged = true %}
                     {% endif %}
 
                     {# =========================================================
@@ -707,22 +712,24 @@ does not permit copying or modification for any other purpose.
                 {# =========================================================
                 These configuratins are not supposed to be changed in UI
                 ========================================================= #}
-                {% if desiredState.config.tabKeyColumn != currentState.config.tabKeyColumn 
+                {% if desiredState.config.tabKeyColumn != currentState.config.tabKeyColumn
                 or desiredState.config.tabValueColumn != currentState.config.tabValueColumn %}
                     {% set nsMetaVariables.metaDataChanged = true %}
                 {% endif %}
         
-                {# =========================================================
-                Handle detected metadata changes and update
-                ========================================================= #}
-                {% if nsMetaVariables.metaDataChanges | length == 0 %}
-                    {{ stage('Metadata Update-Default') }}
-                {% else %}
-                    {{ stage(nsMetaVariables.metadataUpdate) }}
-                    -- Metadata changes detected
-                    /* {{ nsMetaVariables.metaDataChanges }} */
+                {% if nsMetaVariables.metaDataChanged == false %}
+                    {# =========================================================
+                    Handle detected metadata changes and update
+                    ========================================================= #}
+                    {% if nsMetaVariables.metaDataChanges | length == 0 %}
+                        {{ stage('Metadata Update-Default') }}
+                    {% else %}
+                        {{ stage(nsMetaVariables.metadataUpdate) }}
+                        -- Metadata changes detected
+                        /* {{ nsMetaVariables.metaDataChanges }} */
+                    {% endif %}
+                    select 1=0
                 {% endif %}
-                select 1=0
             {% endif %}
          {%endif%}    
       {%endif%}

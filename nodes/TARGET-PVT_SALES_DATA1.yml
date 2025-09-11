@@ -10,23 +10,24 @@ operation:
     aggfunc1:
       items:
         - funcname1: MAX
-        - funcname1: MIN
     defaultval: ""
     defvalue: false
     excolval: false
     exlcol:
       items:
         - {}
-    inferPivot: false
+    inferPivot: true
     samKeyColval: false
-    sincol: true
+    sincol: false
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: REGION
+        - keyColDropdown: null
+          keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColTextBox: SALES
+        - valColDropdown: null
+          valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
@@ -114,21 +115,39 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c34408d0-618e-469b-bc3c-a80566583206
+          columnCounter: 706c3bae-87a1-4440-8f0e-9b2ca7a505d4
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        keyColumnType: None
-        name: SALES
+        name: SALES_AMOUNT
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: c5adebfc-cf20-40b4-8276-8d640134abec
-                stepCounter: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
+          - columnReferences: []
             transform: ""
-        systemColumnType: None
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: dfedc1ee-ed24-4681-93a0-d9f4c0ce956d
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: VARCHAR(13)
+        defaultValue: ""
+        description: ""
+        name: AGGREGATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
