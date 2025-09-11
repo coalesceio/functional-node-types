@@ -89,7 +89,7 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: MONTHNAME({{ config.dateColumnName }})
+            transform: MONTHNAME({{ YEAR }})
       - acceptedValues:
           strictMatch: true
           values: []
@@ -104,7 +104,7 @@ operation:
         defaultValue: ""
         description: Month in the format MM
         isMonth: true
-        name: MONTH
+        name: MONTH_NC
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
