@@ -616,6 +616,24 @@ does not permit copying or modification for any other purpose.
                     {% endif %}
 
                     {# =========================================================
+                    tabValueColumn-valColTextBox comparison
+                    ========================================================= #}
+                    {% set desiredvalColTextBox = desiredState.config.tabValueColumn.get('items')
+                                                    | map(attribute="valColTextBox")
+                                                    | list
+                                                    | sort %}
+                    {% set currentvalColTextBox = currentState.config.tabValueColumn.get('items')
+                                                    | map(attribute="valColTextBox")
+                                                    | list
+                                                    | sort %}
+                    {% if currentvalColTextBox != desiredvalColTextBox %}
+                        {{ update_metadata("valueColumn", {
+                            "is": desiredvalColTextBox,
+                            "was": currentvalColTextBox },
+                            "valueColumn") }}
+                    {% endif %}  
+
+                    {# =========================================================
                     subqueryval1 comparison
                     ========================================================= #}
                     {% if desiredState.config.subqueryval1 != currentState.config.subqueryval1 %}
@@ -691,25 +709,7 @@ does not permit copying or modification for any other purpose.
                             "is": desiredColvol,
                             "was": currentColvol },
                             "columnValues") }}
-                    {% endif %}     
-
-                    {# =========================================================
-                    tabValueColumn-valColTextBox comparison
-                    ========================================================= #}
-                    {% set desiredvalColTextBox = desiredState.config.tabValueColumn.get('items')
-                                                    | map(attribute="valColTextBox")
-                                                    | list
-                                                    | sort %}
-                    {% set currentvalColTextBox = currentState.config.tabValueColumn.get('items')
-                                                    | map(attribute="valColTextBox")
-                                                    | list
-                                                    | sort %}
-                    {% if currentvalColTextBox != desiredvalColTextBox %}
-                        {{ update_metadata("valueColumn", {
-                            "is": desiredvalColTextBox,
-                            "was": currentvalColTextBox },
-                            "valueColumn") }}
-                    {% endif %}                 
+                    {% endif %}               
                 {% endif %}
 
                 {# =========================================================
@@ -722,6 +722,13 @@ does not permit copying or modification for any other purpose.
                         "filterColumn") }}
                 {% endif %}
 
+                {# =========================================================
+                These configuratins are not supposed to be changed in UI
+                ========================================================= #}
+                {% if desiredState.config.tabKeyColumn != currentState.config.tabKeyColumn %}
+                    {% set nsMetaVariables.metaDataChanged = true %}
+                {% endif %}
+        
                 {# =========================================================
                 Handle detected metadata changes and update
                 ========================================================= #}
