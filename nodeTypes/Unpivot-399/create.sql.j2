@@ -533,10 +533,10 @@ does not permit copying or modification for any other purpose.
                 ========================================================= #}
                 {% if desiredState.config.nameColTextBox != currentState.config.nameColTextBox
                 or desiredState.config.valColTextBox != currentState.config.valColTextBox %}
-                    {% set ns.metaDataChanged = true %}
+                    {% set nsMetaVariables.metaDataChanged = true %}
                 {% endif %}
 
-                {% if ns.metaDataChanged == false %}
+                {% if nsMetaVariables.metaDataChanged == false %}
                     {# =========================================================
                     Handle detected metadata changes and update
                     ========================================================= #}
