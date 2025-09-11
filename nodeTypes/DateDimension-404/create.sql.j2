@@ -448,7 +448,7 @@ does not permit copying or modification for any other purpose.
 
             {% endif %}
 
-            {% if nsMetaVariables.metaDataChanged == false %}
+            {% if currentState != desiredState and nsMetaVariables.metaDataChanged == false %}
 
                 {# =========================================================
                 Transformation and column source changes comparison (per column)
