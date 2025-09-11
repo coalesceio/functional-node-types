@@ -529,19 +529,29 @@ does not permit copying or modification for any other purpose.
                 {% endif %}
 
                 {# =========================================================
-                Handle detected metadata changes and update
+                These configuratins are not supposed to be changed in UI
                 ========================================================= #}
-                {% if nsMetaVariables.metaDataChanges | length == 0 %}
-                    {{ stage('Metadata Update-Default') }}
-                {% else %}
-                    {{ stage(nsMetaVariables.metadataUpdate) }}
-                    -- Metadata changes detected
-                    /* {{ nsMetaVariables.metaDataChanges }} */
+                {% if desiredState.config.nameColTextBox != currentState.config.nameColTextBox
+                or desiredState.config.valColTextBox != currentState.config.valColTextBox %}
+                    {% set ns.metaDataChanged = true %}
                 {% endif %}
-                select 1=0
-            {% endif %}
-            {%endif%}
 
-         {%endif%}
+                {% if ns.metaDataChanged == false %}
+                    {# =========================================================
+                    Handle detected metadata changes and update
+                    ========================================================= #}
+                    {% if nsMetaVariables.metaDataChanges | length == 0 %}
+                        {{ stage('Metadata Update-Default') }}
+                    {% else %}
+                        {{ stage(nsMetaVariables.metadataUpdate) }}
+                        -- Metadata changes detected
+                        /* {{ nsMetaVariables.metaDataChanges }} */
+                    {% endif %}
+                    select 1=0
+                {% endif %}
+            {% endif %}
+        {%endif%}
+
+    {%endif%}
         
 {% endif %}
