@@ -16,17 +16,17 @@ operation:
     exlcol:
       items:
         - {}
-    inferPivot: true
+    inferPivot: false
     samKeyColval: false
     sincol: false
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown: null
-          keyColTextBox: REGION
+        - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColDropdown: null
+        - Colvol: null
+          funcname: table
           valColTextBox: SALES
     testsEnabled: false
     trunc: true
