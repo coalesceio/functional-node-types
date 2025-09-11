@@ -3,13 +3,12 @@ id: 20b0d3ac-7431-4163-a93d-59ccd43e343b
 name: UPVT_PROJECT_DETAILS
 operation:
   config:
-    includenull: true
-    inferunpivot: true
+    includenull: false
+    inferunpivot: false
     nameColTextBox: NAME_COL
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
-          valColDropdown: null
     testsEnabled: false
     truncateBefore: false
     valColTextBox: VAL_COL
