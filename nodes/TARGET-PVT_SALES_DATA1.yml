@@ -25,7 +25,7 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColTextBox: PRODUCT
+        - valColTextBox: SALES_AMOUNT
     testsEnabled: false
     trunc: true
   database: ""
