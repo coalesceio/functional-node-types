@@ -25,10 +25,7 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: null
-          funcname: table
-          valColDropdown: null
-          valColTextBox: SALES_AMOUNT
+        - valColTextBox: SALES_AMOUNT
     testsEnabled: false
     trunc: true
   database: ""
