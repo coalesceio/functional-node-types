@@ -22,11 +22,10 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: PRODUCT
+        - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: null
-          valColTextBox: SALES_AMOUNT
+        - valColTextBox: SALES_AMOUNT
     testsEnabled: false
     trunc: true
   database: ""
