@@ -27,7 +27,6 @@ operation:
     tabValueColumn:
       items:
         - valColTextBox: SALES
-        - valColTextBox: SALES_AMT
     testsEnabled: false
     trunc: true
   database: ""

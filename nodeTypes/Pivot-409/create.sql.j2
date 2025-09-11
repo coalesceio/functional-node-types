@@ -616,24 +616,6 @@ does not permit copying or modification for any other purpose.
                     {% endif %}
 
                     {# =========================================================
-                    tabValueColumn-valColTextBox comparison
-                    ========================================================= #}
-                    {% set desiredvalColTextBox = desiredState.config.tabValueColumn.get('items')
-                                                    | map(attribute="valColTextBox")
-                                                    | list
-                                                    | sort %}
-                    {% set currentvalColTextBox = currentState.config.tabValueColumn.get('items')
-                                                    | map(attribute="valColTextBox")
-                                                    | list
-                                                    | sort %}
-                    {% if currentvalColTextBox != desiredvalColTextBox %}
-                        {{ update_metadata("valueColumn", {
-                            "is": desiredvalColTextBox,
-                            "was": currentvalColTextBox },
-                            "valueColumn") }}
-                    {% endif %}  
-
-                    {# =========================================================
                     subqueryval1 comparison
                     ========================================================= #}
                     {% if desiredState.config.subqueryval1 != currentState.config.subqueryval1 %}
@@ -725,7 +707,8 @@ does not permit copying or modification for any other purpose.
                 {# =========================================================
                 These configuratins are not supposed to be changed in UI
                 ========================================================= #}
-                {% if desiredState.config.tabKeyColumn != currentState.config.tabKeyColumn %}
+                {% if desiredState.config.tabKeyColumn != currentState.config.tabKeyColumn 
+                or desiredState.config.tabValueColumn != currentState.config.tabValueColumn %}
                     {% set nsMetaVariables.metaDataChanged = true %}
                 {% endif %}
         
