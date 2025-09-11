@@ -5,7 +5,7 @@ operation:
   config:
     includenull: true
     inferunpivot: true
-    nameColTextBox: NAME_COL
+    nameColTextBox: NAME_COL_NC
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
@@ -109,6 +109,25 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
+          columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
+          stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: VAL_COL
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
           columnCounter: bd41cae4-176a-4d26-a573-f571d0d6b8ae
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
@@ -128,13 +147,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
+          columnCounter: 7f133dc1-8355-41cc-b4fd-1836a8b0e990
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: VAL_COL
+        name: NAME_COL_NC
         nullable: true
         primaryKey: false
         sourceColumnReferences:
