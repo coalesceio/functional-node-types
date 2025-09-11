@@ -10,7 +10,7 @@ operation:
     aggfunc1:
       items:
         - funcname1: MAX
-        - funcname1: COUNT
+        - funcname1: SUM
     defaultval: ""
     defvalue: false
     excolval: false
@@ -121,6 +121,25 @@ operation:
         defaultValue: ""
         description: ""
         name: "'South'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: fda58d98-96ae-426b-ab83-4ac9de50530c
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: VARCHAR(13)
+        defaultValue: ""
+        description: ""
+        name: AGGREGATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
