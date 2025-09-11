@@ -9,8 +9,8 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: MAX
-        - funcname1: SUM
+        - funcname1: COUNT
+        - funcname1: MIN
     defaultval: ""
     defvalue: false
     excolval: false
