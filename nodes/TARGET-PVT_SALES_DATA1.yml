@@ -12,7 +12,7 @@ operation:
         - funcname1: MIN
         - funcname1: SUM
         - funcname1: MIN
-    defaultval: "1"
+    defaultval: 1/*Comment*/
     defvalue: true
     excolval: true
     exlcol:
@@ -111,7 +111,7 @@ operation:
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: lower(AGGREGATE)
+            transform: lower(AGGREGATE)/*Comment*/
         transform: ""
         uniqueKey: false
       - acceptedValues:
@@ -169,7 +169,7 @@ operation:
           - locationName: TARGET
             nodeName: STG_SALES_DATA
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA" WHERE SALES_AMOUNT = 500
+          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA" WHERE /*Comment*/ SALES_AMOUNT = 500
         name: PVT_SALES_DATA1
         noLinkRefs: []
   name: PVT_SALES_DATA1
