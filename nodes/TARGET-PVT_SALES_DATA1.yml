@@ -76,27 +76,6 @@ operation:
           strictMatch: true
           values: []
         appliedColumnTests:
-          hasNull: false
-          isDistinct: false
-        columnReference:
-          columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
-          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
-        config: {}
-        dataType: VARCHAR(20)
-        defaultValue: ""
-        description: ""
-        name: AGGREGATE
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: lower(AGGREGATE)
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests:
           hasNull: true
           isDistinct: false
         columnReference:
@@ -112,6 +91,27 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
+        columnReference:
+          columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: VARCHAR(20)
+        defaultValue: ""
+        description: ""
+        name: AGGREGATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: lower(AGGREGATE)
         transform: ""
         uniqueKey: false
       - acceptedValues:
