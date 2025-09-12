@@ -43,13 +43,18 @@ operation:
         name: Test
         runOrder: After
         templateString: ""
+      - continueOnFailure: true
+        description: ""
+        name: Test 1
+        runOrder: After
+        templateString: ""
     columns:
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests:
           hasNull: true
-          isDistinct: false
+          isDistinct: true
         columnReference:
           columnCounter: 706c3bae-87a1-4440-8f0e-9b2ca7a505d4
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
@@ -134,7 +139,7 @@ operation:
           strictMatch: true
           values: []
         appliedColumnTests:
-          hasNull: false
+          hasNull: true
           isDistinct: false
         columnReference:
           columnCounter: 1ef592e2-58d3-4fc1-9b02-68551e754059
