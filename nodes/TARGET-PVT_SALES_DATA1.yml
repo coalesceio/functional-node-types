@@ -28,8 +28,8 @@ operation:
     tabValueColumn:
       items:
         - valColTextBox: SALES
-    testsEnabled: false
-    trunc: true
+    testsEnabled: true
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
@@ -37,12 +37,19 @@ operation:
   locationName: TARGET
   materializationType: table
   metadata:
-    appliedNodeTests: []
+    appliedNodeTests:
+      - continueOnFailure: true
+        description: ""
+        name: Test
+        runOrder: After
+        templateString: ""
     columns:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: 706c3bae-87a1-4440-8f0e-9b2ca7a505d4
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
@@ -63,7 +70,9 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
@@ -82,7 +91,9 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: true
+          isDistinct: false
         columnReference:
           columnCounter: 396f65d8-74a1-437c-b0b5-35b3d7a90484
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
@@ -101,7 +112,9 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: d16730c7-28fb-4e54-bb17-92055fb72ba7
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
@@ -120,7 +133,9 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests: {}
+        appliedColumnTests:
+          hasNull: false
+          isDistinct: false
         columnReference:
           columnCounter: 1ef592e2-58d3-4fc1-9b02-68551e754059
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
@@ -137,7 +152,9 @@ operation:
         transform: ""
         uniqueKey: false
     cteString: ""
-    enabledColumnTestIDs: []
+    enabledColumnTestIDs:
+      - hasNull
+      - isDistinct
     sourceMapping:
       - aliases:
           STG_SALES_DATA: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
