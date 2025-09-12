@@ -10,7 +10,7 @@ operation:
     aggfunc1:
       items:
         - {}
-    defaultval: "1"
+    defaultval: "2"
     defvalue: true
     excolval: false
     exlcol:
@@ -38,7 +38,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:

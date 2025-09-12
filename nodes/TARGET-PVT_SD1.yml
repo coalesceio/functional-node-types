@@ -12,7 +12,7 @@ operation:
         - funcname1: AVG
         - funcname1: MAX
         - funcname1: COUNT
-    defaultval: "2"
+    defaultval: "3"
     defvalue: true
     excolval: false
     exlcol:
@@ -36,7 +36,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: transient table
+  materializationType: table
   metadata:
     appliedNodeTests:
       - continueOnFailure: true
