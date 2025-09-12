@@ -12,22 +12,25 @@ operation:
         - funcname1: MIN
         - funcname1: SUM
         - funcname1: MIN
-    defaultval: ""
-    defvalue: false
+    defaultval: "0"
+    defvalue: true
     excolval: true
     exlcol:
       items:
-        - exclcoltxtBox: PRODUCT
-    inferPivot: false
+        - exclcol1: null
+          exclcoltxtBox: PRODUCT
+    inferPivot: true
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: REGION
+        - keyColDropdown: null
+          keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColTextBox: SALES
+        - valColDropdown: null
+          valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
