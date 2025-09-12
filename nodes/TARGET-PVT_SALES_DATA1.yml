@@ -11,6 +11,7 @@ operation:
       items:
         - funcname1: MIN
         - funcname1: SUM
+        - funcname1: MIN
     defaultval: ""
     defvalue: false
     excolval: false
