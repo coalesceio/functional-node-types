@@ -54,7 +54,9 @@ operation:
         nullable: true
         primaryKey: false
         sourceColumnReferences:
-          - columnReferences: []
+          - columnReferences:
+              - columnCounter: 69e2f92e-3be3-4e4b-871a-10066d30cf3b
+                stepCounter: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
             transform: ""
         transform: ""
         uniqueKey: false
@@ -74,7 +76,7 @@ operation:
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: ""
+            transform: lower(AGGREGATE)
         transform: ""
         uniqueKey: false
       - acceptedValues:
@@ -145,7 +147,7 @@ operation:
           - locationName: TARGET
             nodeName: STG_SALES_DATA
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA" WHERE SALES_AMOUNT = 2000
+          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA" WHERE SALES_AMOUNT = 500
         name: PVT_SALES_DATA1
         noLinkRefs: []
   name: PVT_SALES_DATA1
