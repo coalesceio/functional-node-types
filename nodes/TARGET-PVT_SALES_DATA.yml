@@ -1,5 +1,5 @@
 fileVersion: 1
-id: bc5864a5-c19b-4840-aac5-ed59bd7de05e
+id: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
 name: PVT_SALES_DATA
 operation:
   config:
@@ -9,9 +9,9 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: null
-    defaultval: ""
-    defvalue: false
+        - {}
+    defaultval: "1"
+    defvalue: true
     excolval: false
     exlcol:
       items:
@@ -25,9 +25,12 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: "'North'"
+        - Colvol: "'North', 'South'"
           funcname: table
           valColTextBox: SALES_AMOUNT
+        - Colvol: null
+          funcname: table
+          valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
@@ -44,13 +47,51 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 2d934ea5-8165-4975-8440-762d64f01ffa
-          stepCounter: bc5864a5-c19b-4840-aac5-ed59bd7de05e
+          columnCounter: 8c29091f-85a9-4340-9822-c13de59380b0
+          stepCounter: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
         name: MAX_NORTH_SALES_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b85f2323-8963-47b8-a79e-c61eb46420b8
+          stepCounter: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: MAX_SOUTH_SALES_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cc047816-7ff7-4f2d-aaf7-6d1dd83ce88c
+          stepCounter: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: COUNT_EAST_SALES
         nullable: true
         primaryKey: false
         sourceColumnReferences:

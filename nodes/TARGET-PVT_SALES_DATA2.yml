@@ -27,6 +27,8 @@ operation:
       items:
         - funcname: MIN
           valColTextBox: SALES_AMOUNT
+        - funcname: AVG
+          valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
@@ -43,13 +45,32 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 95d84ac2-e3f8-400b-b52c-a33adb6f01e4
+          columnCounter: f99b12af-2f28-4271-b928-8a844c7e364c
           stepCounter: 058bcb11-8c11-4d12-a9bd-e0080100a96e
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
         name: MIN_NORTH_SALES_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c474c147-8468-4068-98b8-c51610a2ea53
+          stepCounter: 058bcb11-8c11-4d12-a9bd-e0080100a96e
+        config: {}
+        dataType: NUMBER(38,12)
+        defaultValue: ""
+        description: ""
+        name: AVG_NORTH_SALES
         nullable: true
         primaryKey: false
         sourceColumnReferences:

@@ -9,22 +9,23 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: MIN
-        - funcname1: SUM
-        - funcname1: MIN
-    defaultval: 1/*Comment*/
+        - funcname1: AVG
+        - funcname1: MAX
+        - funcname1: COUNT
+    defaultval: "1"
     defvalue: true
-    excolval: true
+    excolval: false
     exlcol:
       items:
-        - exclcoltxtBox: PRODUCT
+        - {}
     inferPivot: false
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: REGION
+        - keyColDropdown: null
+          keyColTextBox: REGION
     tabValueColumn:
       items:
         - valColTextBox: SALES
@@ -75,17 +76,15 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests:
-          hasNull: true
-          isDistinct: false
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 396f65d8-74a1-437c-b0b5-35b3d7a90484
+          columnCounter: f2b68f16-19cd-4280-9e38-069e7691b6e1
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: "'East'"
+        name: PRODUCT
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -96,14 +95,12 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests:
-          hasNull: false
-          isDistinct: false
+        appliedColumnTests: {}
         columnReference:
           columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
         config: {}
-        dataType: VARCHAR(20)
+        dataType: VARCHAR(14)
         defaultValue: ""
         description: ""
         name: AGGREGATE
@@ -111,44 +108,21 @@ operation:
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: lower(AGGREGATE)/*Comment*/
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests:
-          hasNull: false
-          isDistinct: true
-        columnReference:
-          columnCounter: d16730c7-28fb-4e54-bb17-92055fb72ba7
-          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
-        config: {}
-        dataType: NUMBER(38,0)
-        defaultValue: ""
-        description: ""
-        name: "'North'"
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
             transform: ""
         transform: ""
         uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests:
-          hasNull: true
-          isDistinct: false
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 1ef592e2-58d3-4fc1-9b02-68551e754059
+          columnCounter: 396f65d8-74a1-437c-b0b5-35b3d7a90484
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: NUMBER(38,6)
         defaultValue: ""
         description: ""
-        name: "'South'"
+        name: "'East'"
         nullable: true
         primaryKey: false
         sourceColumnReferences:
