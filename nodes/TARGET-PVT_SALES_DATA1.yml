@@ -9,23 +9,25 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: MAX
+        - funcname1: MIN
     defaultval: ""
     defvalue: false
     excolval: false
     exlcol:
       items:
         - {}
-    inferPivot: false
+    inferPivot: true
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: REGION
+        - keyColDropdown: null
+          keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColTextBox: SALES
+        - valColDropdown: null
+          valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
