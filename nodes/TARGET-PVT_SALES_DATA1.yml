@@ -17,20 +17,17 @@ operation:
     excolval: true
     exlcol:
       items:
-        - exclcol1: null
-          exclcoltxtBox: PRODUCT
-    inferPivot: true
+        - exclcoltxtBox: PRODUCT
+    inferPivot: false
     samKeyColval: false
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown: null
-          keyColTextBox: REGION
+        - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColDropdown: null
-          valColTextBox: SALES
+        - valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
