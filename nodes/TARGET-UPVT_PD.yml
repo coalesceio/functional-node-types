@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 20b0d3ac-7431-4163-a93d-59ccd43e343b
-name: UPVT_PROJECT_DETAILS
+name: UPVT_PD
 operation:
   config:
     includenull: true
@@ -34,9 +34,9 @@ operation:
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
         dataType: NUMBER(38,0)
-        description: ""
+        description: this is col description
         name: ID
-        nullable: true
+        nullable: false
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 270d446e-3553-4cfc-96e7-e791967221e2
@@ -109,7 +109,7 @@ operation:
           columnCounter: f718a33c-b67a-4eb5-9d94-87c3e0c44dea
           stepCounter: 20b0d3ac-7431-4163-a93d-59ccd43e343b
         config: {}
-        dataType: VARCHAR(100)
+        dataType: VARCHAR(200)
         defaultValue: ""
         description: ""
         name: VAL_COL
@@ -134,9 +134,9 @@ operation:
             nodeName: STG_PROJECT_DETAILS
         join:
           joinCondition: FROM {{ ref('TARGET', 'STG_PROJECT_DETAILS') }} "STG_PROJECT_DETAILS" WHERE "PROJECT_DESCRIPTION" = 'Science'
-        name: UPVT_PROJECT_DETAILS
+        name: UPVT_PD
         noLinkRefs: []
-  name: UPVT_PROJECT_DETAILS
+  name: UPVT_PD
   overrideSQL: false
   schema: ""
   sqlType: "399"

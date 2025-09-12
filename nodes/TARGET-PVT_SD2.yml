@@ -1,23 +1,23 @@
 fileVersion: 1
-id: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
-name: PVT_SALES_DATA
+id: 058bcb11-8c11-4d12-a9bd-e0080100a96e
+name: PVT_SD2
 operation:
   config:
-    Colvol1: ""
+    Colvol1: "'North'"
     aggfunc:
       items:
         - {}
     aggfunc1:
       items:
         - {}
-    defaultval: "1"
-    defvalue: true
+    defaultval: ""
+    defvalue: false
     excolval: false
     exlcol:
       items:
         - {}
     inferPivot: false
-    samKeyColval: false
+    samKeyColval: true
     sincol: false
     subqueryval1: ""
     tabKeyColumn:
@@ -25,11 +25,9 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: "'North', 'South'"
-          funcname: table
+        - funcname: MIN
           valColTextBox: SALES_AMOUNT
-        - Colvol: null
-          funcname: table
+        - funcname: AVG
           valColTextBox: SALES
     testsEnabled: false
     trunc: true
@@ -47,14 +45,14 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 8c29091f-85a9-4340-9822-c13de59380b0
-          stepCounter: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
+          columnCounter: f99b12af-2f28-4271-b928-8a844c7e364c
+          stepCounter: 058bcb11-8c11-4d12-a9bd-e0080100a96e
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
-        description: ""
-        name: MAX_NORTH_SALES_AMOUNT
-        nullable: true
+        description: this is col description
+        name: MIN_NORTH_SALES_AMOUNT
+        nullable: false
         primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
@@ -66,32 +64,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b85f2323-8963-47b8-a79e-c61eb46420b8
-          stepCounter: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
+          columnCounter: c474c147-8468-4068-98b8-c51610a2ea53
+          stepCounter: 058bcb11-8c11-4d12-a9bd-e0080100a96e
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: NUMBER(30,12)
         defaultValue: ""
         description: ""
-        name: MAX_SOUTH_SALES_AMOUNT
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: cc047816-7ff7-4f2d-aaf7-6d1dd83ce88c
-          stepCounter: 2988bb18-5c0a-47dc-9075-330bfbc7ceb4
-        config: {}
-        dataType: NUMBER(18,0)
-        defaultValue: ""
-        description: ""
-        name: COUNT_EAST_SALES
+        name: AVG_NORTH_SALES
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -111,9 +90,9 @@ operation:
             nodeName: STG_SALES_DATA
         join:
           joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA"
-        name: PVT_SALES_DATA
+        name: PVT_SD2
         noLinkRefs: []
-  name: PVT_SALES_DATA
+  name: PVT_SD2
   overrideSQL: false
   schema: ""
   sqlType: "409"
