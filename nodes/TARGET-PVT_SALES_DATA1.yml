@@ -10,7 +10,7 @@ operation:
     aggfunc1:
       items:
         - funcname1: MIN
-        - funcname1: MAX
+        - funcname1: SUM
     defaultval: ""
     defvalue: false
     excolval: false
