@@ -145,7 +145,7 @@ operation:
           - locationName: TARGET
             nodeName: STG_SALES_DATA
         join:
-          joinCondition: " FROM {{ ref('TARGET', 'STG_SALES_DATA') }} \"STG_SALES_DATA\""
+          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA" WHERE SALES_AMOUNT = 2000
         name: PVT_SALES_DATA1
         noLinkRefs: []
   name: PVT_SALES_DATA1
