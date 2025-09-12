@@ -28,14 +28,14 @@ operation:
     tabValueColumn:
       items:
         - valColTextBox: SALES
-    testsEnabled: true
-    trunc: false
+    testsEnabled: false
+    trunc: true
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests:
       - continueOnFailure: true
