@@ -8,9 +8,7 @@ operation:
       items:
         - {}
     aggfunc1:
-      items:
-        - funcname1: COUNT
-        - funcname1: MIN
+      items: []
     defaultval: ""
     defvalue: false
     excolval: false
