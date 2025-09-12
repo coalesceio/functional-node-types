@@ -19,7 +19,7 @@ operation:
     inferPivot: false
     samKeyColval: false
     sincol: true
-    subqueryval1: "'South'"
+    subqueryval1: ""
     tabKeyColumn:
       items:
         - keyColTextBox: REGION
@@ -75,7 +75,7 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 81562b6d-54c4-4bc5-bb19-3385fecf0025
+          columnCounter: 396f65d8-74a1-437c-b0b5-35b3d7a90484
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
         config: {}
         dataType: NUMBER(18,0)
@@ -94,7 +94,7 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e02f52db-8874-4ed5-b32a-0866524be480
+          columnCounter: d16730c7-28fb-4e54-bb17-92055fb72ba7
           stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
         config: {}
         dataType: NUMBER(18,0)
