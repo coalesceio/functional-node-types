@@ -9,7 +9,7 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: MIN
+        - funcname1: SUM
     defaultval: ""
     defvalue: false
     excolval: false
@@ -22,10 +22,12 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: REGION
+        - keyColDropdown: null
+          keyColTextBox: REGION
     tabValueColumn:
       items:
-        - valColTextBox: SALES
+        - valColDropdown: null
+          valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
