@@ -10,7 +10,7 @@ operation:
     aggfunc1:
       items:
         - {}
-    defaultval: "2"
+    defaultval: "3"
     defvalue: true
     excolval: false
     exlcol:
@@ -25,11 +25,9 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: null
-          funcname: MIN
+        - funcname: MIN
           valColTextBox: SALES_AMOUNT
-        - Colvol: null
-          funcname: AVG
+        - funcname: AVG
           valColTextBox: SALES
     testsEnabled: false
     trunc: true
