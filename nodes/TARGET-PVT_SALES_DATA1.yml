@@ -10,6 +10,7 @@ operation:
     aggfunc1:
       items:
         - funcname1: SUM
+        - funcname1: MAX
     defaultval: ""
     defvalue: false
     excolval: false
@@ -22,8 +23,7 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown: null
-          keyColTextBox: REGION
+        - keyColTextBox: REGION
     tabValueColumn:
       items:
         - valColDropdown: null
@@ -122,6 +122,25 @@ operation:
         defaultValue: ""
         description: ""
         name: "'South'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: VARCHAR(13)
+        defaultValue: ""
+        description: ""
+        name: AGGREGATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
