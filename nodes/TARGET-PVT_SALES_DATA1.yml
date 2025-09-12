@@ -19,7 +19,7 @@ operation:
     inferPivot: false
     samKeyColval: false
     sincol: true
-    subqueryval1: "'North'"
+    subqueryval1: "'South'"
     tabKeyColumn:
       items:
         - keyColTextBox: REGION
