@@ -12,7 +12,7 @@ operation:
         - funcname1: MIN
         - funcname1: SUM
         - funcname1: MIN
-    defaultval: "0"
+    defaultval: "1"
     defvalue: true
     excolval: true
     exlcol:
@@ -145,7 +145,7 @@ operation:
           - locationName: TARGET
             nodeName: STG_SALES_DATA
         join:
-          joinCondition: FROM {{ ref('TARGET', 'STG_SALES_DATA') }} "STG_SALES_DATA"
+          joinCondition: " FROM {{ ref('TARGET', 'STG_SALES_DATA') }} \"STG_SALES_DATA\""
         name: PVT_SALES_DATA1
         noLinkRefs: []
   name: PVT_SALES_DATA1
