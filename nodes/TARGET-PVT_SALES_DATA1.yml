@@ -14,10 +14,10 @@ operation:
         - funcname1: MIN
     defaultval: ""
     defvalue: false
-    excolval: false
+    excolval: true
     exlcol:
       items:
-        - {}
+        - exclcoltxtBox: PRODUCT
     inferPivot: false
     samKeyColval: false
     sincol: true
@@ -39,20 +39,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 35ef3020-2d5e-467f-8b6b-dfb245805e18
-          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: PRODUCT
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: e28b7aed-a601-4948-8b9c-19b7af5b0956
-                stepCounter: e9f3ec83-651b-4adf-b1b6-26a49d7ea4e2
-            transform: ""
       - acceptedValues:
           strictMatch: true
           values: []
@@ -65,6 +51,25 @@ operation:
         defaultValue: ""
         description: ""
         name: SALES_AMOUNT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
+          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
+        config: {}
+        dataType: VARCHAR(13)
+        defaultValue: ""
+        description: ""
+        name: AGGREGATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -122,25 +127,6 @@ operation:
         defaultValue: ""
         description: ""
         name: "'South'"
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: b9d433dc-24ff-42b3-8f42-ea7509357a9c
-          stepCounter: c88ab57c-ee4d-4606-a186-c9137f250a4d
-        config: {}
-        dataType: VARCHAR(13)
-        defaultValue: ""
-        description: ""
-        name: AGGREGATE
         nullable: true
         primaryKey: false
         sourceColumnReferences:
