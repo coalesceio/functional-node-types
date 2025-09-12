@@ -1,6 +1,6 @@
 fileVersion: 1
 id: 3bb66d04-4736-4c00-b124-f5ad77370532
-name: DIM_DATE_NODE
+name: DIM_DATE_NODE_NC
 operation:
   config:
     dateColumnName: "\"DATE_COLUMN_NC\""
@@ -13,7 +13,7 @@ operation:
     preSQL: select current_timestamp /*comment*/
     startingDate: DATEADD(DAY, -200, CURRENT_DATE)/*comment*/
     testsEnabled: true
-    truncateBefore: false
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
@@ -45,10 +45,10 @@ operation:
         config: {}
         dataType: DATE
         defaultValue: ""
-        description: Date in the format YYYY-MM-DD
+        description: Date in the format YYYY-MM-DD /*changed*/
         isBusinessKey: true
         name: DATE_KEY
-        nullable: true
+        nullable: false
         sourceColumnReferences:
           - columnReferences: []
             transform: "{{ config.dateColumnName }}"
@@ -66,7 +66,7 @@ operation:
         defaultValue: ""
         description: Year in the format YYYY
         isYear: true
-        name: YEAR
+        name: YEAR_NC
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
@@ -138,7 +138,7 @@ operation:
           columnCounter: 81b3184d-6836-489f-8e5b-404152d31f59
           stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
         config: {}
-        dataType: VARCHAR(9)
+        dataType: VARCHAR(10)
         defaultValue: ""
         description: Day of the Week in format DD
         isDayOfWeek: true
@@ -302,22 +302,23 @@ operation:
       - acceptedValues:
           strictMatch: true
           values: []
-        appliedColumnTests:
-          hasNull: false
-          isDistinct: false
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 8b7c5a42-1cf6-465e-9ee3-0d7814d24c4c
+          columnCounter: 08ff415a-ef1c-4eee-8b00-b6b7194ab859
           stepCounter: 3bb66d04-4736-4c00-b124-f5ad77370532
         config: {}
-        dataType: TIMESTAMP
+        dataType: ""
         defaultValue: ""
         description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
+        keyColumnType: None
+        name: ADD_COL
         nullable: true
         sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: VARCHAR
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs:
       - hasNull
@@ -329,9 +330,9 @@ operation:
         dependencies: []
         join:
           joinCondition: ""
-        name: DIM_DATE_NODE
+        name: DIM_DATE_NODE_NC
         noLinkRefs: []
-  name: DIM_DATE_NODE
+  name: DIM_DATE_NODE_NC
   overrideSQL: false
   schema: ""
   sqlType: "404"

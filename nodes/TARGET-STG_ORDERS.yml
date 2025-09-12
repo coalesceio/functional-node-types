@@ -175,11 +175,11 @@ operation:
           - locationName: SOURCE
             nodeName: ORDERS
           - locationName: TARGET
-            nodeName: DIM_DATE_NODE
+            nodeName: DIM_DATE_NODE_NC
         join:
           joinCondition: |-
             FROM {{ ref('SOURCE', 'ORDERS') }} "ORDERS"
-            JOIN {{ ref('TARGET', 'DIM_DATE_NODE') }} "DIM_DATE_NODE"
+            JOIN {{ ref('TARGET', 'DIM_DATE_NODE_NC') }} "DIM_DATE_NODE"
             WHERE "O_ORDERDATE" = "DATE_KEY"
         name: STG_ORDERS
         noLinkRefs: []
