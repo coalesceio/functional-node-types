@@ -1,6 +1,6 @@
 excludeSelector: ""
 fileVersion: 1
 id: "63"
-includeSelector: "{ location: TARGET name: PVT_SALES_DATA1 } OR { location: SOURCE name: SALES_DATA } OR { location: TARGET name: STG_SALES_DATA }"
+includeSelector: "{ location: TARGET name: PVT_SALES_DATA1 } OR { location: SOURCE name: SALES_DATA } OR { location: TARGET name: STG_SALES_DATA } OR { location: TARGET name: PVT_SD1 }"
 name: Test_Pvt_Data1
 type: Job

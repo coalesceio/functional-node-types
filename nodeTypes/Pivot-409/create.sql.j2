@@ -615,95 +615,7 @@ does not permit copying or modification for any other purpose.
                             "is": desiredState.config.aggfunc1.get('items') | map(attribute="funcname1") | list | sort,
                             "was": currentState.config.aggfunc1.get('items') | map(attribute="funcname1") | list | sort },
                             "aggFunctions") }}
-                    {% endif %}
-
-                    {# =========================================================
-                    subqueryval1 comparison
-                    ========================================================= #}
-                    {% if desiredState.config.subqueryval1 != currentState.config.subqueryval1 %}
-                        {{ update_metadata("subQuery", {
-                            "is": desiredState.config.subqueryval1 | replace('/*', '/ *') | replace('*/', '* /'),
-                            "was": currentState.config.subqueryval1 | replace('/*', '/ *') | replace('*/', '* /') },
-                            "subQuery") }}
-                    {% endif %}
-
-                    {# =========================================================
-                    excolval comparison
-                    ========================================================= #}
-                    {% if desiredState.config.excolval != currentState.config.excolval %}
-                        {{ update_metadata("excludeColumnValues", {
-                            "is": desiredState.config.excolval,
-                            "was": currentState.config.excolval},
-                            "excludeColumnValues") }}
-                    {% elif desiredState.config.excolval == currentState.config.excolval == true %}
-
-                        {# =========================================================
-                        exlcol comparison
-                        ========================================================= #}
-                        {% if desiredState.config.exlcol != currentState.config.exlcol %}
-                            {{ update_metadata("excludeColumns", {
-                                "is": desiredState.config.exlcol.get('items')  | map(attribute="exclcoltxtBox") | list | sort | replace('/*', '/ *') | replace('*/', '* /'),
-                                "was": currentState.config.exlcol.get('items') | map(attribute="exclcoltxtBox") | list | sort | replace('/*', '/ *') | replace('*/', '* /') },
-                                "excludeColumns") }}
-                        {% endif %}
-                    {% endif %}
-
-                {% elif desiredState.config.sincol == false %}
-                    {# =========================================================
-                    samKeyColval comparison
-                    ========================================================= #}
-                    {% if desiredState.config.samKeyColval != currentState.config.samKeyColval %}
-                        {{ update_metadata("SameColvalues", {
-                            "is": desiredState.config.samKeyColval,
-                            "was": currentState.config.samKeyColval},
-                            "SameColvalues") }}
-                    {% endif %}
-
-                    {# =========================================================
-                    tabValueColumn-funcname comparison
-                    ========================================================= #}
-                    {% set desiredFuncname = desiredState.config.tabValueColumn.get('items')
-                                                    | map(attribute="funcname")
-                                                    | list
-                                                    | sort %}
-                    {% set currentFuncname = currentState.config.tabValueColumn.get('items')
-                                                    | map(attribute="funcname")
-                                                    | list
-                                                    | sort %}
-                    {% if desiredFuncname != currentFuncname %}
-                        {{ update_metadata("FunctionName", {
-                            "is": desiredFuncname,
-                            "was": currentFuncname },
-                            "FunctionName") }}
-                    {% endif %}
-
-                    {# =========================================================
-                    tabValueColumn-Colvol comparison
-                    ========================================================= #}
-                    {% set desiredColvol = desiredState.config.tabValueColumn.get('items')
-                                                    | map(attribute="Colvol")
-                                                    | list
-                                                    | sort %}
-                    {% set currentColvol = currentState.config.tabValueColumn.get('items')
-                                                    | map(attribute="Colvol")
-                                                    | list
-                                                    | sort %}
-                    {% if currentColvol != desiredColvol %}
-                        {{ update_metadata("columnValues", {
-                            "is": desiredColvol,
-                            "was": currentColvol },
-                            "columnValues") }}
-                    {% endif %}               
-                {% endif %}
-
-                {# =========================================================
-                Colvol1 comparison
-                ========================================================= #}
-                {% if desiredState.config.Colvol1 != currentState.config.Colvol1 %}
-                    {{ update_metadata("filterColumn", {
-                        "is": desiredState.config.Colvol1 | replace('/*', '/ *') | replace('*/', '* /'),
-                        "was": currentState.config.Colvol1 | replace('/*', '/ *') | replace('*/', '* /')},
-                        "filterColumn") }}
+                    {% endif %}           
                 {% endif %}
 
                 {# =========================================================
@@ -713,8 +625,12 @@ does not permit copying or modification for any other purpose.
                 or desiredState.config.tabValueColumn != currentState.config.tabValueColumn 
                 or desiredState.config.sincol != currentState.config.sincol 
                 or (((desiredState.config.aggfunc1.get("items") or []) | length > 1 and (currentState.config.aggfunc1.get("items") or []) | length == 1)
-                or ((desiredState.config.aggfunc1.get("items") or []) | length == 1 and (currentState.config.aggfunc1.get("items") or []) | length > 1))%}
+                or ((desiredState.config.aggfunc1.get("items") or []) | length == 1 and (currentState.config.aggfunc1.get("items") or []) | length > 1)) 
+                or desiredState.config.subqueryval1 != currentState.config.subqueryval1 
+                or desiredState.config.Colvol1 != currentState.config.Colvol1 %}
+
                     {% set nsMetaVariables.metaDataChanged = true %}
+
                 {% endif %}
         
                 {% if nsMetaVariables.metaDataChanged == false %}

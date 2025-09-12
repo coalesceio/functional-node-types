@@ -11,7 +11,7 @@ operation:
     insertZeroKeySurrogateKey: 0/*comment*/
     postSQL: select current_timestamp /*comment*/
     preSQL: select current_timestamp /*comment*/
-    startingDate: DATEADD(DAY, -100, CURRENT_DATE)/*comment*/
+    startingDate: DATEADD(DAY, -200, CURRENT_DATE)/*comment*/
     testsEnabled: true
     truncateBefore: false
   database: ""
@@ -19,7 +19,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests:
       - continueOnFailure: true
