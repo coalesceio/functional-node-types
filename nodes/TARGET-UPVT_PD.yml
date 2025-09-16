@@ -5,13 +5,13 @@ operation:
   config:
     includenull: false
     inferunpivot: false
-    nameColTextBox: NAME_COL1
+    nameColTextBox: NAME_COL_NC
     tabValueColumn:
       items:
         - ColTextBox: PROJECT_NAME
     testsEnabled: false
     truncateBefore: true
-    valColTextBox: VAL_COL
+    valColTextBox: VAL_COL_NC
   database: ""
   deployEnabled: true
   description: ""
