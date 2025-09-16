@@ -25,8 +25,7 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: null
-          funcname: MIN
+        - funcname: MIN
           valColTextBox: SALES_AMOUNT
         - funcname: AVG
           valColTextBox: SALES
