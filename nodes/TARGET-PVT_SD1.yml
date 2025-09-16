@@ -27,8 +27,7 @@ operation:
         - keyColTextBox: REGION
     tabValueColumn:
       items:
-        - Colvol: null
-          valColTextBox: SALES
+        - valColTextBox: SALES
     testsEnabled: false
     trunc: true
   database: ""
