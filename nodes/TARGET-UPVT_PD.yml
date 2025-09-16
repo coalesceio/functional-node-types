@@ -11,7 +11,7 @@ operation:
         - ColTextBox: PROJECT_NAME
     testsEnabled: true
     truncateBefore: true
-    valColTextBox: VAL_COL
+    valColTextBox: VAL_COL1
   database: ""
   deployEnabled: true
   description: ""

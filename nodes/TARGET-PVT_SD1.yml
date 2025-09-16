@@ -17,7 +17,7 @@ operation:
     excolval: false
     exlcol:
       items:
-        - {}
+        - exclcoltxtBox: null
     inferPivot: false
     samKeyColval: false
     sincol: true

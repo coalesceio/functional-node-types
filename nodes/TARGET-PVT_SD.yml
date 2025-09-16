@@ -9,7 +9,7 @@ operation:
         - {}
     aggfunc1:
       items:
-        - {}
+        - funcname1: null
     defaultval: "2"
     defvalue: true
     excolval: false
@@ -26,10 +26,10 @@ operation:
     tabValueColumn:
       items:
         - Colvol: "'North', 'South'"
-          funcname: table
+          funcname: MAX
           valColTextBox: SALES_AMOUNT
         - Colvol: null
-          funcname: table
+          funcname: MIN
           valColTextBox: SALES
     testsEnabled: false
     trunc: true
