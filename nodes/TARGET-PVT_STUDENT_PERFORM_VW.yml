@@ -12,7 +12,7 @@ operation:
         - funcname1: AVG
         - funcname1: MAX
     defaultval: ""
-    defvalue: false
+    defvalue: true
     excolval: true
     exlcol:
       items:
@@ -26,7 +26,8 @@ operation:
         - keyColTextBox: SUBJECT
     tabValueColumn:
       items:
-        - valColTextBox: SCORE
+        - Colvol: null
+          valColTextBox: SCORE
     testsEnabled: false
     trunc: true
   database: ""

@@ -19,10 +19,13 @@ operation:
         - {}
     tabDefine:
       items:
-        - {}
+        - valDefineColumnName: null
+          valDefineExpression: null
     tabMeasures:
       items:
-        - {}
+        - valAliasExpressionColumnName: null
+          valMeasureColumnName: null
+          valMeasureExpression: null
     tabSelectFunction:
       items:
         - {}
