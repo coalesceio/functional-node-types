@@ -131,6 +131,23 @@ The following stages are executed:
 |-----------|----------------|
 | **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
 
+### Redeployment with only metadata changes
+
+Sometimes, changes to config can result in metadata changes from node edits, DML changes, or storage updates. A few cases are listed below:
+
+1. Changes in business keys
+2. Changes in join clauses
+3. Transformations made at column level
+4. Changing DML options like Truncate, Insert Zero key
+
+And many more. Most of the time, specific ‘is’ and ‘was’ values will be displayed to specifically show what changed.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Metadata Update \| Business Keys \| Truncate \| Insert Zero Key \| Transformation \| Join** | A dummy statement would execute with specific changes listed in comments|
+
 #### Date Dimension Recreating the Views
 
 The subsequent deployment of Date node of materialization type view with changes in view definition, adding table description or renaming view results in deleting the existing view and recreating the view.
@@ -296,6 +313,24 @@ The following stages are executed:
 |-----------|----------------|
 | **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
 
+### Redeployment with only metadata changes
+
+Sometimes, changes to config can result in metadata changes from node edits, DML changes, or storage updates. A few cases are listed below:
+
+1. Changes in join clauses
+2. Transformations made at column level
+5. Default NULL values - Config changes
+
+And many more. Most of the time, specific ‘is’ and ‘was’ values will be displayed to specifically show what changed.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Metadata Update \| Transformation \| Default NULL\| Join** | A dummy statement would execute with specific changes listed in comments|
+
+**Note:** A few configuration changes are not recommended without re-inferring the table before deployment. For more details, please refer to this document - [Metadata Prevention](https://docs.google.com/document/d/1wAh_b_7HIqEEn4Q5lXduO_Li_9MrL4KZ/edit?usp=sharing&ouid=105543507530226126437&rtpof=true&sd=true)
+
 #### Pivot Recreating the Views
 
 The subsequent deployment of Pivot node of materialization type view with changes in view definition, adding table description or renaming view results in deleting the existing view and recreating the view.
@@ -434,6 +469,24 @@ The following stages are executed:
 | **Stage** | **Description** |
 |-----------|----------------|
 | **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
+
+### Redeployment with only metadata changes
+
+Sometimes, changes to config can result in metadata changes from node edits, DML changes, or storage updates. A few cases are listed below:
+
+1. Changes in join clauses
+2. Transformations made at column level
+5. Default NULL values - Config changes
+
+And many more. Most of the time, specific ‘is’ and ‘was’ values will be displayed to specifically show what changed.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Metadata Update \| Transformation \| Default NULL\| Join** | A dummy statement would execute with specific changes listed in comments|
+
+**Note:** A few configuration changes are not recommended without re-inferring the table before deployment. For more details, please refer to this document - [Metadata Prevention](https://docs.google.com/document/d/1wAh_b_7HIqEEn4Q5lXduO_Li_9MrL4KZ/edit?usp=sharing&ouid=105543507530226126437&rtpof=true&sd=true)
 
 #### Unpivot Recreating the Views
 
@@ -746,4 +799,3 @@ This is executed in the below stage:
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/create.sql.j2) |
 
 [Macros](https://github.com/coalesceio/functional-node-types/blob/main/macros/macro-1.yml)
-
