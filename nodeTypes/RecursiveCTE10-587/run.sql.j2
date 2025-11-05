@@ -1,0 +1,75 @@
+{% for test in node.tests if config.testsEnabled %}
+    {% if test.runOrder == 'Before' %}
+        {{ test_stage(test.name, test.continueOnFailure) }}
+        {{ test.templateString }}
+    {% endif %}
+{% endfor %}
+
+{% if node.materializationType == 'table' %}
+    {% if config.preSQL %}
+        {{ stage('Pre-SQL') }}
+        {{ config.preSQL }}
+    {% endif %}
+
+    {% if config.truncateBefore %}
+        {{ stage('Truncate Stage Table') }}
+        TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+    {% endif %}
+
+    {{ stage('Query Hierarchy-Recursive CTE') }}
+
+    INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
+    (
+        {% for col in columns %}
+            "{{ col.name }}"
+            {% if not loop.last -%},{% endif %}
+        {% endfor %}
+    )
+    WITH RECURSIVE {{node.name}}_CTE AS ( 
+ 
+        -- The anchor clause defines the initial query.
+
+        SELECT
+        {% for col in sources[0].columns %}
+            {{ get_source_transform(col) }} AS "{{ col.name }}"
+            {%- if not loop.last -%}, {% endif %}
+        {% endfor %}
+        {{ sources[0].join }}
+        
+        UNION ALL
+
+          -- The recursive clause defines the query that is repeated.
+
+        SELECT
+        {% for col in sources[0].columns %}
+            {{ get_source_transform(col) }} AS "{{ col.name }}"
+            {%- if not loop.last -%}, {% endif %}
+        {% endfor %}
+        {{ sources[0].join }}   
+
+    )SELECT {% for col in columns %}
+            "{{ col.name }}"
+            {%- if not loop.last -%}, {% endif %}
+        {% endfor %}FROM {{node.name}}_CTE;
+
+    {% if config.postSQL %}
+        {{ stage('Post-SQL') }}
+        {{ config.postSQL }}
+    {% endif %}
+{% endif %}
+
+{% if config.testsEnabled %}
+    {% for test in node.tests %}
+        {% if test.runOrder == 'After' %}
+            {{ test_stage(test.name, test.continueOnFailure) }}
+            {{ test.templateString }}
+        {% endif %}
+    {% endfor %}
+
+    {% for column in columns %}
+        {% for test in column.tests %}
+            {{ test_stage(column.name + ": " + test.name) }}
+            {{ test.templateString }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}

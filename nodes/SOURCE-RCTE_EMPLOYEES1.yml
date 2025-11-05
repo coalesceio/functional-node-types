@@ -1,0 +1,99 @@
+fileVersion: 1
+id: c144bc5e-577a-4c1d-96d4-3edeb7f926f4
+name: RCTE_EMPLOYEES1
+operation:
+  config:
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e1c53325-28fd-45b0-88ec-69b9888078cf
+          stepCounter: c144bc5e-577a-4c1d-96d4-3edeb7f926f4
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: TITLE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ae196338-839e-4631-9c10-c8b733e6289f
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 50704be3-0f20-402a-ad4f-763f1414bb05
+          stepCounter: c144bc5e-577a-4c1d-96d4-3edeb7f926f4
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPLOYEE_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1075631a-6205-411d-83a7-6fed6803d6bc
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 29f4eb04-8b44-47da-a968-d11f9e7cd4c2
+          stepCounter: c144bc5e-577a-4c1d-96d4-3edeb7f926f4
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MANAGER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ca4ba570-5def-43d4-9511-ae02f477eaa7
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 444ed9f2-d2d5-4371-8a65-e26363961f98
+          stepCounter: c144bc5e-577a-4c1d-96d4-3edeb7f926f4
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: LEVEL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "1"
+        systemColumnType: None
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          EMPLOYEES: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: EMPLOYEES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'EMPLOYEES') }} "EMPLOYEES"
+        name: RCTE_EMPLOYEES1
+        noLinkRefs: []
+  name: RCTE_EMPLOYEES1
+  overrideSQL: false
+  schema: ""
+  sqlType: "587"
+  type: sql
+  version: 1
+type: Node
