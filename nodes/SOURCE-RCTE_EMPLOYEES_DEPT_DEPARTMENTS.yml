@@ -8,10 +8,10 @@ operation:
     joincol:
       items:
         - columnName:
-            columnCounter: 0379e604-40a6-40c5-a58c-7ca5a0821d8f
+            columnCounter: 7c3ef668-abeb-4021-8654-d03998b0eb62
             stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
           ctecolumnName:
-            columnCounter: 7c3ef668-abeb-4021-8654-d03998b0eb62
+            columnCounter: 0379e604-40a6-40c5-a58c-7ca5a0821d8f
             stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
     mulsources: true
     recjoinclause: true
@@ -186,7 +186,7 @@ operation:
             FROM {{ ref('SOURCE', 'EMPLOYEES_DEPT') }} "EMPLOYEES_DEPT"
             INNER JOIN {{ ref('SOURCE', 'DEPARTMENTS') }} "DEPARTMENTS"
             ON "EMPLOYEES_DEPT"."DEPT_ID" = "DEPARTMENTS"."DEPT_ID"
-            WHERE "LEVEL" <10
+            WHERE "LEVEL" < 15
         name: RCTE_RECURSIVE
         noLinkRefs: []
       - aliases: {}
@@ -194,7 +194,7 @@ operation:
           customSQL: ""
         dependencies: []
         join:
-          joinCondition: ""
+          joinCondition: ORDER BY "EMP_ID" desc
         name: RCTE_FINAL
         noLinkRefs: []
   name: RCTE_EMPLOYEES_DEPT_DEPARTMENTS

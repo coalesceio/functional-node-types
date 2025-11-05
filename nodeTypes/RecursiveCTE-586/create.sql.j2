@@ -38,7 +38,7 @@
     )
     {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
     AS
-    WITH RECURSIVE {{sources[2].name}}_CTE AS ( 
+    WITH RECURSIVE {{sources[2].name}} AS ( 
  
         -- The anchor clause defines the initial query.
 
@@ -58,25 +58,21 @@
             {{ get_source_transform(col) }} AS "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
         {% endfor %}
-        SELECT
-        {% for col in sources[1].columns %}
-            {{ get_source_transform(col) }} AS "{{ col.name }}"
-            {% if not loop.last -%}, {% endif %}
-        {% endfor %}
         {{  get_clause(joinclause,'from')  }}
-        {%- if config.recjoinclause -%}
-         JOIN {{sources[2].name}}_CTE  ON  
+         JOIN {{sources[2].name}}  ON  
            {%- for i in config.joincol.get('items') -%}
               {%- set colName = i.columnName.name -%}
-              "{{sources[0].dependencies[0].node.name}}"."{{colName}}" = "{{cte_name}}"."{{colName}}"
+              {%- set ctecol  = i.ctecolumnName.name -%}
+              {%if config.mulsources %}
+                "{{config.anctablename}}"."{{colName}}"
+               {%else%}"{{sources[0].dependencies[0].node.name}}"."{{colName}}" {%endif%} = "{{cte_name}}"."{{ctecol}}"
               {%if not loop.last%} AND   {%endif%}  
            {%- endfor -%}
-       {%endif%}
         {{ get_clause(joinclause) }}
         
     )SELECT {% for col in sources[2].columns %}
             "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
-        {% endfor %}FROM {{sources[2].name}}_CTE {{sources[2].join}};
+        {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
 
 {% endif %}

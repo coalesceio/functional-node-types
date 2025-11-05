@@ -19,7 +19,7 @@
     {% endif %}
 
     {% if config.truncateBefore %}
-        {{ stage('Truncate Stage Table') }}
+        {{ stage('Truncate Target Table') }}
         TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
     {% endif %}
 
@@ -67,7 +67,7 @@
     )SELECT {% for col in sources[2].columns %}
             "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
-        {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}};
+        {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
 
     {% if config.postSQL %}
         {{ stage('Post-SQL') }}

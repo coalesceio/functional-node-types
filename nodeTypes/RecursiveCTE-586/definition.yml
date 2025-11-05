@@ -38,10 +38,6 @@ metadata:
         attributeName: mulsources
         type: toggleButton
 
-      - displayName: Coalesce location of Anchor table
-        attributeName: anctableloc
-        type: textBox
-        enableIf: "{% if config.mulsources %} true {% else %} false {%endif%}"
 
       - displayName: Anchor table name
         attributeName: anctablename
