@@ -1,6 +1,6 @@
 fileVersion: 1
-id: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
-name: RCTE_EMPLOYEES
+id: a1e45495-f638-4fd3-be3a-7091ca5da1eb
+name: RCTE_EMPLOYEES_VIEW
 operation:
   config:
     anctable: ""
@@ -8,11 +8,11 @@ operation:
     joincol:
       items:
         - columnName:
-            columnCounter: 6c4de3b2-6977-4d84-97fe-0f89c7324f61
-            stepCounter: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
+            columnCounter: 3a53ed60-58e5-4925-b6b5-ada156aadef5
+            stepCounter: a1e45495-f638-4fd3-be3a-7091ca5da1eb
           ctecolumnName:
-            columnCounter: 535d98c3-3b77-49ed-9a93-95fde2a0f8a6
-            stepCounter: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
+            columnCounter: 19b43606-04f9-40e5-bf1b-c0a3cd7274a5
+            stepCounter: a1e45495-f638-4fd3-be3a-7091ca5da1eb
     mulsources: false
     postSQL: ""
     preSQL: ""
@@ -24,14 +24,14 @@ operation:
   description: ""
   isMultisource: true
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c72685b7-63e1-4c02-837f-fc9536262d42
-          stepCounter: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
+          columnCounter: ab918815-d663-4a32-a1d6-5c68d39b8c13
+          stepCounter: a1e45495-f638-4fd3-be3a-7091ca5da1eb
         config: {}
         dataType: VARCHAR(16777216)
         description: ""
@@ -50,8 +50,8 @@ operation:
             transform: UPPER(TITLE)
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 535d98c3-3b77-49ed-9a93-95fde2a0f8a6
-          stepCounter: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
+          columnCounter: 19b43606-04f9-40e5-bf1b-c0a3cd7274a5
+          stepCounter: a1e45495-f638-4fd3-be3a-7091ca5da1eb
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -73,8 +73,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6c4de3b2-6977-4d84-97fe-0f89c7324f61
-          stepCounter: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
+          columnCounter: 3a53ed60-58e5-4925-b6b5-ada156aadef5
+          stepCounter: a1e45495-f638-4fd3-be3a-7091ca5da1eb
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -99,8 +99,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 973be173-b46e-4254-a580-0d54dee15609
-          stepCounter: f06cbf48-e35b-4d8c-acd5-ae52ee9a2ca9
+          columnCounter: b7b00f6e-a926-44fd-9661-d3c0fbfb80cc
+          stepCounter: a1e45495-f638-4fd3-be3a-7091ca5da1eb
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -155,7 +155,7 @@ operation:
           joinCondition: ""
         name: RCTE_FINAL
         noLinkRefs: []
-  name: RCTE_EMPLOYEES
+  name: RCTE_EMPLOYEES_VIEW
   overrideSQL: false
   schema: ""
   sqlType: "586"

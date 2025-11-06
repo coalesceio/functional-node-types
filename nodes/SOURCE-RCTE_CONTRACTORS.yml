@@ -65,8 +65,8 @@ operation:
                 stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
             transform: ""
           - columnReferences:
-              - columnCounter: 3cc7b2cf-65b1-4da5-8b3f-419424f967fc
-                stepCounter: 7d625d4c-3cde-456d-a360-0291e986d7a6
+              - columnCounter: 75482719-bfee-45b9-a23e-e651c4162c51
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
             transform: ""
       - appliedColumnTests: {}
         columnReference:
@@ -87,8 +87,8 @@ operation:
                 stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
             transform: ""
           - columnReferences:
-              - columnCounter: 6d38fc7f-81a4-4343-9e5a-8d5ca6c0e384
-                stepCounter: 7d625d4c-3cde-456d-a360-0291e986d7a6
+              - columnCounter: be8167f3-619f-406a-b333-320b8d6eab71
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
             transform: ""
       - acceptedValues:
           strictMatch: true

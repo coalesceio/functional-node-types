@@ -1,8 +1,9 @@
 {% if sources|length != 3 %}
-
+    
+    {{stage('ERROR MESSAGE')}}
     {# Generate SQL comment with error instead of breaking template #}
     /* ERROR: Recursive CTE requires exactly 3 sources. Currently configured: {{ sources|length }} */
-    SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;
+    /*SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;*/
 
 {% else %}
   

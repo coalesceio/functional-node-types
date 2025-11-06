@@ -16,7 +16,7 @@ operation:
     mulsources: true
     recjoinclause: true
     testsEnabled: true
-    truncateBefore: false
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
