@@ -61,8 +61,7 @@ metadata:
       
       
         isRequired: false
-        enableIf: "{% if config.recjoinclause %} true {% else %} false {% endif %}"
-
+        
      
 
 

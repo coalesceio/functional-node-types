@@ -54,7 +54,7 @@
           -- The recursive clause defines the query that is repeated.
 
         SELECT
-        {% for col in sources[1].columns %}
+        {% for col in sources[0].columns %}
             {{ get_source_transform(col) }} AS "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
         {% endfor %}

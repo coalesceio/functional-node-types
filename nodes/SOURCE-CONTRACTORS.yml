@@ -1,0 +1,73 @@
+fileVersion: 1
+id: 7d625d4c-3cde-456d-a360-0291e986d7a6
+name: CONTRACTORS
+operation:
+  database: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e38f644f-88b5-4e2c-bcc4-7b26d4f9374d
+          stepCounter: 7d625d4c-3cde-456d-a360-0291e986d7a6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: CONTRACTOR_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3cc7b2cf-65b1-4da5-8b3f-419424f967fc
+          stepCounter: 7d625d4c-3cde-456d-a360-0291e986d7a6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: MANAGER_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6d38fc7f-81a4-4343-9e5a-8d5ca6c0e384
+          stepCounter: 7d625d4c-3cde-456d-a360-0291e986d7a6
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: NAME
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: CONTRACTORS
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

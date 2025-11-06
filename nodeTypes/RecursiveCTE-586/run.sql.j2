@@ -1,18 +1,24 @@
-{% for test in node.tests if config.testsEnabled %}
-    {% if test.runOrder == 'Before' %}
+{% if sources|length != 3 %}
+
+    {# Generate SQL comment with error instead of breaking template #}
+    /* ERROR: Recursive CTE requires exactly 3 sources. Currently configured: {{ sources|length }} */
+    SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;
+
+{% else %}
+  
+  {# Normal template processing #}
+
+  {% for test in node.tests if config.testsEnabled %}
+     {% if test.runOrder == 'Before' %}
         {{ test_stage(test.name, test.continueOnFailure) }}
         {{ test.templateString }}
-    {% endif %}
-{% endfor %}
+     {% endif %}
+  {% endfor %}
 
-{#CTE NAME #}
-{%set cte_name = sources[2].name %}
+  {# CTE NAME #}
+  {%set cte_name = sources[2].name %}
 
-{#Get join clause for recursion#}
-{%set joinclause = sources[1].join%}
-
-
-{% if node.materializationType == 'table' %}
+ {% if node.materializationType == 'table' %}
 
     {% if config.truncateBefore %}
         {{ stage('Truncate Target Table') }}
@@ -31,7 +37,6 @@
     WITH RECURSIVE {{sources[2].name}} AS ( 
  
         -- The anchor clause defines the initial query.
-
         SELECT
         {% for col in sources[0].columns %}
             {{ get_source_transform(col) }} AS "{{ col.name }}"
@@ -40,15 +45,13 @@
         {{ sources[0].join }}
         
         UNION ALL
-
           -- The recursive clause defines the query that is repeated.
-
         SELECT
         {% for col in sources[1].columns %}
             {{ get_source_transform(col) }} AS "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
         {% endfor %}
-        {{  get_clause(joinclause,'from')  }}
+        {{  get_clause(sources[0].join,'from')  }}
          JOIN {{sources[2].name}}  ON  
            {%- for i in config.joincol.get('items') -%}
               {%- set colName = i.columnName.name -%}
@@ -61,13 +64,17 @@
         {{ get_clause(joinclause) }}
         
     )SELECT {% for col in sources[2].columns %}
-            "{{ col.name }}"
+              {%if col.transform == ''%}
+                "{{ col.name }}"
+              {%else%}
+                {{col.transform}}
+              {%endif%}
             {% if not loop.last -%}, {% endif %}
         {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
         
-{% endif %}
+ {% endif %}
 
-{% if config.testsEnabled %}
+  {% if config.testsEnabled %}
     {% for test in node.tests %}
         {% if test.runOrder == 'After' %}
             {{ test_stage(test.name, test.continueOnFailure) }}
@@ -81,4 +88,5 @@
             {{ test.templateString }}
         {% endfor %}
     {% endfor %}
+  {% endif %}
 {% endif %}
