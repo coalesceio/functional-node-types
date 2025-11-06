@@ -16,12 +16,12 @@ operation:
     mulsources: true
     recjoinclause: true
     testsEnabled: true
-    truncateBefore: true
+    truncateBefore: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: true
-  locationName: SOURCE
+  locationName: TARGET
   materializationType: table
   metadata:
     appliedNodeTests: []

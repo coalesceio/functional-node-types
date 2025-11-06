@@ -13,10 +13,6 @@
 
 
 {% if node.materializationType == 'table' %}
-    {% if config.preSQL %}
-        {{ stage('Pre-SQL') }}
-        {{ config.preSQL }}
-    {% endif %}
 
     {% if config.truncateBefore %}
         {{ stage('Truncate Target Table') }}
@@ -68,11 +64,7 @@
             "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
         {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
-
-    {% if config.postSQL %}
-        {{ stage('Post-SQL') }}
-        {{ config.postSQL }}
-    {% endif %}
+        
 {% endif %}
 
 {% if config.testsEnabled %}
