@@ -1,0 +1,162 @@
+fileVersion: 1
+id: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+name: RCTE_CONTRACTORS1
+operation:
+  config:
+    anctablename: ""
+    joincol:
+      items:
+        - columnName:
+            columnCounter: a5472ef1-854d-47fd-8e5f-e329f8d7bf66
+            stepCounter: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+          ctecolumnName:
+            columnCounter: 4a3ce9a9-e674-4fcd-b6b4-e1260d0e4922
+            stepCounter: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+    mulsources: false
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4a3ce9a9-e674-4fcd-b6b4-e1260d0e4922
+          stepCounter: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: CONTRACTOR_IDDET
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 757d958b-0a62-4769-9703-352193a13d5e
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences:
+              - columnCounter: 757d958b-0a62-4769-9703-352193a13d5e
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences:
+              - columnCounter: 757d958b-0a62-4769-9703-352193a13d5e
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a5472ef1-854d-47fd-8e5f-e329f8d7bf66
+          stepCounter: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MANAGER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 75482719-bfee-45b9-a23e-e651c4162c51
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences:
+              - columnCounter: 75482719-bfee-45b9-a23e-e651c4162c51
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences:
+              - columnCounter: 75482719-bfee-45b9-a23e-e651c4162c51
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7b52590d-6337-486f-a0e4-e2e7d4ae7770
+          stepCounter: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: be8167f3-619f-406a-b333-320b8d6eab71
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences:
+              - columnCounter: be8167f3-619f-406a-b333-320b8d6eab71
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences:
+              - columnCounter: be8167f3-619f-406a-b333-320b8d6eab71
+                stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ac71d2d6-59f2-4ec8-bb9d-7a7d7a45ec01
+          stepCounter: e432c750-a6c9-4e26-a5cc-33b89d5b6595
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: LEVEL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "1"
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "\"LEVEL\"+1"
+          - columnReferences: []
+            transform: ""
+        systemColumnType: None
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STG_CONTRACTORS: b113e212-df16-4153-8c18-5940e9602b3c
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STG_CONTRACTORS
+        join:
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'STG_CONTRACTORS') }} "STG_CONTRACTORS"
+            WHERE "MANAGER_ID" IS NULL
+        name: RCTE_CONTRACTORS
+        noLinkRefs: []
+      - aliases:
+          STG_CONTRACTORS: b113e212-df16-4153-8c18-5940e9602b3c
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STG_CONTRACTORS
+        join:
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'STG_CONTRACTORS') }} "STG_CONTRACTORS"
+            WHERE "LEVEL" < 15
+        name: RCTE_RECURSIVE
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ORDER BY "LEVEL"
+        name: RCTE_FNL
+        noLinkRefs: []
+  name: RCTE_CONTRACTORS1
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node
