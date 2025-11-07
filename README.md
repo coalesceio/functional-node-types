@@ -762,6 +762,7 @@ This is executed in the below stage:
 
 A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-guide/queries-cte#recursive-ctes-and-hierarchical-data] in Snowflake is a powerful SQL feature that allows you to query hierarchical or self-referential data by referencing itself. This is particularly useful for tasks like traversing organizational hierarchies, processing tree structures, or calculating cumulative totals.
 
+
 ### Recursive CTE node Usage
 
 #### Adding Recursive CTE node on a source
@@ -769,7 +770,7 @@ A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-gui
 * Add a Recursive CTE node on top of source(Ex:Employees)
   
   <img width="506" height="79" alt="image-source-cte" src="https://github.com/user-attachments/assets/a18a6b67-e4c1-43a5-a8c0-71c340dff525" />
-* Keep the multi-source toggle ON and add three sources-Anchor clause,Recursive clause and CTE clause.Three sources does not mean mapping to three different sources.All three clauses refer to single source or a join of sources.
+* Keep the multi-source toggle ON and add three sources-Anchor clause,Recursive clause and CTE clause.Multiple sources in the context of this node does not mean mapping to three different sources.All three clauses refer to single source or a join of sources.
 
   <img width="1055" height="334" alt="image-step2cte" src="https://github.com/user-attachments/assets/df9c9baa-4971-444a-9be0-71b35fba37c1" />
 * The sources need not be mapped to Recursive or CTE clauses.From clauses need not be generated in join tab.
