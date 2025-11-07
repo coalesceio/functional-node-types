@@ -787,6 +787,12 @@ All the above steps specified above applies here as well except source columns n
 
 <img width="412" height="73" alt="image-recursion" src="https://github.com/user-attachments/assets/39f1b106-dab2-4613-8209-a22a53b59678" />
 
+### Recursive CTE limitations
+
+* We can join multiple sources in anchor clause but union of multiple sources in anchor clause is not supported
+* A termination condition is required in recursive clause to avoid infinite loop
+* A cyclic data heirarchy might make Recursive CTE run until it succeeds or times out
+
 ### Recursive CTE Node Configuration
 
 Recursive CTE has three configuration groups: 
