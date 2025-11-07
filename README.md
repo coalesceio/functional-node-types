@@ -940,7 +940,16 @@ The stage executed:
 
 | **Component** | **Link** |
 |--------------|-----------|
-| **Node definition** | [definition.yml](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/definition.yml) |
-| **Create Template** | [create.sql.j2](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/create.sql.j2) |
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/definition.yml) |
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/View-Qualifyadvanceddeploy-459/create.sql.j2)|
+
+### Recursive CTE
+
+| **Component** | **Link** |
+|--------------|-----------|
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/RecursiveCTE-586/definition.yml) |
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/RecursiveCTE-586/create.sql.j2) |
+| **Run Template** | [run.sql.js] (https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/RecursiveCTE-586/run.sql.j2) |
+
 
 [Macros](https://github.com/coalesceio/functional-node-types/blob/main/macros/macro-1.yml)
