@@ -762,6 +762,38 @@ This is executed in the below stage:
 
 A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-guide/queries-cte#recursive-ctes-and-hierarchical-data] in Snowflake is a powerful SQL feature that allows you to query hierarchical or self-referential data by referencing itself. This is particularly useful for tasks like traversing organizational hierarchies, processing tree structures, or calculating cumulative totals.
 
+### Recursive CTE Node Configuration
+
+Recursive CTE has three configuration groups: 
+
+* [Node Properties](#recursive-cte-properties)
+* [Options](#recursive-general-options)
+
+<img width="459" height="137" alt="image-recursivecte-properties" src="https://github.com/user-attachments/assets/4ec5e448-0a34-4189-90b1-f3c27d6e6319" />
+
+#### Recursive CTE Node Properties
+
+| **Property** | **Description** |
+|--------------|-----------------|
+| **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
+| **Node Type** | (Required) Name of template used to create node objects |
+| **Description** | A description of the node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+
+#### Recursive general Options
+
+<img width="453" height="707" alt="image-recursivecte-generaloptions" src="https://github.com/user-attachments/assets/cd2ffe64-6693-4f58-bd6a-232e16580357" />
+
+
+| **Options** | **Description** |
+|-------------|-----------------|
+| **Create As** | Choose 'table', 'view' or 'transient table' |
+| **Truncate** | True/False toggle to enable or disable truncating the output columns |
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
+| **Multiple sources joined in Anchor clause**| Toggle: True/False<br/>If enabled we need to specify which among the joined tables act as Anchor table|
+| **Anchor table name**| Specify the anchor table name if multiple tables are joined in anchor clause|
+| **Anchor and CTE join column**| Specify the column names to be joined from anchor and CTE clause.<br/>Note:Enabled if the node type has a source.In case of a sequence generation or date series generation,this option will not be dispalyed|
+
 ## Code
 
 ### Date Table Code
