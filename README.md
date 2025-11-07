@@ -7,6 +7,7 @@ The Coalesce Functional Node Types Package includes:
 * [Unpivot](#Unpivot)
 * [Match Recognize](#match-recognize)
 * [View-Qualify advanced deploy](#view-qualify-advanced-deploy)
+* [Recursive CTE](#recursive-cte)
 * [Code](#code)
 
 ---
@@ -756,6 +757,10 @@ This is executed in the below stage:
 | **Stage** | **Description** |
 |-----------|----------------|
 | **Drop View** | Removes the view from the environment |
+
+## Recursive CTE
+
+A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-guide/queries-cte#recursive-ctes-and-hierarchical-data] in Snowflake is a powerful SQL feature that allows you to query hierarchical or self-referential data by referencing itself. This is particularly useful for tasks like traversing organizational hierarchies, processing tree structures, or calculating cumulative totals.
 
 ## Code
 
