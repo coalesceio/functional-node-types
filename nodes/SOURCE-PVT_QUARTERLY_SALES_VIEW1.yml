@@ -16,7 +16,6 @@ operation:
     defvalue: true
     excolval: false
     inferPivot: false
-    keyCol: null
     mulcol: false
     sincol: true
     subqueryval1: ""
@@ -27,7 +26,6 @@ operation:
       items:
         - valColTextBox: AMOUNT
     truncateBefore: true
-    valCol1: null
   database: ""
   deployEnabled: true
   description: ""

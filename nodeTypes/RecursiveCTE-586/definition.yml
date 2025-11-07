@@ -1,0 +1,72 @@
+fileVersion: 1
+id: "586"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |+
+    capitalized: Recursive CTE
+    short: RCTE
+    plural: Stages
+    tagColor: '#2EB67D'
+
+    config:
+    - groupName: Options
+      items:
+      - type: materializationSelector
+        default: table
+        options:
+        - table
+        - view
+        isRequired: true
+
+      - type: multisourceToggle
+        default: true
+        isRequired: false
+         
+      - displayName: Truncate Before
+        attributeName: truncateBefore
+        type: toggleButton
+        default: true
+
+      - displayName: Enable Tests
+        attributeName: testsEnabled
+        type: toggleButton
+        default: true
+      
+      - displayName: Multiple sources joined in Anchor clause
+        attributeName: mulsources
+        type: toggleButton
+
+
+      - displayName: Anchor table name
+        attributeName: anctablename
+        type: textBox
+        enableIf: "{% if config.mulsources %} true {% else %} false {%endif%}"
+      
+      - type: tabular
+        displayName: 'Anchor and CTE join column'
+        attributeName: joincol
+        columns:
+
+        -  type: columnDropdownSelector
+           displayName: Anchor join Column Name
+           attributeName: columnName
+           isRequired: false
+        
+        -  type: columnDropdownSelector
+           displayName: CTE join Column Name
+           attributeName: ctecolumnName
+           isRequired: false
+      
+      
+        isRequired: false
+        enableIf: "{%if sources[0].dependencies | length ==0%} false {%else%} true {%endif%}"
+        
+     
+
+
+
+
+name: Recursive CTE
+type: NodeType

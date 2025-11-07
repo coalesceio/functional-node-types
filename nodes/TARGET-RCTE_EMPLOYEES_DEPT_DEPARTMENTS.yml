@@ -1,0 +1,204 @@
+fileVersion: 1
+id: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+name: RCTE_EMPLOYEES_DEPT_DEPARTMENTS
+operation:
+  config:
+    anctableloc: ""
+    anctablename: EMPLOYEES_DEPT
+    joincol:
+      items:
+        - columnName:
+            columnCounter: 7c3ef668-abeb-4021-8654-d03998b0eb62
+            stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+          ctecolumnName:
+            columnCounter: 0379e604-40a6-40c5-a58c-7ca5a0821d8f
+            stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+    mulsources: true
+    recjoinclause: true
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0379e604-40a6-40c5-a58c-7ca5a0821d8f
+          stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMP_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c4252fe3-323e-4221-92a7-a5ddeacac3fa
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences:
+              - columnCounter: c4252fe3-323e-4221-92a7-a5ddeacac3fa
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6d8c8b25-84ff-4cf0-801e-c2838cefa9f6
+          stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: EMP_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 470db691-e9fa-45d8-bfdf-1381775d96de
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences:
+              - columnCounter: 470db691-e9fa-45d8-bfdf-1381775d96de
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3eb56d15-fc41-4824-b4e5-496f04a7f766
+          stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: DEPT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5832ac26-451d-4371-b9a5-8c65c70be799
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences:
+              - columnCounter: 5832ac26-451d-4371-b9a5-8c65c70be799
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7c3ef668-abeb-4021-8654-d03998b0eb62
+          stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MANAGER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e3150bed-6ab4-49e0-92ae-009922af2d45
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences:
+              - columnCounter: e3150bed-6ab4-49e0-92ae-009922af2d45
+                stepCounter: db11e4b0-9888-45bc-9a37-1f9a06133b10
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ec1e6c3f-7628-46d5-a498-647dd71c57dc
+          stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+        config: {}
+        dataType: VARCHAR(100)
+        description: ""
+        name: DEPT_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 72d0a8bd-7cb9-4f61-bfe9-226651d4c317
+                stepCounter: 24cbc681-99a9-44a0-8e75-f8803f98f0b2
+            transform: ""
+          - columnReferences:
+              - columnCounter: 72d0a8bd-7cb9-4f61-bfe9-226651d4c317
+                stepCounter: 24cbc681-99a9-44a0-8e75-f8803f98f0b2
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0d63680a-1546-4c46-9890-b171a3892a8c
+          stepCounter: cf4f65c9-e53d-4be3-9eab-5b54ae147a79
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: LEVEL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "1"
+          - columnReferences: []
+            transform: "\"LEVEL\"+1"
+          - columnReferences: []
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          DEPARTMENTS: 24cbc681-99a9-44a0-8e75-f8803f98f0b2
+          EMPLOYEES_DEPT: db11e4b0-9888-45bc-9a37-1f9a06133b10
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: DEPARTMENTS
+          - locationName: SOURCE
+            nodeName: EMPLOYEES_DEPT
+        join:
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'EMPLOYEES_DEPT') }} "EMPLOYEES_DEPT"
+            INNER JOIN {{ ref('SOURCE', 'DEPARTMENTS') }} "DEPARTMENTS"
+            ON "EMPLOYEES_DEPT"."DEPT_ID" = "DEPARTMENTS"."DEPT_ID"
+            WHERE "EMPLOYEES_DEPT"."MANAGER_ID" IS NULL
+        name: RCTE_ANCHOR
+        noLinkRefs: []
+      - aliases:
+          DEPARTMENTS: 24cbc681-99a9-44a0-8e75-f8803f98f0b2
+          EMPLOYEES_DEPT: db11e4b0-9888-45bc-9a37-1f9a06133b10
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: DEPARTMENTS
+          - locationName: SOURCE
+            nodeName: EMPLOYEES_DEPT
+        join:
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'EMPLOYEES_DEPT') }} "EMPLOYEES_DEPT"
+            INNER JOIN {{ ref('SOURCE', 'DEPARTMENTS') }} "DEPARTMENTS"
+            ON "EMPLOYEES_DEPT"."DEPT_ID" = "DEPARTMENTS"."DEPT_ID"
+            WHERE "LEVEL" < 15
+        name: RCTE_RECURSIVE
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ORDER BY "EMP_ID" desc
+        name: RCTE_FINAL
+        noLinkRefs: []
+  name: RCTE_EMPLOYEES_DEPT_DEPARTMENTS
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node

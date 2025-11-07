@@ -1,0 +1,189 @@
+fileVersion: 1
+id: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+name: RCTE_BOM_COMPONENTS
+operation:
+  config:
+    anctablename: ""
+    joincol:
+      items:
+        - columnName:
+            columnCounter: 67158297-972d-455f-9678-6cddf966a423
+            stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+          ctecolumnName:
+            columnCounter: 1e81959d-5eee-4ec2-b61c-9e2d3d111a97
+            stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+    mulsources: false
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 67158297-972d-455f-9678-6cddf966a423
+          stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: PARENT_ITEM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 954c787c-94d6-440c-baca-c10aa80fd068
+                stepCounter: e7546217-148a-4606-a479-5b0911e017cb
+            transform: ""
+          - columnReferences:
+              - columnCounter: 954c787c-94d6-440c-baca-c10aa80fd068
+                stepCounter: e7546217-148a-4606-a479-5b0911e017cb
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1e81959d-5eee-4ec2-b61c-9e2d3d111a97
+          stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPONENT_ITEM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f442caa6-83c7-42f2-8a0f-8096fa6df9af
+                stepCounter: e7546217-148a-4606-a479-5b0911e017cb
+            transform: ""
+          - columnReferences:
+              - columnCounter: f442caa6-83c7-42f2-8a0f-8096fa6df9af
+                stepCounter: e7546217-148a-4606-a479-5b0911e017cb
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 43f810b2-2709-431b-9435-a1bb5935ac03
+          stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: QTY_PER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 58da19c9-57f0-4821-ad22-94269e6bbde2
+                stepCounter: e7546217-148a-4606-a479-5b0911e017cb
+            transform: ""
+          - columnReferences:
+              - columnCounter: 58da19c9-57f0-4821-ad22-94269e6bbde2
+                stepCounter: e7546217-148a-4606-a479-5b0911e017cb
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1bdff408-71f5-4577-baa0-d0a86fc5a96a
+          stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+        config: {}
+        dataType: INT
+        defaultValue: ""
+        description: ""
+        name: TOTAL_QTY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "\"QTY_PER\""
+          - columnReferences: []
+            transform: "\"BOM_CTE\".\"TOTAL_QTY\" * \"BOM_CTE\".\"QTY_PER\""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cbb0a5b3-e9fe-461e-8bd6-eb6237a06742
+          stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+        config: {}
+        dataType: INT
+        defaultValue: ""
+        description: ""
+        name: LEVEL_NO
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "1"
+          - columnReferences: []
+            transform: "\"BOM_CTE\".\"LEVEL_NO\"+1"
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b20c3081-1034-4bd3-ba54-901c56ae0561
+          stepCounter: ad80c9b9-0ec8-4512-b55c-88d7321bcc19
+        config: {}
+        dataType: STRING
+        defaultValue: ""
+        description: ""
+        name: PATH
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: CAST(PARENT_ITEM AS VARCHAR)
+          - columnReferences: []
+            transform: "\"BOM_CTE\".\"PATH\"||'-->'||\"BOM_COMPONENTS\".\"PARENT_ITEM\""
+          - columnReferences: []
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          BOM_COMPONENTS: e7546217-148a-4606-a479-5b0911e017cb
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: BOM_COMPONENTS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'BOM_COMPONENTS') }} "BOM_COMPONENTS"
+        name: RCTE_BOM_COMPONENTS
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: BOM_RECURSIVE
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ORDER BY LEVEL_NO, PARENT_ITEM, COMPONENT_ITEM
+        name: BOM_CTE
+        noLinkRefs: []
+  name: RCTE_BOM_COMPONENTS
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node

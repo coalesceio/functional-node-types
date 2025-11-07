@@ -1,0 +1,77 @@
+fileVersion: 1
+id: adecf0b0-abda-4115-bbd7-6bdffc07ba27
+name: RCTE_DATESERIES
+operation:
+  config:
+    anctablename: ""
+    joincol:
+      items:
+        - {}
+    mulsources: false
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5d7a91ca-6222-4828-a0e1-f8fc6fc21a5f
+          stepCounter: adecf0b0-abda-4115-bbd7-6bdffc07ba27
+        config: {}
+        dataType: date
+        defaultValue: ""
+        description: ""
+        name: date_s
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: TO_DATE('2025-01-01')
+          - columnReferences: []
+            transform: DATEADD(day, 1, "date_s")
+          - columnReferences: []
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: RCTE_DATESERIES
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: WHERE "date_s" < TO_DATE('2025-01-10')
+        name: RCTE_RECURSIVE
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: RCTE_FNL
+        noLinkRefs: []
+  name: RCTE_DATESERIES
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node

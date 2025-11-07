@@ -1,0 +1,87 @@
+{% if node.override.create.enabled %}
+	
+	{{ node.override.create.script }}
+
+{% elif node.materializationType == 'table' %}
+	{{ stage('Create Target Table') }}
+
+	CREATE OR REPLACE TABLE {{ ref_no_link(node.location.name, node.name) }}
+	(
+		{% for col in columns %}
+			"{{ col.name }}" {{ col.dataType }}
+			{%- if not col.nullable %} NOT NULL
+				{%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+			{% endif %}
+			{%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+			{%- if not loop.last -%}, {% endif %}
+		{% endfor %}
+	)
+	{%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
+
+
+{% elif node.materializationType == 'view' %}
+
+  {% if sources|length != 3 %}
+    
+    {{stage('ERROR MESSAGE')}}
+    {# Generate SQL comment with error instead of breaking template #}
+    /* ERROR: Recursive CTE requires exactly 3 sources. Currently configured: {{ sources|length }} */
+    /*SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;*/
+  {%else%}  
+     {{ stage('Create Target-Recursive CTE View') }}
+    
+      {#CTE NAME #}
+      {%set cte_name = sources[2].name %}
+
+    CREATE OR REPLACE VIEW {{ ref_no_link(node.location.name, node.name) }}
+    (
+        {% for col in columns %}
+            "{{ col.name }}"
+            {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+            {%- if not loop.last -%}, {% endif %}
+        {% endfor %}
+    )
+    {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
+    AS
+    WITH RECURSIVE {{sources[2].name}} AS ( 
+ 
+        -- The anchor clause defines the initial query.
+
+        SELECT
+        {% for col in sources[0].columns %}
+            {{ get_source_transform(col) }} AS "{{ col.name }}"
+            {% if not loop.last -%}, {% endif %}
+        {% endfor %}
+        {{ sources[0].join }}
+        
+        UNION ALL
+
+          -- The recursive clause defines the query that is repeated.
+
+        SELECT
+        {% for col in sources[1].columns %}
+            {{ get_source_transform(col) }} AS "{{ col.name }}"
+            {% if not loop.last -%}, {% endif %}
+        {% endfor %}
+        {% if sources[0].dependencies | length == 0 %}
+              FROM {{cte_name}}
+        {%else%}
+           {{  get_clause(sources[0].join,'from')  }}
+           JOIN {{sources[2].name}}  ON  
+           {%- for i in config.joincol.get('items') -%}
+              {%- set colName = i.columnName.name -%}
+              {%- set ctecol  = i.ctecolumnName.name -%}
+              {%if config.mulsources %}
+                "{{config.anctablename}}"."{{colName}}"
+               {%else%}"{{sources[0].dependencies[0].node.name}}"."{{colName}}" {%endif%} = "{{cte_name}}"."{{ctecol}}"
+              {%if not loop.last%} AND   {%endif%}  
+           {%- endfor -%}
+        {%endif%}        
+        {{ get_clause(joinclause) }}
+        
+    )SELECT {% for col in sources[2].columns %}
+            "{{ col.name }}"
+            {% if not loop.last -%}, {% endif %}
+        {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
+  {%endif%}
+{% endif %}

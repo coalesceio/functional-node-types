@@ -9,10 +9,10 @@ operation:
         - {}
     aggfunc1:
       items:
-        - funcname1: AVG
-        - funcname1: MAX
-    defaultval: ""
-    defvalue: true
+        - funcname1: null
+        - funcname1: null
+    defaultval: "'2'"
+    defvalue: false
     excolval: false
     exlcol:
       items:
@@ -23,16 +23,12 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: 273630d7-dc0a-43fe-9db9-cf1030810e5e
-            stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
+        - keyColDropdown: null
           keyColTextBox: SUBJECT
     tabValueColumn:
       items:
-        - funcname: MAX
-          valColDropdown:
-            columnCounter: f555d84b-2bae-48f4-8c19-d5bf76cab14c
-            stepCounter: 1f4f83f8-2d8e-4ed9-9eb1-6693e95cc802
+        - funcname: MIN
+          valColDropdown: null
           valColTextBox: GRADE
     testsEnabled: false
     trunc: true

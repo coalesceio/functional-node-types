@@ -1,0 +1,97 @@
+{% if sources|length != 3 %}
+    
+    {{stage('ERROR MESSAGE')}}
+    {# Generate SQL comment with error instead of breaking template #}
+    /* ERROR: Recursive CTE requires exactly 3 sources. Currently configured: {{ sources|length }} */
+    /*SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;*/
+
+{% else %}
+  
+  {# Normal template processing #}
+
+  {% for test in node.tests if config.testsEnabled %}
+     {% if test.runOrder == 'Before' %}
+        {{ test_stage(test.name, test.continueOnFailure) }}
+        {{ test.templateString }}
+     {% endif %}
+  {% endfor %}
+
+  {# CTE NAME #}
+  {%set cte_name = sources[2].name %}
+
+ {% if node.materializationType == 'table' %}
+
+    {% if config.truncateBefore %}
+        {{ stage('Truncate Target Table') }}
+        TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+    {% endif %}
+
+    {{ stage('Query Hierarchy-Recursive CTE') }}
+
+    INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
+    (
+        {% for col in columns %}
+            "{{ col.name }}"
+            {% if not loop.last -%},{% endif %}
+        {% endfor %}
+    )
+    WITH RECURSIVE {{sources[2].name}} AS ( 
+ 
+        -- The anchor clause defines the initial query.
+        SELECT
+        {% for col in sources[0].columns %}
+            {{ get_source_transform(col) }} AS "{{ col.name }}"
+            {% if not loop.last -%}, {% endif %}
+        {% endfor %}
+        {{ sources[0].join }}
+        
+        UNION ALL
+          -- The recursive clause defines the query that is repeated.
+        SELECT
+        {% for col in sources[1].columns %}
+            {{ get_source_transform(col) }} AS "{{ col.name }}"
+            {% if not loop.last -%}, {% endif %}
+        {% endfor %}
+        {% if sources[0].dependencies | length == 0 %}
+              FROM {{cte_name}}
+        {%else%}
+          {{  get_clause(sources[0].join,'from')  }}
+         JOIN {{sources[2].name}}  ON  
+           {%- for i in config.joincol.get('items') -%}
+              {%- set colName = i.columnName.name -%}
+              {%- set ctecol  = i.ctecolumnName.name -%}
+              {%if config.mulsources %}
+                "{{config.anctablename}}"."{{colName}}"
+               {%else%}"{{sources[0].dependencies[0].node.name}}"."{{colName}}" {%endif%} = "{{cte_name}}"."{{ctecol}}"
+              {%if not loop.last%} AND   {%endif%}  
+           {%- endfor -%}
+        {%endif%}
+        {{ get_clause(sources[1].join) }}
+        
+    )SELECT {% for col in sources[2].columns %}
+              {%if col.transform == ''%}
+                "{{ col.name }}"
+              {%else%}
+                {{col.transform}}
+              {%endif%}
+            {% if not loop.last -%}, {% endif %}
+        {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
+        
+ {% endif %}
+
+  {% if config.testsEnabled %}
+    {% for test in node.tests %}
+        {% if test.runOrder == 'After' %}
+            {{ test_stage(test.name, test.continueOnFailure) }}
+            {{ test.templateString }}
+        {% endif %}
+    {% endfor %}
+
+    {% for column in columns %}
+        {% for test in column.tests %}
+            {{ test_stage(column.name + ": " + test.name) }}
+            {{ test.templateString }}
+        {% endfor %}
+    {% endfor %}
+  {% endif %}
+{% endif %}

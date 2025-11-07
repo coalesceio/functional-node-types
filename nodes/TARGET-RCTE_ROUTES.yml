@@ -1,0 +1,128 @@
+fileVersion: 1
+id: a3276105-9ff6-43ef-899a-62ae4bbbfa2e
+name: RCTE_ROUTES
+operation:
+  config:
+    anctablename: ""
+    joincol:
+      items:
+        - columnName:
+            columnCounter: 7c270fd1-43ed-4859-a111-949c89903bdc
+            stepCounter: a3276105-9ff6-43ef-899a-62ae4bbbfa2e
+          ctecolumnName:
+            columnCounter: eeaff145-2990-4625-9204-819923afb0ac
+            stepCounter: a3276105-9ff6-43ef-899a-62ae4bbbfa2e
+    mulsources: false
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7c270fd1-43ed-4859-a111-949c89903bdc
+          stepCounter: a3276105-9ff6-43ef-899a-62ae4bbbfa2e
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: SOURCE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 8bc461e2-14a8-40ab-bf39-421ef9498e07
+                stepCounter: c08b85eb-9873-49c4-912d-aa249b3a151b
+            transform: ""
+          - columnReferences:
+              - columnCounter: 8bc461e2-14a8-40ab-bf39-421ef9498e07
+                stepCounter: c08b85eb-9873-49c4-912d-aa249b3a151b
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: eeaff145-2990-4625-9204-819923afb0ac
+          stepCounter: a3276105-9ff6-43ef-899a-62ae4bbbfa2e
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DESTINATION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fcab15a7-8142-4896-86fa-3c107a10bbf5
+                stepCounter: c08b85eb-9873-49c4-912d-aa249b3a151b
+            transform: ""
+          - columnReferences:
+              - columnCounter: fcab15a7-8142-4896-86fa-3c107a10bbf5
+                stepCounter: c08b85eb-9873-49c4-912d-aa249b3a151b
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: caefed05-054c-4b75-b1d9-8471e6e879a0
+          stepCounter: a3276105-9ff6-43ef-899a-62ae4bbbfa2e
+        config: {}
+        dataType: ARRAY
+        defaultValue: ""
+        description: ""
+        name: PATH
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "ARRAY_CONSTRUCT(\"SOURCE\", \"DESTINATION\") "
+          - columnReferences: []
+            transform: ARRAY_CAT("CTEF"."PATH", ARRAY_CONSTRUCT("ROUTES"."DESTINATION"))
+          - columnReferences: []
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          ROUTES: c08b85eb-9873-49c4-912d-aa249b3a151b
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ROUTES
+        join:
+          joinCondition: |+
+            FROM {{ ref('SOURCE', 'ROUTES') }} "ROUTES"
+            WHERE "SOURCE" = 'A'
+
+        name: RCTE_ROUTES
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: WHERE ARRAY_SIZE("PATH") < 10
+        name: CTE_RECURSION
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: CTEF
+        noLinkRefs: []
+  name: RCTE_ROUTES
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node
