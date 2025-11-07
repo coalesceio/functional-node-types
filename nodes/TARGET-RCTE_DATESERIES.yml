@@ -14,7 +14,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: true
-  locationName: SOURCE
+  locationName: TARGET
   materializationType: table
   metadata:
     appliedNodeTests: []
