@@ -61,6 +61,7 @@ metadata:
       
       
         isRequired: false
+        enableIf: "{%if sources[0].dependencies | length ==0%} false {%else%} true {%endif%}"
         
      
 

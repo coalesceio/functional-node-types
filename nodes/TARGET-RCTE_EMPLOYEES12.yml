@@ -134,17 +134,12 @@ operation:
             WHERE "MANAGER_ID" IS NULL
         name: RCTE_ANCHOR
         noLinkRefs: []
-      - aliases:
-          EMPLOYEES: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+      - aliases: {}
         customSQL:
           customSQL: ""
-        dependencies:
-          - locationName: SOURCE
-            nodeName: EMPLOYEES
+        dependencies: []
         join:
-          joinCondition: |-
-            FROM {{ ref('SOURCE', 'EMPLOYEES') }} "EMPLOYEES"
-            WHERE "LEVEL"<10
+          joinCondition: WHERE "LEVEL"<10
         name: RCTE_RECURSIVE
         noLinkRefs: []
       - aliases: {}

@@ -52,7 +52,10 @@
             {{ get_source_transform(col) }} AS "{{ col.name }}"
             {% if not loop.last -%}, {% endif %}
         {% endfor %}
-        {{  get_clause(sources[0].join,'from')  }}
+        {% if sources[0].dependencies | length == 0 %}
+              FROM {{cte_name}}
+        {%else%}
+          {{  get_clause(sources[0].join,'from')  }}
          JOIN {{sources[2].name}}  ON  
            {%- for i in config.joincol.get('items') -%}
               {%- set colName = i.columnName.name -%}
@@ -62,7 +65,8 @@
                {%else%}"{{sources[0].dependencies[0].node.name}}"."{{colName}}" {%endif%} = "{{cte_name}}"."{{ctecol}}"
               {%if not loop.last%} AND   {%endif%}  
            {%- endfor -%}
-        {{ get_clause(joinclause) }}
+        {%endif%}
+        {{ get_clause(sources[1].join) }}
         
     )SELECT {% for col in sources[2].columns %}
               {%if col.transform == ''%}
