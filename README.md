@@ -762,6 +762,30 @@ This is executed in the below stage:
 
 A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-guide/queries-cte#recursive-ctes-and-hierarchical-data] in Snowflake is a powerful SQL feature that allows you to query hierarchical or self-referential data by referencing itself. This is particularly useful for tasks like traversing organizational hierarchies, processing tree structures, or calculating cumulative totals.
 
+### Recursive CTE node Usage
+
+#### Adding Recursive CTE node on a source
+
+* Add a Recursive CTE node on top of source(Ex:Employees)
+  
+  <img width="506" height="79" alt="image-source-cte" src="https://github.com/user-attachments/assets/a18a6b67-e4c1-43a5-a8c0-71c340dff525" />
+* Keep the multi-source toggle ON and add three sources-Anchor clause,Recursive clause and CTE clause.Three sources does not mean mapping to three different sources.All three clauses refer to single source or a join of sources.
+
+  <img width="1055" height="334" alt="image-step2cte" src="https://github.com/user-attachments/assets/df9c9baa-4971-444a-9be0-71b35fba37c1" />
+* The sources need not be mapped to Recursive or CTE clauses.From clauses need not be generated in join tab.
+* Ensure source columns are mapped to appropriate source tables/views in recursive clause
+  <img width="1052" height="364" alt="image-recursiveclause" src="https://github.com/user-attachments/assets/010edc95-3da4-42e1-9e42-ad6f7308c29f" />
+* Use the join tab to add termination condition for recursive clause else there are chances for recursive cte to go on an infinite loop
+  <img width="948" height="418" alt="image-recursivejoin" src="https://github.com/user-attachments/assets/5132365d-a022-40b4-81db-9bdc51fe9ffc" />
+
+* In case if multiple tables are joined in anchor clause,then ensure you specify the anchor table name in config.
+  
+#### Adding a Recursive CTE with no source
+
+All the above steps specified above applies here as well except source columns need not be mapped to source tables/view in recursive clause.
+
+<img width="412" height="73" alt="image-recursion" src="https://github.com/user-attachments/assets/39f1b106-dab2-4613-8209-a22a53b59678" />
+
 ### Recursive CTE Node Configuration
 
 Recursive CTE has three configuration groups: 
@@ -784,7 +808,6 @@ Recursive CTE has three configuration groups:
 
 <img width="453" height="707" alt="image-recursivecte-generaloptions" src="https://github.com/user-attachments/assets/cd2ffe64-6693-4f58-bd6a-232e16580357" />
 
-
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Create As** | Choose 'table', 'view' or 'transient table' |
@@ -794,6 +817,84 @@ Recursive CTE has three configuration groups:
 | **Anchor table name**| Specify the anchor table name if multiple tables are joined in anchor clause|
 | **Anchor and CTE join column**| Specify the column names to be joined from anchor and CTE clause.<br/>Note:Enabled if the node type has a source.In case of a sequence generation or date series generation,this option will not be dispalyed|
 
+### Recursive CTE Deployment
+
+#### Recursive CTE Initial Deployment
+
+When deployed for the first time into an environment the Recursive CTE node of materialization type table will execute the below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Target Table** | This will execute a CREATE OR REPLACE statement and create a table in the target environment |
+| **Create Target View** | This will execute a CREATE OR REPLACE statement and create a view in the target environment |
+
+#### Recursive CTE Redeployment
+
+After the Recursive CTE node with materialization type table has been deployed for the first time into a target environment, subsequent deployments may result in either altering the Recursive CTE Table or recreating the Recursive CTE table.
+
+#### Altering the Recursive CTE Tables
+
+A few types of column or table changes will result in an ALTER statement to modify the Recursive CTE Table in the target environment, whether these changes are made individually or all together:
+
+* Changing table names
+* Dropping existing columns
+* Altering column data types
+* Adding new columns
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Clone Table** | Creates an internal table |
+| **Rename Table\| Alter Column \| Delete Column \| Add Column \| Edit table description** | Alter table statement is executed to perform the alter operation |
+| **Swap Cloned Table** | Upon successful completion of all updates, the clone replaces the main table ensuring that no data is lost |
+| **Delete Table** | Drops the internal table |
+
+#### Recreating the Recursive CTE Tables
+
+If any of the following change are detected, then the table will be recreated using a CREATE or REPLACE.
+
+* Join clause
+* Adding transformation
+* Changes in configuration like adding distinct, group by, or order by
+
+One of the following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Table** | Creates a new table |
+
+#### Recreating the Recursive CTE Views
+
+The subsequent deployment of Recursive CTE node of materialization type view with changes in view definition, adding table description or renaming view results in deleting the existing view and recreating the view.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Delete View** | Removes existing view |
+| **Create View** | Creates new view with updated definition |
+
+### Recursive CTE Undeployment
+
+If a Recursive CTE Node of materialization type table is deleted from a Workspace, that Recursive CTEspace is committed to Git and that commit deployed to a higher level environment then the Recursive CTE Table in the target environment will be dropped.
+
+This is executed in two stages:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Delete Table** | Coalesce Internal table is dropped |
+| **Delete Table** | Target table in Snowflake is dropped |
+
+If a Recursive CTE Node of materialization type view is deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Recursive CTE View in the target environment will be dropped.
+
+The stage executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Delete View** | Drops the existing Recursive CTE view from target environment |
+
+---
 ## Code
 
 ### Date Table Code
