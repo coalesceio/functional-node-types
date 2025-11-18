@@ -3,17 +3,18 @@
 	{{ node.override.create.script }}
 
 {% elif node.materializationType == 'table' %}
+
 	{{ stage('Create Target Table') }}
 
 	CREATE OR REPLACE TABLE {{ ref_no_link(node.location.name, node.name) }}
 	(
-		{% for col in columns %}
+		{% for col in columns if col.reqcolumn != 'N' %}
 			"{{ col.name }}" {{ col.dataType }}
 			{%- if not col.nullable %} NOT NULL
 				{%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
 			{% endif %}
 			{%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
-			{%- if not loop.last -%}, {% endif %}
+      {%- if not loop.last -%}, {% endif %}
 		{% endfor %}
 	)
 	{%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
@@ -26,7 +27,7 @@
     {{stage('ERROR MESSAGE')}}
     {# Generate SQL comment with error instead of breaking template #}
     /* ERROR: Recursive CTE requires exactly 3 sources. Currently configured: {{ sources|length }} */
-    /*SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;*/
+    SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;
   {%else%}  
      {{ stage('Create Target-Recursive CTE View') }}
     
@@ -35,10 +36,10 @@
 
     CREATE OR REPLACE VIEW {{ ref_no_link(node.location.name, node.name) }}
     (
-        {% for col in columns %}
-            "{{ col.name }}"
-            {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
-            {%- if not loop.last -%}, {% endif %}
+        {% for col in columns if col.reqcolumn != 'N'%}
+             "{{ col.name }}"
+              {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+              {%- if not loop.last -%}, {% endif %}
         {% endfor %}
     )
     {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
@@ -79,9 +80,14 @@
         {%endif%}        
         {{ get_clause(joinclause) }}
         
-    )SELECT {% for col in sources[2].columns %}
-            "{{ col.name }}"
-            {% if not loop.last -%}, {% endif %}
+    )SELECT {% for col in sources[2].columns if col.reqcolumn != 'N' %}
+              {%if col.transform == '' %}
+                "{{ col.name }}"
+                 {% if not loop.last -%}, {% endif %}
+              {%else%}
+                {{col.transform}} AS "{{col.name}}"
+                {% if not loop.last -%}, {% endif %}
+              {%endif%}
         {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
   {%endif%}
 {% endif %}

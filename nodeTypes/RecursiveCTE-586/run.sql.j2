@@ -3,7 +3,7 @@
     {{stage('ERROR MESSAGE')}}
     {# Generate SQL comment with error instead of breaking template #}
     /* ERROR: Recursive CTE requires exactly 3 sources. Currently configured: {{ sources|length }} */
-    /*SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;*/
+    SELECT 'ERROR: Recursive CTE requires exactly 3 sources' as ERROR_MESSAGE;
 
 {% else %}
   
@@ -30,7 +30,7 @@
 
     INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
     (
-        {% for col in columns %}
+        {% for col in columns if col.reqcolumn != 'N' %}
             "{{ col.name }}"
             {% if not loop.last -%},{% endif %}
         {% endfor %}
@@ -68,13 +68,14 @@
         {%endif%}
         {{ get_clause(sources[1].join) }}
         
-    )SELECT {% for col in sources[2].columns %}
-              {%if col.transform == ''%}
+    )SELECT {% for col in sources[2].columns if col.reqcolumn != 'N' %}
+              {%if col.transform == '' %}
                 "{{ col.name }}"
+                 {% if not loop.last -%}, {% endif %}
               {%else%}
-                {{col.transform}}
+                {{col.transform}} AS "{{col.name}}"
+                {% if not loop.last -%}, {% endif %}
               {%endif%}
-            {% if not loop.last -%}, {% endif %}
         {% endfor %}FROM {{sources[2].name}} {{get_clause(sources[2].join)}}
         
  {% endif %}

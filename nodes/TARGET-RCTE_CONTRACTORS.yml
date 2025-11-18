@@ -46,6 +46,8 @@ operation:
               - columnCounter: 757d958b-0a62-4769-9703-352193a13d5e
                 stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
             transform: ""
+          - columnReferences: []
+            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: b7381d43-8630-4ea5-b25b-9dd1c46024db
@@ -68,6 +70,8 @@ operation:
               - columnCounter: 75482719-bfee-45b9-a23e-e651c4162c51
                 stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
             transform: ""
+          - columnReferences: []
+            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 537ec3dd-2382-472a-8d5b-2f6b723dd298
@@ -89,6 +93,8 @@ operation:
           - columnReferences:
               - columnCounter: be8167f3-619f-406a-b333-320b8d6eab71
                 stepCounter: b113e212-df16-4153-8c18-5940e9602b3c
+            transform: ""
+          - columnReferences: []
             transform: ""
       - acceptedValues:
           strictMatch: true
@@ -113,6 +119,8 @@ operation:
               - columnCounter: "0"
                 stepCounter: "0"
             transform: "\"LEVEL\"+1"
+          - columnReferences: []
+            transform: ""
           - columnReferences: []
             transform: ""
         systemColumnType: None
@@ -152,6 +160,14 @@ operation:
         join:
           joinCondition: ORDER BY "LEVEL"
         name: RCTE_FNL
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: NEW_SOURCE
         noLinkRefs: []
   name: RCTE_CONTRACTORS
   overrideSQL: false

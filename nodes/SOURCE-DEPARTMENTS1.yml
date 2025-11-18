@@ -1,0 +1,92 @@
+fileVersion: 1
+id: 7b0deacf-72be-451b-a1e1-1ceef07f2c8e
+name: DEPARTMENTS1
+operation:
+  database: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b2c2afe8-aecd-4784-802a-05a6bfec9600
+          stepCounter: 7b0deacf-72be-451b-a1e1-1ceef07f2c8e
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: DEPT_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f23647fc-e275-433e-90f7-69780ec1d320
+          stepCounter: 7b0deacf-72be-451b-a1e1-1ceef07f2c8e
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: PARENT_DEPT_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 18cf572a-9fed-4cf3-8204-3a09bda37c6f
+          stepCounter: 7b0deacf-72be-451b-a1e1-1ceef07f2c8e
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: DEPT_NAME
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 73e86c20-72b0-4e21-a405-476dce03d4c2
+          stepCounter: 7b0deacf-72be-451b-a1e1-1ceef07f2c8e
+        config: {}
+        dataType: NUMBER(10,2)
+        defaultValue: ""
+        description: ""
+        name: BUDGET
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: DEPARTMENTS1
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node
