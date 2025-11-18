@@ -1,0 +1,157 @@
+fileVersion: 1
+id: 64123762-8e59-4e9f-b706-eac8916c77b0
+name: RCTE_EMPLOYEES_TRIM
+operation:
+  config:
+    anctablename: ""
+    joincol:
+      items:
+        - columnName:
+            columnCounter: 1a3b1369-2c14-4834-80fa-1f9a95197b08
+            stepCounter: 64123762-8e59-4e9f-b706-eac8916c77b0
+          ctecolumnName:
+            columnCounter: f52f2b4b-e860-460f-9fcf-b5ebce9f4b7d
+            stepCounter: 64123762-8e59-4e9f-b706-eac8916c77b0
+    mulsources: false
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f52f2b4b-e860-460f-9fcf-b5ebce9f4b7d
+          stepCounter: 64123762-8e59-4e9f-b706-eac8916c77b0
+        config:
+          reqcolumn: "N"
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPLOYEE_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1075631a-6205-411d-83a7-6fed6803d6bc
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+          - columnReferences:
+              - columnCounter: 1075631a-6205-411d-83a7-6fed6803d6bc
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1bbf6373-8b70-48fa-aa0e-e3c2794f85f9
+          stepCounter: 64123762-8e59-4e9f-b706-eac8916c77b0
+        config:
+          reqcolumn: ""
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: LEVEL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "1"
+          - columnReferences: []
+            transform: "\"LEVEL\" +1 "
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c34178aa-fe86-4eb7-b52c-3e54be4611d2
+          stepCounter: 64123762-8e59-4e9f-b706-eac8916c77b0
+        config: {}
+        dataType: STRING
+        defaultValue: ""
+        description: ""
+        name: TITLE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ae196338-839e-4631-9c10-c8b733e6289f
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+          - columnReferences:
+              - columnCounter: ae196338-839e-4631-9c10-c8b733e6289f
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1a3b1369-2c14-4834-80fa-1f9a95197b08
+          stepCounter: 64123762-8e59-4e9f-b706-eac8916c77b0
+        config:
+          reqcolumn: "N"
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MANAGER_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ca4ba570-5def-43d4-9511-ae02f477eaa7
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+          - columnReferences:
+              - columnCounter: ca4ba570-5def-43d4-9511-ae02f477eaa7
+                stepCounter: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+            transform: ""
+          - columnReferences: []
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          EMPLOYEES: 927825e6-9d2a-44a6-8050-4a1b742b30b3
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: EMPLOYEES
+        join:
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'EMPLOYEES') }} "EMPLOYEES"
+            WHERE "MANAGER_ID" IS NULL
+        name: RCTE_EMPLOYEES
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: RCTE_RECURSIVE
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: |+
+
+        name: RCTE_FNAL
+        noLinkRefs: []
+  name: RCTE_EMPLOYEES_TRIM
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node

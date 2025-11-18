@@ -38,7 +38,6 @@ metadata:
         attributeName: mulsources
         type: toggleButton
 
-
       - displayName: Anchor table name
         attributeName: anctablename
         type: textBox
@@ -63,7 +62,11 @@ metadata:
         isRequired: false
         enableIf: "{%if sources[0].dependencies | length ==0%} false {%else%} true {%endif%}"
         
-     
+    mappingColumns:
+      - headerName: Column selection(set to N to skip column)
+        attributeName: reqcolumn
+        type: textBox
+      
 
 
 

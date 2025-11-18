@@ -1,0 +1,73 @@
+fileVersion: 1
+id: 56e49291-15d2-43da-8919-ed231da718d6
+name: ITEMS
+operation:
+  database: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: eb0441e7-3bb4-45de-93ac-66343c86a322
+          stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0a951059-5c51-435a-b25d-f91e7745bfad
+          stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: PARENT_ID
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7bd0f93f-98af-41fc-a8c8-fa4a2e5cff6b
+          stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: VALUE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: ITEMS
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

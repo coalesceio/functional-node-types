@@ -1,0 +1,172 @@
+fileVersion: 1
+id: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+name: RCTE_ITEMS1
+operation:
+  config:
+    anctablename: ""
+    joincol:
+      items:
+        - columnName:
+            columnCounter: 9124b97e-f196-48b8-96fe-28d865f32d47
+            stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+          ctecolumnName:
+            columnCounter: 1c09d6a3-5d68-4fab-8c2b-f88cc2636f67
+            stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+    mulsources: false
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: true
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1c09d6a3-5d68-4fab-8c2b-f88cc2636f67
+          stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+        config:
+          reqcolumn: "N"
+        dataType: NUMBER(38,0)
+        description: ""
+        name: ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: eb0441e7-3bb4-45de-93ac-66343c86a322
+                stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+            transform: ""
+          - columnReferences:
+              - columnCounter: eb0441e7-3bb4-45de-93ac-66343c86a322
+                stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9124b97e-f196-48b8-96fe-28d865f32d47
+          stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+        config:
+          reqcolumn: "N"
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PARENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 0a951059-5c51-435a-b25d-f91e7745bfad
+                stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+            transform: ""
+          - columnReferences:
+              - columnCounter: 0a951059-5c51-435a-b25d-f91e7745bfad
+                stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 295a0083-e9c1-46c2-9d0f-3861cdd2f85c
+          stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+        config:
+          reqcolumn: "N"
+        dataType: NUMBER(38,0)
+        description: ""
+        name: VALUE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7bd0f93f-98af-41fc-a8c8-fa4a2e5cff6b
+                stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+            transform: ""
+          - columnReferences:
+              - columnCounter: 7bd0f93f-98af-41fc-a8c8-fa4a2e5cff6b
+                stepCounter: 56e49291-15d2-43da-8919-ed231da718d6
+            transform: ""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: d0c20b13-b7ca-4f45-9a0f-6f2618691dcf
+          stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: ROOT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "\"ID\""
+          - columnReferences: []
+            transform: "\"FCTE\".\"ROOT\""
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f06dec9a-6b8c-40f0-beb1-215f5e1d3258
+          stepCounter: 1193caa7-c3c2-4730-9e8e-54a1c1163b8a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: TOTAL_VALUE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+          - columnReferences: []
+            transform: ""
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: SUM("VALUE")
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          ITEMS: 56e49291-15d2-43da-8919-ed231da718d6
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ITEMS
+        join:
+          joinCondition: |
+            FROM {{ ref('SOURCE', 'ITEMS') }} "ITEMS"
+            WHERE parent_id IS NULL   -- start at roots
+        name: RCTE_ITEMS
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: RECURSION
+        noLinkRefs: []
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: GROUP BY "ROOT"
+        name: FCTE
+        noLinkRefs: []
+  name: RCTE_ITEMS1
+  overrideSQL: false
+  schema: ""
+  sqlType: "586"
+  type: sql
+  version: 1
+type: Node
