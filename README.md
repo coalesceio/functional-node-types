@@ -778,7 +778,7 @@ A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-gui
   <img width="1052" height="364" alt="image-recursiveclause" src="https://github.com/user-attachments/assets/010edc95-3da4-42e1-9e42-ad6f7308c29f" />
 * Use the join tab to add termination condition for recursive clause else there are chances for recursive cte to go on an infinite loop
   <img width="948" height="418" alt="image-recursivejoin" src="https://github.com/user-attachments/assets/5132365d-a022-40b4-81db-9bdc51fe9ffc" />
-* In case of applying aggregation to CTE,there might be a need to exclude columns from the CTE.A (mapping column)[] "Column Specification" is mapping grid which when set to 'N' for a specific column,it is excluded from CTE and target as well.
+* In case of applying aggregation to CTE,there might be a need to exclude columns from the CTE.A (mapping column)[#mapping-column] "Column Specification" is mapping grid which when set to 'N' for a specific column,it is excluded from CTE and target as well.
 
 <img width="1059" height="437" alt="image-aggregation" src="https://github.com/user-attachments/assets/81baa8fb-e637-41cd-8433-6e7d6155509f" />
 
@@ -827,6 +827,11 @@ Recursive CTE has three configuration groups:
 | **Anchor table name**| Specify the anchor table name if multiple tables are joined in anchor clause|
 | **Anchor and CTE join column**| Specify the column names to be joined from anchor and CTE clause.<br/>Note:Enabled if the node type has a source.In case of a sequence generation or date series generation,this option will not be dispalyed|
 
+### Mapping Column
+* A mapping column "Column Specification" is added to mapping grid if there is a requirement to skip any column only from CTE and eventuallt the target table
+* In order to skip a column,set "Column Specification" to 'N'
+* In the context of Recursive CTE node type,ony a value of 'N' is accepted by "Column Specification".
+  
 ### Recursive CTE Deployment
 
 #### Recursive CTE Initial Deployment
