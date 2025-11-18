@@ -781,6 +781,8 @@ A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-gui
 * In case of applying aggregation to CTE,there might be a need to exclude columns from the CTE.A (mapping column)[#mapping-column] "Column Specification" is mapping grid which when set to 'N' for a specific column,it is excluded from CTE and target as well.
 
 <img width="1059" height="437" alt="image-aggregation" src="https://github.com/user-attachments/assets/81baa8fb-e637-41cd-8433-6e7d6155509f" />
+<img width="1047" height="448" alt="imagegroupbyclause" src="https://github.com/user-attachments/assets/ad50e259-11e2-481a-befc-3a76bfc921f2" />
+
 
 * In case if multiple tables are joined in anchor clause,then ensure you specify the anchor table name in config.
   
