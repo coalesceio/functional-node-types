@@ -4,7 +4,7 @@ name: DATE_NODE2
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
-    daysToGenerate: "2000"
+    daysToGenerate: "100"
     insertZeroKey: false
     postSQL: ""
     preSQL: ""
@@ -122,7 +122,7 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: DAYOFWEEK({{ config.dateColumnName }})
+            transform: DAYOFWEEKISO({{ config.dateColumnName }})
       - acceptedValues:
           strictMatch: true
           values: []

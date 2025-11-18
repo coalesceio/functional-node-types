@@ -110,4 +110,8 @@ does not permit copying or modification for any other purpose.
 			{%- if loopColumn|trim == '' -%} {{ ns.varSelectOrderByColText[loop.index0]}} {%- else -%}  {{loopColumn}}  {%- endif -%}
 			{%- if not loop.last -%},{%- endif -%}
 			{%- endfor %}
+{% else %}
+	{{ stage('Load Skipped for View') }}
+	--The node {{node.name}} is materialized as a View. Therefore, a Load operation is not supported.
+	SELECT 1 AS INFO_MESSAGE WHERE FALSE
 {%endif%}
