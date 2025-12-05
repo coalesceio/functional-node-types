@@ -58,7 +58,7 @@ metadata:
         type: toggleButton
         default: true
         isRequired: false
-        enableIf: "{% if node.materializationType != 'view' %} true {% else %} false {% endif %}"
+        enableIf: "{% if node.materializationType != 'view' and config.pdeploy != true %} true {% else %} false {% endif %}"
 
       - type: toggleButton
         attributeName: insertZeroKey
