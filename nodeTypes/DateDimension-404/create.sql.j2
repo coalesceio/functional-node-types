@@ -151,6 +151,84 @@ does not permit copying or modification for any other purpose.
 
                {% endif %}
                 
+        {%if desiredState.config.pdeploy %}      
+        {%if desiredState.config.insertZeroKey%}
+            {{ stage('Insert Zero Record') }}
+           MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}USING
+           (SELECT 
+            {% for col in desiredState.sources[0].columns %}
+        	{% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+        	{% if col.isSurrogateKey %} {{desiredState.config.insertZeroKeySurrogateKey}}
+        	{% elif col.isSystemCurrentFlag %}'Y'
+        	{% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
+        	{% elif col.isSystemVersion%}1
+        	{% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
+        	{% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{desiredState.config.insertZeroKeyDate}}', 'DD-MM-YYYY') AS {{ col.dataType }})
+        	{% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+        			{% if dtparams[0] and dtparams[0] | int <  desiredState.config.insertZeroKeyStr | length  %}
+        			SUBSTRING({{desiredState.config.insertZeroKeyStr}},1,{{ dtparams[0] }})
+        			{% else %}
+        				'{{desiredState.config.insertZeroKeyStr}}'
+        			{% endif %}
+        	{% elif col.nullable %}NULL
+        	{% else %}''
+        	{% endif %}
+        	AS "{{ col.name }}"
+        	{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        FROM   DUAL
+        )AS SOURCE_ZERO
+        ON 
+        {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
+        CASE 
+        WHEN TRY_TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name}}.{{ col.name}} = CAST(TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') AS DATE)
+        ELSE {{ node.name}}.{{ col.name}} = '{{desiredState.config.insertZeroKeySurrogateKey}}'
+        END 				
+	    {% endfor -%}			
+        WHEN MATCHED THEN UPDATE
+        SET
+        {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+        	{{ node.name}}.{{ col.name}} =SOURCE_ZERO.{{ col.name}}
+        	{% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+        WHEN NOT MATCHED THEN INSERT
+        (
+        {%- for col in desiredState.columns %}
+        	{{ col.name}}
+        	{% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+        )
+        VALUES
+        (
+        {%- for col in desiredState.columns %}
+         SOURCE_ZERO.{{ col.name}}			
+        	{% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+        )
+     {%endif%}
+
+     {{stage('Insert data in deploy')}}
+      
+      	 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+    (
+        {% for col in desiredState.columns if col.reqcolumn != 'N' %}
+            "{{ col.name }}"
+            {% if not loop.last -%},{% endif %}
+        {% endfor %}
+    )   
+		WITH CTE_DATE_GENERATOR AS (
+        SELECT DATEADD(DAY, SEQ4(), {{desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
+        FROM TABLE(GENERATOR(ROWCOUNT=>{{ desiredState.config.daysToGenerate }}))
+    )
+    SELECT
+    {% for col in desiredState.sources[0].columns %}
+        {{ col.transform }} AS "{{ col.name }}"
+        {%- if not loop.last -%}, {% endif %}
+    {% endfor %}
+    FROM CTE_DATE_GENERATOR
+    
+    {%endif%}
+
         {% endif %}
 
         {% if currentState == undefined or currentState.storageLocations | length == 0  %}
@@ -175,6 +253,84 @@ does not permit copying or modification for any other purpose.
             {{ stage('Resume Recluster Table') }}
             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
         {% endif %}
+
+    {%if desiredState.config.pdeploy %}      
+        {%if desiredState.config.insertZeroKey%}
+            {{ stage('Insert Zero Record') }}
+           MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}USING
+           (SELECT 
+            {% for col in desiredState.sources[0].columns %}
+        	{% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+        	{% if col.isSurrogateKey %} {{desiredState.config.insertZeroKeySurrogateKey}}
+        	{% elif col.isSystemCurrentFlag %}'Y'
+        	{% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
+        	{% elif col.isSystemVersion%}1
+        	{% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
+        	{% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{desiredState.config.insertZeroKeyDate}}', 'DD-MM-YYYY') AS {{ col.dataType }})
+        	{% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+        			{% if dtparams[0] and dtparams[0] | int <  desiredState.config.insertZeroKeyStr | length  %}
+        			SUBSTRING({{desiredState.config.insertZeroKeyStr}},1,{{ dtparams[0] }})
+        			{% else %}
+        				'{{desiredState.config.insertZeroKeyStr}}'
+        			{% endif %}
+        	{% elif col.nullable %}NULL
+        	{% else %}''
+        	{% endif %}
+        	AS "{{ col.name }}"
+        	{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        FROM   DUAL
+        )AS SOURCE_ZERO
+        ON 
+        {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
+        CASE 
+        WHEN TRY_TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name}}.{{ col.name}} = CAST(TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') AS DATE)
+        ELSE {{ node.name}}.{{ col.name}} = '{{desiredState.config.insertZeroKeySurrogateKey}}'
+        END 				
+	    {% endfor -%}			
+        WHEN MATCHED THEN UPDATE
+        SET
+        {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+        	{{ node.name}}.{{ col.name}} =SOURCE_ZERO.{{ col.name}}
+        	{% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+        WHEN NOT MATCHED THEN INSERT
+        (
+        {%- for col in desiredState.columns %}
+        	{{ col.name}}
+        	{% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+        )
+        VALUES
+        (
+        {%- for col in desiredState.columns %}
+         SOURCE_ZERO.{{ col.name}}			
+        	{% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+        )
+     {%endif%}
+
+     {{stage('Insert data in deploy')}}
+      
+      	 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+    (
+        {% for col in desiredState.columns if col.reqcolumn != 'N' %}
+            "{{ col.name }}"
+            {% if not loop.last -%},{% endif %}
+        {% endfor %}
+    )   
+		WITH CTE_DATE_GENERATOR AS (
+        SELECT DATEADD(DAY, SEQ4(), {{desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
+        FROM TABLE(GENERATOR(ROWCOUNT=>{{ desiredState.config.daysToGenerate }}))
+    )
+    SELECT
+    {% for col in desiredState.sources[0].columns %}
+        {{ col.transform }} AS "{{ col.name }}"
+        {%- if not loop.last -%}, {% endif %}
+    {% endfor %}
+    FROM CTE_DATE_GENERATOR
+    
+{%endif%}
 
         {% elif currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType %}
 
@@ -720,7 +876,7 @@ does not permit copying or modification for any other purpose.
 
         {% endif %}
 
-
+     
     {% endif %}
 
 {% elif currentState != undefined and desiredState == undefined %}

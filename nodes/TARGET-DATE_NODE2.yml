@@ -6,7 +6,21 @@ operation:
     dateColumnName: "\"DATE_COL\""
     daysToGenerate: "100"
     insertZeroKey: false
-    postSQL: ""
+    insertZeroKeyDate: ""
+    insertZeroKeyStr: ""
+    insertZeroKeySurrogateKey: ""
+    pdeploy: false
+    postSQL: |-
+      insert into ANANDHIS_DEV.SOURCE_DATA.auditex1(query_id,query_text)
+      SELECT 
+          QUERY_ID,
+          QUERY_TEXT
+      FROM TABLE(ANANDHIS_DEV.INFORMATION_SCHEMA.QUERY_HISTORY(
+          RESULT_LIMIT => 10000, -- Max is 10,000 per fetch
+          END_TIME_RANGE_START => DATEADD('hour', -1, CURRENT_TIMESTAMP()) -- Look back 1 hour
+      ))
+      ORDER BY START_TIME DESC
+      limit 10
     preSQL: ""
     startingDate: DATEADD(DAY, -730, CURRENT_DATE)
     testsEnabled: false

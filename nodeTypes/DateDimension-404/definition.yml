@@ -46,6 +46,12 @@ metadata:
 
       - type: overrideSQLToggle
         enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
+      
+      - displayName: Populate on deploy
+        attributeName: pdeploy
+        type: toggleButton
+        enableIf: "{% if node.materializationType == 'table' or node.materializationType == 'transient table'%} true {%else%} false {%endif%}"
+      
 
       - displayName: Truncate Before
         attributeName: truncateBefore
