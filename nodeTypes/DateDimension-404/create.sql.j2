@@ -359,6 +359,7 @@ does not permit copying or modification for any other purpose.
                 testsEnabledDiff    = [],
                 metaDataChanges     = [],
                 metadataUpdate      = 'Metadata Update'
+                
             ) %}
 
             {# Test  #}
@@ -425,14 +426,14 @@ does not permit copying or modification for any other purpose.
             {% endif %}
 
 
-
             {# Drop Columns #}
-            {% set nsVariables = namespace(colchanges=0) %}
+            {% set ns = namespace(colchanges=0,datatypechanges = 0,nullvaluechanges = 0,defaultvalchanges = 0,addcoltest = true) %}
+
             {% for dropCurCol in currentState.columns %}
                 {% if dropCurCol.id not in desiredState.columns | map(attribute="id") %}
-                {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                {% set ns.colchanges = ns.colchanges + 1 %}
 
-                    {% if nsVariables.colchanges == 1 %}
+                    {% if ns.colchanges == 1 %}
                         {{ stage('Drop Columns') }}
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                         DROP COLUMN 
@@ -450,9 +451,11 @@ does not permit copying or modification for any other purpose.
             {% set nsVariables = namespace(colchanges=0) %}
             {% for addDesCol in desiredState.columns %}
                 {% if addDesCol.id not in currentState.columns | map(attribute="id") %}
-                {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                {% set ns.colchanges = ns.colchanges + 1 %}
 
-                    {% if nsVariables.colchanges == 1 %}
+                    {% if ns.colchanges == 1 %}
+                        {# Adding column changes #}
+                        {% set ns.addcoltest = false %}
                         {{ stage('Add Columns') }}
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                         ADD COLUMN
@@ -510,9 +513,9 @@ does not permit copying or modification for any other purpose.
                             nullableTest == false  or
                             defaultValueTest == false or
                             descriptionTest == false) %}
-                        {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                        {% set ns.colchanges = ns.colchanges + 1 %}
 
-                        {% if nsVariables.colchanges == 1 %}
+                        {% if ns.colchanges == 1 %}
                             {{ stage('Change Column Attributes') }}
                             ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                             MODIFY
@@ -521,10 +524,11 @@ does not permit copying or modification for any other purpose.
                             {% if nsVariables.colchanges > 1 %},{% endif %}
                             COLUMN "{{ desiredColumnName }}"
                             SET DATA TYPE {{ desiredDatatype }}
-                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set ns.colchanges = ns.colchanges + 1 %}
+                            {% set ns.datatypechanges = ns.datatypechanges + 1%}
                         {% endif %}
                         {% if nullableTest == false %}
-                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            {% if ns.colchanges > 1 %},{% endif %}
                             COLUMN "{{ desiredColumnName }}"
                             {% if currentNullable == true %}
                                 SET
@@ -532,23 +536,25 @@ does not permit copying or modification for any other purpose.
                                 DROP
                             {% endif %}
                             NOT NULL
-                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set ns.colchanges = ns.colchanges + 1 %}
+                            {% set ns.nullvaluechanges = ns.nullvaluechanges + 1%}
                         {% endif %}
                         {% if descriptionTest == false %}
-                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            {% if ns.colchanges > 1 %},{% endif %}
                             COLUMN "{{ desiredColumnName }}"
                             COMMENT '{{ desiredDescription |escape }}'
-                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set ns.colchanges = ns.colchanges + 1 %}
                         {% endif %}
                         {% if defaultValueTest == false %}
-                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            {% if ns.colchanges > 1 %},{% endif %}
                             COLUMN "{{ desiredColumnName }}"
                             {% if desiredDefaultValue == '' %}
                                 DROP DEFAULT
                             {% else %}
                                 SET DEFAULT {{ desiredDefaultValue }}
                             {% endif %}
-                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set ns.colchanges = ns.colchanges + 1 %}
+                            {% set ns.defaultvalchanges = ns.defaultvalchanges + 1%}
                         {% endif %}
                         
                         {# Metadata changes detected #}
@@ -875,9 +881,10 @@ does not permit copying or modification for any other purpose.
             {% endif %}
 
         {% endif %}
-    
-     {%if desiredState.config.pdeploy %}      
-        {%if desiredState.config.insertZeroKey%}
+
+     {%if desiredState.config.pdeploy and (nsVariables.transformTest == false or nsMetaVariables.transformTest   == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate
+     ) %}      
+        {%if (currentState.config.insertZeroKey == false and desiredState.config.insertZeroKey == true) or nsMetaVariables.insertZeroKeyTest == false%}
             {{ stage('Insert Zero Record') }}
            MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}USING
            (SELECT 
@@ -934,7 +941,7 @@ does not permit copying or modification for any other purpose.
 
      {{stage('Insert data in deploy')}}
       
-      	 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+      	 INSERT OVERWRITE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
     (
         {% for col in desiredState.columns if col.reqcolumn != 'N' %}
             "{{ col.name }}"
