@@ -1,26 +1,16 @@
 fileVersion: 1
-id: fb0e0af3-ff80-4079-998c-a32881f063c2
-name: DATE_NODE2
+id: 55f36202-e668-4f7b-9441-7b7b3aff4d23
+name: DIM_DATE_NODE_NZEROKEY
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
-    daysToGenerate: "100"
+    daysToGenerate: "2000"
     insertZeroKey: false
-    insertZeroKeyDate: ""
-    insertZeroKeyStr: ""
-    insertZeroKeySurrogateKey: ""
-    pdeploy: false
-    postSQL: |-
-      insert into ANANDHIS_DEV.SOURCE_DATA.auditex1(query_id,query_text)
-      SELECT 
-          QUERY_ID,
-          QUERY_TEXT
-      FROM TABLE(ANANDHIS_DEV.INFORMATION_SCHEMA.QUERY_HISTORY(
-          RESULT_LIMIT => 10000, -- Max is 10,000 per fetch
-          END_TIME_RANGE_START => DATEADD('hour', -1, CURRENT_TIMESTAMP()) -- Look back 1 hour
-      ))
-      ORDER BY START_TIME DESC
-      limit 10
+    insertZeroKeyDate: 01-01-1900
+    insertZeroKeyStr: NA
+    insertZeroKeySurrogateKey: 01-01-1900
+    pdeploy: true
+    postSQL: ""
     preSQL: ""
     startingDate: DATEADD(DAY, -730, CURRENT_DATE)
     testsEnabled: false
@@ -30,7 +20,7 @@ operation:
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:
@@ -39,14 +29,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: eaff33c2-6486-4339-81d7-427e16ee7c29
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: cf8f5e3c-231b-4ff7-82a3-d4eef086b5c4
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: DATE
         defaultValue: ""
         description: Date in the format YYYY-MM-DD
         isBusinessKey: true
-        isDate: true
         name: DATE_KEY
         nullable: true
         sourceColumnReferences:
@@ -57,8 +46,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c356f127-6bae-4b61-9da5-aa6944745bda
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 770c9054-a36a-42db-9452-5eb3ff5aac99
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -74,8 +63,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 29967dd4-8b48-4211-8a2e-cd6b27a186a0
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 2bcbe64c-366b-4b31-8e9c-b40954e2b48f
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -91,8 +80,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 12032d7c-56f6-4b7f-b72a-96345abb0cc0
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 6acae0e3-e5ea-45c7-b8f8-74b6f7afdf52
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: CHAR(3)
         defaultValue: ""
@@ -108,8 +97,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: be022fd1-fb2e-40b0-85bd-1b8796deba25
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 9ac76c77-bedb-43bd-9044-1ca42fcbc685
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -125,8 +114,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a2e3c516-f4a1-4721-af44-6e8773ce5137
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: c210697a-cbd3-4301-8a3d-497a454233cf
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -136,14 +125,14 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: DAYOFWEEKISO({{ config.dateColumnName }})
+            transform: DAYOFWEEK({{ config.dateColumnName }})
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c34fd15c-18c2-47cb-8018-7792d1653bef
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 14230d8a-cce8-48fa-8ebd-d8efeb610ca3
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -159,8 +148,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a68ae181-9e85-4e27-ad44-57b86e986ca7
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 04922085-3a2d-4587-bc06-04894680a3e1
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -176,8 +165,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c5e9e6e1-d71f-4e52-b88d-d3d5758034e1
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: cfd4a50d-bf11-4c68-8007-5dabf237416e
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -193,8 +182,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 14a41ca1-acc9-4690-b278-bd6715ddce9a
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 34366a49-b05a-4959-924c-8fc195f94a43
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -210,8 +199,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 0cdd0875-27cf-4516-a26c-acc5eaef4197
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: d94988dc-9fde-441c-96df-4029a83d0200
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -227,8 +216,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 021c11ba-6a9e-4c1d-a985-4b6b12494b4f
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: 7c84d4a9-0314-41a8-a6ab-248eec020143
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -244,8 +233,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: eddf6924-9598-4d9b-9436-ece23582b09a
-          stepCounter: fb0e0af3-ff80-4079-998c-a32881f063c2
+          columnCounter: ea4d4784-a473-4c6f-b694-9399369c143c
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -256,6 +245,40 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'Y' ELSE 'N' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 18ffc9c3-ecea-48b6-970a-cddf9f606abc
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 33c384cd-e032-4f28-a69a-3a45884c902f
+          stepCounter: 55f36202-e668-4f7b-9441-7b7b3aff4d23
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -265,9 +288,9 @@ operation:
         dependencies: []
         join:
           joinCondition: ""
-        name: DATE_NODE2
+        name: DIM_DATE_NODE_NZEROKEY
         noLinkRefs: []
-  name: DATE_NODE2
+  name: DIM_DATE_NODE_NZEROKEY
   overrideSQL: false
   schema: ""
   sqlType: "404"
