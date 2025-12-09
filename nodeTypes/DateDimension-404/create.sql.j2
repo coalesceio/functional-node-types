@@ -8,232 +8,116 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Name           : Date Dimension  == #}
 {# == Node Type Description    : This node creates Date table,view and also override create sql for view with advanced deployment strategy and loads the date records == #}
 
-
 {% if desiredState %}
 
-    {% if  desiredState.node.override.create.enabled and desiredState.node.materializationType == 'view' %}
+    {% if desiredState.node.override.create.enabled and desiredState.node.materializationType == 'view' %}
 
-         {% if currentState != undefined %}
+        {% if currentState != undefined %}
             {% if currentState.node.materializationType != 'view' %}
                 {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
                 DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
             {% endif %}
         {% endif %}
 
-	      {{ desiredState.node.override.create.script }}
+        {{ desiredState.node.override.create.script }}
 
-    {%elif desiredState.node.materializationType == 'view' %}
+    {% elif desiredState.node.materializationType == 'view' %}
 
         {% if currentState != undefined %}
-            {%if currentState.storageLocations|length == 0%}          
-              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
-              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
-               {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
-               
-            {%else %}  
-            {# Current target node mappings #}
-            {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
-            {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
-            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
-            {% endif %}      
-       
+            {% if currentState.storageLocations | length == 0 %}
+                {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+                {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+                {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+            {% else %}
+                {# Current target node mappings #}
+                {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+                {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+                {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+            {% endif %}
+
             {# Desired target node mappings #}
             {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
             {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
-            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  		
+            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}
+
             {% if currentState.node.materializationType != 'view' %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
                 DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-            {% elif  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
-                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
+            {% elif desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema %}
+                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
             {% endif %}
         {% endif %}
-    
-      {% if currentState == undefined or currentState != desiredState %}
-        {{ stage('Create Date View', true, "sql", "create") }}
 
-        CREATE OR REPLACE VIEW {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-        (
-            {% for col in desiredState.columns %}
-                "{{ col.name }}"
-                {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
-                {%- if not loop.last -%}, {% endif %}
-            {% endfor %}
-        )
-        {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
-        AS
-		WITH CTE_DATE_GENERATOR AS (
-        SELECT DATEADD(DAY, SEQ4(), {{desiredState.config.startingDate }}) AS {{ desiredState.config.dateColumnName }}
-        FROM TABLE(GENERATOR(ROWCOUNT=>{{ desiredState.config.daysToGenerate }}))
-		)
-        {% for source in desiredState.sources %}
-            SELECT
-            {% if desiredState.config.selectDistinct %}
-              DISTINCT
-            {% endif %}
-            {% for col in source.columns %}
-               {{ col.transform | replace('config','desiredState.config')  }} AS "{{ col.name }}"
-                {%- if not loop.last -%}, {% endif %}
-            {% endfor %}
+        {% if currentState == undefined or currentState != desiredState %}
+            {{ stage('Create Date View', true, "sql", "create") }}
 
-            FROM CTE_DATE_GENERATOR	
-        {% endfor %}
-      {%endif%}
-    {% elif desiredState.node.materializationType == 'table' or desiredState.node.materializationType == 'transient table'  %}
-        
+            CREATE OR REPLACE VIEW {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+            (
+                {% for col in desiredState.columns %}
+                    "{{ col.name }}"
+                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+            )
+            {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+            AS
+            WITH CTE_DATE_GENERATOR AS (
+                SELECT DATEADD(DAY, SEQ4(), {{ desiredState.config.startingDate }}) AS {{ desiredState.config.dateColumnName }}
+                FROM TABLE(GENERATOR(ROWCOUNT => {{ desiredState.config.daysToGenerate }}))
+            )
+            {% for source in desiredState.sources %}
+                SELECT
+                {% if desiredState.config.selectDistinct %}
+                    DISTINCT
+                {% endif %}
+                {% for col in source.columns %}
+                    {{ col.transform | replace('config', 'desiredState.config') }} AS "{{ col.name }}"
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+                FROM CTE_DATE_GENERATOR
+            {% endfor %}
+        {% endif %}
+
+    {% elif desiredState.node.materializationType == 'table' or desiredState.node.materializationType == 'transient table' %}
+
         {# Figure out cluster key #}
         {% set nsVariables = namespace(finalClusterKey="") %}
         {% if desiredState.config.clusterKey == true %}
             {% if desiredState.config.clusterKeyExpressions == true %}
                 {% set column, expression = desiredState.config.clusterKeyConfigExpressions.get('items') | map(attribute='columnNameExpressions.name') | list, desiredState.config.clusterKeyConfigExpressions.get('items') | map(attribute='sqlExpression') | list %}
-
-                {%- set nsVariables = namespace(clusterValues=[]) %}
-
+                {%- set nsVariables.clusterValues = [] %}
                 {% for r in column %}
                     {% if expression[loop.index0] == "" %}
-                        {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"'+r+'"'] %}
+                        {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"' + r + '"'] %}
                     {% else %}
                         {% set nsVariables.clusterValues = nsVariables.clusterValues + [expression[loop.index0]] %}
                     {% endif %}
                 {% endfor %}
-
                 {% set nsVariables.finalClusterKey = 'CLUSTER BY (' + nsVariables.clusterValues | join(',') + ')' %}
-
             {% else %}
-
                 {% set column = desiredState.config.clusterKeyConfig.get('items') | map(attribute='columnName.name') | list %}
-
-                {%- set nsVariables = namespace(clusterValues=[]) %}
-
+                {%- set nsVariables.clusterValues = [] %}
                 {% for r in column %}
-                    {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"'+r+'"'] %}
+                    {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"' + r + '"'] %}
                 {% endfor %}
-
                 {% set nsVariables.finalClusterKey = 'CLUSTER BY (' + nsVariables.clusterValues | join(',') + ')' %}
-
             {% endif %}
         {% endif %}
 
-
         {% if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
 
-                {# Change in materialization type #}
+            {# Change in materialization type #}
+            {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
 
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+            {% if currentState.node.materializationType == 'view' %}
+                DROP {{ currentState.node.materializationType }} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+            {% else %}
+                DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+            {% endif %}
 
-                 {% if currentState.node.materializationType == 'view' %} 
-                      DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                {% else %}
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                {% endif %}
-                 
-                {{ stage('Create Work '+ ' {{desiredState.node.materializationType}}') }}
-               CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-                (
-                {% for col in desiredState.columns %}
-                    "{{ col.name }}" {{ col.dataType }}
-                    {%- if not col.nullable %} NOT NULL
-                        {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
-                    {% endif %}
-                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
-                    {%- if not loop.last -%}, {% endif %}
-                {% endfor %}
-                )
-               {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
-
-               {% if desiredState.config.clusterKey == true %}
-                  {{ stage('Apply Table Clustering') }}
-                 ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
-
-                   {{ stage('Resume Recluster Table') }}
-                  ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
-
-               {% endif %}
-                
-        {%if desiredState.config.pdeploy %}      
-        {%if desiredState.config.insertZeroKey%}
-            {{ stage('Insert Zero Record') }}
-           MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}USING
-           (SELECT 
-            {% for col in desiredState.sources[0].columns %}
-        	{% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
-        	{% if col.isSurrogateKey %} {{desiredState.config.insertZeroKeySurrogateKey}}
-        	{% elif col.isSystemCurrentFlag %}'Y'
-        	{% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
-        	{% elif col.isSystemVersion%}1
-        	{% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
-        	{% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{desiredState.config.insertZeroKeyDate}}', 'DD-MM-YYYY') AS {{ col.dataType }})
-        	{% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
-        			{% if dtparams[0] and dtparams[0] | int <  desiredState.config.insertZeroKeyStr | length  %}
-        			SUBSTRING({{desiredState.config.insertZeroKeyStr}},1,{{ dtparams[0] }})
-        			{% else %}
-        				'{{desiredState.config.insertZeroKeyStr}}'
-        			{% endif %}
-        	{% elif col.nullable %}NULL
-        	{% else %}''
-        	{% endif %}
-        	AS "{{ col.name }}"
-        	{% if not loop.last %}, {% endif %}
-        {% endfor %}
-        FROM   DUAL
-        )AS SOURCE_ZERO
-        ON 
-        {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
-        CASE 
-        WHEN TRY_TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name}}.{{ col.name}} = CAST(TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') AS DATE)
-        ELSE {{ node.name}}.{{ col.name}} = '{{desiredState.config.insertZeroKeySurrogateKey}}'
-        END 				
-	    {% endfor -%}			
-        WHEN MATCHED THEN UPDATE
-        SET
-        {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
-        	{{ node.name}}.{{ col.name}} =SOURCE_ZERO.{{ col.name}}
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        WHEN NOT MATCHED THEN INSERT
-        (
-        {%- for col in desiredState.columns %}
-        	{{ col.name}}
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        )
-        VALUES
-        (
-        {%- for col in desiredState.columns %}
-         SOURCE_ZERO.{{ col.name}}			
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        )
-     {%endif%}
-
-     {{stage('Insert data in deploy')}}
-      
-      	 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-    (
-        {% for col in desiredState.columns if col.reqcolumn != 'N' %}
-            "{{ col.name }}"
-            {% if not loop.last -%},{% endif %}
-        {% endfor %}
-    )   
-		WITH CTE_DATE_GENERATOR AS (
-        SELECT DATEADD(DAY, SEQ4(), {{desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
-        FROM TABLE(GENERATOR(ROWCOUNT=>{{ desiredState.config.daysToGenerate }}))
-    )
-    SELECT
-    {% for col in desiredState.sources[0].columns %}
-        {{ col.transform }} AS "{{ col.name }}"
-        {%- if not loop.last -%}, {% endif %}
-    {% endfor %}
-    FROM CTE_DATE_GENERATOR
-    
-    {%endif%}
-
-        {% endif %}
-
-        {% if currentState == undefined or currentState.storageLocations | length == 0  %}
-            {{ stage('Create Date '+ ' {{desiredState.node.materializationType}}') }}
-            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+            {{ stage('Create Work ' + ' {{desiredState.node.materializationType}}') }}
+            CREATE OR REPLACE {{ desiredState.node.materializationType }} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                 {% for col in desiredState.columns %}
                     "{{ col.name }}" {{ col.dataType }}
@@ -246,91 +130,199 @@ does not permit copying or modification for any other purpose.
             )
             {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
 
-        {% if desiredState.config.clusterKey == true %}
-            {{ stage('Apply Table Clustering') }}
-            ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
+            {% if desiredState.config.clusterKey == true %}
+                {{ stage('Apply Table Clustering') }}
+                ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
 
-            {{ stage('Resume Recluster Table') }}
-            ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
+                {{ stage('Resume Recluster Table') }}
+                ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
+            {% endif %}
+             
+            {#===Data insertion -Populate on deploy and Insert Zero key records===#}
+
+            {% if desiredState.config.pdeploy %}
+                {% if desiredState.config.insertZeroKey %}
+                    {{ stage('Insert Zero Record') }}
+                    MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} USING (
+                        SELECT
+                        {% for col in desiredState.sources[0].columns %}
+                            {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+                            {% if col.isSurrogateKey %} {{ desiredState.config.insertZeroKeySurrogateKey }}
+                            {% elif col.isSystemCurrentFlag %}'Y'
+                            {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
+                            {% elif col.isSystemVersion %}1
+                            {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
+                            {% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{ desiredState.config.insertZeroKeyDate }}', 'DD-MM-YYYY') AS {{ col.dataType }})
+                            {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+                                {% if dtparams[0] and dtparams[0] | int < desiredState.config.insertZeroKeyStr | length %}
+                                    SUBSTRING({{ desiredState.config.insertZeroKeyStr }}, 1, {{ dtparams[0] }})
+                                {% else %}
+                                    '{{ desiredState.config.insertZeroKeyStr }}'
+                                {% endif %}
+                            {% elif col.nullable %}NULL
+                            {% else %}''
+                            {% endif %}
+                            AS "{{ col.name }}"
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        FROM DUAL
+                    ) AS SOURCE_ZERO
+                    ON
+                    {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
+                        CASE
+                            WHEN TRY_TO_DATE('{{ desiredState.config.insertZeroKeySurrogateKey }}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name }}.{{ col.name }} = CAST(TO_DATE('{{ desiredState.config.insertZeroKeySurrogateKey }}', 'DD-MM-YYYY') AS DATE)
+                            ELSE {{ node.name }}.{{ col.name }} = '{{ desiredState.config.insertZeroKeySurrogateKey }}'
+                        END
+                    {% endfor -%}
+                    WHEN MATCHED THEN UPDATE
+                    SET
+                    {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+                        {{ node.name }}.{{ col.name }} = SOURCE_ZERO.{{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    WHEN NOT MATCHED THEN INSERT
+                    (
+                    {%- for col in desiredState.columns %}
+                        {{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    )
+                    VALUES
+                    (
+                    {%- for col in desiredState.columns %}
+                        SOURCE_ZERO.{{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    )
+                {% endif %}
+
+                {{ stage('Insert data in deploy') }}
+
+                INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                    {% for col in desiredState.columns if col.reqcolumn != 'N' %}
+                        "{{ col.name }}"
+                        {% if not loop.last -%},{% endif %}
+                    {% endfor %}
+                )
+                WITH CTE_DATE_GENERATOR AS (
+                    SELECT DATEADD(DAY, SEQ4(), {{ desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
+                    FROM TABLE(GENERATOR(ROWCOUNT => {{ desiredState.config.daysToGenerate }}))
+                )
+                SELECT
+                {% for col in desiredState.sources[0].columns %}
+                    {{ col.transform }} AS "{{ col.name }}"
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+                FROM CTE_DATE_GENERATOR
+
+            {% endif %}
         {% endif %}
 
-    {%if desiredState.config.pdeploy %}      
-        {%if desiredState.config.insertZeroKey%}
-            {{ stage('Insert Zero Record') }}
-           MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}USING
-           (SELECT 
-            {% for col in desiredState.sources[0].columns %}
-        	{% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
-        	{% if col.isSurrogateKey %} {{desiredState.config.insertZeroKeySurrogateKey}}
-        	{% elif col.isSystemCurrentFlag %}'Y'
-        	{% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
-        	{% elif col.isSystemVersion%}1
-        	{% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
-        	{% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{desiredState.config.insertZeroKeyDate}}', 'DD-MM-YYYY') AS {{ col.dataType }})
-        	{% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
-        			{% if dtparams[0] and dtparams[0] | int <  desiredState.config.insertZeroKeyStr | length  %}
-        			SUBSTRING({{desiredState.config.insertZeroKeyStr}},1,{{ dtparams[0] }})
-        			{% else %}
-        				'{{desiredState.config.insertZeroKeyStr}}'
-        			{% endif %}
-        	{% elif col.nullable %}NULL
-        	{% else %}''
-        	{% endif %}
-        	AS "{{ col.name }}"
-        	{% if not loop.last %}, {% endif %}
-        {% endfor %}
-        FROM   DUAL
-        )AS SOURCE_ZERO
-        ON 
-        {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
-        CASE 
-        WHEN TRY_TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name}}.{{ col.name}} = CAST(TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') AS DATE)
-        ELSE {{ node.name}}.{{ col.name}} = '{{desiredState.config.insertZeroKeySurrogateKey}}'
-        END 				
-	    {% endfor -%}			
-        WHEN MATCHED THEN UPDATE
-        SET
-        {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
-        	{{ node.name}}.{{ col.name}} =SOURCE_ZERO.{{ col.name}}
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        WHEN NOT MATCHED THEN INSERT
-        (
-        {%- for col in desiredState.columns %}
-        	{{ col.name}}
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        )
-        VALUES
-        (
-        {%- for col in desiredState.columns %}
-         SOURCE_ZERO.{{ col.name}}			
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        )
-     {%endif%}
 
-     {{stage('Insert data in deploy')}}
-      
-      	 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-    (
-        {% for col in desiredState.columns if col.reqcolumn != 'N' %}
-            "{{ col.name }}"
-            {% if not loop.last -%},{% endif %}
-        {% endfor %}
-    )   
-		WITH CTE_DATE_GENERATOR AS (
-        SELECT DATEADD(DAY, SEQ4(), {{desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
-        FROM TABLE(GENERATOR(ROWCOUNT=>{{ desiredState.config.daysToGenerate }}))
-    )
-    SELECT
-    {% for col in desiredState.sources[0].columns %}
-        {{ col.transform }} AS "{{ col.name }}"
-        {%- if not loop.last -%}, {% endif %}
-    {% endfor %}
-    FROM CTE_DATE_GENERATOR
-    
-{%endif%}
+        {% if currentState == undefined or currentState.storageLocations | length == 0 %}
+           
+            {{ stage('Create Date ' + ' {{desiredState.node.materializationType}}') }}
+            CREATE OR REPLACE {{ desiredState.node.materializationType }} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+            (
+                {% for col in desiredState.columns %}
+                    "{{ col.name }}" {{ col.dataType }}
+                    {%- if not col.nullable %} NOT NULL
+                        {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+                    {% endif %}
+                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+            )
+            {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+
+            {% if desiredState.config.clusterKey == true %}
+                {{ stage('Apply Table Clustering') }}
+                ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} {{ nsVariables.finalClusterKey }}
+
+                {{ stage('Resume Recluster Table') }}
+                ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} RESUME RECLUSTER
+            {% endif %}
+            
+            {#===Data insertion -Populate on deploy and Insert Zero key records===#}
+
+            {% if desiredState.config.pdeploy %}
+                {% if desiredState.config.insertZeroKey %}
+                    {{ stage('Insert Zero Record') }}
+                    MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} USING (
+                        SELECT
+                        {% for col in desiredState.sources[0].columns %}
+                            {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+                            {% if col.isSurrogateKey %} {{ desiredState.config.insertZeroKeySurrogateKey }}
+                            {% elif col.isSystemCurrentFlag %}'Y'
+                            {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
+                            {% elif col.isSystemVersion %}1
+                            {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
+                            {% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{ desiredState.config.insertZeroKeyDate }}', 'DD-MM-YYYY') AS {{ col.dataType }})
+                            {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+                                {% if dtparams[0] and dtparams[0] | int < desiredState.config.insertZeroKeyStr | length %}
+                                    SUBSTRING({{ desiredState.config.insertZeroKeyStr }}, 1, {{ dtparams[0] }})
+                                {% else %}
+                                    '{{ desiredState.config.insertZeroKeyStr }}'
+                                {% endif %}
+                            {% elif col.nullable %}NULL
+                            {% else %}''
+                            {% endif %}
+                            AS "{{ col.name }}"
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        FROM DUAL
+                    ) AS SOURCE_ZERO
+                    ON
+                    {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
+                        CASE
+                            WHEN TRY_TO_DATE('{{ desiredState.config.insertZeroKeySurrogateKey }}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name }}.{{ col.name }} = CAST(TO_DATE('{{ desiredState.config.insertZeroKeySurrogateKey }}', 'DD-MM-YYYY') AS DATE)
+                            ELSE {{ node.name }}.{{ col.name }} = '{{ desiredState.config.insertZeroKeySurrogateKey }}'
+                        END
+                    {% endfor -%}
+                    WHEN MATCHED THEN UPDATE
+                    SET
+                    {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+                        {{ node.name }}.{{ col.name }} = SOURCE_ZERO.{{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    WHEN NOT MATCHED THEN INSERT
+                    (
+                    {%- for col in desiredState.columns %}
+                        {{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    )
+                    VALUES
+                    (
+                    {%- for col in desiredState.columns %}
+                        SOURCE_ZERO.{{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    )
+                {% endif %}
+
+                {{ stage('Insert data in deploy') }}
+
+                INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                    {% for col in desiredState.columns if col.reqcolumn != 'N' %}
+                        "{{ col.name }}"
+                        {% if not loop.last -%},{% endif %}
+                    {% endfor %}
+                )
+                WITH CTE_DATE_GENERATOR AS (
+                    SELECT DATEADD(DAY, SEQ4(), {{ desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
+                    FROM TABLE(GENERATOR(ROWCOUNT => {{ desiredState.config.daysToGenerate }}))
+                )
+                SELECT
+                {% for col in desiredState.sources[0].columns %}
+                    {{ col.transform }} AS "{{ col.name }}"
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+                FROM CTE_DATE_GENERATOR
+
+            {% endif %}
 
         {% elif currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType %}
 
@@ -343,46 +335,44 @@ does not permit copying or modification for any other purpose.
             Initialize metadata tracking variables
             ========================================================= #}
             {% set nsMetaVariables = namespace(
-                transformTest       = true,
-                testsEnabledTest    = true,
-                insertZeroKeyTest   = true,
-                metaDataChanged     = false,
-                transformDiff       = [],
-                dateColumnNameDiff  = [],
-                businessDiff        = [],
-                preSQLDiff          = [],
-                postSQLDiff         = [],
-                startingDateDiff    = [],
-                truncateBeforeDiff  = [],
-                daysToGenerateDiff  = [],
-                insertZeroKeyDiff   = [],
-                testsEnabledDiff    = [],
-                metaDataChanges     = [],
-                metadataUpdate      = 'Metadata Update'
-                
+                transformTest=true,
+                testsEnabledTest=true,
+                insertZeroKeyTest=true,
+                metaDataChanged=false,
+                transformDiff=[],
+                dateColumnNameDiff=[],
+                businessDiff=[],
+                preSQLDiff=[],
+                postSQLDiff=[],
+                startingDateDiff=[],
+                truncateBeforeDiff=[],
+                daysToGenerateDiff=[],
+                insertZeroKeyDiff=[],
+                testsEnabledDiff=[],
+                metaDataChanges=[],
+                metadataUpdate='Metadata Update'
             ) %}
 
-            {# Test  #}
-            {%if currentState.storageLocations|length == 0%}          
-              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
-              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
-               {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
-               
-            {%else %}   
-            {# Current target node mappings #}
-            {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
-            {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
-            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
-			{% endif %}		 
-        
+            {# Test #}
+            {% if currentState.storageLocations | length == 0 %}
+                {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+                {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+                {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+            {% else %}
+                {# Current target node mappings #}
+                {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+                {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+                {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+            {% endif %}
+
             {# Desired target node mappings #}
             {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
             {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
-            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}           
-            
-             {% if currentDatabaseSchema != desiredDatabaseSchema %}
+            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}
+
+            {% if currentDatabaseSchema != desiredDatabaseSchema %}
                 {% set nsVariables.storageLocationTest = false %}
-             {% endif %}
+            {% endif %}
 
             {# Clustering Test #}
             {% set clusterKeyTest = currentState.config.clusterKey == desiredState.config.clusterKey %}
@@ -390,12 +380,7 @@ does not permit copying or modification for any other purpose.
             {% set clusterKeyConfigTest = currentState.config.clusterKeyConfig == desiredState.config.clusterKeyConfig %}
             {% set clusterKeyConfigExpressionsTest = currentState.config.clusterKeyConfigExpressions == desiredState.config.clusterKeyConfigExpressions %}
 
-            {% if 
-                clusterKeyTest == false or
-                clusterKeyExpressionsTest == false or
-                clusterKeyConfigTest == false or
-                clusterKeyConfigExpressionsTest == false %}
-
+            {% if clusterKeyTest == false or clusterKeyExpressionsTest == false or clusterKeyConfigTest == false or clusterKeyConfigExpressionsTest == false %}
                 {% set clusterTest = false %}
             {% else %}
                 {% set clusterTest = true %}
@@ -408,8 +393,8 @@ does not permit copying or modification for any other purpose.
                 {% set cdb = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='database') | first %}
                 {% set csch = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='schema') | first %}
 
-                ALTER TABLE  "{{cdb}}"."{{csch}}"."{{currentState.node.name}}"
-                RENAME TO   {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                ALTER TABLE "{{ cdb }}"."{{ csch }}"."{{ currentState.node.name }}"
+                RENAME TO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
 
                 {# Metadata changes detected #}
                 {% set nsMetaVariables.metaDataChanged = true %}
@@ -417,28 +402,26 @@ does not permit copying or modification for any other purpose.
 
             {# Change table description #}
             {% if (nsVariables.nodeCommentTest == false or currentState.node.description != desiredState.node.description) %}
-                 {{ stage('Change table description') }}
-                 ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                {{ stage('Change table description') }}
+                ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 SET COMMENT = '{{ desiredState.node.description | escape }}'
 
                 {# Metadata changes detected #}
                 {% set nsMetaVariables.metaDataChanged = true %}
             {% endif %}
 
-
             {# Drop Columns #}
-            {% set ns = namespace(colchanges=0,datatypechanges = 0,nullvaluechanges = 0,defaultvalchanges = 0,addcoltest = true) %}
+            {% set ns = namespace(colchanges=0, datatypechanges=0, nullvaluechanges=0, defaultvalchanges=0, addcoltest=true) %}
 
             {% for dropCurCol in currentState.columns %}
                 {% if dropCurCol.id not in desiredState.columns | map(attribute="id") %}
-                {% set ns.colchanges = ns.colchanges + 1 %}
-
+                    {% set ns.colchanges = ns.colchanges + 1 %}
                     {% if ns.colchanges == 1 %}
                         {{ stage('Drop Columns') }}
                         ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-                        DROP COLUMN 
+                        DROP COLUMN
                     {% else %}
-                        , 
+                        ,
                     {% endif %}
                     "{{ dropCurCol.name }}"
 
@@ -451,8 +434,7 @@ does not permit copying or modification for any other purpose.
             {% set nsVariables = namespace(colchanges=0) %}
             {% for addDesCol in desiredState.columns %}
                 {% if addDesCol.id not in currentState.columns | map(attribute="id") %}
-                {% set ns.colchanges = ns.colchanges + 1 %}
-
+                    {% set ns.colchanges = ns.colchanges + 1 %}
                     {% if ns.colchanges == 1 %}
                         {# Adding column changes #}
                         {% set ns.addcoltest = false %}
@@ -462,11 +444,11 @@ does not permit copying or modification for any other purpose.
                     {% else %}
                         ,
                     {% endif %}
-                        "{{ addDesCol.name }}" {{ addDesCol.dataType }}
-                        {%- if not addDesCol.nullable %} NOT NULL
-                            {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
-                        {% endif %}
-                        {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
+                    "{{ addDesCol.name }}" {{ addDesCol.dataType }}
+                    {%- if not addDesCol.nullable %} NOT NULL
+                        {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
+                    {% endif %}
+                    {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
 
                     {# Metadata changes detected #}
                     {% set nsMetaVariables.metaDataChanged = true %}
@@ -491,7 +473,7 @@ does not permit copying or modification for any other purpose.
 
             {# Change data types etc #}
             {% set nsVariables.colchanges = 0 %}
-            {% for alterCurCol in currentState.columns %}        
+            {% for alterCurCol in currentState.columns %}
                 {% if alterCurCol.id in desiredState.columns | map(attribute="id") %}
                     {% set currentDatatype = alterCurCol.dataType %}
                     {% set currentNullable = alterCurCol.nullable %}
@@ -509,10 +491,7 @@ does not permit copying or modification for any other purpose.
                     {% set defaultValueTest = currentDefaultValue == desiredDefaultValue %}
                     {% set descriptionTest = currentDescription == desiredDescription %}
 
-                    {% if (datatypeTest == false or 
-                            nullableTest == false  or
-                            defaultValueTest == false or
-                            descriptionTest == false) %}
+                    {% if (datatypeTest == false or nullableTest == false or defaultValueTest == false or descriptionTest == false) %}
                         {% set ns.colchanges = ns.colchanges + 1 %}
 
                         {% if ns.colchanges == 1 %}
@@ -525,7 +504,7 @@ does not permit copying or modification for any other purpose.
                             COLUMN "{{ desiredColumnName }}"
                             SET DATA TYPE {{ desiredDatatype }}
                             {% set ns.colchanges = ns.colchanges + 1 %}
-                            {% set ns.datatypechanges = ns.datatypechanges + 1%}
+                            {% set ns.datatypechanges = ns.datatypechanges + 1 %}
                         {% endif %}
                         {% if nullableTest == false %}
                             {% if ns.colchanges > 1 %},{% endif %}
@@ -537,12 +516,12 @@ does not permit copying or modification for any other purpose.
                             {% endif %}
                             NOT NULL
                             {% set ns.colchanges = ns.colchanges + 1 %}
-                            {% set ns.nullvaluechanges = ns.nullvaluechanges + 1%}
+                            {% set ns.nullvaluechanges = ns.nullvaluechanges + 1 %}
                         {% endif %}
                         {% if descriptionTest == false %}
                             {% if ns.colchanges > 1 %},{% endif %}
                             COLUMN "{{ desiredColumnName }}"
-                            COMMENT '{{ desiredDescription |escape }}'
+                            COMMENT '{{ desiredDescription | escape }}'
                             {% set ns.colchanges = ns.colchanges + 1 %}
                         {% endif %}
                         {% if defaultValueTest == false %}
@@ -554,17 +533,17 @@ does not permit copying or modification for any other purpose.
                                 SET DEFAULT {{ desiredDefaultValue }}
                             {% endif %}
                             {% set ns.colchanges = ns.colchanges + 1 %}
-                            {% set ns.defaultvalchanges = ns.defaultvalchanges + 1%}
+                            {% set ns.defaultvalchanges = ns.defaultvalchanges + 1 %}
                         {% endif %}
-                        
+
                         {# Metadata changes detected #}
                         {% set nsMetaVariables.metaDataChanged = true %}
                     {% else %}
-                                            
+
                     {% endif %}
                 {% endif %}
             {% endfor %}
-            
+
             {# Figure out cluster key #}
             {% set nsVariables = namespace(finalClusterKey="") %}
             {% if clusterTest == false %}
@@ -575,7 +554,7 @@ does not permit copying or modification for any other purpose.
 
                     {% for r in column %}
                         {% if expression[loop.index0] == "" %}
-                            {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"'+r+'"'] %}
+                            {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"' + r + '"'] %}
                         {% else %}
                             {% set nsVariables.clusterValues = nsVariables.clusterValues + [expression[loop.index0]] %}
                         {% endif %}
@@ -590,11 +569,11 @@ does not permit copying or modification for any other purpose.
                     {%- set nsVariables = namespace(clusterValues=[]) %}
 
                     {% for r in column %}
-                        {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"'+r+'"'] %}
+                        {% set nsVariables.clusterValues = nsVariables.clusterValues + ['"' + r + '"'] %}
                     {% endfor %}
 
                     {% set nsVariables.finalClusterKey = 'CLUSTER BY (' + nsVariables.clusterValues | join(',') + ')' %}
-                
+
                 {% else %}
 
                     {% set nsVariables.finalClusterKey = 'DROP CLUSTERING KEY' %}
@@ -618,20 +597,12 @@ does not permit copying or modification for any other purpose.
                 {% for col in desiredState.sources[0].columns %}
 
                     {# Try to get matching column #}
-                    {% set matched_column = currentState.sources[0].columns
-                        | selectattr('id', 'equalto', col.id)
-                        | first
-                    %}
+                    {% set matched_column = currentState.sources[0].columns | selectattr('id', 'equalto', col.id) | first %}
 
                     {% if matched_column %}
 
                         {# Transformation Changes #}
-                        {% set currentTransform = currentState.sources[0].columns
-                            | selectattr('id', 'equalto', col.id)
-                            | map(attribute='transform')
-                            | first
-                            | default('')
-                        %}
+                        {% set currentTransform = currentState.sources[0].columns | selectattr('id', 'equalto', col.id) | map(attribute='transform') | first | default('') %}
 
                         {% if currentTransform != col.transform %}
                             {% set nsMetaVariables.transformTest = false %}
@@ -651,19 +622,9 @@ does not permit copying or modification for any other purpose.
                 {# =========================================================
                 Business key comparison
                 ========================================================= #}
-                {% set currentBusinessKeys = currentState.columns
-                    | selectattr('isBusinessKey', 'equalto', true)
-                    | map(attribute='name')
-                    | list
-                    | sort
-                %}
+                {% set currentBusinessKeys = currentState.columns | selectattr('isBusinessKey', 'equalto', true) | map(attribute='name') | list | sort %}
 
-                {% set desiredBusinessKeys = desiredState.columns
-                    | selectattr('isBusinessKey', 'equalto', true)
-                    | map(attribute='name')
-                    | list
-                    | sort
-                %}
+                {% set desiredBusinessKeys = desiredState.columns | selectattr('isBusinessKey', 'equalto', true) | map(attribute='name') | list | sort %}
 
                 {% if currentBusinessKeys != desiredBusinessKeys %}
                     {% set _ = nsMetaVariables.businessDiff.append({
@@ -760,7 +721,7 @@ does not permit copying or modification for any other purpose.
 
                     {% set nsMetaVariables.insertZeroKeyTest = false %}
                     {% set _ = nsMetaVariables.insertZeroKeyDiff.append({
-                            "is": desiredState.config.insertZeroKey,
+                        "is": desiredState.config.insertZeroKey,
                         "was": currentState.config.insertZeroKey
                     }) %}
 
@@ -774,7 +735,7 @@ does not permit copying or modification for any other purpose.
                             "is": desiredState.config.insertZeroKeySurrogateKey | replace('/*', '/ *') | replace('*/', '* /'),
                             "was": currentState.config.insertZeroKeySurrogateKey | replace('/*', '/ *') | replace('*/', '* /')
                         }) %}
-                        {% endif %}
+                    {% endif %}
 
                     {% if currentState.config.insertZeroKeyStr != desiredState.config.insertZeroKeyStr %}
                         {% set nsMetaVariables.insertZeroKeyTest = false %}
@@ -798,17 +759,17 @@ does not permit copying or modification for any other purpose.
                 {% if nsMetaVariables.insertZeroKeyTest == false %}
                     {{ update_metadata("Zero Key Insert", nsMetaVariables.insertZeroKeyDiff, "Zero Key Insert") }}
                 {% endif %}
-    
+
                 {# =========================================================
                 Test Enabled comparison (per column)
                 ========================================================= #}
                 {% if desiredState.config.testsEnabled != currentState.config.testsEnabled %}
 
-                        {% set nsMetaVariables.testsEnabledTest = false %}
-                        {% set _ = nsMetaVariables.testsEnabledDiff.append({
-                            "is": desiredState.config.testsEnabled,
-                            "was": currentState.config.testsEnabled
-                        }) %}
+                    {% set nsMetaVariables.testsEnabledTest = false %}
+                    {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                        "is": desiredState.config.testsEnabled,
+                        "was": currentState.config.testsEnabled
+                    }) %}
 
                 {% elif desiredState.config.testsEnabled and currentState.config.testsEnabled %}
 
@@ -817,7 +778,7 @@ does not permit copying or modification for any other purpose.
 
                         {% set nsMetaVariables.testsEnabledTest = false %}
                         {% set _ = nsMetaVariables.testsEnabledDiff.append({
-                            "is": desiredState.node.tests | map(attribute="name") | list | sort ,
+                            "is": desiredState.node.tests | map(attribute="name") | list | sort,
                             "was": currentState.node.tests | map(attribute="name") | list | sort
                         }) %}
                     {% else %}
@@ -841,12 +802,7 @@ does not permit copying or modification for any other purpose.
 
                         {% if matchingSource %}
                             {% for col in src.columns %}
-                                {% set currentTest = matchingSource.columns
-                                    | selectattr('id', 'equalto', col.id)
-                                    | map(attribute='tests')
-                                    | first
-                                    | default('')
-                                %}
+                                {% set currentTest = matchingSource.columns | selectattr('id', 'equalto', col.id) | map(attribute='tests') | first | default('') %}
 
                                 {% if currentTest != col.tests %}
                                     {% set nsMetaVariables.testsEnabledTest = false %}
@@ -880,106 +836,106 @@ does not permit copying or modification for any other purpose.
                 select 1=0
             {% endif %}
 
+            {#=================================================
+            Redeployment for Populate on deploy toggle scenario
+            ==================================================#}
+
+            {% if desiredState.config.pdeploy and (nsVariables.transformTest == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate) %}
+                
+                {% if (currentState.config.insertZeroKey == false and desiredState.config.insertZeroKey == true) or nsMetaVariables.insertZeroKeyTest == false %}
+                    {{ stage('Insert Zero Record') }}
+                    MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} USING (
+                        SELECT
+                        {% for col in desiredState.sources[0].columns %}
+                            {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+                            {% if col.isSurrogateKey %} {{ desiredState.config.insertZeroKeySurrogateKey }}
+                            {% elif col.isSystemCurrentFlag %}'Y'
+                            {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
+                            {% elif col.isSystemVersion %}1
+                            {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
+                            {% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{ desiredState.config.insertZeroKeyDate }}', 'DD-MM-YYYY') AS {{ col.dataType }})
+                            {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+                                {% if dtparams[0] and dtparams[0] | int < desiredState.config.insertZeroKeyStr | length %}
+                                    SUBSTRING({{ desiredState.config.insertZeroKeyStr }}, 1, {{ dtparams[0] }})
+                                {% else %}
+                                    '{{ desiredState.config.insertZeroKeyStr }}'
+                                {% endif %}
+                            {% elif col.nullable %}NULL
+                            {% else %}''
+                            {% endif %}
+                            AS "{{ col.name }}"
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        FROM DUAL
+                    ) AS SOURCE_ZERO
+                    ON
+                    {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
+                        CASE
+                            WHEN TRY_TO_DATE('{{ desiredState.config.insertZeroKeySurrogateKey }}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name }}.{{ col.name }} = CAST(TO_DATE('{{ desiredState.config.insertZeroKeySurrogateKey }}', 'DD-MM-YYYY') AS DATE)
+                            ELSE {{ node.name }}.{{ col.name }} = '{{ desiredState.config.insertZeroKeySurrogateKey }}'
+                        END
+                    {% endfor -%}
+                    WHEN MATCHED THEN UPDATE
+                    SET
+                    {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+                        {{ node.name }}.{{ col.name }} = SOURCE_ZERO.{{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    WHEN NOT MATCHED THEN INSERT
+                    (
+                    {%- for col in desiredState.columns %}
+                        {{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    )
+                    VALUES
+                    (
+                    {%- for col in desiredState.columns %}
+                        SOURCE_ZERO.{{ col.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor -%}
+                    )
+                {% endif %}
+
+                {{ stage('Insert data in deploy') }}
+
+                INSERT OVERWRITE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                    {% for col in desiredState.columns if col.reqcolumn != 'N' %}
+                        "{{ col.name }}"
+                        {% if not loop.last -%},{% endif %}
+                    {% endfor %}
+                )
+                WITH CTE_DATE_GENERATOR AS (
+                    SELECT DATEADD(DAY, SEQ4(), {{ desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
+                    FROM TABLE(GENERATOR(ROWCOUNT => {{ desiredState.config.daysToGenerate }}))
+                )
+                SELECT
+                {% for col in desiredState.sources[0].columns %}
+                    {{ col.transform }} AS "{{ col.name }}"
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+                FROM CTE_DATE_GENERATOR
+
+            {% endif %}
+
         {% endif %}
 
-     {%if desiredState.config.pdeploy and (nsVariables.transformTest == false or nsMetaVariables.transformTest   == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate
-     ) %}      
-        {%if (currentState.config.insertZeroKey == false and desiredState.config.insertZeroKey == true) or nsMetaVariables.insertZeroKeyTest == false%}
-            {{ stage('Insert Zero Record') }}
-           MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}USING
-           (SELECT 
-            {% for col in desiredState.sources[0].columns %}
-        	{% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
-        	{% if col.isSurrogateKey %} {{desiredState.config.insertZeroKeySurrogateKey}}
-        	{% elif col.isSystemCurrentFlag %}'Y'
-        	{% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}{{ get_source_transform(col) }}
-        	{% elif col.isSystemVersion%}1
-        	{% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO') %}0
-        	{% elif col.dataType[:4] | upper in ('DATE','TIME') %}CAST(TO_TIMESTAMP( '{{desiredState.config.insertZeroKeyDate}}', 'DD-MM-YYYY') AS {{ col.dataType }})
-        	{% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
-        			{% if dtparams[0] and dtparams[0] | int <  desiredState.config.insertZeroKeyStr | length  %}
-        			SUBSTRING({{desiredState.config.insertZeroKeyStr}},1,{{ dtparams[0] }})
-        			{% else %}
-        				'{{desiredState.config.insertZeroKeyStr}}'
-        			{% endif %}
-        	{% elif col.nullable %}NULL
-        	{% else %}''
-        	{% endif %}
-        	AS "{{ col.name }}"
-        	{% if not loop.last %}, {% endif %}
-        {% endfor %}
-        FROM   DUAL
-        )AS SOURCE_ZERO
-        ON 
-        {% for col in desiredState.columns if col.isSurrogateKey or col.isBusinessKey %}
-        CASE 
-        WHEN TRY_TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') IS NOT NULL THEN {{ node.name}}.{{ col.name}} = CAST(TO_DATE('{{desiredState.config.insertZeroKeySurrogateKey}}', 'DD-MM-YYYY') AS DATE)
-        ELSE {{ node.name}}.{{ col.name}} = '{{desiredState.config.insertZeroKeySurrogateKey}}'
-        END 				
-	    {% endfor -%}			
-        WHEN MATCHED THEN UPDATE
-        SET
-        {%- for col in desiredState.columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
-        	{{ node.name}}.{{ col.name}} =SOURCE_ZERO.{{ col.name}}
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        WHEN NOT MATCHED THEN INSERT
-        (
-        {%- for col in desiredState.columns %}
-        	{{ col.name}}
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        )
-        VALUES
-        (
-        {%- for col in desiredState.columns %}
-         SOURCE_ZERO.{{ col.name}}			
-        	{% if not loop.last %}, {% endif %}			
-        {% endfor -%}
-        )
-     {%endif%}
-
-     {{stage('Insert data in deploy')}}
-      
-      	 INSERT OVERWRITE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-    (
-        {% for col in desiredState.columns if col.reqcolumn != 'N' %}
-            "{{ col.name }}"
-            {% if not loop.last -%},{% endif %}
-        {% endfor %}
-    )   
-		WITH CTE_DATE_GENERATOR AS (
-        SELECT DATEADD(DAY, SEQ4(), {{desiredState.config.startingDate }}) AS {{ config.dateColumnName }}
-        FROM TABLE(GENERATOR(ROWCOUNT=>{{ desiredState.config.daysToGenerate }}))
-    )
-    SELECT
-    {% for col in desiredState.sources[0].columns %}
-        {{ col.transform }} AS "{{ col.name }}"
-        {%- if not loop.last -%}, {% endif %}
-    {% endfor %}
-    FROM CTE_DATE_GENERATOR
-    
-  {%endif%}
-     
     {% endif %}
 
 {% elif currentState != undefined and desiredState == undefined %}
 
     {# Table or View Name #}
-    {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
-    {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
+    {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %}
+    {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %}
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-    
+
     {% if currentState.node.materializationType == 'view' %}
-
-     {{ stage('Drop Table or View') }}
-     DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
-
+        {{ stage('Drop Table or View') }}
+        DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
     {% else %}
-     
-       {{ stage('Drop ' + currentState.node.materializationType) }}
-       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
-
+        {{ stage('Drop ' + currentState.node.materializationType) }}
+        DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
     {% endif %}
 
 {% endif %}

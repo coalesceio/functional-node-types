@@ -18,7 +18,7 @@ does not permit copying or modification for any other purpose.
     TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
 {% endif %}
 
-{% if config.insertZeroKey %}
+{% if config.insertZeroKey and not config.pdeploy%}
         {{ stage('Insert Zero Record') }}
         MERGE INTO {{ ref_no_link(node.location.name, node.name) }}USING
         (SELECT 
@@ -72,7 +72,8 @@ does not permit copying or modification for any other purpose.
         {% endfor -%}
         )
 {% endif %}	
-		
+
+{%if not config.pdeploy%}	
     {{ stage('Insert ' + sources[0].name | string ) }}
     MERGE INTO {{ ref_no_link(node.location.name, node.name) }} AS TGT
 	USING (
@@ -111,6 +112,14 @@ does not permit copying or modification for any other purpose.
     {%- if not loop.last -%}, {% endif %}
     {% endfor %}
     )
+{%else%}
+   {{ stage('Populate on deploy enabled-No data merge') }}
+    -- This node is configured to insert data as part of deployment
+    -- Data insertion is part of deployment
+    
+    SELECT 1 AS INFO_MESSAGE WHERE FALSE
+
+{%endif%}
 
 {% if config.postSQL %}
     {{ stage('Post-SQL') }}
