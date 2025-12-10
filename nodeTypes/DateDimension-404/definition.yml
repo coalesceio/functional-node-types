@@ -46,13 +46,19 @@ metadata:
 
       - type: overrideSQLToggle
         enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
+      
+      - displayName: Populate on deploy
+        attributeName: pdeploy
+        type: toggleButton
+        enableIf: "{% if (node.materializationType == 'table' or node.materializationType == 'transient table') %} true {%else%} false {%endif%}"
+      
 
       - displayName: Truncate Before
         attributeName: truncateBefore
         type: toggleButton
         default: true
         isRequired: false
-        enableIf: "{% if node.materializationType != 'view' %} true {% else %} false {% endif %}"
+        enableIf: "{% if node.materializationType != 'view' and config.pdeploy != true %} true {% else %} false {% endif %}"
 
       - type: toggleButton
         attributeName: insertZeroKey
@@ -88,8 +94,7 @@ metadata:
         attributeName: testsEnabled
         type: toggleButton
         default: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-
+        
       - displayName: Pre-SQL
         attributeName: preSQL
         type: textBox

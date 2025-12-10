@@ -8,17 +8,27 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Name           : Date Dimension == #}
 {# == Node Type Description    : This node creates Date table,view and also override create sql for view with advanced deployment strategy and loads the date records  == #}
 
+
+{% for test in node.tests if config.testsEnabled %}
+        {% if test.runOrder == 'Before' %}
+            {{ test_stage(test.name, test.continueOnFailure) }}
+            {{ test.templateString }}
+        {% endif %}
+{% endfor %}
+
 {% if config.preSQL %}
     {{ stage('Pre-SQL') }}
     {{ config.preSQL }}
 {% endif %}
 
-{% if config.truncateBefore %}
+{%if node.materializationType == 'table' or node.materializationType == 'transient table'%}
+
+{% if config.truncateBefore and not config.pdeploy %}
     {{ stage('Truncate Date Table') }}
     TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
 {% endif %}
 
-{% if config.insertZeroKey %}
+{% if config.insertZeroKey and not config.pdeploy%}
         {{ stage('Insert Zero Record') }}
         MERGE INTO {{ ref_no_link(node.location.name, node.name) }}USING
         (SELECT 
@@ -70,9 +80,10 @@ does not permit copying or modification for any other purpose.
          SOURCE_ZERO.{{ col.name}}			
         	{% if not loop.last %}, {% endif %}			
         {% endfor -%}
-        )
+        ) 
 {% endif %}	
-		
+
+{%if not config.pdeploy%}	
     {{ stage('Insert ' + sources[0].name | string ) }}
     MERGE INTO {{ ref_no_link(node.location.name, node.name) }} AS TGT
 	USING (
@@ -111,12 +122,21 @@ does not permit copying or modification for any other purpose.
     {%- if not loop.last -%}, {% endif %}
     {% endfor %}
     )
+{%else%}
+   {{ stage('Populate on deploy enabled-No data merge') }}
+    -- This node is configured to insert data as part of deployment
+    -- Data insertion is part of deployment
+    -- Zero key inserts are also handled in deployment    
+    SELECT 1 AS INFO_MESSAGE WHERE FALSE
+
+{%endif%}
+
+{%endif%}
 
 {% if config.postSQL %}
     {{ stage('Post-SQL') }}
     {{ config.postSQL }}
 {% endif %}
-
 
 {% if config.testsEnabled %}
 	{% for test in node.tests %}
