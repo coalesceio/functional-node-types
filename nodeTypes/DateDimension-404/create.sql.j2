@@ -196,7 +196,7 @@ does not permit copying or modification for any other purpose.
                     )
                 {% endif %}
 
-                {{ stage('Insert data in deploy') }}
+                {{ stage('Insert data on deploy') }}
 
                 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
@@ -832,6 +832,10 @@ does not permit copying or modification for any other purpose.
                     {{ stage(nsMetaVariables.metadataUpdate) }}
                     -- Metadata changes detected
                     /* {{ nsMetaVariables.metaDataChanges }} */
+
+                    {%if desiredState.config.pdeploy and (nsMetaVariables.transformTest == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate or nsMetaVariables.insertZeroKeyTest == false) %}
+                     /*Data inserts will be handled in the next stage as Populate on deploy is enabled*/
+                    {%endif %}
                 {% endif %}
                 select 1=0
             {% endif %}
@@ -840,7 +844,7 @@ does not permit copying or modification for any other purpose.
             Redeployment for Populate on deploy toggle scenario
             ==================================================#}
 
-            {% if desiredState.config.pdeploy and (nsVariables.transformTest == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate) %}
+            {% if desiredState.config.pdeploy and (nsMetaVariables.transformTest == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate) %}
                 
                 {% if (currentState.config.insertZeroKey == false and desiredState.config.insertZeroKey == true) or nsMetaVariables.insertZeroKeyTest == false %}
                     {{ stage('Insert Zero Record') }}
