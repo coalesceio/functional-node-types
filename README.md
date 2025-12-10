@@ -58,6 +58,7 @@ You can create the node as:
 | **Setting** | **Description** |
 |---------|-------------|
 | **Create As**| Table|
+| **Populate on deploy**| Toggle:True/False<br/>When enabled data is populated along with table creation during deployment.[More info on Populate on Deploy](#populate-on-deploy)|
 | **Truncate Before** | Toggle: True/False<br/>This determines whether a table will be overwritten each time a task executes. **True**: Uses INSERT OVERWRITE<br/>**False**: Uses INSERT to append data |
 | **Insert Zero Key Record** | Toggle: True/False<br/>Insert Zero Key Record to Dimention if enabled |
 | **Business key** | Required column for Type 1 Dimensions |
@@ -172,6 +173,17 @@ The following stages are executed:
 > When the materialization type of Date node is changed from table/transient table to View and use Override Create SQL for view creation. This ensures that the following change is made in the stage function in Create SQL tab so that the order of deployment is maintained.
 
 ![CreateSQL](https://github.com/coalesceio/Coalesce-Base-Node-Types---Advanced-Deploy/assets/7216836/0296abf8-0747-4ae8-8478-0782e5e2e545)
+
+### Populate on Deploy
+#### Initial deployment
+
+|**Populate ondeploy**| **Insert Zero Key** |**Stages Executed**|
+|---------------------|---------------------|-------------------|
+|True                 | False               |Create table/transient table <br/>Insert data on deploy|
+|True                 | True                |Create table/transient table <br/>Insert Zero key records <br/>Insert data on deploy|
+
+#### Redeployment
+The stages Insert Zero key and Insert data on deploy are executed if there are changes in transformation,data type,nullability,zero key changes and default values,column addition,date related config values.
 
 ### Redeployment with no changes 
 
