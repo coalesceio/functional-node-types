@@ -8,7 +8,7 @@ operation:
     insertZeroKey: true
     insertZeroKeyDate: 01-01-1900
     insertZeroKeyStr: NA
-    insertZeroKeySurrogateKey: 01-11-1900
+    insertZeroKeySurrogateKey: 11-11-1900
     pdeploy: true
     postSQL: ""
     preSQL: ""

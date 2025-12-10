@@ -302,7 +302,7 @@ does not permit copying or modification for any other purpose.
                     )
                 {% endif %}
 
-                {{ stage('Insert data in deploy') }}
+                {{ stage('Insert data on deploy') }}
 
                 INSERT INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
@@ -411,7 +411,7 @@ does not permit copying or modification for any other purpose.
             {% endif %}
 
             {# Drop Columns #}
-            {% set ns = namespace(colchanges=0, datatypechanges=0, nullvaluechanges=0, defaultvalchanges=0, addcoltest=true) %}
+            {% set ns = namespace(colchanges=0, datatypechanges=0, nullvaluechanges=0, defaultvalchanges=0, addcoltest=true,insertkeychanges=true,pdeploychanges=true) %}
 
             {% for dropCurCol in currentState.columns %}
                 {% if dropCurCol.id not in desiredState.columns | map(attribute="id") %}
@@ -843,10 +843,22 @@ does not permit copying or modification for any other purpose.
             {#=================================================
             Redeployment for Populate on deploy toggle scenario
             ==================================================#}
-
-            {% if desiredState.config.pdeploy and (nsMetaVariables.transformTest == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate) %}
+            {#Insert key changes#}
+            {% if (currentState.config.insertZeroKey == false and desiredState.config.insertZeroKey == true) or nsMetaVariables.insertZeroKeyTest == false %}
+                    
+                 {%set ns.insertkeychanges = false%}
                 
-                {% if (currentState.config.insertZeroKey == false and desiredState.config.insertZeroKey == true) or nsMetaVariables.insertZeroKeyTest == false %}
+            {%endif%}
+            {#Other changes#}
+            {%if nsMetaVariables.transformTest == false or ns.addcoltest == false or ns.datatypechanges > 0 or ns.defaultvalchanges > 0 or ns.nullvaluechanges > 0 or currentState.config.dateColumnName != desiredState.config.dateColumnName or currentState.config.daysToGenerate != desiredState.config.daysToGenerate or currentState.config.startingDate != desiredState.config.startingDate %}
+
+                 {%set ns.pdeploychanges = false%}
+
+            {%endif%}
+            
+            {% if desiredState.config.pdeploy and (ns.pdeploychanges == false or ns.insertkeychanges == false) %}
+                
+                {% if ns.insertkeychanges == false %}
                     {{ stage('Insert Zero Record') }}
                     MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} USING (
                         SELECT
@@ -901,7 +913,9 @@ does not permit copying or modification for any other purpose.
                     )
                 {% endif %}
 
-                {{ stage('Insert data in deploy') }}
+            {%if ns.pdeploychanges== false%}
+
+                {{ stage('Insert data on deploy') }}
 
                 INSERT OVERWRITE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
                 (
@@ -920,7 +934,7 @@ does not permit copying or modification for any other purpose.
                     {%- if not loop.last -%}, {% endif %}
                 {% endfor %}
                 FROM CTE_DATE_GENERATOR
-
+            {%endif%}
             {% endif %}
 
         {% endif %}
