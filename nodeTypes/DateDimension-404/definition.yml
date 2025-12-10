@@ -50,7 +50,7 @@ metadata:
       - displayName: Populate on deploy
         attributeName: pdeploy
         type: toggleButton
-        enableIf: "{% if node.materializationType == 'table' or node.materializationType == 'transient table'%} true {%else%} false {%endif%}"
+        enableIf: "{% if (node.materializationType == 'table' or node.materializationType == 'transient table') %} true {%else%} false {%endif%}"
       
 
       - displayName: Truncate Before
@@ -94,8 +94,7 @@ metadata:
         attributeName: testsEnabled
         type: toggleButton
         default: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
-
+        
       - displayName: Pre-SQL
         attributeName: preSQL
         type: textBox

@@ -4,7 +4,7 @@ name: DIM_DATE_NODE_PDEPLOY
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
-    daysToGenerate: "2000"
+    daysToGenerate: "3000"
     insertZeroKey: true
     insertZeroKeyDate: 01-01-1900
     insertZeroKeyStr: NA
@@ -51,7 +51,7 @@ operation:
         config: {}
         dataType: SMALLINT
         defaultValue: ""
-        description: Year in the format YYYY
+        description: Year in the correct format YYYY
         isYear: true
         name: YEAR
         nullable: true
