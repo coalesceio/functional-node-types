@@ -81,7 +81,7 @@ operation:
         defaultValue: ""
         description: Month in the format MM
         isMonth: true
-        name: MONTH
+        name: MONTH1
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
