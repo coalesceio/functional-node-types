@@ -8,12 +8,12 @@ operation:
     insertZeroKey: true
     insertZeroKeyDate: 01-01-1900
     insertZeroKeyStr: NA
-    insertZeroKeySurrogateKey: 01-01-1900
+    insertZeroKeySurrogateKey: 01-11-1900
     pdeploy: true
     postSQL: ""
     preSQL: ""
     startingDate: DATEADD(DAY, -730, CURRENT_DATE)
-    testsEnabled: false
+    testsEnabled: true
     truncateBefore: false
   database: ""
   deployEnabled: true
