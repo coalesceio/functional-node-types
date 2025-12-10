@@ -57,7 +57,7 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: YEAR({{ config.dateColumnName }})
+            transform: EXTRACT(year from {{ config.dateColumnName }})
       - acceptedValues:
           strictMatch: true
           values: []
