@@ -417,23 +417,6 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: CASE WHEN HOUR_24 >= 5 AND HOUR_24 < 12 THEN 'Morning' WHEN HOUR_24 >= 12 AND HOUR_24 < 17 THEN 'Afternoon'     WHEN HOUR_24 >= 17 AND HOUR_24 < 21 THEN 'Evening' ELSE 'Night' END
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 4b6b7300-83c0-4400-822e-6b235751e501
-          stepCounter: 8919d101-9750-40ac-bb12-1bb4bee0f7a7
-        config: {}
-        dataType: VARCHAR(20)
-        defaultValue: ""
-        description: "Granular period: 'Early Morning', 'Mid-Morning', 'Lunch', 'Early Afternoon', 'Late Afternoon', 'Early Evening', 'Late Evening', 'Overnight'"
-        isHourBand: true
-        name: HOUR_BAND
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CASE WHEN HOUR_24 >= 5 AND HOUR_24 < 9 THEN 'Early Morning' WHEN HOUR_24 >= 9 AND HOUR_24 < 12 THEN 'Mid-Morning' WHEN HOUR_24 >= 12 AND HOUR_24 < 14 THEN 'Lunch' WHEN HOUR_24 >= 14 AND HOUR_24 < 17 THEN 'Early Afternoon'  WHEN HOUR_24 >= 17 AND HOUR_24 < 19 THEN 'Late Afternoon' WHEN HOUR_24 >= 19 AND HOUR_24 < 21 THEN 'Early Evening' WHEN HOUR_24 >= 21 AND HOUR_24 < 24 THEN 'Late Evening' ELSE 'Overnight' END
       - IsDayNight: true
         acceptedValues:
           strictMatch: true
