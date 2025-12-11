@@ -3,6 +3,7 @@
 The Coalesce Functional Node Types Package includes:
 
 * [Date Dimension](#date-dimension)
+* [Time Dimension](#Time-dimension)
 * [Pivot](#Pivot)
 * [Unpivot](#Unpivot)
 * [Match Recognize](#match-recognize)
@@ -76,6 +77,8 @@ You can create the node as:
 | **Create As**| View|
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 | **Override Create SQL** | Toggle: True/False<br/>**True**: View is created by overriding the SQL<br/>**False**: Nodetype defined create view SQL will execute |
+| **Pre-SQL**| SQL to execute before data insert operation |
+| **Post-SQL** | SQL to execute after data insert operation |
 
 ##### Date Dimension Create as Transient Table
 
@@ -91,7 +94,6 @@ You can create the node as:
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 | **Pre-SQL**| SQL to execute before data insert operation |
 | **Post-SQL** | SQL to execute after data insert operation |
-
 
 ### Date Dimension Joins
 
@@ -192,6 +194,216 @@ If the nodes are redeployed with no changes compared to previous deployment,then
 ### Date Dimension Deploy Undeployment
 
 If a Date Dimension Node of materialization type table/view/transient table are deleted from a Datespace, that Datespace is committed to Git and that commit deployed to a higher level environment then the DateTable in the target environment will be dropped.
+
+This is executed in below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Drop table/view** | Removes the table or view from the environment |
+
+## Time Dimension
+
+The Coalesce Time Dimension Table provides a comprehensive breakdown of Time-related attributes, enabling efficient handling of Time operations across various
+use cases. The table typically includes columns such as TIME_KEY, HOUR_24, HOUR_12, MINUTE, SECOND, AM_PM. Additional columns like TIME_OF_DAY, HOUR_BAND, DAY_NIGHT, FLAG_BUSINESS_HOURS, PEAK_OFF_PEAK can also be included, depending on the requirements.
+
+### Time Dimension Node Configuration
+
+The Time Dimension node type has two configuration groups:
+
+* [Node Properties](#Time-dimension-node-properties)
+* [Time Dimension Options](#Time-options)
+* [Additional options](#additional-options)
+
+<img width="565" height="344" alt="config" src="https://github.com/user-attachments/assets/0a0ba338-afed-4b49-b974-d8fbb92c5c80" />
+
+#### Time Dimension Node Properties
+
+| **Setting** | **Description** |
+|----------|-------------|
+| **Storage Location** | Storage Location where the WORK will be created |
+| **Node Type** | Name of template used to create node objects |
+| **Description** | A description of the node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
+
+##### Time Dimension Options
+
+| **Setting** | **Description** |
+|---------|-------------|
+| **Generated Time Column Name** |Metadata column name used in the SQL generated for inserting records into the table. |
+| **Granularity** |Dropdown: Hour, Minute, Second. Determines the number of records generated: Hour: 24 rows, Minute: 1,440 rows, Second: 86,400 rows. Default: Minute
+| **Generated Time Column Name** |Metadata column name used in SQL generation. Default: "TIME_COL"
+| **Business Hours Start** |Time value for FLAG_BUSINESS_HOURS calculation. Default: 08:00:00
+| **Business Hours End** |Time value for FLAG_BUSINESS_HOURS calculation. Default: 17:00:00
+| **Peak Hours Start** |Time value for PEAK_OFF_PEAK calculation. Default: 09:00:00
+| **Peak Hours End** |Time value for PEAK_OFF_PEAK calculation. Default: 17:00:00
+
+#### Additional Options
+
+You can create the node as:
+
+* [Table](#Time-table-create-as-table)
+* [View](#Time-table-create-as-view)
+* [Transient Table](#Time-table-create-as-transient-table)
+
+##### Time Dimension Create as Table
+
+| **Setting** | **Description** |
+|---------|-------------|
+| **Create As**| Table|
+| **Populate on deploy**| Toggle:True/False<br/>When enabled data is populated along with table creation during deployment.[More info on Populate on Deploy for time](#populate-on-deploy-for-time)|
+| **Insert Zero Key Record** | Toggle: True/False<br/>Insert Zero Key Record to Dimention if enabled |
+| **Default String Value** | If Insert Zero Key Record toggle is True then add a default value for columns with datatype string |
+| **Default Business Key Value** | If Insert Zero Key Record toggle is True then add a default value for business key column|
+| **Default Time Value (Time Format HH:MM:SS)** | If Insert Zero Key Record toggle is True then add a default value for Time key column in the format HH:MM:SS|
+| **Business key** | Required column for Type 1 Dimensions |
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
+| **Pre-SQL**| SQL to execute before data insert operation |
+| **Post-SQL** | SQL to execute after data insert operation |
+
+##### Time Dimension Create as View
+
+| **Setting** | **Description** |
+|---------|-------------|
+| **Create As**| View|
+| **Override Create SQL** | Toggle: True/False<br/>**True**: View is created by overriding the SQL<br/>**False**: Nodetype defined create view SQL will execute |
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
+| **Pre-SQL**| SQL to execute before data insert operation |
+| **Post-SQL** | SQL to execute after data insert operation |
+
+##### Time Dimension Create as Transient Table
+
+| **Setting** | **Description** |
+|---------|-------------|
+| **Create As**| Transient Table|
+| **Populate on deploy**| Toggle:True/False<br/>When enabled data is populated along with table creation during deployment.[More info on Populate on Deploy for time](#populate-on-deploy-for-time)|
+| **Insert Zero Key Record** | Toggle: True/False<br/>Insert Zero Key Record to Dimention if enabled |
+| **Business key** | Required column for Type 1 Dimensions |
+| **Default String Value** | If Insert Zero Key Record toggle is True then add a default value for columns with datatype string |
+| **Default Business Key Value** | If Insert Zero Key Record toggle is True then add a default value for surrogate key column|
+| **Default Time Value (Time Format HH:MM:SS)** | If Insert Zero Key Record toggle is True then add a default value for Time key column in the format HH:MM:SS|
+| **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
+| **Pre-SQL**| SQL to execute before data insert operation |
+| **Post-SQL** | SQL to execute after data insert operation |
+
+### Time Dimension Joins
+
+Join conditions and other clauses can be specified in the join space next to mapping of columns in the UI.
+
+<img width="922" height="287" alt="join" src="https://github.com/user-attachments/assets/486325b9-1137-45be-8aba-cf1a405ade97" />
+
+### Time Dimension Deployment
+
+#### Time Dimension Initial Deployment
+
+When deployed for the first time into an environment the Time node of materialization type table or view will execute the below stage:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create Time Table** | This will execute a CREATE OR REPLACE statement and create a table in the target environment |
+| **Create Time View** | This will execute a CREATE OR REPLACE statement and create a view in the target environment |
+
+#### Time Dimension Redeployment
+
+After the Time node with materialization type table/transient table/view has been deployed for the first time into a target environment, subsequent deployments may result in either altering the Time Table or recreating the Time table.
+
+#### Altering the Time Table and Transient Tables
+
+A few types of column or table changes will result in an ALTER statement to modify the Persistent Table in the target environment, whether these changes are made individually or all together:
+
+1. Changing table names
+2. Dropping existing columns
+3. Altering column data types
+4. Adding new columns
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
+
+### Redeployment with only metadata changes
+
+Sometimes, changes to config can result in metadata changes from node edits, DML changes, or storage upTimes. A few cases are listed below:
+
+1. Changes in business keys
+2. Changes in join clauses
+3. Transformations made at column level
+4. Changing DML options like Insert Zero key
+
+And many more. Most of the time, specific ‘is’ and ‘was’ values will be displayed to specifically show what changed.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Metadata UpTime \| Business Keys \| Truncate \| Insert Zero Key \| Transformation \| Join** | A dummy statement would execute with specific changes listed in comments|
+
+#### Time Dimension Recreating the Views
+
+The subsequent deployment of Time node of materialization type view with changes in view definition, adding table description or renaming view results in deleting the existing view and recreating the view.
+
+The following stages are executed:
+
+| **Stage** | **Description** |
+|-----------|----------------|
+| **Create View** | Creates a new view with upTimed definition |
+
+#### Time Dimension Drop and Recreate View/Table/Transient Table
+
+| **Change** | **Stages Executed** |
+|------------|-------------------|
+| **View to table/transient table** |  Drop view <br/> Create or Replace Time table/transient table |
+| **Table/transient table to View** |  Drop table/transient table<br/> Create Time view |
+| **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Time table/transient table |
+
+> 📘 **Materialization Time Dimension**
+>
+> When the materialization type of Time node is changed from table/transient table to View and use Override Create SQL for view creation. This ensures that the following change is made in the stage function in Create SQL tab so that the order of deployment is maintained.
+
+<img width="737" height="206" alt="image" src="https://github.com/user-attachments/assets/8ba71eeb-5c62-4af9-9da9-ef21187a5423" />
+
+### Populate on Deploy for Time
+#### Initial deployment
+
+|**Populate ondeploy**| **Insert Zero Key** |**Stages Executed**|
+|---------------------|---------------------|-------------------|
+|True                 | False               |• Create table/transient table <br/>• Insert data on deploy|
+|True                 | True                |• Create table/transient table <br/>• Insert data on deploy <br/>• Insert Zero key records|
+
+#### Redeployment
+The stages Insert Zero key and Insert data on deploy are executed if there are changes in transformation,data type,nullability,zero key changes and default values,column addition,Time related config values.
+
+|**S/No**|**Scenario**       |**Populate on Deploy ON**|**Populate on Deploy OFF**|
+|--------|-------------------|----------------------|-----------------------|
+|1 |Initial deployment |• Create Table<br/> • Populate |• Create Table|
+|2 |Materialization change | • Drop Current Table <br/> • Create Table Populate | • Drop Current Table <br/> • Create Table |
+|3 |Granularity change |• Repopulate | • Metadata Update |
+|4 |Business start/end change|• Repopulate|• Metadata Update |
+|5 |Peak start/end change|• Repopulate|• Metadata Update |
+|6 |Transform logic changes|• Repopulate|• Metadata Update |
+|7 |Time column name change|• Repopulate|• Metadata Update |
+|8 |Adding a column|• Alter – Add Column <br/>• Repopulate|• Alter – Add Column |
+|9 |Datatype change |• Alter – Attribute Change <br/>• Repopulate |• Alter – Attribute Change |
+|10 |Default value change |• Alter – Attribute Change <br/>• Repopulate |• Alter – Attribute Change |
+|11 |Nullability change |• Alter – Attribute Change <br/>• Repopulate |• Alter – Attribute Change |
+|12 |Zero key-only changes |• Merge Update Zero Key|• Metadata Update |
+|13 |Run Changes |• Display Message |• Populate Data |
+|14 |Description changes (table/column) |• Alter – Attribute Change  |• Alter – Attribute Change |
+|15 |Rename table |• Alter Table - Rename |• Alter Table - Rename |
+|16 |Move table |• Alter Table - Rename |• Alter Table - Rename |
+|17 |Rename column |• Alter Table – Rename Column |• Alter Table – Rename Column |
+|18 |Drop column |• Alter Table – Drop Column |• Alter Table – Drop Column |
+|19 |Pre-SQL / Post-SQL changes |• Metadata Update |• Metadata Update |
+|20 |Test enabled changes |• Metadata Update |• Metadata Update |
+|21 |Business key changes |• Metadata Update |• Metadata Update |
+
+### Redeployment with no changes 
+
+If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+
+### Time Dimension Deploy Undeployment
+
+If a Time Dimension Node of materialization type table/view/transient table are deleted from a Timespace, that Timespace is committed to Git and that commit deployed to a higher level environment then the TimeTable in the target environment will be dropped.
 
 This is executed in below stage:
 
@@ -933,6 +1145,14 @@ The stage executed:
 | **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/definition.yml)
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Date-404/run.sql.j2) |
+
+### Time Dimension Table Code
+
+| **Component** | **Link** |
+|--------------|-----------|
+| **Node definition** | [definition.yml]()
+| **Create Template** | [create.sql.j2]() |
+| **Run Template** | [run.sql.j2]() |
 
 ### Pivot code
 
