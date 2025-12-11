@@ -138,42 +138,42 @@ metadata:
 
     - displayName: TIME_KEY
       transform: "{{ config.generatedTime }}"
-      dataType: 'TIME'
+      dataType: 'VARCHAR(8)'
       description: "Primary key - the time value - HH:MM:SS"
       attributeName: isBusinessKey
       placement: beginning
       isBusinessKey: true
 
     - displayName: HOUR_24
-      transform: 'DATE_PART(HOUR, {{ config.generatedTime }})'
+      transform: 'EXTRACT(HOUR FROM TO_TIME({{ config.generatedTime }}))'
       dataType: SMALLINT
       description: "Hour in 24-hour format (0-23)"
       placement: beginning
       attributeName: isHour24
 
     - displayName: HOUR_12
-      transform: 'DECODE(MOD(DATE_PART(HOUR, {{ config.generatedTime }}), 12), 0, 12, MOD(DATE_PART(HOUR, {{ config.generatedTime }}), 12))'
+      transform: "TO_CHAR(TO_TIME({{ config.generatedTime }}), 'HH12')"
       dataType: SMALLINT
       description: "Hour in 12-hour format (1-12)"
       placement: beginning
       attributeName: isHour12
 
     - displayName: MINUTE
-      transform: 'DATE_PART(MINUTE, {{ config.generatedTime }})'
+      transform: 'EXTRACT(MINUTE FROM TO_TIME({{ config.generatedTime }}))'
       dataType: SMALLINT
       description: "Minute of the hour (0-59)"
       placement: beginning
       attributeName: isMinute
 
     - displayName: SECOND
-      transform: 'DATE_PART(SECOND, {{ config.generatedTime }})'
+      transform: 'EXTRACT(SECOND FROM TO_TIME({{ config.generatedTime }}))'
       dataType: SMALLINT
       description: "Second of the minute (0-59)"
       placement: beginning
       attributeName: isSecond
 
     - displayName: AM_PM
-      transform: "CASE WHEN DATE_PART(HOUR, {{config.generatedTime }}) < 12 THEN 'AM' ELSE 'PM' END"
+      transform: "TO_CHAR(TO_TIME({{ config.generatedTime }}), 'AM')"
       dataType: VARCHAR(2)
       description: "'AM' or 'PM' Indicator"
       placement: beginning

@@ -1,0 +1,690 @@
+fileVersion: 1
+id: 1d94002c-612f-4b72-afc9-aee68963a2b1
+name: STG_LINEITEM_NODE_JOIN
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6cf869f3-f906-4291-bd8b-6de302b36326
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: L_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3d0aaa75-71a3-4058-8f1e-380a0fdf4110
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8e2bacad-2d35-4cad-baba-830797bf5d2c
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: L_PARTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 9f1373ea-af50-4c9c-a5f0-1ffec04a09bf
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5481fbc1-3f26-4366-b5a5-d1298f4218e4
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: L_SUPPKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ad9157fe-0bfe-4b17-91c3-eb897264d661
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1d9c7de5-71d2-4d2a-8c15-f721c8ee912f
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: L_LINENUMBER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fb709b8e-e36c-46f1-951a-044ed058147d
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: fbb09e85-c0b5-43a2-8107-bfb79c43d3b8
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(12,2)
+        description: ""
+        name: L_QUANTITY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5a5b5c23-f2b5-4195-a0a6-3bc723b9758a
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: dbec4575-e265-493f-9d24-8f7beea58457
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(12,2)
+        description: ""
+        name: L_EXTENDEDPRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 811c6370-d1bd-41b5-9b77-74e95418d1f2
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 778f8b5c-e486-4b4b-926e-ba31832727a7
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(12,2)
+        description: ""
+        name: L_DISCOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2e03994c-3ddd-4478-af67-2b09c3777765
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 278ca9e1-e2a9-4e44-9048-43743bbdf1bb
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: NUMBER(12,2)
+        description: ""
+        name: L_TAX
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2b9ebe2f-6378-4d56-b922-786d5b0bc979
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 621dd1e4-3631-4a00-ac59-30f48bfc3732
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: L_RETURNFLAG
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7f1a099e-a4e5-402b-8c69-c54e4d89905b
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 663269fd-2b79-4701-a421-7dba83f9a391
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: L_LINESTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 73e3f7a6-53af-4575-baa5-34163f2089ed
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b385773d-3866-474b-aa92-035b07f54fe3
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: DATE
+        description: ""
+        name: L_SHIPDATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4790fd63-b735-4135-8d5a-d26c19a9a3aa
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d887f011-2966-493d-b05f-070ab611a45e
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: DATE
+        description: ""
+        name: L_COMMITDATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 84b18b56-479f-42fa-82d6-072930d2a8ec
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f8654f1c-ea44-4680-b482-d152519bd821
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: DATE
+        description: ""
+        name: L_RECEIPTDATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 82df3faf-edb8-45ce-bdf2-a71d15892e66
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e8737718-af07-45b1-b08c-fe0ceb4eccb2
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(25)
+        description: ""
+        name: L_SHIPINSTRUCT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b4102685-1abd-4761-9910-2174b1ca9372
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2e88fae6-68f0-4a53-9b04-cde775beb24a
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(10)
+        description: ""
+        name: L_SHIPMODE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3715f9fc-1aba-4ff4-905f-51e0450e0adc
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5ce4f0b1-d965-44f6-87c9-e10b62a49e38
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(44)
+        description: ""
+        name: L_COMMENT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2502e9cf-b3f7-4eae-8d92-52d2e4ee1130
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a2f1d68a-492a-4772-a0df-6329252f64ed
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: TIMESTAMP_LTZ(9)
+        description: ""
+        name: L_LOAD_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 464355db-2db9-433d-b292-98d82a74d877
+                stepCounter: e68b2249-4bfc-4714-8869-9ced166a9acb
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4b136680-caf3-4127-b43a-95568ccb4ca4
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(8)
+        description: Primary key - the time value - HH:MM:SS
+        name: TIME_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 9e816dfa-a6f2-41d7-9fc7-3a789eb1b83b
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c56e11c8-3fa5-4307-a24f-86d8690fee44
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Hour in 24-hour format (0-23)
+        name: HOUR_24
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 4b62cbcd-ce59-4bf3-a5ac-6b3099b10896
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 96c2a3b7-d8ef-4827-a42d-cc22547fc9dd
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Hour in 12-hour format (1-12)
+        name: HOUR_12
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: bad4dbba-bc46-4c8e-8551-8ce4fb6d7aa4
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ecb41e5d-3d8a-4e93-8465-8bfd9124e7c6
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Minute of the hour (0-59)
+        name: MINUTE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 2849137a-8f4e-42b4-83dd-bf74dfb3146a
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 99b4bd75-347c-4831-b827-0bede32dc1e7
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Second of the minute (0-59)
+        name: SECOND
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: abf766fb-a923-43f5-b36a-6487b26d1d07
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 154e47a4-3ffc-4a42-8515-6195cef9bb11
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(2)
+        description: "'AM' or 'PM' Indicator"
+        name: AM_PM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 75c1f059-51f3-4c68-97c7-be699d3bfcdf
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1357e37c-27c5-419a-a92f-cd15d74f3e32
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(5)
+        description: Formatted as 'HH:MM'
+        name: HOUR_MINUTE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a74e30a7-1339-4492-9072-6e119a0f106f
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2480663a-4f64-45e6-9908-ec30fde2ace4
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(8)
+        description: Formatted as 'HH:MM:SS'
+        name: HOUR_MINUTE_SECOND
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 9cf39cbd-47b9-49da-8c4a-e0b14bf8b6c8
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4a80c7b2-ce56-41a5-823d-b7b04f748f48
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(11)
+        description: Formatted as 'HH:MM:SS AM'
+        name: TIME_12_HOUR_FORMAT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c9d2cf86-a071-4079-a182-5ccbf94109a6
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a3a2a8a4-e96d-4746-b336-a96246a71772
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: 1-indexed hour of the day (1-24)
+        name: HOUR_OF_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 384a88dc-bf49-458b-a252-192128d66288
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0220a9a2-84d8-4726-a3be-779362d2831f
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: 1-indexed minute of the day (1-1440)
+        name: MINUTE_OF_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 50802779-9137-45cb-8f2e-201803308e06
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c0225efc-560e-4823-aac7-1ec71c64bd25
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Quarter-hour of the day (1-96)
+        name: QUARTER_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c00b475c-893f-41da-a689-324eb1fdd418
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 996bb045-5e2a-4cfa-9165-f79fcc909efd
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Which quarter within the hour (1-4)
+        name: QUARTER_HOUR_OF_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 76e55eda-7010-4f7e-bff5-2dab505241ad
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8c78f20a-f5bb-475c-9b23-e549eeb624a3
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Half-hour of the day (1-48)
+        name: HALF_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: fccd02b6-6162-4a5c-82d8-aedbfc351670
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 35babb36-6e5d-425d-b2f8-3a41669c81fe
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: SMALLINT
+        description: Which half within the hour (1-2)
+        name: HALF_HOUR_OF_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 228ca378-660f-4021-9f82-c2d9e0728f3d
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: baf69b3c-4e98-4fb0-b8ed-0f8c48b471fc
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: INTEGER
+        description: Total minutes from midnight (0-1439)
+        name: MINUTES_SINCE_MIDNIGHT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: be09e49c-8d79-472a-84d8-1548801037e9
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 67673147-6b04-4ba5-8644-2d1743ffe3cb
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: INTEGER
+        description: Total seconds from midnight (0-86399)
+        name: SECONDS_SINCE_MIDNIGHT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 10b04442-c680-4fc0-b428-83ceee1b1c2b
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c5a77584-bea3-44a2-b012-6583841eba80
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: TIME
+        description: Start time of the quarter-hour block
+        name: QUARTER_HOUR_START
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 85991201-fdb9-49ef-b32c-6c63ac1e3cec
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 35bd3cdf-d086-4954-bdc2-e63f5a3c6c37
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: TIME
+        description: End time of the quarter-hour block
+        name: QUARTER_HOUR_END
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 36742177-4207-4a14-ad94-bd9211df78ee
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e33b3876-8612-46cf-8b57-9ea6dcaae21c
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(17)
+        description: 15-minute block range
+        name: TIME_INTERVAL_15MIN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 9c4b64fe-9888-4757-b3b3-f64459ebbfef
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8eff093a-3f22-4333-afcd-d060fa76ad98
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(17)
+        description: 30-minute block range
+        name: TIME_INTERVAL_30MIN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: cd4e3cf7-82cf-4934-8744-e68da6b49c3b
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e2d8aae7-32da-4355-b2e6-e054c29c35de
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(17)
+        description: Hour block range
+        name: TIME_INTERVAL_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 84ad6dc0-f1c1-4e4c-9052-9073b22486ed
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a8dca51d-fc1d-4ffb-9c39-68154890eeed
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(20)
+        description: "Period: 'Morning', 'Afternoon', 'Evening', 'Night'"
+        name: TIME_OF_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b9fe3f82-5f72-4242-897b-26bc4abf7e20
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: cf463618-2272-4ec5-8660-c5f2c806e14a
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(20)
+        description: "Granular period: 'Early Morning', 'Mid-Morning', 'Lunch', 'Early Afternoon', 'Late Afternoon', 'Early Evening', 'Late Evening', 'Overnight'"
+        name: HOUR_BAND
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f34f6919-fd45-42a2-8d84-12171e75780e
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6b3f9f76-c38f-4a73-822a-7672b059e5d2
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(5)
+        description: "Simple classification: 'Day' or 'Night'"
+        name: DAY_NIGHT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 60aded73-38a1-40e2-ada1-9425a00c75ca
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0f0dcca7-961b-4d4a-a61b-10999fcab288
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(1)
+        description: "'Y' if within configured business hours, 'N' otherwise"
+        name: FLAG_BUSINESS_HOURS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 361add81-4980-4be3-9c63-7103eda5becf
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 37650cb8-cab0-4664-9e0e-f01330e75760
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: VARCHAR(10)
+        description: "'Peak' or 'Off-Peak' based on configured peak hours"
+        name: PEAK_OFF_PEAK
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 85bc561c-5fdc-48a9-acce-d16f209dc28c
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 792825c6-b1bc-4aa2-a8bc-81ddcd885cad
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: TIMESTAMP
+        description: ""
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 548720eb-2881-4b02-9c64-74a7d8869d87
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5309c677-3cc6-4979-90f5-a2b39ddef34d
+          stepCounter: 1d94002c-612f-4b72-afc9-aee68963a2b1
+        config: {}
+        dataType: TIMESTAMP
+        description: ""
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 9150c170-3aef-4d67-9eec-9765400bddef
+                stepCounter: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          DIM_TIME_NODE_JOIN: 0e337ffd-9a40-41fd-a45d-b63c306ec410
+          LINEITEM: e68b2249-4bfc-4714-8869-9ced166a9acb
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: LINEITEM
+          - locationName: TARGET
+            nodeName: DIM_TIME_NODE_JOIN
+        join:
+          joinCondition: |-
+            FROM {{ ref('SOURCE', 'LINEITEM') }} "LINEITEM"
+            INNER JOIN {{ ref('TARGET', 'DIM_TIME_NODE_JOIN') }} "DIM_TIME_NODE_JOIN"
+            ON TO_CHAR("LINEITEM".L_LOAD_TIMESTAMP, 'HH24:MI:SS') = "DIM_TIME_NODE_JOIN".TIME_KEY
+        name: STG_LINEITEM_NODE_JOIN
+        noLinkRefs: []
+  name: STG_LINEITEM_NODE_JOIN
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node
