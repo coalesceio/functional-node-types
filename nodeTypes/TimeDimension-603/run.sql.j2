@@ -20,86 +20,95 @@ does not permit copying or modification for any other purpose.
     {% endif %}
 {% endfor %}
 
-{% if config.populateOnDeploy == false %}
+{% if node.materializationType != 'view' %}
 
-    {% if config.granularity == 'HOUR' %}
-        {% set rowCount = 24 %}
-    {% elif config.granularity == 'SECOND' %}
-        {% set rowCount = 86400 %}
-    {% else %}
-        {% set rowCount = 1440 %}
-    {% endif %}
-            
-    {{ stage('Populate Data in Time Dimension') }}
-    INSERT OVERWRITE INTO {{ ref_no_link(node.location.name, node.name) }}
-    (
-        {% for col in columns if col.reqcolumn != 'N' %}
-            "{{ col.name }}"
-            {% if not loop.last -%},{% endif %}
-        {% endfor %}
-    )   
-    WITH CTE_TIME_GENERATOR AS 
-    (
-        SELECT 
-        TIMEADD({{ config.granularity }}, SEQ4(), '00:00:00'::TIME) AS {{ config.generatedTime }}
-        FROM TABLE(GENERATOR(ROWCOUNT => {{ rowCount }}))
-    )
-    SELECT
-    {% for col in sources[0].columns %}
-        {{ col.transform | replace('config','config')  }} AS "{{ col.name }}"
-        {%- if not loop.last -%}, {% endif %}
-    {% endfor %}
-    FROM CTE_TIME_GENERATOR
+    {% if config.populateOnDeploy == false %}
 
-    {% if config.insertZeroKey %}
-        {{stage('Populate Zero Key Data in Time Dimension')}}
-        INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
+        {% if config.granularity == 'HOUR' %}
+            {% set rowCount = 24 %}
+        {% elif config.granularity == 'SECOND' %}
+            {% set rowCount = 86400 %}
+        {% else %}
+            {% set rowCount = 1440 %}
+        {% endif %}
+                
+        {{ stage('Populate Data in Time Dimension') }}
+        INSERT OVERWRITE INTO {{ ref_no_link(node.location.name, node.name) }}
         (
             {% for col in columns if col.reqcolumn != 'N' %}
                 "{{ col.name }}"
                 {% if not loop.last -%},{% endif %}
             {% endfor %}
+        )   
+        WITH CTE_TIME_GENERATOR AS 
+        (
+            SELECT 
+            TIMEADD({{ config.granularity }}, SEQ4(), '00:00:00'::TIME) AS {{ config.generatedTime }}
+            FROM TABLE(GENERATOR(ROWCOUNT => {{ rowCount }}))
         )
-        SELECT 
+        SELECT
         {% for col in sources[0].columns %}
-            {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
-
-            {% if col.isBusinessKey %}
-                '{{ config.insertZeroKeyBusinessKey }}'
-            {% elif col.isSystemCurrentFlag %}
-                'Y'
-            {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}
-                {{ get_source_transform(col) }}
-            {% elif col.isSystemVersion%}
-                1
-            {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO', 'SMA') %}
-                0
-            {% elif col.dataType[:4] | upper in ('TIME') %}
-                '{{ config.insertZeroKeyTime }}'
-            {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
-                {% if dtparams[0] and dtparams[0] | int <  config.insertZeroKeyStr | length  %}
-                    SUBSTRING('{{ config.insertZeroKeyStr }}', 1, {{ dtparams[0] }})
-                {% else %}
-                    '{{ config.insertZeroKeyStr }}'
-                {% endif %}
-            {% elif col.nullable %}
-                NULL
-            {% else %}
-                ''
-            {% endif %}
-            AS "{{ col.name }}"
-            {% if not loop.last %}, {% endif %}
+            {{ col.transform | replace('config','config')  }} AS "{{ col.name }}"
+            {%- if not loop.last -%}, {% endif %}
         {% endfor %}
-        FROM DUAL
-    {% endif %}
+        FROM CTE_TIME_GENERATOR
 
+        {% if config.insertZeroKey %}
+            {{stage('Populate Zero Key Data in Time Dimension')}}
+            INSERT INTO {{ ref_no_link(node.location.name, node.name) }}
+            (
+                {% for col in columns if col.reqcolumn != 'N' %}
+                    "{{ col.name }}"
+                    {% if not loop.last -%},{% endif %}
+                {% endfor %}
+            )
+            SELECT 
+            {% for col in sources[0].columns %}
+                {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+
+                {% if col.isBusinessKey %}
+                    '{{ config.insertZeroKeyBusinessKey }}'
+                {% elif col.isSystemCurrentFlag %}
+                    'Y'
+                {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}
+                    {{ get_source_transform(col) }}
+                {% elif col.isSystemVersion%}
+                    1
+                {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO', 'SMA') %}
+                    0
+                {% elif col.dataType[:4] | upper in ('TIME') %}
+                    '{{ config.insertZeroKeyTime }}'
+                {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+                    {% if dtparams[0] and dtparams[0] | int <  config.insertZeroKeyStr | length  %}
+                        SUBSTRING('{{ config.insertZeroKeyStr }}', 1, {{ dtparams[0] }})
+                    {% else %}
+                        '{{ config.insertZeroKeyStr }}'
+                    {% endif %}
+                {% elif col.nullable %}
+                    NULL
+                {% else %}
+                    ''
+                {% endif %}
+                AS "{{ col.name }}"
+                {% if not loop.last %}, {% endif %}
+            {% endfor %}
+            FROM DUAL
+        {% endif %}
+
+    {% else %}
+
+        {{ stage('Populate On Deploy - No Manual Run') }}
+        -- This node is configured to load during deployment
+        -- Manual Run is only available when Populate On Deploy is disabled
+        -- To execute this load, re-deploy the node or disable the toggle
+        SELECT 1 AS INFO_MESSAGE WHERE FALSE
+
+    {% endif %}
 {% else %}
 
-    {{ stage('Populate On Deploy - No Manual Run') }}
-    -- This node is configured to load during deployment
-    -- Manual Run is only available when Populate On Deploy is disabled
-    -- To execute this load, re-deploy the node or disable the toggle
-    SELECT 1 AS INFO_MESSAGE WHERE FALSE
+	{{ stage('Load Skipped for View') }}
+	-- The node {{node.name}} is materialized as View. Therefore, a Load operation is not supported.
+	SELECT 1 AS INFO_MESSAGE WHERE FALSE
 
 {% endif %}
 
