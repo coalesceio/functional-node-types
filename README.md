@@ -252,9 +252,9 @@ You can create the node as:
 | **Create As**| Table|
 | **Populate on deploy**| Toggle:True/False<br/>When enabled data is populated along with table creation during deployment.[More info on Populate on Deploy for time](#populate-on-deploy-for-time)|
 | **Insert Zero Key Record** | Toggle: True/False<br/>Insert Zero Key Record to Dimention if enabled |
-| **Default String Value** | If Insert Zero Key Record toggle is True then add a default value for columns with datatype string |
-| **Default Business Key Value** | If Insert Zero Key Record toggle is True then add a default value for business key column|
-| **Default Time Value (Time Format HH:MM:SS)** | If Insert Zero Key Record toggle is True then add a default value for Time key column in the format HH:MM:SS|
+| **Default String Value** | If Insert Zero Key Record toggle is True then add a default value for columns with datatype string. Default: UNKNOWN |
+| **Default Business Key Value** | If Insert Zero Key Record toggle is True then add a default value for business key column. Default: 99:99:99|
+| **Default Time Value (Time Format HH:MM:SS)** | If Insert Zero Key Record toggle is True then add a default value for Time key column in the format HH:MM:SS. Default: 00:00:00|
 | **Business key** | Required column for Type 1 Dimensions |
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 | **Pre-SQL**| SQL to execute before data insert operation |
@@ -276,11 +276,11 @@ You can create the node as:
 |---------|-------------|
 | **Create As**| Transient Table|
 | **Populate on deploy**| Toggle:True/False<br/>When enabled data is populated along with table creation during deployment.[More info on Populate on Deploy for time](#populate-on-deploy-for-time)|
-| **Insert Zero Key Record** | Toggle: True/False<br/>Insert Zero Key Record to Dimention if enabled |
 | **Business key** | Required column for Type 1 Dimensions |
-| **Default String Value** | If Insert Zero Key Record toggle is True then add a default value for columns with datatype string |
-| **Default Business Key Value** | If Insert Zero Key Record toggle is True then add a default value for surrogate key column|
-| **Default Time Value (Time Format HH:MM:SS)** | If Insert Zero Key Record toggle is True then add a default value for Time key column in the format HH:MM:SS|
+| **Insert Zero Key Record** | Toggle: True/False<br/>Insert Zero Key Record to Dimention if enabled |
+| **Default String Value** | If Insert Zero Key Record toggle is True then add a default value for columns with datatype string. Default: UNKNOWN |
+| **Default Business Key Value** | If Insert Zero Key Record toggle is True then add a default value for business key column. Default: 99:99:99|
+| **Default Time Value (Time Format HH:MM:SS)** | If Insert Zero Key Record toggle is True then add a default value for Time key column in the format HH:MM:SS. Default: 00:00:00|
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 | **Pre-SQL**| SQL to execute before data insert operation |
 | **Post-SQL** | SQL to execute after data insert operation |
