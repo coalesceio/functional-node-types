@@ -519,6 +519,32 @@ operation:
         sourceColumnReferences:
           - columnReferences: []
             transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0931f017-4f70-4431-9747-a33207d1a688
+          stepCounter: 4de70fca-a6a6-4fa7-89df-c1ff7a86a4a8
+        config: {}
+        dataType: VARCHAR(1)
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: LUNCH_BREAK
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: |-
+              CASE 
+                  WHEN {{ config.generatedTime }} >= TIME '12:30:00'
+                   AND {{ config.generatedTime }} <  TIME '13:30:00'
+                  THEN 'Y'
+                  ELSE 'N'
+              END
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
