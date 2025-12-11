@@ -1,0 +1,180 @@
+{#
+    Copyright (c) 2025 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalesce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Name           : Time Dimension  == #}
+{# == Node Type Description    : This node creates Time dimension table, view and also override create sql for view with advanced deployment strategy and loads the time records == #}
+
+{% if config.preSQL %}
+    {{ stage('Pre-SQL') }}
+    {{ config.preSQL }}
+{% endif %}
+
+{% for test in node.tests if config.testsEnabled %}
+    {% if test.runOrder == 'Before' %}
+        {{ test_stage(test.name, test.continueOnFailure) }}
+        {{ test.templateString }}
+    {% endif %}
+{% endfor %}
+
+{% if config.populateOnDeploy == false %}
+
+    {{ stage('Truncate Time Dimension') }}
+    TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+
+    {% if config.insertZeroKey %}
+        {{stage('Populate Zero Key Data in Time Dimension')}}
+        MERGE INTO {{ ref_no_link(node.location.name, node.name) }} USING
+        (
+            SELECT 
+            {% for col in sources[0].columns %}
+                {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+
+                {% if col.isBusinessKey %}
+                    '{{ config.insertZeroKeyBusinessKey }}'
+                {% elif col.isSystemCurrentFlag %}
+                    'Y'
+                {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}
+                    {{ get_source_transform(col) }}
+                {% elif col.isSystemVersion%}
+                    1
+                {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO', 'SMA') %}
+                    0
+                {% elif col.dataType[:4] | upper in ('TIME') %}
+                    '{{ config.insertZeroKeyTime }}'
+                {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+                    {% if dtparams[0] and dtparams[0] | int <  config.insertZeroKeyStr | length  %}
+                        SUBSTRING('{{ config.insertZeroKeyStr }}', 1, {{ dtparams[0] }})
+                    {% else %}
+                        '{{ config.insertZeroKeyStr }}'
+                    {% endif %}
+                {% elif col.nullable %}
+                    NULL
+                {% else %}
+                    ''
+                {% endif %}
+                AS "{{ col.name }}"
+                {% if not loop.last %}, {% endif %}
+            {% endfor %}
+            FROM DUAL
+        ) AS SOURCE_ZERO
+        ON 
+        {% for col in sources[0].columns if col.isSurrogateKey or col.isBusinessKey %}
+            CASE 
+            WHEN TRY_TO_TIME('{{ config.insertZeroKeyBusinessKey }}', 'HH:MM:SS') IS NOT NULL
+                THEN {{ node.name }}.{{ col.name }} = CAST(TO_TIME('{{ config.insertZeroKeyBusinessKey }}', 'HH:MM:SS') AS TIME)
+                ELSE {{ node.name }}.{{ col.name }} = '{{ config.insertZeroKeyBusinessKey }}'
+            END 				
+        {% endfor -%}
+    
+        WHEN MATCHED THEN UPDATE
+        SET
+        {%- for col in sources[0].columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+            {{ node.name }}.{{ col.name }} = SOURCE_ZERO.{{ col.name }}
+            {% if not loop.last %}, {% endif %}			
+        {% endfor -%}
+
+        WHEN NOT MATCHED THEN INSERT
+        (
+            {%- for col in sources[0].columns %}
+                {{ col.name}}
+                {% if not loop.last %}, {% endif %}			
+            {% endfor -%}
+        )
+        VALUES
+        (
+            {%- for col in sources[0].columns %}
+            SOURCE_ZERO.{{ col.name }}			
+                {% if not loop.last %}, {% endif %}			
+            {% endfor -%}
+        )
+    {% endif %}
+
+    {% if config.granularity == 'HOUR' %}
+        {% set rowCount = 24 %}
+    {% elif config.granularity == 'SECOND' %}
+        {% set rowCount = 86400 %}
+    {% else %}
+        {% set rowCount = 1440 %}
+    {% endif %}
+            
+    {{ stage('Populate Data in Time Dimension') }}
+    MERGE INTO {{ ref_no_link(node.location.name, node.name) }} AS TGT
+    USING 
+    (
+        WITH CTE_TIME_GENERATOR AS 
+        (
+            SELECT 
+            TIMEADD({{ config.granularity }}, SEQ4(), '00:00:00'::TIME) AS {{ config.generatedTime }}
+            FROM TABLE(GENERATOR(ROWCOUNT => {{ rowCount }}))
+        )
+
+        SELECT
+        {% for col in sources[0].columns %}
+            {{ col.transform }} AS "{{ col.name }}"
+            {%- if not loop.last -%}, {% endif %}
+        {% endfor %}
+        FROM CTE_TIME_GENERATOR
+    ) AS SRC
+    ON
+    {% for col in sources[0].columns  if col.isBusinessKey -%}
+    {% if not loop.first %} AND  {% endif %}
+    "TGT"."{{ col.name }}" = "SRC"."{{ col.name }}"
+    {% endfor %}
+
+    WHEN MATCHED THEN
+    UPDATE SET
+    {%- for col in sources[0].columns if not (col.isBusinessKey or col.isSurrogateKey or col.isSystemCreateDate) %}
+        "TGT"."{{ col.name }}" = "SRC"."{{ col.name }}"
+        {% if not loop.last %}, {% endif %}
+    {% endfor -%}
+
+    WHEN NOT MATCHED THEN 
+    INSERT
+    (
+        {% for col in sources[0].columns %}
+            "{{ col.name }}"
+            {%- if not loop.last -%},{% endif %}
+        {% endfor %}
+    )
+    VALUES
+    (
+        {% for col in sources[0].columns %}
+        "SRC"."{{ col.name }}" 
+        {%- if not loop.last -%}, {% endif %}
+        {% endfor %}
+    )
+
+{% else %}
+
+    {{ stage('Populate On Deploy - No Manual Run') }}
+    -- This node is configured to load during deployment
+    -- Manual Run is only available when Populate On Deploy is disabled
+    -- To execute this load, re-deploy the node or disable the toggle
+    SELECT 1 AS INFO_MESSAGE WHERE FALSE
+
+{% endif %}
+
+{% if config.postSQL %}
+    {{ stage('Post-SQL') }}
+    {{ config.postSQL }}
+{% endif %}
+
+{% if config.testsEnabled %}
+    {% for test in node.tests %}
+        {% if test.runOrder == 'After' %}
+            {{ test_stage(test.name, test.continueOnFailure) }}
+            {{ test.templateString }}
+        {% endif %}
+    {% endfor %}
+
+    {% for column in columns %}
+        {% for test in column.tests %}
+            {{ test_stage(column.name + ": " + test.name) }}
+            {{ test.templateString }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}

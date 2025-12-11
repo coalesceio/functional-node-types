@@ -1,0 +1,809 @@
+{#
+    Copyright (c) 2025 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalesce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Name           : Time Dimension  == #}
+{# == Node Type Description    : This node creates Time dimension table, view and also override create sql for view with advanced deployment strategy and loads the time records == #}
+
+{% if desiredState %}
+
+    {% if currentState %}
+        {% if currentState.storageLocations|length == 0 %}       
+            {% set currentDatabase = currentState.storageLocations
+                                    | selectattr('name', 'equalto', currentState.node.location.name)
+                                    | map(attribute='database')
+                                    | string %}
+            {% set currentSchema = currentState.storageLocations
+                                    | selectattr('name', 'equalto', currentState.node.location.name)
+                                    | map(attribute='schema')
+                                    | string %}
+            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+        {% else %}
+            {# Current target node mappings #}
+            {% set currentDatabase = currentState.storageLocations
+                                    | selectattr('name', 'equalto', currentState.node.location.name)
+                                    | map(attribute='database')
+                                    | first %}
+            {% set currentSchema = currentState.storageLocations
+                                    | selectattr('name', 'equalto', currentState.node.location.name)
+                                    | map(attribute='schema')
+                                    | first %}
+            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
+        {% endif %}
+    {% endif %}   
+
+    {# Desired target node mappings #}
+    {% set desiredDatabase = desiredState.storageLocations
+                            | selectattr('name', 'equalto', desiredState.node.location.name)
+                            | map(attribute='database')
+                            | first %}
+    {% set desiredSchema = desiredState.storageLocations
+                            | selectattr('name', 'equalto', desiredState.node.location.name)
+                            | map(attribute='schema')
+                            | first %}
+    {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %} 
+
+    {% if desiredState.node.materializationType == 'view' %}
+
+        {% if desiredState.node.override.create.enabled %}
+
+            {% if currentState != undefined %}
+                {% if currentState.node.materializationType != 'view' %}
+                    {{ stage('Drop ' + currentState.node.materializationType + ' - ' + currentState.node.name, true, "sql", "drop") }}
+                    DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                {% endif %}
+            {% endif %}
+
+            {{ desiredState.node.override.create.script }}
+        {% else %}
+
+            {% if currentState != undefined %} 		
+                {% if currentState.node.materializationType != 'view' %}
+                    {{ stage('Drop ' + currentState.node.materializationType + ' - ' + currentState.node.name, true, "sql", "drop") }}
+                    DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                {% elif  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
+                    {{ stage('Drop ' + currentState.node.materializationType + ' - ' + currentState.node.name, true, "sql", "drop") }}
+                    DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
+                {% endif %}
+            {% endif %}
+        
+            {% if desiredState.config.granularity == 'HOUR' %}
+                {% set rowCount = 24 %}
+            {% elif desiredState.config.granularity == 'SECOND' %}
+                {% set rowCount = 86400 %}
+            {% else %}
+                {% set rowCount = 1440 %}
+            {% endif %}
+
+            {% if currentState == undefined or currentState != desiredState %}
+                {{ stage('Create Time Dimension View', true, "sql", "create") }}
+
+                CREATE OR REPLACE VIEW {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                    {% for col in desiredState.columns %}
+                        "{{ col.name }}"
+                        {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                        {%- if not loop.last -%}, {% endif %}
+                    {% endfor %}
+                )
+                {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+                AS
+                WITH CTE_TIME_GENERATOR AS
+                (
+                    SELECT 
+                    TIMEADD({{ desiredState.config.granularity }}, SEQ4(), '00:00:00'::TIME) AS {{ desiredState.config.generatedTime }}
+                    FROM TABLE(GENERATOR(ROWCOUNT => {{ rowCount }}))
+                )
+
+                {% for source in desiredState.sources %}
+                    SELECT
+                    {% for col in source.columns %}
+                    {{ col.transform | replace('config','desiredState.config')  }} AS "{{ col.name }}"
+                        {%- if not loop.last -%}, {% endif %}
+                    {% endfor %}
+
+                    FROM CTE_TIME_GENERATOR	
+                {% endfor %}
+            {%endif%}
+        {%endif%}
+
+    {% elif desiredState.node.materializationType == 'table' or desiredState.node.materializationType == 'transient table' %}
+
+        {% set nsPopulateOnDeploy = namespace(dataPopulateRequired = false, zeroKeyDataPopulateRequired = false) %}
+
+        {% if (currentState == undefined or currentState.storageLocations | length == 0)
+            or (currentState != undefined and (currentState.node.materializationType != desiredState.node.materializationType)) %}
+
+            {% if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
+                {# Change in materialization type #}
+                {{ stage('Drop ' + currentState.node.materializationType + ' - ' + currentState.node.name, true, "sql", "drop") }}
+                {% if currentState.node.materializationType == 'view' %} 
+                        DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                {% else %}
+                        DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                {% endif %}
+            {% endif %}
+                 
+            {{ stage('Create Time Dimension '+ desiredState.node.materializationType) }}
+            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+            (
+                {% for col in desiredState.columns %}
+                    "{{ col.name }}" {{ col.dataType }}
+                    {%- if not col.nullable %} NOT NULL
+                        {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+                    {% endif %}
+                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+            )
+            {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+
+            {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+            {% set nsPopulateOnDeploy.zeroKeyDataPopulateRequired = true %}
+
+        {% elif currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType %}
+
+            {# Storage Location Tests #}
+            {% set nsVariables = namespace(storageLocationTest=true) %}
+
+            {# =========================================================
+            Initialize metadata tracking variables
+            ========================================================= #}
+            {% set nsMetaVariables = namespace(
+                transformTest       = true,
+                testsEnabledTest    = true,
+                insertZeroKeyTest   = true,
+                metaDataChanged     = false,
+                transformDiff       = [],
+                generatedTimeDiff   = [],
+                populateOnDeployDiff= [],
+                businessStartDiff   = [],
+                businessEndDiff     = [],
+                peakStartDiff       = [],
+                peakEndDiff         = [],             
+                preSQLDiff          = [],
+                postSQLDiff         = [],
+                businessDiff        = [],
+                granularityDiff     = [],
+                startingDateDiff    = [],
+                truncateBeforeDiff  = [],
+                daysToGenerateDiff  = [],
+                insertZeroKeyDiff   = [],
+                testsEnabledDiff    = [],
+                metaDataChanges     = [],
+                metadataUpdate      = 'Metadata Update'
+            ) %}       
+            
+             {% if currentDatabaseSchema != desiredDatabaseSchema %}
+                {% set nsVariables.storageLocationTest = false %}
+             {% endif %}
+
+            {# Rename / Move Object #}
+            {% if (nsVariables.storageLocationTest == false or currentState.node.name != desiredState.node.name) %}
+                {{ stage('Alter Table - Rename and / or Move Table ') }}
+                {% set srcSchName = currentState.node.location.name %}
+                {% set cdb = currentState.storageLocations
+                            | selectattr('name', 'equalto', srcSchName)
+                            | map(attribute='database')
+                            | first %}
+                {% set csch = currentState.storageLocations
+                            | selectattr('name', 'equalto', srcSchName)
+                            | map(attribute='schema')
+                            | first %}
+
+                ALTER TABLE  "{{cdb}}"."{{csch}}"."{{currentState.node.name}}"
+                RENAME TO   {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+
+                {# Metadata changes detected #}
+                {% set nsMetaVariables.metaDataChanged = true %}
+            {% endif %}
+
+            {# Change table description #}
+            {% if (nsVariables.nodeCommentTest == false or currentState.node.description != desiredState.node.description) %}
+                {{ stage('Alter Table - Change Table Description ') }}
+                ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                SET COMMENT = '{{ desiredState.node.description | escape }}'
+
+                {# Metadata changes detected #}
+                {% set nsMetaVariables.metaDataChanged = true %}
+            {% endif %}
+
+            {# Drop Columns #}
+            {% set nsVariables = namespace(colchanges=0) %}
+            {% for dropCurCol in currentState.columns %}
+                {% if dropCurCol.id not in desiredState.columns | map(attribute="id") %}
+                {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+
+                    {% if nsVariables.colchanges == 1 %}
+                        {{ stage('Alter Table - Drop Column') }}
+                        ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                        DROP COLUMN 
+                    {% else %}
+                        , 
+                    {% endif %}
+                    "{{ dropCurCol.name }}"
+
+                    {# Metadata changes detected #}
+                    {% set nsMetaVariables.metaDataChanged = true %}
+
+                    {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+
+                {% endif %}
+            {% endfor %}
+
+            {# Add Columns #}
+            {% set nsVariables = namespace(colchanges=0) %}
+            {% for addDesCol in desiredState.columns %}
+                {% if addDesCol.id not in currentState.columns | map(attribute="id") %}
+                {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+
+                    {% if nsVariables.colchanges == 1 %}
+                        {{ stage('Alter Table - Add Column') }}
+                        ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                        ADD COLUMN
+                    {% else %}
+                        ,
+                    {% endif %}
+                    "{{ addDesCol.name }}" {{ addDesCol.dataType }}
+                    {%- if not addDesCol.nullable %} NOT NULL
+                        {%- if addDesCol.defaultValue | length > 0 %} DEFAULT {{ addDesCol.defaultValue }}{% endif %}
+                    {% endif %}
+                    {%- if addDesCol.description | length > 0 %} COMMENT '{{ addDesCol.description | escape }}'{% endif %}
+
+                    {# Metadata changes detected #}
+                    {% set nsMetaVariables.metaDataChanged = true %}
+
+                    {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+
+                {% endif %}
+            {% endfor %}
+
+            {# Rename Columns #}
+            {% for renameCurCol in currentState.columns %}
+                {% if renameCurCol.id in desiredState.columns | map(attribute="id") %}
+                    {% set desiredColumnName = desiredState.columns | selectattr('id', 'equalto', renameCurCol.id) | map(attribute='name') | first %}
+                    {% if renameCurCol.name != desiredColumnName %}
+                        {{ stage('Alter Table - Rename Column') }}
+                        ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                        RENAME COLUMN "{{ renameCurCol.name }}"
+                        TO "{{ desiredColumnName }}"
+
+                        {# Metadata changes detected #}
+                        {% set nsMetaVariables.metaDataChanged = true %}
+
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {# Change data types etc #}
+            {% set nsVariables.colchanges = 0 %}
+            {% for alterCurCol in currentState.columns %}        
+                {% if alterCurCol.id in desiredState.columns | map(attribute="id") %}
+                    {% set currentDatatype = alterCurCol.dataType %}
+                    {% set currentNullable = alterCurCol.nullable %}
+                    {% set currentDefaultValue = alterCurCol.defaultValue %}
+                    {% set currentDescription = alterCurCol.description %}
+
+                    {% set desiredColumnName = desiredState.columns | selectattr('id', "equalto", alterCurCol.id) | map(attribute='name') | first %}
+                    {% set desiredDatatype = desiredState.columns | selectattr('id', "equalto", alterCurCol.id) | map(attribute='dataType') | first %}
+                    {% set desiredNullable = desiredState.columns | selectattr('id', "equalto", alterCurCol.id) | map(attribute='nullable') | first %}
+                    {% set desiredDefaultValue = desiredState.columns | selectattr('id', "equalto", alterCurCol.id) | map(attribute='defaultValue') | first %}
+                    {% set desiredDescription = desiredState.columns | selectattr('id', "equalto", alterCurCol.id) | map(attribute='description') | first %}
+
+                    {% set datatypeTest = currentDatatype == desiredDatatype %}
+                    {% set nullableTest = currentNullable == desiredNullable %}
+                    {% set defaultValueTest = currentDefaultValue == desiredDefaultValue %}
+                    {% set descriptionTest = currentDescription == desiredDescription %}
+
+                    {% if (datatypeTest == false or 
+                            nullableTest == false  or
+                            defaultValueTest == false or
+                            descriptionTest == false) %}
+                        {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+
+                        {% if nsVariables.colchanges == 1 %}
+                            {{ stage('Alter Table - Change Column Attributes') }}
+                            ALTER TABLE {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                            MODIFY
+                        {% endif %}
+                        {% if datatypeTest == false %}
+                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            COLUMN "{{ desiredColumnName }}"
+                            SET DATA TYPE {{ desiredDatatype }}
+                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                        {% endif %}
+                        {% if nullableTest == false %}
+                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            COLUMN "{{ desiredColumnName }}"
+                            {% if currentNullable == true %}
+                                SET
+                            {% else %}
+                                DROP
+                            {% endif %}
+                            NOT NULL
+                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                        {% endif %}
+                        {% if descriptionTest == false %}
+                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            COLUMN "{{ desiredColumnName }}"
+                            COMMENT '{{ desiredDescription |escape }}'
+                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                        {% endif %}
+                        {% if defaultValueTest == false %}
+                            {% if nsVariables.colchanges > 1 %},{% endif %}
+                            COLUMN "{{ desiredColumnName }}"
+                            {% if desiredDefaultValue == '' %}
+                                DROP DEFAULT
+                            {% else %}
+                                SET DEFAULT {{ desiredDefaultValue }}
+                            {% endif %}
+                            {% set nsVariables.colchanges = nsVariables.colchanges + 1 %}
+                            {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                        {% endif %}
+                        
+                        {# Metadata changes detected #}
+                        {% set nsMetaVariables.metaDataChanged = true %}
+                    {% else %}
+                                            
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if currentState != desiredState and nsMetaVariables.metaDataChanged == false %}
+                {% for col in desiredState.sources[0].columns %}
+
+                    {# Try to get matching column #}
+                    {% set matched_column = currentState.sources[0].columns
+                        | selectattr('id', 'equalto', col.id)
+                        | first
+                    %}
+
+                    {% if matched_column %}
+
+                        {# Transformation Changes #}
+                        {% set currentTransform = currentState.sources[0].columns
+                            | selectattr('id', 'equalto', col.id)
+                            | map(attribute='transform')
+                            | first
+                            | default('')
+                        %}
+
+                        {% if currentTransform != col.transform %}
+                            {% set nsMetaVariables.transformTest = false %}
+                            {% set _ = nsMetaVariables.transformDiff.append({
+                                "Column Name": col.name,
+                                "is": col.transform | replace('/*', '/ *') | replace('*/', '* /'),
+                                "was": currentTransform | replace('/*', '/ *') | replace('*/', '* /')
+                            }) %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if nsMetaVariables.transformTest == false %}
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("Transform", nsMetaVariables.transformDiff, "Transform") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                Business key comparison
+                ========================================================= #}
+                {% set currentBusinessKeys = currentState.columns
+                    | selectattr('isBusinessKey', 'equalto', true)
+                    | map(attribute='name')
+                    | list
+                    | sort
+                %}
+
+                {% set desiredBusinessKeys = desiredState.columns
+                    | selectattr('isBusinessKey', 'equalto', true)
+                    | map(attribute='name')
+                    | list
+                    | sort
+                %}
+
+                {% if currentBusinessKeys != desiredBusinessKeys %}
+                    {% set _ = nsMetaVariables.businessDiff.append({
+                        "is": desiredBusinessKeys,
+                        "was": currentBusinessKeys
+                    }) %}
+
+                    {{ update_metadata("Business Keys", nsMetaVariables.businessDiff, "Business Keys") }}
+                {% endif %}
+
+                {# =========================================================
+                generatedTime comparison
+                ========================================================= #}
+                {% if currentState.config.generatedTime != desiredState.config.generatedTime %}
+                    {% set _ = nsMetaVariables.generatedTimeDiff.append({
+                        "is": desiredState.config.generatedTime | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.generatedTime | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("generatedTime", nsMetaVariables.generatedTimeDiff, "generatedTime") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                populateOnDeploy comparison
+                ========================================================= #}
+                {% if currentState.config.populateOnDeploy != desiredState.config.populateOnDeploy %}
+                    {% set _ = nsMetaVariables.populateOnDeployDiff.append({
+                        "is": desiredState.config.populateOnDeploy | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.populateOnDeploy | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("populateOnDeploy", nsMetaVariables.populateOnDeployDiff, "populateOnDeploy") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                granularity comparison
+                ========================================================= #}
+                {% if currentState.config.granularity != desiredState.config.granularity %}
+                    {% set _ = nsMetaVariables.granularityDiff.append({
+                        "is": desiredState.config.granularity | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.granularity | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("granularity", nsMetaVariables.granularityDiff, "granularity") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                businessStart comparison
+                ========================================================= #}
+                {% if currentState.config.businessStart != desiredState.config.businessStart %}
+                    {% set _ = nsMetaVariables.businessStartDiff.append({
+                        "is": desiredState.config.businessStart | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.businessStart | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("BusinessStart Hour", nsMetaVariables.businessStartDiff, "BusinessStart") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                businessEnd comparison
+                ========================================================= #}
+                {% if currentState.config.businessEnd != desiredState.config.businessEnd %}
+                    {% set _ = nsMetaVariables.businessEndDiff.append({
+                        "is": desiredState.config.businessEnd | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.businessEnd | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("BusinessEnd Hour", nsMetaVariables.businessEndDiff, "BusinessEnd") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                peakStart comparison
+                ========================================================= #}
+                {% if currentState.config.peakStart != desiredState.config.peakStart %}
+                    {% set _ = nsMetaVariables.peakStartDiff.append({
+                        "is": desiredState.config.peakStart | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.peakStart | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("PeakStart Hour", nsMetaVariables.peakStartDiff, "PeakStart") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                peakEnd comparison
+                ========================================================= #}
+                {% if currentState.config.peakEnd != desiredState.config.peakEnd %}
+                    {% set _ = nsMetaVariables.peakEndDiff.append({
+                        "is": desiredState.config.peakEnd | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.peakEnd | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("PeakEnd Hour", nsMetaVariables.peakEndDiff, "PeakEnd") }}
+                    {% endif %}
+                {% endif %}
+
+                {# =========================================================
+                postSQL comparison
+                ========================================================= #}
+                {% if currentState.config.postSQL != desiredState.config.postSQL %}
+                    {% set _ = nsMetaVariables.postSQLDiff.append({
+                        "is": desiredState.config.postSQL | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.postSQL | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {{ update_metadata("postSQL", nsMetaVariables.postSQLDiff, "postSQL") }}
+
+                {% endif %}
+
+                {# =========================================================
+                preSQL comparison
+                ========================================================= #}
+                {% if currentState.config.preSQL != desiredState.config.preSQL %}
+                    {% set _ = nsMetaVariables.preSQLDiff.append({
+                        "is": desiredState.config.preSQL | replace('/*', '/ *') | replace('*/', '* /'),
+                        "was": currentState.config.preSQL | replace('/*', '/ *') | replace('*/', '* /')
+                    }) %}
+
+                    {{ update_metadata("preSQL", nsMetaVariables.preSQLDiff, "preSQL") }}
+
+                {% endif %}
+
+                {# =========================================================
+                Zero Key Insert comparison
+                ========================================================= #}
+                {% if currentState.config.insertZeroKey != desiredState.config.insertZeroKey %}
+
+                    {% set nsMetaVariables.insertZeroKeyTest = false %}
+                    {% set _ = nsMetaVariables.insertZeroKeyDiff.append({
+                            "is": desiredState.config.insertZeroKey,
+                        "was": currentState.config.insertZeroKey
+                    }) %}
+
+                {% elif currentState.config.insertZeroKey and desiredState.config.insertZeroKey %}
+
+                    {# Zero Key Record Option Changes tracking #}
+                    {% if currentState.config.insertZeroKeyBusinessKey != desiredState.config.insertZeroKeyBusinessKey %}
+                        {% set nsMetaVariables.insertZeroKeyTest = false %}
+                        {% set _ = nsMetaVariables.insertZeroKeyDiff.append({
+                            "Config": "Default Surrogate Key Value",
+                            "is": desiredState.config.insertZeroKeyBusinessKey | replace('/*', '/ *') | replace('*/', '* /'),
+                            "was": currentState.config.insertZeroKeyBusinessKey | replace('/*', '/ *') | replace('*/', '* /')
+                        }) %}
+                        {% endif %}
+
+                    {% if currentState.config.insertZeroKeyStr != desiredState.config.insertZeroKeyStr %}
+                        {% set nsMetaVariables.insertZeroKeyTest = false %}
+                        {% set _ = nsMetaVariables.insertZeroKeyDiff.append({
+                            "Config": "Default String Value",
+                            "is": desiredState.config.insertZeroKeyStr | replace('/*', '/ *') | replace('*/', '* /'),
+                            "was": currentState.config.insertZeroKeyStr | replace('/*', '/ *') | replace('*/', '* /')
+                        }) %}
+                    {% endif %}
+
+                    {% if currentState.config.insertZeroKeyTime != desiredState.config.insertZeroKeyTime %}
+                        {% set nsMetaVariables.insertZeroKeyTest = false %}
+                        {% set _ = nsMetaVariables.insertZeroKeyDiff.append({
+                            "Config": "Default String Value",
+                            "is": desiredState.config.insertZeroKeyTime | replace('/*', '/ *') | replace('*/', '* /'),
+                            "was": currentState.config.insertZeroKeyTime | replace('/*', '/ *') | replace('*/', '* /')
+                        }) %}
+                    {% endif %}
+                {% endif %}
+
+                {% if nsMetaVariables.insertZeroKeyTest == false %}
+                    {% if desiredState.config.populateOnDeploy %}
+                        {% set nsPopulateOnDeploy.zeroKeyDataPopulateRequired = true %}
+                    {% else %}
+                        {{ update_metadata("Zero Key Insert", nsMetaVariables.insertZeroKeyDiff, "Zero Key Insert") }}
+                    {% endif %}
+                {% endif %}
+    
+                {# =========================================================
+                Test Enabled comparison (per column)
+                ========================================================= #}
+                {% if desiredState.config.testsEnabled != currentState.config.testsEnabled %}
+
+                        {% set nsMetaVariables.testsEnabledTest = false %}
+                        {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                            "is": desiredState.config.testsEnabled,
+                            "was": currentState.config.testsEnabled
+                        }) %}
+
+                {% elif desiredState.config.testsEnabled and currentState.config.testsEnabled %}
+
+                    {# Changes in Node Tests #}
+                    {% if currentState.node.tests | length != desiredState.node.tests | length %}
+
+                        {% set nsMetaVariables.testsEnabledTest = false %}
+                        {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                            "is": desiredState.node.tests | map(attribute="name") | list | sort ,
+                            "was": currentState.node.tests | map(attribute="name") | list | sort
+                        }) %}
+                    {% else %}
+                        {% for dtest in desiredState.node.tests %}
+                            {% set ctest = (currentState.node.tests | selectattr("name", "equalto", dtest.name) | first) %}
+
+                            {% if ctest != dtest %}
+                                {% set nsMetaVariables.testsEnabledTest = false %}
+                                {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                                    "is": dtest | replace('/*', '/ *') | replace('*/', '* /'),
+                                    "was": ctest | replace('/*', '/ *') | replace('*/', '* /')
+                                }) %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {# Changes in Column tests #}
+                    {% for src in desiredState.sources %}
+
+                        {% set matchingSource = currentState.sources | selectattr('name', 'equalto', src.name) | first %}
+
+                        {% if matchingSource %}
+                            {% for col in src.columns %}
+                                {% set currentTest = matchingSource.columns
+                                    | selectattr('id', 'equalto', col.id)
+                                    | map(attribute='tests')
+                                    | first
+                                    | default('')
+                                %}
+
+                                {% if currentTest != col.tests %}
+                                    {% set nsMetaVariables.testsEnabledTest = false %}
+                                    {% set cTests = currentTest | map(attribute="name") | list | sort %}
+                                    {% set dTests = col.tests | map(attribute="name") | list | sort %}
+                                    {% set _ = nsMetaVariables.testsEnabledDiff.append({
+                                        "Column Name": col.name,
+                                        "is": dTests,
+                                        "was": cTests
+                                    }) %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if nsMetaVariables.testsEnabledTest == false %}
+                    {{ update_metadata("Test Enanbled", nsMetaVariables.testsEnabledDiff, "Test Enanbled") }}
+                {% endif %}
+
+                {% if nsPopulateOnDeploy.dataPopulateRequired == false and nsPopulateOnDeploy.zeroKeyDataPopulateRequired == false %}
+                    {# =========================================================
+                    Handle detected metadata changes and update
+                    ========================================================= #}
+                    {% if nsMetaVariables.metaDataChanges | length == 0 %}
+                        {{ stage('Metadata Update-Default') }}
+                    {% else %}
+                        {{ stage(nsMetaVariables.metadataUpdate) }}
+                        -- Metadata changes detected
+                        /* {{ nsMetaVariables.metaDataChanges }} */
+                    {% endif %}
+                    select 1=0
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+        {% if desiredState.config.populateOnDeploy %}
+            {% if nsPopulateOnDeploy.dataPopulateRequired %}
+
+                {% if desiredState.config.granularity == 'HOUR' %}
+                    {% set rowCount = 24 %}
+                {% elif desiredState.config.granularity == 'SECOND' %}
+                    {% set rowCount = 86400 %}
+                {% else %}
+                    {% set rowCount = 1440 %}
+                {% endif %}
+
+                {{stage('Populate Data in Time Dimension')}}
+                INSERT OVERWRITE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                    {% for col in desiredState.columns if col.reqcolumn != 'N' %}
+                        "{{ col.name }}"
+                        {% if not loop.last -%},{% endif %}
+                    {% endfor %}
+                )   
+                WITH CTE_TIME_GENERATOR AS 
+                (
+                    SELECT 
+                    TIMEADD({{ desiredState.config.granularity }}, SEQ4(), '00:00:00'::TIME) AS {{ desiredState.config.generatedTime }}
+                    FROM TABLE(GENERATOR(ROWCOUNT => {{ rowCount }}))
+                )
+                SELECT
+                {% for col in desiredState.sources[0].columns %}
+                    {{ col.transform | replace('config','desiredState.config')  }} AS "{{ col.name }}"
+                    {%- if not loop.last -%}, {% endif %}
+                {% endfor %}
+                FROM CTE_TIME_GENERATOR
+            {% endif %}
+
+            {% if desiredState.config.insertZeroKey and nsPopulateOnDeploy.zeroKeyDataPopulateRequired %}
+
+                {{stage('Populate Zero Key Data in Time Dimension')}}
+                MERGE INTO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }} USING
+                (
+                    SELECT 
+                    {% for col in desiredState.sources[0].columns %}
+                        {% set dtparams = col.dataType.partition('(')[-1].rpartition(')')[0].split(',') %}
+
+                        {% if col.isBusinessKey %}
+                            '{{ desiredState.config.insertZeroKeyBusinessKey }}'
+                        {% elif col.isSystemCurrentFlag %}
+                            'Y'
+                        {% elif col.isSystemStartDate or col.isSystemEndDate or col.isSystemUpdateDate or col.isSystemCreateDate %}
+                            {{ get_source_transform(col) }}
+                        {% elif col.isSystemVersion%}
+                            1
+                        {% elif col.dataType[:3] | upper in ('NUM','INT','DEC','FLO', 'SMA') %}
+                            0
+                        {% elif col.dataType[:4] | upper in ('TIME') %}
+                            '{{ desiredState.config.insertZeroKeyTime }}'
+                        {% elif col.dataType[:3] | upper in ('VAR','CHA','STR','BIN') %}
+                            {% if dtparams[0] and dtparams[0] | int <  desiredState.config.insertZeroKeyStr | length  %}
+                                SUBSTRING('{{ desiredState.config.insertZeroKeyStr }}', 1, {{ dtparams[0] }})
+                            {% else %}
+                                '{{ desiredState.config.insertZeroKeyStr }}'
+                            {% endif %}
+                        {% elif col.nullable %}
+                            NULL
+                        {% else %}
+                            ''
+                        {% endif %}
+                        AS "{{ col.name }}"
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    FROM DUAL
+                ) AS SOURCE_ZERO
+                ON 
+                {% for col in desiredState.sources[0].columns if col.isSurrogateKey or col.isBusinessKey %}
+                    CASE 
+                    WHEN TRY_TO_TIME('{{ desiredState.config.insertZeroKeyBusinessKey }}', 'HH:MM:SS') IS NOT NULL
+                        THEN {{ desiredState.node.name }}.{{ col.name }} = CAST(TO_TIME('{{ desiredState.config.insertZeroKeyBusinessKey }}', 'HH:MM:SS') AS TIME)
+                        ELSE {{ desiredState.node.name }}.{{ col.name }} = '{{ desiredState.config.insertZeroKeyBusinessKey }}'
+                    END 				
+                {% endfor -%}
+            
+                WHEN MATCHED THEN UPDATE
+                SET
+                {%- for col in desiredState.sources[0].columns if (not col.isSurrogateKey and not col.isBusinessKey) %}
+                    {{ desiredState.node.name }}.{{ col.name }} = SOURCE_ZERO.{{ col.name }}
+                    {% if not loop.last %}, {% endif %}			
+                {% endfor -%}
+
+                WHEN NOT MATCHED THEN INSERT
+                (
+                    {%- for col in desiredState.sources[0].columns %}
+                        {{ col.name}}
+                        {% if not loop.last %}, {% endif %}			
+                    {% endfor -%}
+                )
+                VALUES
+                (
+                    {%- for col in desiredState.sources[0].columns %}
+                    SOURCE_ZERO.{{ col.name }}			
+                        {% if not loop.last %}, {% endif %}			
+                    {% endfor -%}
+                )
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+{% elif currentState != undefined and desiredState == undefined %}
+
+    {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
+    
+    {% if currentState.node.materializationType == 'view' %}
+        {{ stage('Drop Table or View - ') }}
+        DROP VIEW IF EXISTS {{ fullyQualifiedTargetObjectName }}
+    {% else %}
+       {{ stage('Drop ' + currentState.node.materializationType) }}
+       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
+    {% endif %}
+
+{% endif %}
