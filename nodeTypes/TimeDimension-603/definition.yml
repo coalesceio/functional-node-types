@@ -1,0 +1,361 @@
+fileVersion: 1
+id: "603"
+isDisabled: false
+metadata:
+  defaultStorageLocation: null
+  error: null
+  nodeMetadataSpec: |-
+    capitalized: Time Dimension
+    short: DIM_TIME
+    plural: Times
+    tagColor: 'lightgrey'
+
+    deployStrategy: advanced
+
+    config:
+    - groupName: Time Dimension Options
+
+      items:
+
+      - displayName: Generated Time Column Name
+        attributeName: generatedTime
+        type: textBox
+        enableIf: 'true'
+        default: 'TIME_COL'
+        isRequired: true
+
+      - type: dropdownSelector
+        displayName: Granularity
+        attributeName: granularity
+        default: MINUTE
+        options:
+          - HOUR
+          - MINUTE
+          - SECOND
+        isRequired: true
+
+      - displayName: Business Hours Start
+        attributeName: businessStart
+        type: textBox
+        default: '08:00:00'
+        isRequired: true
+
+      - displayName: Business Hours End
+        attributeName: businessEnd
+        type: textBox
+        default: '17:00:00'
+        isRequired: true
+
+      - displayName: Peak Hours Start
+        attributeName: peakStart
+        type: textBox
+        default: '09:00:00'
+        isRequired: true
+
+      - displayName: Peak Hours End
+        attributeName: peakEnd
+        type: textBox
+        default: '17:00:00'
+        isRequired: true
+
+      enableIf: "{% if node.materializationType == 'view' and node.override.create.enabled %} false {% else %} true {% endif %}"
+
+    - groupName: Additional Options
+
+      items:
+
+      - type: materializationSelector
+        default: table
+        options:
+        - table
+        - view
+        - transient table
+        isRequired: true
+
+      - type: overrideSQLToggle
+        enableIf: "{% if node.materializationType == 'view' %} true {% else %} false {% endif %}"
+
+      - displayName: Populate On Deploy
+        attributeName: populateOnDeploy
+        type: toggleButton
+        default: false
+        isRequired: false
+        enableIf: "{% if node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - type: toggleButton
+        attributeName: insertZeroKey
+        displayName: Insert Zero Key Record
+        default: false
+        enableIf: "{% if node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - displayName: Default Business Key Value (HH:MM:SS)
+        attributeName: insertZeroKeyBusinessKey
+        type: textBox
+        default: "99:99:99"
+        isRequired: false
+        enableIf: "{% if config.insertZeroKey == true and node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - displayName: Default String Value
+        attributeName: insertZeroKeyStr
+        type: textBox
+        default: "UNKNOWN"
+        isRequired: false
+        enableIf: "{% if config.insertZeroKey == true and node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - displayName: Default Time Value
+        attributeName: insertZeroKeyTime
+        type: textBox
+        default: "00:00:00"
+        isRequired: false
+        enableIf: "{% if config.insertZeroKey == true and node.materializationType != 'view' %} true {% else %} false {% endif %}"
+
+      - type: businessKeyColumns
+        isRequired: true
+        
+      - displayName: Enable Tests
+        attributeName: testsEnabled
+        type: toggleButton
+        default: false
+        enableIf: "{% if node.materializationType == 'view' and node.override.create.enabled %} false {% else %} true {% endif %}"
+
+      - displayName: Pre-SQL
+        attributeName: preSQL
+        type: textBox
+        syntax: sql
+        isRequired: false
+        enableIf: "{% if node.materializationType == 'view' and node.override.create.enabled %} false {% else %} true {% endif %}"
+        
+      - displayName: Post-SQL
+        attributeName: postSQL
+        type: textBox
+        syntax: sql
+        isRequired: false
+        enableIf: "{% if node.materializationType == 'view' and node.override.create.enabled %} false {% else %} true {% endif %}"
+        
+    systemColumns:
+
+    ## -------------------------Core Time Columns-------------------------- ##
+
+    - displayName: TIME_KEY
+      transform: "{{ config.generatedTime }}"
+      dataType: 'VARCHAR(8)'
+      description: "Primary key - the time value - HH:MM:SS"
+      attributeName: isBusinessKey
+      placement: beginning
+      isBusinessKey: true
+
+    - displayName: HOUR_24
+      transform: 'DATE_PART(HOUR, {{ config.generatedTime }})'
+      dataType: SMALLINT
+      description: "Hour in 24-hour format (0-23)"
+      placement: beginning
+      attributeName: isHour24
+
+    - displayName: HOUR_12
+      transform: 'DECODE(MOD(DATE_PART(HOUR, {{ config.generatedTime }}), 12), 0, 12, MOD(DATE_PART(HOUR, {{ config.generatedTime }}), 12))'
+      dataType: SMALLINT
+      description: "Hour in 12-hour format (1-12)"
+      placement: beginning
+      attributeName: isHour12
+
+    - displayName: MINUTE
+      transform: 'DATE_PART(MINUTE, {{ config.generatedTime }})'
+      dataType: SMALLINT
+      description: "Minute of the hour (0-59)"
+      placement: beginning
+      attributeName: isMinute
+
+    - displayName: SECOND
+      transform: 'DATE_PART(SECOND, {{ config.generatedTime }})'
+      dataType: SMALLINT
+      description: "Second of the minute (0-59)"
+      placement: beginning
+      attributeName: isSecond
+
+    - displayName: AM_PM
+      transform: "CASE WHEN DATE_PART(HOUR, {{config.generatedTime }}) < 12 THEN 'AM' ELSE 'PM' END"
+      dataType: VARCHAR(2)
+      description: "'AM' or 'PM' Indicator"
+      placement: beginning
+      attributeName: isAMPM
+
+    # -------------------------Formatted Display Columns-------------------------- #
+
+    - displayName: HOUR_MINUTE
+      transform: "SUBSTR({{ config.generatedTime }}, 1, 5)"
+      dataType: VARCHAR(5)
+      description: "Formatted as 'HH:MM'"
+      placement: beginning
+      attributeName: isHourMinute
+
+    - displayName: HOUR_MINUTE_SECOND
+      transform: "{{ config.generatedTime }}"
+      dataType: VARCHAR(8)
+      description: "Formatted as 'HH:MM:SS'"
+      placement: beginning
+      attributeName: isHourMinuteSecond
+
+    - displayName: TIME_12_HOUR_FORMAT
+      transform: "TO_CHAR({{ config.generatedTime }}, 'HH12:MI:SS AM')"
+      dataType: VARCHAR(11)
+      description: "Formatted as 'HH:MM:SS AM'"
+      placement: beginning
+      attributeName: is12Hr
+
+    # -------------------------Sorting/Grouping Columns-------------------------- #
+
+    - displayName: HOUR_OF_DAY
+      transform: "FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) + 1"
+      dataType: SMALLINT
+      description: "1-indexed hour of the day (1-24)"
+      placement: beginning
+      attributeName: isHourOfDay
+
+    - displayName: MINUTE_OF_DAY
+      transform: "FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) * 60 + FLOOR(EXTRACT(MINUTE FROM {{ config.generatedTime }})) + 1"
+      dataType: SMALLINT
+      description: "1-indexed minute of the day (1-1440)"
+      placement: beginning
+      attributeName: isMinuteOfDay
+
+    - displayName: QUARTER_HOUR
+      transform: "(FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) * 4) + (FLOOR((EXTRACT(MINUTE FROM {{ config.generatedTime }})) / 15) + 1)"
+      dataType: SMALLINT
+      description: "Quarter-hour of the day (1-96)"
+      placement: beginning
+      attributeName: isQuarterHour
+
+    - displayName: QUARTER_HOUR_OF_HOUR
+      transform: "FLOOR(EXTRACT(MINUTE FROM {{ config.generatedTime }}) / 15) + 1"
+      dataType: SMALLINT
+      description: "Which quarter within the hour (1-4)"
+      placement: beginning
+      attributeName: isQuarterHourofHour
+
+    - displayName: HALF_HOUR
+      transform: "(FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) * 2) + (FLOOR((EXTRACT(MINUTE FROM {{ config.generatedTime }})) / 30) + 1)"
+      dataType: SMALLINT
+      description: "Half-hour of the day (1-48)"
+      placement: beginning
+      attributeName: isHalfHour
+
+    - displayName: HALF_HOUR_OF_HOUR
+      transform: "FLOOR(EXTRACT(MINUTE FROM {{ config.generatedTime }}) / 30) + 1"
+      dataType: SMALLINT
+      description: "Which half within the hour (1-2)"
+      placement: beginning
+      attributeName: isHalfHourOfHour
+
+    - displayName: MINUTES_SINCE_MIDNIGHT
+      transform: "(EXTRACT(HOUR FROM {{ config.generatedTime }}) * 60) + (EXTRACT(MINUTE FROM {{ config.generatedTime }}))"
+      dataType: INTEGER
+      description: "Total minutes from midnight (0-1439)"
+      placement: beginning
+      attributeName: isMInSinceMidnight
+
+    - displayName: SECONDS_SINCE_MIDNIGHT
+      transform: "(EXTRACT(HOUR FROM {{ config.generatedTime }}) * 3600 + EXTRACT(MINUTE FROM {{ config.generatedTime }}) * 60 + EXTRACT(SECOND FROM {{ config.generatedTime }}))"
+      dataType: INTEGER
+      description: "Total seconds from midnight (0-86399)"
+      placement: beginning
+      attributeName: isSecondsSinceMidnight
+
+    # -------------------------Interval/Range Columns-------------------------- #
+
+    - displayName: QUARTER_HOUR_START
+      transform: "TIMEADD(MINUTE, FLOOR(MINUTES_SINCE_MIDNIGHT / 15) * 15, '00:00:00'::TIME)"
+      dataType: TIME
+      description: "Start time of the quarter-hour block"
+      placement: beginning
+      attributeName: isQHourStart
+
+    - displayName: QUARTER_HOUR_END
+      transform: "TIMEADD(MINUTE, FLOOR(MINUTES_SINCE_MIDNIGHT / 15) * 15, '00:14:59'::TIME)"
+      dataType: TIME
+      description: "End time of the quarter-hour block"
+      placement: beginning
+      attributeName: isQHourEnd
+      
+    - displayName: TIME_INTERVAL_15MIN
+      transform: "QUARTER_HOUR_START || '-' || QUARTER_HOUR_END"
+      dataType: VARCHAR(17)
+      description: "15-minute block range"
+      placement: beginning
+      attributeName: isInt15Min
+
+    - displayName: TIME_INTERVAL_30MIN
+      transform: "
+        LPAD(DATE_PART(HOUR, {{ config.generatedTime }}), 2, '0')
+        || ':' ||
+        LPAD(FLOOR(DATE_PART(MINUTE, {{ config.generatedTime }}) / 30) * 30, 2, '0')
+        || ':00'
+        || '-' ||
+        LPAD(DATE_PART(HOUR, {{ config.generatedTime }}), 2, '0')
+        || ':' ||
+        LPAD((FLOOR(DATE_PART(MINUTE, {{ config.generatedTime }}) / 30) * 30) + 29, 2, '0')
+        || ':59'
+      "
+      dataType: VARCHAR(17)
+      description: "30-minute block range"
+      placement: beginning
+      attributeName: isInt30Min
+
+    - displayName: TIME_INTERVAL_HOUR
+      transform: TO_CHAR({{ config.generatedTime }}, 'HH24') || ':00:00-' || TO_CHAR({{ config.generatedTime }}, 'HH24') || ':59:59'
+      dataType: VARCHAR(17)
+      description: "Hour block range"
+      placement: beginning
+      attributeName: isInt60Min
+
+    # -------------------------Period Classification Columns-------------------------- #
+
+    - displayName: TIME_OF_DAY
+      transform: "CASE WHEN HOUR_24 >= 5 AND HOUR_24 < 12 THEN 'Morning' WHEN HOUR_24 >= 12 AND HOUR_24 < 17 THEN 'Afternoon'     WHEN HOUR_24 >= 17 AND HOUR_24 < 21 THEN 'Evening' ELSE 'Night' END"
+      dataType: VARCHAR(20)
+      description: "Period: 'Morning', 'Afternoon', 'Evening', 'Night'"
+      placement: beginning
+      attributeName: isTimeDay
+
+    - displayName: HOUR_BAND
+      transform: "CASE WHEN HOUR_24 >= 5 AND HOUR_24 < 9 THEN 'Early Morning' WHEN HOUR_24 >= 9 AND HOUR_24 < 12 THEN 'Mid-Morning' WHEN HOUR_24 >= 12 AND HOUR_24 < 14 THEN 'Lunch' WHEN HOUR_24 >= 14 AND HOUR_24 < 17 THEN 'Early Afternoon'  WHEN HOUR_24 >= 17 AND HOUR_24 < 19 THEN 'Late Afternoon' WHEN HOUR_24 >= 19 AND HOUR_24 < 21 THEN 'Early Evening' WHEN HOUR_24 >= 21 AND HOUR_24 < 24 THEN 'Late Evening' ELSE 'Overnight' END"
+      dataType: VARCHAR(20)
+      description: "Granular period: 'Early Morning', 'Mid-Morning', 'Lunch', 'Early Afternoon', 'Late Afternoon', 'Early Evening', 'Late Evening', 'Overnight'"
+      placement: beginning
+      attributeName: isHourBand
+
+    - displayName: DAY_NIGHT
+      transform: "CASE WHEN HOUR_24 >= 6 AND HOUR_24 < 18 THEN 'Day' ELSE 'Night' END"
+      dataType: VARCHAR(5)
+      description: "Simple classification: 'Day' or 'Night'"
+      placement: beginning
+      attributeName: IsDayNight
+
+    - displayName: FLAG_BUSINESS_HOURS
+      transform: "CASE WHEN TO_TIME({{ config.generatedTime }}) BETWEEN TO_TIME('{{ config.businessStart }}') AND TO_TIME('{{ config.businessEnd }}') THEN 'Y' ELSE 'N' END"
+      dataType: VARCHAR(1)
+      description: "'Y' if within configured business hours, 'N' otherwise"
+      placement: beginning
+      attributeName: IsBusinessHour
+
+    - displayName: PEAK_OFF_PEAK
+      transform: "CASE WHEN TO_TIME({{ config.generatedTime }}) BETWEEN TO_TIME('{{ config.peakStart }}') AND TO_TIME('{{ config.peakEnd }}') THEN 'Peak' ELSE 'Off-Peak' END"
+      dataType: VARCHAR(10)
+      description: "'Peak' or 'Off-Peak' based on configured peak hours"
+      placement: beginning
+      attributeName: IsPeakOrNo
+
+    # -------------------------Other System Columns-------------------------- #
+
+    - displayName: SYSTEM_CREATE_DATE
+      transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      dataType: TIMESTAMP
+      placement: end
+      attributeName: isSystemCreateDate
+
+    - displayName: SYSTEM_UPDATE_DATE
+      transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      dataType: TIMESTAMP
+      placement: end
+      attributeName: isSystemUpdateDate
+name: Time Dimension
+type: NodeType

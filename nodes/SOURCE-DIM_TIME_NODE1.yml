@@ -1,0 +1,539 @@
+fileVersion: 1
+id: b2d982ee-25e1-4030-9d15-0e4249208166
+name: DIM_TIME_NODE1
+operation:
+  config:
+    businessEnd: "17:00:00"
+    businessStart: "08:00:00"
+    generatedTime: TIME_COL
+    granularity: HOUR
+    insertZeroKey: true
+    insertZeroKeyBusinessKey: "99:99:99"
+    insertZeroKeyStr: UNKNOWN
+    insertZeroKeyTime: "00:00:00"
+    peakEnd: "17:00:00"
+    peakStart: "09:00:00"
+    populateOnDeploy: false
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4cec6128-3e04-497d-bf0b-879dbc1de938
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(8)
+        defaultValue: ""
+        description: Primary key - the time value - HH:MM:SS
+        isBusinessKey: true
+        name: TIME_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "{{ config.generatedTime }}"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f1219ae6-c941-4b00-aacc-b99ea94a25d8
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Hour in 24-hour format (0-23)
+        isHour24: true
+        name: HOUR_24
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DATE_PART(HOUR, {{ config.generatedTime }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e5103ae1-0a8a-486e-b447-49b49586425d
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Hour in 12-hour format (1-12)
+        isHour12: true
+        name: HOUR_12
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DECODE(MOD(DATE_PART(HOUR, {{ config.generatedTime }}), 12), 0, 12, MOD(DATE_PART(HOUR, {{ config.generatedTime }}), 12))
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 457f380c-6ef3-424d-b820-e2506ecdbc87
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Minute of the hour (0-59)
+        isMinute: true
+        name: MINUTE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DATE_PART(MINUTE, {{ config.generatedTime }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7c1bf4e6-75e8-4ba7-932b-365f69302698
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Second of the minute (0-59)
+        isSecond: true
+        name: SECOND
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: DATE_PART(SECOND, {{ config.generatedTime }})
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0cd6c738-94c9-4937-ad03-8e31b1127ecd
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(2)
+        defaultValue: ""
+        description: "'AM' or 'PM' Indicator"
+        isAMPM: true
+        name: AM_PM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN DATE_PART(HOUR, {{config.generatedTime }}) < 12 THEN 'AM' ELSE 'PM' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 006f7f6a-7126-43d1-80b6-571288664ea5
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(5)
+        defaultValue: ""
+        description: Formatted as 'HH:MM'
+        isHourMinute: true
+        name: HOUR_MINUTE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: SUBSTR({{ config.generatedTime }}, 1, 5)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 54bb37b0-f9e1-4f11-90a7-1f2571a865f4
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(8)
+        defaultValue: ""
+        description: Formatted as 'HH:MM:SS'
+        isHourMinuteSecond: true
+        name: HOUR_MINUTE_SECOND
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "{{ config.generatedTime }}"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 29688a43-6de6-4673-b372-dad5602cb5eb
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(11)
+        defaultValue: ""
+        description: Formatted as 'HH:MM:SS AM'
+        is12Hr: true
+        name: TIME_12_HOUR_FORMAT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: TO_CHAR({{ config.generatedTime }}, 'HH12:MI:SS AM')
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4a4d0559-93f8-4ae1-b3ee-f1dc163844ec
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: 1-indexed hour of the day (1-24)
+        isHourOfDay: true
+        name: HOUR_OF_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) + 1
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: eea8c14b-c6c5-4b0b-909f-b82dd864401d
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: 1-indexed minute of the day (1-1440)
+        isMinuteOfDay: true
+        name: MINUTE_OF_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) * 60 + FLOOR(EXTRACT(MINUTE FROM {{ config.generatedTime }})) + 1
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1b305125-2466-4f01-9fe6-0796054558f1
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Quarter-hour of the day (1-96)
+        isQuarterHour: true
+        name: QUARTER_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: (FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) * 4) + (FLOOR((EXTRACT(MINUTE FROM {{ config.generatedTime }})) / 15) + 1)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6a4c4403-14c8-446f-acb8-a369a6f5206b
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Which quarter within the hour (1-4)
+        isQuarterHourofHour: true
+        name: QUARTER_HOUR_OF_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: FLOOR(EXTRACT(MINUTE FROM {{ config.generatedTime }}) / 15) + 1
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5f4987c0-34df-48e8-b39d-454880ab7480
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Half-hour of the day (1-48)
+        isHalfHour: true
+        name: HALF_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: (FLOOR(EXTRACT(HOUR FROM {{ config.generatedTime }})) * 2) + (FLOOR((EXTRACT(MINUTE FROM {{ config.generatedTime }})) / 30) + 1)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 086fb5ea-23be-44d4-acd5-c6f72a4ffe85
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Which half within the hour (1-2)
+        isHalfHourOfHour: true
+        name: HALF_HOUR_OF_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: FLOOR(EXTRACT(MINUTE FROM {{ config.generatedTime }}) / 30) + 1
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8356cc9a-46a8-4cc2-b150-2bd3bc2bf815
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: INTEGER
+        defaultValue: ""
+        description: Total minutes from midnight (0-1439)
+        isMInSinceMidnight: true
+        name: MINUTES_SINCE_MIDNIGHT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: (EXTRACT(HOUR FROM {{ config.generatedTime }}) * 60) + (EXTRACT(MINUTE FROM {{ config.generatedTime }}))
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: bba50f10-2af9-429c-ab5b-864bb2270e6d
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: INTEGER
+        defaultValue: ""
+        description: Total seconds from midnight (0-86399)
+        isSecondsSinceMidnight: true
+        name: SECONDS_SINCE_MIDNIGHT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: (EXTRACT(HOUR FROM {{ config.generatedTime }}) * 3600 + EXTRACT(MINUTE FROM {{ config.generatedTime }}) * 60 + EXTRACT(SECOND FROM {{ config.generatedTime }}))
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1d6d7bb1-2191-408d-a151-4d2ada16cf09
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: TIME
+        defaultValue: ""
+        description: Start time of the quarter-hour block
+        isQHourStart: true
+        name: QUARTER_HOUR_START
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: TIMEADD(MINUTE, FLOOR(MINUTES_SINCE_MIDNIGHT / 15) * 15, '00:00:00'::TIME)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 27bfe0ea-4310-44fd-b157-0a0c4495e485
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: TIME
+        defaultValue: ""
+        description: End time of the quarter-hour block
+        isQHourEnd: true
+        name: QUARTER_HOUR_END
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: TIMEADD(MINUTE, FLOOR(MINUTES_SINCE_MIDNIGHT / 15) * 15, '00:14:59'::TIME)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 68934e4f-aa91-489a-940b-ae3c0a6429a3
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(17)
+        defaultValue: ""
+        description: 15-minute block range
+        isInt15Min: true
+        name: TIME_INTERVAL_15MIN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: QUARTER_HOUR_START || '-' || QUARTER_HOUR_END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ac200f28-a0fe-452c-820f-bd2932e200e8
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(17)
+        defaultValue: ""
+        description: 30-minute block range
+        isInt30Min: true
+        name: TIME_INTERVAL_30MIN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: " LPAD(DATE_PART(HOUR, {{ config.generatedTime }}), 2, '0') || ':' || LPAD(FLOOR(DATE_PART(MINUTE, {{ config.generatedTime }}) / 30) * 30, 2, '0') || ':00' || '-' || LPAD(DATE_PART(HOUR, {{ config.generatedTime }}), 2, '0') || ':' || LPAD((FLOOR(DATE_PART(MINUTE, {{ config.generatedTime }}) / 30) * 30) + 29, 2, '0') || ':59' "
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e276da29-2a80-4e3d-bb21-8937991195d7
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(17)
+        defaultValue: ""
+        description: Hour block range
+        isInt60Min: true
+        name: TIME_INTERVAL_HOUR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: TO_CHAR({{ config.generatedTime }}, 'HH24') || ':00:00-' || TO_CHAR({{ config.generatedTime }}, 'HH24') || ':59:59'
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 30a2d2bc-06f3-469e-90bf-61cd28ff52ae
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(20)
+        defaultValue: ""
+        description: "Period: 'Morning', 'Afternoon', 'Evening', 'Night'"
+        isTimeDay: true
+        name: TIME_OF_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN HOUR_24 >= 5 AND HOUR_24 < 12 THEN 'Morning' WHEN HOUR_24 >= 12 AND HOUR_24 < 17 THEN 'Afternoon'     WHEN HOUR_24 >= 17 AND HOUR_24 < 21 THEN 'Evening' ELSE 'Night' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 99b3f4b8-1e26-4d1b-a0d1-eed9ee036933
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(20)
+        defaultValue: ""
+        description: "Granular period: 'Early Morning', 'Mid-Morning', 'Lunch', 'Early Afternoon', 'Late Afternoon', 'Early Evening', 'Late Evening', 'Overnight'"
+        isHourBand: true
+        name: HOUR_BAND
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN HOUR_24 >= 5 AND HOUR_24 < 9 THEN 'Early Morning' WHEN HOUR_24 >= 9 AND HOUR_24 < 12 THEN 'Mid-Morning' WHEN HOUR_24 >= 12 AND HOUR_24 < 14 THEN 'Lunch' WHEN HOUR_24 >= 14 AND HOUR_24 < 17 THEN 'Early Afternoon'  WHEN HOUR_24 >= 17 AND HOUR_24 < 19 THEN 'Late Afternoon' WHEN HOUR_24 >= 19 AND HOUR_24 < 21 THEN 'Early Evening' WHEN HOUR_24 >= 21 AND HOUR_24 < 24 THEN 'Late Evening' ELSE 'Overnight' END
+      - IsDayNight: true
+        acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: bc96b706-27a7-433f-b6f0-106d5a8261b8
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(5)
+        defaultValue: ""
+        description: "Simple classification: 'Day' or 'Night'"
+        name: DAY_NIGHT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN HOUR_24 >= 6 AND HOUR_24 < 18 THEN 'Day' ELSE 'Night' END
+      - IsBusinessHour: true
+        acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 21d38fb7-133d-4cc5-8340-62921cf51b34
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(1)
+        defaultValue: ""
+        description: "'Y' if within configured business hours, 'N' otherwise"
+        name: FLAG_BUSINESS_HOURS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN TO_TIME({{ config.generatedTime }}) BETWEEN TO_TIME('{{ config.businessStart }}') AND TO_TIME('{{ config.businessEnd }}') THEN 'Y' ELSE 'N' END
+      - IsPeakOrNo: true
+        acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3d1ca9e2-4b23-4439-b6b0-5eaf9058532c
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: VARCHAR(10)
+        defaultValue: ""
+        description: "'Peak' or 'Off-Peak' based on configured peak hours"
+        name: PEAK_OFF_PEAK
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN TO_TIME({{ config.generatedTime }}) BETWEEN TO_TIME('{{ config.peakStart }}') AND TO_TIME('{{ config.peakEnd }}') THEN 'Peak' ELSE 'Off-Peak' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8941acc5-e9ee-4864-a547-f23e2554f5f1
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 805c6257-ba30-4c2f-b5f6-b17045cb0995
+          stepCounter: b2d982ee-25e1-4030-9d15-0e4249208166
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases: {}
+        customSQL:
+          customSQL: ""
+        dependencies: []
+        join:
+          joinCondition: ""
+        name: DIM_TIME_NODE1
+        noLinkRefs: []
+  name: DIM_TIME_NODE1
+  overrideSQL: false
+  schema: ""
+  sqlType: "603"
+  type: sql
+  version: 1
+type: Node
