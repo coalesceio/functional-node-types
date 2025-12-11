@@ -6,14 +6,14 @@ operation:
     businessEnd: "17:00:00"
     businessStart: "08:00:00"
     generatedTime: TIME_COL
-    granularity: MINUTE
-    insertZeroKey: false
-    insertZeroKeyBusinessKey: "99:99:99"
+    granularity: HOUR
+    insertZeroKey: true
+    insertZeroKeyBusinessKey: "99:99:96"
     insertZeroKeyStr: UNKNOWN
     insertZeroKeyTime: "00:00:00"
     peakEnd: "17:00:00"
     peakStart: "09:00:00"
-    populateOnDeploy: false
+    populateOnDeploy: true
     postSQL: ""
     preSQL: ""
     testsEnabled: false
@@ -34,7 +34,7 @@ operation:
           columnCounter: a605933e-ec5e-4d52-b4e5-dfd54a5e5a8d
           stepCounter: e05fc222-9663-4780-bcd3-e0360673de9c
         config: {}
-        dataType: TIME
+        dataType: VARCHAR(8)
         defaultValue: ""
         description: Primary key - the time value - HH:MM:SS
         isBusinessKey: true
