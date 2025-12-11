@@ -2,7 +2,10 @@ fileVersion: 1
 id: "342"
 mappingDefinitions:
   SOURCE:
-    database: ANANDHIS_DEV
-    schema: SOURCE_DATA
+    database: TANVI_DEV
+    schema: SOURCE
+  TARGET:
+    database: TANVI_DEV
+    schema: QA
 name: EDW_QA1
 type: Environment
