@@ -1150,9 +1150,9 @@ The stage executed:
 
 | **Component** | **Link** |
 |--------------|-----------|
-| **Node definition** | [definition.yml]()
-| **Create Template** | [create.sql.j2]() |
-| **Run Template** | [run.sql.j2]() |
+| **Node definition** | [definition.yml](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/TimeDimension-603/definition.yml)
+| **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/TimeDimension-603/create.sql.j2) |
+| **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/TimeDimension-603/run.sql.j2) |
 
 ### Pivot code
 
