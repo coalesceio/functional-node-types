@@ -1,0 +1,6 @@
+excludeSelector: ""
+fileVersion: 1
+id: "69"
+includeSelector: "{ location: TARGET name: STG_LINEITEM_NODE_JOIN } OR { location: TARGET name: DIM_TIME_NODE_PRZ } OR { location: TARGET name: DIM_TIME_NODE_JOIN }"
+name: Job_TimeDim
+type: Job
