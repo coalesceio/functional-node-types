@@ -1,0 +1,11 @@
+fileVersion: 1
+id: "654"
+mappingDefinitions:
+  SOURCE:
+    database: TANVI_DEV
+    schema: SOURCE
+  TARGET:
+    database: TANVI_DEV
+    schema: QA_PHASE2
+name: EDW_QA5
+type: Environment
