@@ -229,8 +229,6 @@ does not permit copying or modification for any other purpose.
                     {# Metadata changes detected #}
                     {% set nsMetaVariables.metaDataChanged = true %}
 
-                    {% set nsPopulateOnDeploy.dataPopulateRequired = true %}
-
                 {% endif %}
             {% endfor %}
 
@@ -354,7 +352,7 @@ does not permit copying or modification for any other purpose.
                 {% endif %}
             {% endfor %}
 
-            {% if currentState != desiredState and nsMetaVariables.metaDataChanged == false %}
+            {% if currentState != desiredState and (nsMetaVariables.metaDataChanged == false or desiredState.config.populateOnDeploy) %}
                 {% for col in desiredState.sources[0].columns %}
 
                     {# Try to get matching column #}
@@ -674,7 +672,7 @@ does not permit copying or modification for any other purpose.
                     {{ update_metadata("Test Enanbled", nsMetaVariables.testsEnabledDiff, "Test Enanbled") }}
                 {% endif %}
 
-                {% if nsPopulateOnDeploy.dataPopulateRequired == false and nsPopulateOnDeploy.zeroKeyDataPopulateRequired == false %}
+                {% if desiredState.config.populateOnDeploy == false or (desiredState.config.populateOnDeploy and nsPopulateOnDeploy.dataPopulateRequired == false and nsPopulateOnDeploy.zeroKeyDataPopulateRequired == false) %}
                     {# =========================================================
                     Handle detected metadata changes and update
                     ========================================================= #}

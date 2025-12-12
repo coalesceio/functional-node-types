@@ -6,7 +6,7 @@ operation:
     businessEnd: "17:00:00"
     businessStart: "08:00:00"
     generatedTime: TIME_COL
-    granularity: MINUTE
+    granularity: SECOND
     insertZeroKey: true
     insertZeroKeyBusinessKey: "99:99:99"
     insertZeroKeyStr: UNKNOWN
