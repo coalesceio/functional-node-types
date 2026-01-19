@@ -1,0 +1,114 @@
+fileVersion: 1
+id: 11fd1949-bb41-476c-b326-74b85c611507
+name: STG_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2edf3a56-4ce6-4698-8a97-57af422ba9ac
+          stepCounter: 11fd1949-bb41-476c-b326-74b85c611507
+        config: {}
+        dataType: VARIANT
+        description: ""
+        name: DATA
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 5851878e-0c4d-4589-bfd8-c25c7dd606c0
+                stepCounter: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 58cc2c66-3dbd-471c-9758-f56ce8e74cc5
+          stepCounter: 11fd1949-bb41-476c-b326-74b85c611507
+        config: {}
+        dataType: DOUBLE
+        description: ""
+        name: Q1
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT\".\"DATA\":\"Q1\"::DOUBLE"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a46d2aac-931e-4635-8a58-5b901c8d2efa
+          stepCounter: 11fd1949-bb41-476c-b326-74b85c611507
+        config: {}
+        dataType: DOUBLE
+        description: ""
+        name: Q2
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT\".\"DATA\":\"Q2\"::DOUBLE"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4016032c-3ad1-4672-9c85-9f65c8b565d9
+          stepCounter: 11fd1949-bb41-476c-b326-74b85c611507
+        config: {}
+        dataType: DOUBLE
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT\".\"DATA\":\"STUDENT_ID\"::DOUBLE"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ef040130-b3ac-4b98-80df-53b6aceb59fe
+          stepCounter: 11fd1949-bb41-476c-b326-74b85c611507
+        config: {}
+        dataType: STRING
+        description: ""
+        name: SUBJECT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT\".\"DATA\":\"SUBJECT\"::STRING"
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT') }} "PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT"
+        name: STG_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+        noLinkRefs: []
+  name: STG_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node

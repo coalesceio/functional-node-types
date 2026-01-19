@@ -1,0 +1,89 @@
+fileVersion: 1
+id: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
+name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - {}
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: false
+    pivotMode: Simplified
+    samKeyColval: false
+    sfuncname: MAX
+    sincol: true
+    skeyColDropdown:
+      columnCounter: f3d7323c-951f-40a1-b029-0a877e84ffa6
+      stepCounter: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
+    skeyColTextBox: SCORE
+    subqueryval1: ""
+    svalColDropdown:
+      columnCounter: 97d57a99-0377-445c-9fed-7c20070180f5
+      stepCounter: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
+    svalColTextBox: TERM
+    tabKeyColumn:
+      items:
+        - {}
+    tabValueColumn:
+      items:
+        - {}
+    testsEnabled: false
+    trunc: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5851878e-0c4d-4589-bfd8-c25c7dd606c0
+          stepCounter: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
+        config: {}
+        dataType: VARIANT
+        defaultValue: ""
+        description: ""
+        name: DATA
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STUDENT_PERFORMANCE: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENT_PERFORMANCE
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+        noLinkRefs: []
+  name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

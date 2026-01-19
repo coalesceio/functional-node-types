@@ -23,9 +23,33 @@ does not permit copying or modification for any other purpose.
             {{ test_stage(test.name, test.continueOnFailure) }}
             {{ test.templateString }}
         {% endif %}
-    {% endfor %}
 
-{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
+    {% endfor %}
+{% if (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Simplified')  %}
+
+  {%if config.trunc %}
+  		{{ stage('Truncate Pivot Table') }}
+			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+  {%endif%}
+
+  {{ stage('Insert data into Pivot table') }}
+    INSERT INTO {{ this }}
+   (
+    DATA
+   )
+   SELECT
+   PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA
+   FROM (
+  SELECT *
+  {{ source.join }}
+  {% if config.filterColumn %}
+  WHERE {{ config.filterColumn }} {{ config.filterOperator }} ({{ config.filterValues }})
+  {% endif %}
+  ) TGT
+  PIVOT({{config.sfuncname}}({{config.skeyColTextBox}}) FOR {{config.svalColTextBox}} IN (ANY)) AS PVT
+
+
+{% elif (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Standard')  %}
 
   {% set source = sources[0] %}
          {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
