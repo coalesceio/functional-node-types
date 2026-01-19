@@ -45,7 +45,18 @@ does not permit copying or modification for any other purpose.
          {% set source = desiredState.sources[0] %}
          {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
 
+     {#Simplified pivot mode#}
+     {#Create table with single variant column#}
+    {%if desiredState.config.pivotMode == 'Simplified'%}
+      {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
 
+            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+            (
+                 DATA VARIANT
+             )
+            {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
+    {%elif desiredState.pivotMode == 'Standard'%}
+    
      {# Infer Pivot true #}
      {%if desiredState.config.inferPivot == true %}
 			          {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
@@ -217,7 +228,7 @@ does not permit copying or modification for any other purpose.
                 )
          
            {%endif%}
-        {%elif desiredState.config.inferPivot == false and desiredState.node.materializationType != 'view' %}     
+          {%elif desiredState.config.inferPivot == false and desiredState.node.materializationType != 'view' %}     
       
            {% if currentState == undefined or (currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType)  %}
                {{ stage('Create Pivot '+ ' {{desiredState.node.materializationType}}') }}
@@ -237,7 +248,7 @@ does not permit copying or modification for any other purpose.
                 {# Metadata changes detected #}
                 {% set nsMetaVariables.metaDataChanged = true %}
            {% endif %}
-  
+        {%endif%}
           {% if currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType%}
 		 
             {# Change Node Name or Change Storage Location #}
