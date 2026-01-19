@@ -17,6 +17,7 @@ operation:
       items:
         - exclcoltxtBox: SCORE
     inferPivot: false
+    pivotMode: Standard
     samKeyColval: false
     sincol: true
     subqueryval1: ""
@@ -25,8 +26,7 @@ operation:
         - keyColTextBox: TERM
     tabValueColumn:
       items:
-        - Colvol: null
-          valColTextBox: SUBJECT
+        - valColTextBox: SUBJECT
     testsEnabled: false
     trunc: true
   database: ""
