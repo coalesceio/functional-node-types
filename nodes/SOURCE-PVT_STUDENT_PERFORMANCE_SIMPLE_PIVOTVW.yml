@@ -1,0 +1,85 @@
+fileVersion: 1
+id: ca5f5dcb-c87b-4d83-a179-b1455c570049
+name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOTVW
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - {}
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: false
+    pivotMode: Simplified
+    samKeyColval: false
+    sfuncname: MAX
+    sincol: true
+    skeyColDropdown: ""
+    skeyColTextBox: SCORE
+    subqueryval1: ""
+    svalColDropdown: ""
+    svalColTextBox: TERM
+    tabKeyColumn:
+      items:
+        - {}
+    tabValueColumn:
+      items:
+        - {}
+    testsEnabled: false
+    trunc: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e8bddc2b-7536-482d-ba15-2539a3f47ae9
+          stepCounter: ca5f5dcb-c87b-4d83-a179-b1455c570049
+        config: {}
+        dataType: VARIANT
+        defaultValue: ""
+        description: ""
+        name: DATA
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STUDENT_PERFORMANCE: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENT_PERFORMANCE
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOTVW
+        noLinkRefs: []
+  name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOTVW
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

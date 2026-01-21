@@ -47,7 +47,7 @@ does not permit copying or modification for any other purpose.
 
      {#Simplified pivot mode#}
      {#Create table with single variant column#}
-    {%if desiredState.config.pivotMode == 'Simplified'%}
+    {%if desiredState.config.pivotMode == 'Simplified' and desiredState.node.materializationType != 'view' %}
       {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
 
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
@@ -55,6 +55,23 @@ does not permit copying or modification for any other purpose.
                  DATA VARIANT
              )
             {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
+            
+    {%elif desiredState.config.pivotMode == 'Simplified' and desiredState.node.materializationType == 'view' %}
+
+         {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
+        CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+        AS
+        SELECT
+        PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA
+        FROM (
+          SELECT *
+         {{ desiredState.sources[0].join }}
+         {% if desiredState.config.filterColumn %}
+          WHERE {{ desiredState.config.filterColumn }} {{ desiredState.config.filterOperator }} ({{ desiredState.config.filterValues }})
+         {% endif %}
+          ) TGT
+         PIVOT({{desiredState.config.sfuncname}}({{desiredState.config.skeyColTextBox}}) FOR {{desiredState.config.svalColTextBox}} IN (ANY)) AS PVT
+
     {%elif desiredState.pivotMode == 'Standard'%}
     
      {# Infer Pivot true #}
