@@ -1,99 +1,104 @@
 fileVersion: 1
-id: 6ff906e3-5504-4c11-be43-cc929f7ffc7e
-name: PVT_STUDENT_PERFORMANCE_TAB
+id: ac12c26c-c264-4fde-b415-6de1dfbb6b89
+name: PVT_STUDENT_PERFORMANCE
 operation:
   config:
-    Colvol1: "'Q1','Q2'"
+    Colvol1: ""
+    addcolumns: true
     aggfunc:
       items:
         - {}
     aggfunc1:
       items:
-        - funcname1: COUNT
+        - {}
     defaultval: ""
     defvalue: false
-    excolval: true
+    excolval: false
     exlcol:
       items:
-        - exclcoltxtBox: SCORE
+        - {}
+    filterColumn: ""
+    filterOperator: ""
+    filterValues: ""
     inferPivot: false
-    pivotMode: Standard
+    pivotMode: Simplified
     samKeyColval: false
+    sfuncname: AVG
+    simtabKeyColumn:
+      items:
+        - skeyColDropdown:
+            columnCounter: 1436167e-33bb-4400-a196-6a6b4d8f85db
+            stepCounter: ac12c26c-c264-4fde-b415-6de1dfbb6b89
+          skeyColTextBox: SCORE
+    simtabValueColumn:
+      items:
+        - svalColDropdown:
+            columnCounter: 157bc357-e187-4417-953d-b06dbf72ad69
+            stepCounter: ac12c26c-c264-4fde-b415-6de1dfbb6b89
+          svalColTextBox: SUBJECT
     sincol: true
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColTextBox: TERM
+        - {}
     tabValueColumn:
       items:
-        - valColTextBox: SUBJECT
+        - {}
     testsEnabled: false
-    trunc: true
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: TARGET
+  locationName: SOURCE
   materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 13bca4ba-557e-4e14-a3fe-0e43558b5543
-          stepCounter: 6ff906e3-5504-4c11-be43-cc929f7ffc7e
+          columnCounter: 449bf19a-ce4d-42df-878a-d02e397caebd
+          stepCounter: ac12c26c-c264-4fde-b415-6de1dfbb6b89
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARIANT
+        defaultValue: ""
         description: ""
-        name: STUDENT_ID
+        name: DATA
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5d8b0e3f-d2e3-4144-a5f7-c56952b580e4
+          stepCounter: ac12c26c-c264-4fde-b415-6de1dfbb6b89
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: LOADDATE
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
-                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 7b8be82a-890f-4733-9323-c24dcb828dee
-          stepCounter: 6ff906e3-5504-4c11-be43-cc929f7ffc7e
-        config: {}
-        dataType: NUMBER(18,0)
-        defaultValue: ""
-        description: ""
-        name: Q1
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: d4b9eace-0172-40c1-80e6-c022101b6270
-          stepCounter: 6ff906e3-5504-4c11-be43-cc929f7ffc7e
-        config: {}
-        dataType: NUMBER(18,0)
-        defaultValue: ""
-        description: ""
-        name: Q2
-        nullable: true
-        primaryKey: false
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-        transform: ""
-        uniqueKey: false
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: CURRENT_TIMESTAMP()
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          STUDENT_PERFORMANCE: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
         customSQL:
           customSQL: ""
         dependencies:
@@ -101,9 +106,9 @@ operation:
             nodeName: STUDENT_PERFORMANCE
         join:
           joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE_TAB
+        name: PVT_STUDENT_PERFORMANCE
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE_TAB
+  name: PVT_STUDENT_PERFORMANCE
   overrideSQL: false
   schema: ""
   sqlType: "409"

@@ -16,6 +16,9 @@ operation:
     exlcol:
       items:
         - {}
+    filterColumn: ""
+    filterOperator: ""
+    filterValues: ""
     inferPivot: false
     pivotMode: Simplified
     samKeyColval: false

@@ -48,28 +48,50 @@ metadata:
     - groupName: Simplified Pivot  mode Options
       enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
       items:
-      - displayName: Key Column
-        type: columnDropdownSelector
-        attributeName: skeyColDropdown
-        enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
 
-      - displayName: Key Column
-        type: textBox
-        attributeName: skeyColTextBox
-        isRequired: false
-        enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
-
-      - displayName: Value Column
-        type: columnDropdownSelector
-        attributeName: svalColDropdown
-        enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
-
-      - displayName: Value Column
-        type: textBox
-        attributeName: svalColTextBox
-        isRequired: false
-        enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+      - displayName: Add Columns from mapping grid(After Resync)
+        attributeName: addcolumns
+        type: toggleButton
+        default: false
       
+      - displayName: Pivot Column is the column from source table that will be aggregated
+        type: label
+
+      - type: tabular
+        displayName: 'Pivot Column-(Cannot add multiple pivot columns)'
+        attributeName: simtabKeyColumn
+        isRequired: false
+        enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+        columns:
+        
+        - displayName: Pivot Column
+          type: columnDropdownSelector
+          attributeName: skeyColDropdown
+          isRequired: false
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+
+        - displayName: Pivot Column
+          type: textBox
+          attributeName: skeyColTextBox
+          isRequired: true 
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+      
+      - type: tabular
+        displayName: 'Value Column'
+        attributeName: simtabValueColumn 
+        isRequired: true
+        columns:
+      
+        - displayName: Value Column
+          type: columnDropdownSelector
+          attributeName: svalColDropdown
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+
+        - displayName: Value Column
+          type: textBox
+          attributeName: svalColTextBox
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"  
+        
       -  type: dropdownSelector
          displayName: Aggregate Functions
          attributeName: sfuncname

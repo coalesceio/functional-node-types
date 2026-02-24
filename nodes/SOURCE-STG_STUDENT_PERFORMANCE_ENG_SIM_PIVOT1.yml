@@ -1,0 +1,114 @@
+fileVersion: 1
+id: 25cbcb13-e8ce-4bea-8719-cc180d371fa5
+name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT1
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: fe2f16ad-5669-4236-8505-38aeb9747aff
+          stepCounter: 25cbcb13-e8ce-4bea-8719-cc180d371fa5
+        config: {}
+        dataType: VARIANT
+        description: ""
+        name: DATA
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 600a0704-257e-4b6a-aa16-222bd71382f5
+                stepCounter: 33500457-b40b-4c64-b160-0813bb4cba46
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6641c46b-229d-48f1-ae82-b4e4c56170a2
+          stepCounter: 25cbcb13-e8ce-4bea-8719-cc180d371fa5
+        config: {}
+        dataType: DOUBLE
+        description: ""
+        name: English
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT\".\"DATA\":\"English\"::DOUBLE"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f1a68d26-f1ae-47b7-a3f5-9c8d82e26bae
+          stepCounter: 25cbcb13-e8ce-4bea-8719-cc180d371fa5
+        config: {}
+        dataType: DOUBLE
+        description: ""
+        name: Math
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT\".\"DATA\":\"Math\"::DOUBLE"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 269d2a2a-befb-415b-9966-d94e88b515ee
+          stepCounter: 25cbcb13-e8ce-4bea-8719-cc180d371fa5
+        config: {}
+        dataType: DOUBLE
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT\".\"DATA\":\"STUDENT_ID\"::DOUBLE"
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: d5fb5dc6-ba5f-4ef8-bae6-d187917dd185
+          stepCounter: 25cbcb13-e8ce-4bea-8719-cc180d371fa5
+        config: {}
+        dataType: STRING
+        description: ""
+        name: TERM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: "\"PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT\".\"DATA\":\"TERM\"::STRING"
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT: 33500457-b40b-4c64-b160-0813bb4cba46
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT') }} "PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT"
+        name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT1
+        noLinkRefs: []
+  name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT1
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node

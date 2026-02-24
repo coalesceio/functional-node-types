@@ -54,7 +54,7 @@ INSERT INTO {{ this }}
                   {%if col.name not in ns.pcolumn and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
 			            {{ get_source_transform(col) }} AS "{{ col.name }}",
                   {%endif%}
-		           {% endfor %}                
+		        {% endfor %}                
 			    {{config.nameColTextBox}},
                 {{config.valColTextBox}}
                {{  get_clause(joinclause,'from')  }} 

@@ -43,26 +43,46 @@ does not permit copying or modification for any other purpose.
                {%endif%}
 
          {% set source = desiredState.sources[0] %}
-         {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+         {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[],valcolumn='',pcolumn1='') %}
 
      {#Simplified pivot mode#}
      {#Create table with single variant column#}
-    {%if desiredState.config.pivotMode == 'Simplified' and desiredState.node.materializationType != 'view' %}
-      {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
+    {%if desiredState.config.pivotMode == 'Simplified' and desiredState.node.materializationType != 'view' and currentState == undefined %}
+      
+           {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
 
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
             (
                  DATA VARIANT
+                {%if desiredState.config.addcolumns -%}
+                {% for col in source.columns if col.name not in ('DATA') -%}        
+			            ,{{ col.name }} {{col.dataType}}
+		        {% endfor -%}
+                {%endif -%}                
              )
             {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
             
-    {%elif desiredState.config.pivotMode == 'Simplified' and desiredState.node.materializationType == 'view' %}
+    {%elif desiredState.config.pivotMode == 'Simplified' and desiredState.node.materializationType == 'view'%}
+
+        {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColDropdown.name') | list |first|default('')%}
+        {%if ns.pcolumn1 == ''%}
+            {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColTextBox')|list | first%}    
+        {%endif%}
+        
+        {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColDropdown.name') | list |first|default('')%}
+        {%if ns.valcolumn == ''%}
+            {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColTextBox')|list | first%}    
+        {%endif%}
+
 
          {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
         CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
         AS
         SELECT
-        PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA
+        PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA,
+        {% for col in source.columns if col.name not in ('DATA') -%}        
+			{{ get_source_transform(col) }} AS "{{ col.name }}",
+		{% endfor %}
         FROM (
           SELECT *
          {{ desiredState.sources[0].join }}
@@ -70,7 +90,7 @@ does not permit copying or modification for any other purpose.
           WHERE {{ desiredState.config.filterColumn }} {{ desiredState.config.filterOperator }} ({{ desiredState.config.filterValues }})
          {% endif %}
           ) TGT
-         PIVOT({{desiredState.config.sfuncname}}({{desiredState.config.skeyColTextBox}}) FOR {{desiredState.config.svalColTextBox}} IN (ANY)) AS PVT
+         PIVOT({{desiredState.config.sfuncname}}({{ns.pcolumn1}}) FOR {{ns.valcolumn}} IN (ANY)) AS PVT
 
     {%elif desiredState.pivotMode == 'Standard'%}
     

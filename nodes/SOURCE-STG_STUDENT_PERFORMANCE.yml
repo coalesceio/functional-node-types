@@ -1,0 +1,96 @@
+fileVersion: 1
+id: c0c48e37-44cf-4625-a9d9-861b7cfb5ea2
+name: STG_STUDENT_PERFORMANCE
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0be30115-e51c-4c31-bc9d-c6db9072f17c
+          stepCounter: c0c48e37-44cf-4625-a9d9-861b7cfb5ea2
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: STUDENT_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9c75e1e4-3523-4033-a24f-0912b8484e54
+          stepCounter: c0c48e37-44cf-4625-a9d9-861b7cfb5ea2
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: TERM
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a4019128-3e15-45e1-84f5-3b3cab0fb428
+          stepCounter: c0c48e37-44cf-4625-a9d9-861b7cfb5ea2
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: SUBJECT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b3be608d-900b-4e58-95b5-3eb1d0a81d66
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a68bf3e6-a86b-42d6-81ca-7fdba8a0518b
+          stepCounter: c0c48e37-44cf-4625-a9d9-861b7cfb5ea2
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: SCORE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: bd861a16-5651-4924-855d-718266030fb6
+                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STUDENT_PERFORMANCE: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENT_PERFORMANCE
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
+        name: STG_STUDENT_PERFORMANCE
+        noLinkRefs: []
+  name: STG_STUDENT_PERFORMANCE
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node
