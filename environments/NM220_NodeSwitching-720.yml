@@ -1,5 +1,11 @@
 fileVersion: 1
 id: "720"
-mappingDefinitions: {}
+mappingDefinitions:
+  SOURCE:
+    database: TANVI_DEV
+    schema: SOURCE
+  TARGET:
+    database: TANVI_DEV
+    schema: QA_PHASE
 name: NM220_NodeSwitching
 type: Environment
