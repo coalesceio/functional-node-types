@@ -604,12 +604,12 @@ does not permit copying or modification for any other purpose.
                     {# =========================================================
                     aggfunc1 comparison
                     ========================================================= #}
-                    {% if ((desiredState.config.aggfunc1.get("items") or []) | length == (currentState.config.aggfunc1.get("items") or []) | length == 1
-                    or ((desiredState.config.aggfunc1.get("items") or []) | length > 1 and (currentState.config.aggfunc1.get("items") or []) | length > 1))
-                    and desiredState.config.aggfunc1 != currentState.config.aggfunc1 | default({'items': [{}]}) %}
+                    {% if ((desiredState.config.aggfunc1.get("items") or []) | length == (currentState.config.get("aggfunc1", {}).get("items") or []) | length == 1
+                    or ((desiredState.config.aggfunc1.get("items") or []) | length > 1 and (currentState.config.get("aggfunc1", {}).get("items") or []) | length > 1))
+                    and desiredState.config.aggfunc1 != currentState.config.get("aggfunc1", {}) | default({'items': [{}]}) %}
                         {{ update_metadata("aggFunctions", {
                             "is": desiredState.config.aggfunc1.get('items') | map(attribute="funcname1") | list | sort,
-                            "was": currentState.config.aggfunc1.get('items') | map(attribute="funcname1") | list | sort },
+                            "was": currentState.config.get("aggfunc1", {}).get('items') | map(attribute="funcname1") | list | sort },
                             "aggFunctions") }}
                     {% endif %}           
                 {% endif %}
@@ -620,8 +620,8 @@ does not permit copying or modification for any other purpose.
                 {% if desiredState.config.tabKeyColumn != currentState.config.tabKeyColumn | default({'items': [{}]})
                 or desiredState.config.tabValueColumn != currentState.config.tabValueColumn | default({'items': [{}]})
                 or desiredState.config.sincol != currentState.config.sincol | default(false)
-                or (((desiredState.config.aggfunc1.get("items") or []) | length > 1 and (currentState.config.aggfunc1.get("items") or []) | length == 1)
-                or ((desiredState.config.aggfunc1.get("items") or []) | length == 1 and (currentState.config.aggfunc1.get("items") or []) | length > 1)) 
+                or (((desiredState.config.aggfunc1.get("items") or []) | length > 1 and (currentState.config.get("aggfunc1", {}).get("items") or []) | length == 1)
+                or ((desiredState.config.aggfunc1.get("items") or []) | length == 1 and (currentState.config.get("aggfunc1", {}).get("items") or []) | length > 1)) 
                 or desiredState.config.subqueryval1 != currentState.config.subqueryval1 | default('')
                 or desiredState.config.Colvol1 != currentState.config.Colvol1 | default('') %}
 

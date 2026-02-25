@@ -251,6 +251,9 @@ macroString: |-
       {%- elif currentState.node.nodeType.split(':::')[-1] in ['549', '550', '154', '155'] -%}
           {# Current Node Type: Root and Resume Tasks Nodes #}
           -- ⚠️ Warning: These node types are not ideal for switching, as they may act as root or resume tasks. Changing them may disrupt related tasks, cause inconsistencies, or result in data loss. Any required updates/drops must be handled manually.
+      {%- elif currentState.node.nodeType.split(':::')[-1] in ['416', '448'] -%}
+          {# Current Node Type: Data Quality related statis table/view #}
+          -- ⚠️ Warning: This node is used for data quality checks and may not represent the final static schema. Deployment or execution could fail or interrupt email notifications and task failures.
       {%- elif currentState.node.materializationType | lower in ['task'] or currentState.node.nodeType.split(':::')[-1] in ['429', '567'] -%}
           {# Current Node Type: Tasks Related, Insert or Merge with Task, Document AI Nodes#}
           -- ⚠️ Warning: Tasks or streams are attached to this node. Changing its type may cause task failures, stream inconsistencies, or data loss. Any required updates/drops must be handled manually.
