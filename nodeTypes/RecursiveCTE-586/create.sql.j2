@@ -1,3 +1,33 @@
+{#
+    Copyright (c) 2025 Coalesce. All rights reserved.
+This script and its associated documentation are confidential and proprietary to Coalesce.
+Unauthorized reproduction, distribution, or disclosure of this material is strictly prohibited.
+Coalesce permits you to copy and modify this script for the purposes of using with Coalesce but
+does not permit copying or modification for any other purpose.  
+#}
+{# == Node Type Name           : Recursive CTE == #}
+{# == Node Type Description    : This node build recursive CTEs == #}
+
+{%if currentState != undefined and desiredState != undefined and currentState != desiredState %}
+
+    {%- if currentState.node.nodeType != desiredState.node.nodeType %}
+        {%- set warningMsg = getNodeTypeSwitchWarning() | default('') %}
+
+        {# Warning display - Node type changes can impact related tasks, streams, or services. #}
+        {%- if warningMsg | trim | length > 0 -%}
+            {{ stage('Warning! Node Type Switching Detected', false) }}
+            {{ warningMsg }}
+            select 1=0
+        {%- endif -%}
+    {%- endif -%}
+
+    {% if currentState.node.materializationType != desiredState.node.materializationType %}
+        {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+        {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+        DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+    {% endif %}
+{% endif %}
+
 {% if node.override.create.enabled %}
 	
 	{{ node.override.create.script }}

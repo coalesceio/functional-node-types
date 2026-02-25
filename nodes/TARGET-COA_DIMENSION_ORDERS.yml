@@ -1,0 +1,222 @@
+fileVersion: 1
+id: c774fd34-7155-4b11-aacb-d79f7500846a
+name: COA_DIMENSION_ORDERS
+operation:
+  config:
+    changetracking: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    constraintsspec:
+      items:
+        - {}
+    customZeroKeyValues:
+      items:
+        - {}
+    datretention: ""
+    defaultcoallation: ""
+    eschemaevol: false
+    foreignk: false
+    foreignkeycon:
+      items:
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: UNION
+    insertZeroKey: false
+    insertZeroKeyAdvanced: false
+    insertZeroKeyBol: "TRUE"
+    insertZeroKeyDate: 01-01-1900
+    insertZeroKeyStr: UNKNOWN
+    insertZeroKeySurrogateKey: "0"
+    insertZeroKeyTimestamp: "1900-01-01 00:00:00.000"
+    lastModifiedComparison: false
+    maxdataretention: ""
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    selectDistinct: false
+    testsEnabled: false
+    treatNullAsCurrentTimestamp: false
+    truncateBefore: true
+    type2Dimension: false
+  database: ""
+  deployEnabled: true
+  description: Create or Alter Dimension for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934c-1d1d-70cc-837a-082d73f76d59
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: NUMBER
+        description: ""
+        isBusinessKey: true
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934c-1d1d-70cc-837a-0cf9501350c6
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: VARCHAR
+        description: ""
+        isBusinessKey: false
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: dafa4664-2c4d-4137-a2c1-24a8558b630d
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSurrogateKey: true
+        name: CDIM_NODE_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bd34ca2b-0fa1-4677-8bf6-e99e65076d31
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemVersion: true
+        name: SYSTEM_VERSION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: db60040f-1c14-4c4e-a40d-aef8a1d38683
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: VARCHAR
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemCurrentFlag: true
+        name: SYSTEM_CURRENT_FLAG
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 32414265-5c78-477e-b8cb-6486c5e06202
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemStartDate: true
+        name: SYSTEM_START_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bd9c84d5-7bc2-4667-a681-6ece6e65a40d
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemEndDate: true
+        name: SYSTEM_END_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e51355f7-61b6-4728-b719-ed73c9fd17a7
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 63ef115a-0409-42ad-8309-d0c955c9a687
+          stepCounter: c774fd34-7155-4b11-aacb-d79f7500846a
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: CDIM_NODE
+        noLinkRefs: []
+  name: COA_DIMENSION_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: create-or-alter-package:::535
+  type: sql
+  version: 1
+type: Node

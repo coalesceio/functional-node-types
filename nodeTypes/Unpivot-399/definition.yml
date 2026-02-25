@@ -10,10 +10,8 @@ metadata:
     plural: UNPIVOTS
     tagColor: '#29B2DB'
 
-
     deployStrategy: advanced
     isColumnResyncEnabled: true
-
 
     config:
     - groupName: Options
@@ -48,11 +46,13 @@ metadata:
       
         - displayName: Value Column-Column that will hold the values from the unpivoted columns
           type: textBox
+          default: ''
           attributeName: valColTextBox
           isRequired: true
 
         - displayName: Name column-Column that will hold the names of the unpivoted columns
           type: textBox
+          default: ''
           attributeName: nameColTextBox
           isRequired: true
 
@@ -75,9 +75,5 @@ metadata:
           attributeName: includenull
           type: toggleButton
           default: false
-        
-      
-
-     
 name: Unpivot
 type: NodeType

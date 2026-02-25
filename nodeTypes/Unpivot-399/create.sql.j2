@@ -14,32 +14,32 @@ does not permit copying or modification for any other purpose.
     {% set targetObjectDatabase = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[0] %} 
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
-    
-    {% if currentState.node.materializationType == 'view' %}
 
-     {{ stage('Drop Table or View') }}
-     DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
 
-    {% else %}
-     
-       {{ stage('Drop ' + currentState.node.materializationType) }}
-       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
+{% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %}
 
+    {%if currentState != undefined %}
+
+        {%- if currentState.node.nodeType != desiredState.node.nodeType %}
+            {%- set warningMsg = getNodeTypeSwitchWarning() | default('') %}
+
+            {# Warning display - Node type changes can impact related tasks, streams, or services. #}
+            {%- if warningMsg | trim | length > 0 -%}
+                {{ stage('Warning! Node Type Switching Detected', false) }}
+                {{ warningMsg }}
+                select 1=0
+            {%- endif -%}
+        {%- endif -%}
+
+        {% if currentState.node.materializationType != desiredState.node.materializationType %}
+            {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+            {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+            DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+        {% endif %}
     {% endif %}
-
-{% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
-
-            {%if currentState != undefined %}
-             {%if currentState.node.materializationType != desiredState.node.materializationType %}
-                     {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
-
-                     {% if currentState.node.materializationType == 'view' %} 
-                      DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                     {% else %}
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                     {% endif %}
-              {%endif%}
-            {%endif%}
 
         {# Build Unpivot Column List #}
         {# Prepare a list of columns that will be unpivoted #}
@@ -422,10 +422,10 @@ does not permit copying or modification for any other purpose.
                 {# =========================================================
                 Truncate Table comparison
                 ========================================================= #}
-                {% if currentState.config.truncateBefore != desiredState.config.truncateBefore %}
+                {% if currentState.config.truncateBefore | default(false) != desiredState.config.truncateBefore %}
                     {% set _ = nsMetaVariables.truncateBeforeDiff.append({
                         "is": desiredState.config.truncateBefore,
-                        "was": currentState.config.truncateBefore
+                        "was": currentState.config.truncateBefore | default(false)
                     }) %}
 
                     {{ update_metadata("Truncate Before", nsMetaVariables.truncateBeforeDiff, "Truncate Before") }}
@@ -435,15 +435,15 @@ does not permit copying or modification for any other purpose.
                 {# =========================================================
                 Test Enabled comparison (per column)
                 ========================================================= #}
-                {% if desiredState.config.testsEnabled != currentState.config.testsEnabled %}
+                {% if desiredState.config.testsEnabled != currentState.config.testsEnabled | default(false) %}
 
                         {% set nsMetaVariables.testsEnabledTest = false %}
                         {% set _ = nsMetaVariables.testsEnabledDiff.append({
                             "is": desiredState.config.testsEnabled,
-                            "was": currentState.config.testsEnabled
+                            "was": currentState.config.testsEnabled | default(false)
                         }) %}
 
-                {% elif desiredState.config.testsEnabled and currentState.config.testsEnabled %}
+                {% elif desiredState.config.testsEnabled and currentState.config.testsEnabled | default(false) %}
 
                     {# Changes in Node Tests #}
                     {% if currentState.node.tests | length != desiredState.node.tests | length %}
@@ -503,18 +503,18 @@ does not permit copying or modification for any other purpose.
                 {# =========================================================
                 includenull comparison
                 ========================================================= #}
-                {% if desiredState.config.includenull != currentState.config.includenull %}
+                {% if desiredState.config.includenull != currentState.config.includenull | default(false) %}
                     {{ update_metadata("includenull", {
                         "is": desiredState.config.includenull,
-                        "was": currentState.config.includenull }, "includenull") }}
+                        "was": currentState.config.includenull | default(false) }, "includenull") }}
                 {% endif %}
 
                 {# =========================================================
                 These configuratins are not supposed to be changed in UI
                 ========================================================= #}
-                {% if desiredState.config.nameColTextBox != currentState.config.nameColTextBox
-                or desiredState.config.valColTextBox != currentState.config.valColTextBox 
-                or desiredState.config.tabValueColumn != currentState.config.tabValueColumn %}
+                {% if desiredState.config.nameColTextBox != currentState.config.nameColTextBox | default('')
+                or desiredState.config.valColTextBox != currentState.config.valColTextBox | default('')
+                or desiredState.config.tabValueColumn != currentState.config.tabValueColumn | default({'items': [{}]}) %}
                     {% set nsMetaVariables.metaDataChanged = true %}
                 {% endif %}
 

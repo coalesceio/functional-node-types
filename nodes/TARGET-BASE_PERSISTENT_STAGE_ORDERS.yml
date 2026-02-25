@@ -1,0 +1,192 @@
+fileVersion: 1
+id: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+name: BASE_PERSISTENT_STAGE_ORDERS
+operation:
+  config:
+    groupByAll: false
+    insertStrategy: UNION ALL
+    lastModifiedComparison: false
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    treatNullAsCurrentTimestamp: false
+    truncateBefore: false
+    type2Dimension: false
+  database: ""
+  deployEnabled: true
+  description: Base Persistent Stage for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-815f-75dd-a698-52936839eb5c
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-815f-75dd-a698-574dc0964322
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_CUSTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-815f-75dd-a698-5a259544b5d6
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_TOTALPRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 163bc57b-b3aa-4bd6-adc4-3b992b6ea0ff
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSurrogateKey: true
+        name: PSTG_NODE_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6463e3e2-eceb-4947-b3b4-632d80726279
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSystemVersion: true
+        name: SYSTEM_VERSION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e75f8af4-a0e1-467a-9a61-d3b24b971162
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: VARCHAR
+        defaultValue: ""
+        description: ""
+        isSystemCurrentFlag: true
+        name: SYSTEM_CURRENT_FLAG
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: cc17ae57-14ff-4bde-a78e-40685961ebdc
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemStartDate: true
+        name: SYSTEM_START_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b3dfb2c7-d380-4cf6-b766-23428384b2e9
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemEndDate: true
+        name: SYSTEM_END_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f8831d73-dd3e-4ed4-8061-492d59bdbc49
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 59fb1272-1ba8-443d-846c-3b11f6350e6c
+          stepCounter: ce1bf908-3fb2-41ee-8024-c6ed89b342f3
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: PSTG_NODE
+        noLinkRefs: []
+  name: BASE_PERSISTENT_STAGE_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: base-node-types:::173
+  type: sql
+  version: 1
+type: Node

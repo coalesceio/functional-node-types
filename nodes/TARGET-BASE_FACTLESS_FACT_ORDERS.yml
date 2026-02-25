@@ -1,0 +1,109 @@
+fileVersion: 1
+id: e945af51-c541-4120-8d35-a69edeb0859d
+name: BASE_FACTLESS_FACT_ORDERS
+operation:
+  config:
+    groupByAll: false
+    insertStrategy: UNION ALL
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: false
+  database: ""
+  deployEnabled: true
+  description: Base Factless Fact for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-98cd-729e-bab8-9336087d7d42
+          stepCounter: e945af51-c541-4120-8d35-a69edeb0859d
+        config: {}
+        dataType: NUMBER
+        description: ""
+        isBusinessKey: true
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-98cd-729e-bab8-9664d711fefb
+          stepCounter: e945af51-c541-4120-8d35-a69edeb0859d
+        config: {}
+        dataType: NUMBER
+        description: ""
+        isBusinessKey: false
+        name: O_CUSTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a36f67d9-4456-4aa4-a303-f398e4aeb849
+          stepCounter: e945af51-c541-4120-8d35-a69edeb0859d
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7b73fb9b-7f52-4ee5-9412-7e7ab1a2f349
+          stepCounter: e945af51-c541-4120-8d35-a69edeb0859d
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isBusinessKey: false
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: FCT_NODE1
+        noLinkRefs: []
+  name: BASE_FACTLESS_FACT_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: base-node-types:::248
+  type: sql
+  version: 1
+type: Node

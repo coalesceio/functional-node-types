@@ -1,0 +1,84 @@
+fileVersion: 1
+id: a1991760-d93b-4457-afb2-2a9bbd5aa2d0
+name: BASE_WORK_ORDERS
+operation:
+  config:
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    groupByAll: false
+    insertStrategy: INSERT
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: Base Work for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-8d6b-76ee-96c9-faeddcccef1b
+          stepCounter: a1991760-d93b-4457-afb2-2a9bbd5aa2d0
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-8d6b-76ee-96c9-fede16bcf429
+          stepCounter: a1991760-d93b-4457-afb2-2a9bbd5aa2d0
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_TOTALPRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: WRK_NODE
+        noLinkRefs: []
+  name: BASE_WORK_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: base-node-types:::204
+  type: sql
+  version: 1
+type: Node

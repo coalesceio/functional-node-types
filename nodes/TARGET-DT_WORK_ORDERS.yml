@@ -1,0 +1,126 @@
+fileVersion: 1
+id: e73ce840-3c89-427c-ad61-623125495676
+name: DT_WORK_ORDERS
+operation:
+  config:
+    advanceWarehouse: false
+    backfill: false
+    backfillSource: ""
+    backfillSourceSchema: ""
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    cpygrants: false
+    downstreamOption: false
+    groupByAll: false
+    immutabilityConstraint: false
+    immutableExpression: ""
+    initialize: ON_CREATE
+    initializeWarehouseSize: ""
+    insertStrategy: UNION ALL
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    refreshWarehouseSize: ""
+    refresh_mode: AUTO
+    selectDistinct: false
+    timeTravel: false
+    timeTravelreference: ""
+    timeTraveltype: ""
+    timeTravelvalue: ""
+    warehouseName: dev_wh_xs
+  database: ""
+  deployEnabled: true
+  description: Dynamic table work node for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: dynamic table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9347-ddcb-70fb-97ab-afeeede9ee9e
+          stepCounter: e73ce840-3c89-427c-ad61-623125495676
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9347-ddcb-70fb-97ab-b0300a1db3a2
+          stepCounter: e73ce840-3c89-427c-ad61-623125495676
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_CUSTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9347-ddcb-70fb-97ab-b5b72e0e4836
+          stepCounter: e73ce840-3c89-427c-ad61-623125495676
+        config: {}
+        dataType: VARCHAR
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9347-ddcb-70fb-97ab-b81333d7f86f
+          stepCounter: e73ce840-3c89-427c-ad61-623125495676
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_TOTALPRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: DT_WORK_ORDERS
+        noLinkRefs: []
+  name: DT_WORK_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: dynamic-tables:::347
+  type: sql
+  version: 1
+type: Node

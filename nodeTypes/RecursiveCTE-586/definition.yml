@@ -4,7 +4,7 @@ isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
-  nodeMetadataSpec: |+
+  nodeMetadataSpec: |-
     capitalized: Recursive CTE
     short: RCTE
     plural: Stages
@@ -37,10 +37,12 @@ metadata:
       - displayName: Multiple sources joined in Anchor clause
         attributeName: mulsources
         type: toggleButton
+        default: false
 
       - displayName: Anchor table name
         attributeName: anctablename
         type: textBox
+        default: ''
         enableIf: "{% if config.mulsources %} true {% else %} false {%endif%}"
       
       - type: tabular
@@ -66,10 +68,6 @@ metadata:
       - headerName: Column selection(set to N to skip column)
         attributeName: reqcolumn
         type: textBox
-      
-
-
-
-
+        default: ''
 name: Recursive CTE
 type: NodeType

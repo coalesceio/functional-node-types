@@ -4,7 +4,7 @@ isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
-  nodeMetadataSpec: |
+  nodeMetadataSpec: |-
     capitalized: PIVOT
     short: PVT
     plural: PIVOTS
@@ -71,7 +71,6 @@ metadata:
         enableIf: "{% if config.sincol %} false {% else %} true {% endif %}"
         default: false
 
-      
       - type: tabular
         displayName: 'Value Column'
         attributeName: tabValueColumn 
@@ -102,6 +101,7 @@ metadata:
        
         - displayName: Column Values(comma separated list of column values)
           type: textBox
+          default: ''
           attributeName: Colvol
           enableIf: "{% if config.samKeyColval == false and config.sincol == false%}  true{% else %} false {% endif %}" 
          
@@ -125,11 +125,13 @@ metadata:
 
       - displayName: Subquery -PIVOT column values
         type: textBox
+        default: ''
         attributeName: subqueryval1
         enableIf: "{% if config.sincol%} true {% else %} false {% endif %}"
 
       - displayName: Filter Column Values(comma separated list of column values-Ex 'Q1','Q2')
         type: textBox
+        default: ''
         attributeName: Colvol1
         enableIf: "{% if config.sincol == true or config.samKeyColval == true %} true {% else %} false {% endif %}"
 
@@ -180,6 +182,7 @@ metadata:
       
       - displayName: Default value
         type: textBox
+        default: ''
         attributeName: defaultval
         enableIf: "{% if config.defvalue %} true {% else %} false {% endif %}"
 name: Pivot

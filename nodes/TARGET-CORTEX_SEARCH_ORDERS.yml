@@ -1,0 +1,147 @@
+fileVersion: 1
+id: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+name: CORTEX_SEARCH_ORDERS
+operation:
+  config:
+    allcol: false
+    attrcol:
+      items:
+        - acolname:
+            columnCounter: 019c936c-dc05-730e-9c4d-99495e1ecc3d
+            stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+    colpreview:
+      items:
+        - {}
+    createcortex: true
+    embmodel: snowflake-arctic-embed-m-v1.5
+    excss: false
+    filcrit:
+      items:
+        - {}
+    filtoggle: false
+    initialize: ON_CREATE
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    locCSS: ""
+    lopt: and
+    mulfilcon: false
+    namCSS: ""
+    numboost: false
+    numericboost:
+      items:
+        - {}
+    query1: ""
+    querycortex: false
+    searchcol:
+      columnCounter: 019c936c-dc05-730e-9c4d-90c5d03f7d40
+      stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+    timdec: false
+    timedecay:
+      items:
+        - {}
+    warehouseName: dev_wh_xs
+  database: ""
+  deployEnabled: true
+  description: Cortex search service for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: cortex search service
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c936c-dc05-730e-9c4d-882e73242ad1
+          stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c936c-dc05-730e-9c4d-8eb81f4c59c0
+          stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_CUSTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c936c-dc05-730e-9c4d-90c5d03f7d40
+          stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+        config: {}
+        dataType: VARCHAR
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c936c-dc05-730e-9c4d-96c9129bc255
+          stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+        config: {}
+        dataType: VARCHAR
+        description: ""
+        name: O_CLERK
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 81db38f7-bdeb-4acc-a29a-a39616e0f690
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c936c-dc05-730e-9c4d-99495e1ecc3d
+          stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+        config: {}
+        dataType: VARCHAR
+        description: ""
+        name: O_COMMENT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 01fdb573-e6f5-46be-be01-e894bd954c91
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: CORTEX_SEARCH_ORDERS
+        noLinkRefs: []
+  name: CORTEX_SEARCH_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: cortex:::499
+  type: sql
+  version: 1
+type: Node

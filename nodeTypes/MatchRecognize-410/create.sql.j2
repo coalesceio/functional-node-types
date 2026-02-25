@@ -17,28 +17,30 @@ does not permit copying or modification for any other purpose.
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
     
-    {% if currentState.node.materializationType == 'view' %}
-       {{ stage('Drop Table or View') }}
-       DROP {{ currentState.node.materializationType }} IF EXISTS {{ fullyQualifiedTargetObjectName }}
-
-    {% else %}    
-       {{ stage('Drop ' + currentState.node.materializationType) }}
-       DROP TABLE IF EXISTS {{ fullyQualifiedTargetObjectName }}
-    {% endif %}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
 
 {% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
 
-              {%if currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType %}
+    {%if currentState != undefined %}
+        {%- if currentState.node.nodeType != desiredState.node.nodeType %}
+            {%- set warningMsg = getNodeTypeSwitchWarning() | default('') %}
 
-                     {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+            {# Warning display - Node type changes can impact related tasks, streams, or services. #}
+            {%- if warningMsg | trim | length > 0 -%}
+                {{ stage('Warning! Node Type Switching Detected', false) }}
+                {{ warningMsg }}
+                select 1=0
+            {%- endif -%}
+        {%- endif -%}
 
-                     {% if currentState.node.materializationType == 'view' %} 
-                      DROP {{currentState.node.materializationType}} IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                     {% else %}
-                      DROP TABLE IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-                     {% endif %}
-
-                {%endif%}
+        {% if currentState.node.materializationType != desiredState.node.materializationType %}
+            {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+            {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+            DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+        {% endif %}
+     {% endif %}
 				
 			{%if desiredState.config.inferMatchRecognize == false %}	
 			   {{ stage('Create  Match Recognize '+ ' {{desiredState.node.materializationType}}' , true, "sql", "create") }}

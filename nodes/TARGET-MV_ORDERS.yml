@@ -1,0 +1,118 @@
+fileVersion: 1
+id: 72656e0b-e0e3-488f-864a-7e870bd78540
+name: MV_ORDERS
+operation:
+  config:
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    secureOption: false
+    selectDistinct: false
+  database: ""
+  deployEnabled: true
+  description: Materialized view for orders
+  isMultisource: false
+  locationName: TARGET
+  materializationType: Materialized View
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934b-1308-7026-a94e-a5011b4a4942
+          stepCounter: 72656e0b-e0e3-488f-864a-7e870bd78540
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934b-1308-7026-a94e-ab408e079020
+          stepCounter: 72656e0b-e0e3-488f-864a-7e870bd78540
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_CUSTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934b-1308-7026-a94e-acba2a0cbf2b
+          stepCounter: 72656e0b-e0e3-488f-864a-7e870bd78540
+        config: {}
+        dataType: VARCHAR
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934b-1308-7026-a94e-b2dc0e270b95
+          stepCounter: 72656e0b-e0e3-488f-864a-7e870bd78540
+        config: {}
+        dataType: NUMBER
+        description: ""
+        name: O_TOTALPRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c934b-1308-7026-a94e-b5fa090085d1
+          stepCounter: 72656e0b-e0e3-488f-864a-7e870bd78540
+        config: {}
+        dataType: DATE
+        description: ""
+        name: O_ORDERDATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f588caf5-a2f4-4186-9ea0-c2232363b36d
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: MV_NODE
+        noLinkRefs: []
+  name: MV_ORDERS
+  overrideSQL: false
+  schema: ""
+  sqlType: materialized-view:::178
+  type: sql
+  version: 1
+type: Node
