@@ -34,10 +34,11 @@ does not permit copying or modification for any other purpose.
             {%- endif -%}
         {%- endif -%}
 
-        {% if currentState.node.materializationType != desiredState.node.materializationType %}
+        {%- if currentState.node.materializationType != desiredState.node.materializationType 
+            or currentState.node.nodeType != desiredState.node.nodeType %}
             {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
             {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
-            DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+            DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
         {% endif %}
 
     {% endif %}
@@ -120,7 +121,7 @@ does not permit copying or modification for any other purpose.
             {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
             {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
 			
-            {% if  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
+            {% if currentState.node.nodeType == desiredState.node.nodeType and (desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema)  %}
                 {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
                 DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
             {% endif %}
@@ -219,7 +220,7 @@ does not permit copying or modification for any other purpose.
            {%endif%}
         {%elif desiredState.config.inferPivot == false and desiredState.node.materializationType != 'view' %}     
       
-           {% if currentState == undefined or (currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType)  %}
+           {% if currentState == undefined or (currentState != undefined and (currentState.node.nodeType != desiredState.node.nodeType or currentState.node.materializationType != desiredState.node.materializationType))  %}
                {{ stage('Create Pivot '+ ' {{desiredState.node.materializationType}}') }}
                CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               (
@@ -238,7 +239,7 @@ does not permit copying or modification for any other purpose.
                 {% set nsMetaVariables.metaDataChanged = true %}
            {% endif %}
   
-          {% if currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType%}
+          {% if currentState != undefined and currentState.node.nodeType == desiredState.node.nodeType and currentState.node.materializationType == desiredState.node.materializationType%}
 		 
             {# Change Node Name or Change Storage Location #}
             {# Storage Location Tests #}

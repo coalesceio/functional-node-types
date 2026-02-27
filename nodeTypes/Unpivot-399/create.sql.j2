@@ -34,10 +34,11 @@ does not permit copying or modification for any other purpose.
             {%- endif -%}
         {%- endif -%}
 
-        {% if currentState.node.materializationType != desiredState.node.materializationType %}
+        {%- if currentState.node.materializationType != desiredState.node.materializationType 
+            or currentState.node.nodeType != desiredState.node.nodeType %}
             {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
             {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
-            DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+            DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
         {% endif %}
     {% endif %}
 
@@ -84,61 +85,62 @@ does not permit copying or modification for any other purpose.
          {% set source = desiredState.sources[0] %}
          {%set joinclause = source.join%}
 
-      {%if desiredState.config.inferunpivot == true or desiredState.node.materializationType == 'view' %}
+    {%if desiredState.config.inferunpivot == true or desiredState.node.materializationType == 'view' %}
 
-      {%if currentState !=undefined %}
-        {%if currentState.node.materializationType == desiredState.node.materializationType == 'view'  %}
+        {%if currentState !=undefined %}
+            {%if currentState.node.materializationType == desiredState.node.materializationType == 'view'  %}
 		  
-            {%if currentState.storageLocations|length == 0%}          
-              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
-              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
-               {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+                {%if currentState.storageLocations|length == 0%}          
+                    {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+                    {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+                    {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
                
-            {%else %}  
-            {# Current target node mappings #}
-            {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
-            {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
-            {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
-            {% endif %}      
+                {%else %}  
+                    {# Current target node mappings #}
+                    {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+                    {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+                    {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
+                {% endif %}      
        
-            {# Desired target node mappings #}
-            {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
-            {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
-            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
+                {# Desired target node mappings #}
+                {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
+                {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
+                {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
 			
-            {% if  desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
-                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
-            {% endif %}
+                {% if currentState.node.nodeType == desiredState.node.nodeType and desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema  %}
+                    {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+                    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+                    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                   
+                {% endif %}
 			
-		  {%endif%}
+		    {%endif%}
         {%endif%}
         
-         {{ stage('Create Unpivot '+ desiredState.node.materializationType, true, "sql", "create") }}                   
-              
+        {{ stage('Create Unpivot '+ desiredState.node.materializationType, true, "sql", "create") }}                   
+
+        CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+        AS
+        ( 
+        SELECT                 
+        {% for col in source.columns %}
+            {%if col.name not in ns.pcolumn and col.name|upper != desiredState.config.nameColTextBox|upper and col.name|upper != desiredState.config.valColTextBox|upper  %}
+                    {{ get_source_transform(col) }} AS "{{ col.name }}", 
+            {%endif%}
+            {% endfor %}                
+                    {{desiredState.config.nameColTextBox}},
+            {{desiredState.config.valColTextBox}}
+        {{  get_clause(joinclause,'from')  }}
+        UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS {%endif%}({{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
+        {{ get_clause(joinclause) }}
+        
+        )
+    {%elif desiredState.config.inferunpivot == false and desiredState.node.materializationType != 'view'%}
+
+        {% if currentState == undefined or (currentState != undefined and (currentState.node.nodeType != desiredState.node.nodeType or currentState.node.materializationType != desiredState.node.materializationType))  %}
+
+            {{ stage('Create Unpivot '+ ' {{desiredState.node.materializationType}}') }}
+
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              AS
-             ( 
-               SELECT                 
-               {% for col in source.columns %}
-                  {%if col.name not in ns.pcolumn and col.name|upper != desiredState.config.nameColTextBox|upper and col.name|upper != desiredState.config.valColTextBox|upper  %}
-			            {{ get_source_transform(col) }} AS "{{ col.name }}", 
-                  {%endif%}
-		        {% endfor %}                
-			             {{desiredState.config.nameColTextBox}},
-                   {{desiredState.config.valColTextBox}}
-               {{  get_clause(joinclause,'from')  }}
-               UNPIVOT {%if desiredState.config.includenull %}INCLUDE NULLS {%endif%}({{desiredState.config.valColTextBox}} FOR {{desiredState.config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
-               {{ get_clause(joinclause) }}
-               
-             )
-         {%elif desiredState.config.inferunpivot == false and desiredState.node.materializationType != 'view'%}
-
-            {% if currentState == undefined or (currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType)  %}
-
-               {{ stage('Create Unpivot '+ ' {{desiredState.node.materializationType}}') }}
-
-               CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
               (
                 {% for col in desiredState.columns %}
                     "{{ col.name }}" {{ col.dataType }}
@@ -153,9 +155,9 @@ does not permit copying or modification for any other purpose.
 
                 {# Metadata changes detected #}
                 {% set nsMetaVariables.metaDataChanged = true %}
-           {% endif %}
+        {% endif %}
            
-            {% if currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType%}
+            {% if currentState != undefined and currentState.node.nodeType == desiredState.node.nodeType and currentState.node.materializationType == desiredState.node.materializationType%}
                
                     {# Change Node Name or Change Storage Location #}
                     {# Storage Location Tests #}
