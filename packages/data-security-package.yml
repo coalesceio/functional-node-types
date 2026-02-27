@@ -1,0 +1,13 @@
+config:
+  entities:
+    nodeTypes:
+      "455":
+        defaultStorageLocation: null
+        isDisabled: false
+  packageVariables: ""
+fileVersion: 1
+id: "@coalesce/snowflake/data-security-package"
+name: data-security-package
+packageID: "@coalesce/snowflake/data-security-package"
+releaseID: 9f6ecc16-c5ab-4079-9717-5c9a4f6702d7
+type: Package

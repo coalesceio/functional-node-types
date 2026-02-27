@@ -1,0 +1,130 @@
+fileVersion: 1
+id: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+name: DEFERRED_MERGE_DELTA
+operation:
+  config:
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: table
+    devMode: false
+    dmlCol:
+      columnCounter: 019c9db2-e06a-747a-97a3-b934b57d6435
+      stepCounter: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+    dmlDelete: "'D'"
+    dmlInsert: "'I'"
+    dmlUpdate: U
+    flagSrcStream: false
+    initialRows: false
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 019c9db2-e06a-747a-97a3-be74b6e9c93e
+            stepCounter: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 019c9db2-e06a-747a-97a3-b56945d4c9cc
+            stepCounter: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: compute_wh
+  database: ""
+  deployEnabled: true
+  description: Deferred merge with delta stream
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9db2-e06a-747a-97a3-b56945d4c9cc
+          stepCounter: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+        config: {}
+        dataType: NUMBER
+        description: ""
+        isBusinessKey: true
+        name: O_ORDERKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9db2-e06a-747a-97a3-b934b57d6435
+          stepCounter: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+        config: {}
+        dataType: NUMBER
+        description: ""
+        isBusinessKey: false
+        name: O_CUSTKEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9db2-e06a-747a-97a3-be74b6e9c93e
+          stepCounter: 82fb48f4-7252-4a50-992d-0b2a175fb6ba
+        config: {}
+        dataType: DATE
+        description: ""
+        isBusinessKey: false
+        name: O_ORDERDATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f588caf5-a2f4-4186-9ea0-c2232363b36d
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
+    cteString: ""
+    description: ""
+    destinationName: ""
+    enabledColumnTestIDs: []
+    materializationOption: ""
+    sourceMapping:
+      - aliases:
+          ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: ORDERS
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
+        name: DEFERRED_MERGE_DELTA
+        noLinkRefs: []
+  name: DEFERRED_MERGE_DELTA
+  overrideSQL: false
+  schema: ""
+  sqlType: deferred-merge:::301
+  type: sql
+  version: 1
+type: Node
