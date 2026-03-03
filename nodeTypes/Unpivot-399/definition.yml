@@ -10,74 +10,125 @@ metadata:
     plural: UNPIVOTS
     tagColor: '#29B2DB'
 
-
     deployStrategy: advanced
     isColumnResyncEnabled: true
 
-
     config:
-    - groupName: Options
-      items:
-      - type: materializationSelector
-        isRequired: true
-        default: table
-        options:
-        - table
-        - view
-        - transient table
+      - groupName: Options
+        items:
+          - type: materializationSelector
+            isRequired: true
+            default: table
+            options:
+              - table
+              - view
+              - transient table
 
-      - displayName: Truncate Before
-        attributeName: truncateBefore
-        type: toggleButton
-        default: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+          - displayName: Unpivot Mode
+            attributeName: UnpivotMode
+            type: dropdownSelector
+            default: Standard
+            options:
+              - Standard
+              - Simplified
+            isRequired: true
 
-      - displayName: Enable Tests
-        attributeName: testsEnabled
-        type: toggleButton
-        default: false
-        enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
+          - displayName: Truncate Before
+            attributeName: truncateBefore
+            type: toggleButton
+            default: false
+            enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
-    - groupName: Unpivot Options
-      items:
-     
-        - displayName: Infer Structure of Unpivot Data
-          attributeName: inferunpivot
-          type: toggleButton
-          default: false
-      
-        - displayName: Value Column-Column that will hold the values from the unpivoted columns
-          type: textBox
-          attributeName: valColTextBox
-          isRequired: true
+          - displayName: Enable Tests
+            attributeName: testsEnabled
+            type: toggleButton
+            default: false
+            enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
-        - displayName: Name column-Column that will hold the names of the unpivoted columns
-          type: textBox
-          attributeName: nameColTextBox
-          isRequired: true
+      - groupName: Simplified Unpivot Mode Options
+        enableIf: "{% if config.UnpivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+        items:
 
-        - type: tabular
-          displayName: Column list
-          attributeName: tabValueColumn 
-          isRequired: true
-          columns:
-      
-          - displayName: Column list
-            type: columnDropdownSelector
-            attributeName: valColDropdown
-            enableIf: "{% if config.inferunpivot %} true {% else %} false {% endif %}"
-         
-          - displayName: Column list
+          - type: label
+            displayName: ⚠️ Warning - On Redeployment, PARTITION Changes will Drop and Recreate the Table
+            attributeName: labelPartWarning
+          - displayName: Adding extra Columns in mapping grid(After Resync)
+            attributeName: addcolumns
+            type: toggleButton
+            default: false
+            
+          - displayName: Pre-SQL
+            attributeName: preSQL
             type: textBox
-            attributeName: ColTextBox
+            syntax: sql
+            isRequired: false
+            enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
-        - displayName: Include NULLS
-          attributeName: includenull
-          type: toggleButton
-          default: false
-        
-      
+          - displayName: Post-SQL
+            attributeName: postSQL
+            type: textBox
+            syntax: sql
+            isRequired: false
+            enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
-     
+      - groupName: Filter Options
+        enableIf: "{% if config.UnpivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+        items:
+        - displayName: Filter Column
+          type: textBox
+          attributeName: filterColumn
+          isRequired: false
+
+        - displayName: Filter Operator
+          type: dropdownSelector
+          attributeName: filterOperator
+          options:
+          - '='
+          - '!='
+          - 'IN'
+          - 'NOT IN'
+          isRequired: false
+
+        - displayName: Filter Value(s)
+          type: textBox
+          attributeName: filterValues
+          isRequired: false
+
+      - groupName: Standard Unpivot Mode Options
+        enableIf: "{% if config.UnpivotMode == 'Standard' %} true {% else %} false {% endif %}"
+        items:
+          - displayName: Infer Structure of Unpivot Data
+            attributeName: inferunpivot
+            type: toggleButton
+            default: false
+
+          - displayName: Value Column
+            attributeName: valColTextBox
+            type: textBox
+            isRequired: false
+
+          - displayName: Name Column
+            attributeName: nameColTextBox
+            type: textBox
+            isRequired: false
+
+          - displayName: Column List
+            type: tabular
+            attributeName: tabValueColumn
+            isRequired: false
+            columns:
+              - displayName: Column
+                type: columnDropdownSelector
+                attributeName: valColDropdown
+                enableIf: "{% if config.inferunpivot %} true {% else %} false {% endif %}"
+
+              - displayName: Column
+                type: textBox
+                attributeName: colTextBox
+
+          - displayName: Include NULLs
+            attributeName: includenull
+            type: toggleButton
+            default: false
 name: Unpivot
 type: NodeType
