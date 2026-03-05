@@ -22,10 +22,7 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: f4f15911-bfcc-4dcb-a90b-b8deadaa30cc
-            stepCounter: e15630cc-21b2-4465-b64e-a5ba969bcae9
-          keyColTextBox: O_ORDERSTATUS
+        - keyColTextBox: O_ORDERSTATUS
     tabValueColumn:
       items:
         - valColTextBox: O_CUSTKEY

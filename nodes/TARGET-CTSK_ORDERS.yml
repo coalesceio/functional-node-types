@@ -3,59 +3,37 @@ id: 1b61a86d-6b90-4e7d-9401-1844035ff63a
 name: CTSK_ORDERS
 operation:
   config:
-    changetracking: false
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: ""
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    constraintsspec:
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    devMode: false
-    eschemaevol: false
-    flagSrcStream: false
-    foreignk: false
-    foreignkeycon:
+        - keyColTextBox: O_ORDERSTATUS
+    tabValueColumn:
       items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    maxdataretention: ""
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    outlineconst: false
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    selectDistinct: false
-    serverlessSize: MEDIUM
-    timeOut: 60000
-    truncateBefore: true
-    whName: COMPUTE_WH
+        - valColTextBox: O_SHIPPRIORITY
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -85,20 +63,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 6d860c2b-691b-4dd1-81ff-5d18464a6ed2
-          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
-        config: {}
-        dataType: VARCHAR(1)
-        description: ""
-        name: O_ORDERSTATUS
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
                 stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
             transform: ""
       - appliedColumnTests: {}
@@ -159,20 +123,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: b02d07ba-d6c0-433d-b9f3-28abd35a4ae6
-          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: O_SHIPPRIORITY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 84e28e27-113f-4358-9659-f919554a6c02
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 31d4c043-356e-4b8d-8ae5-f00691e748d9
           stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
         config: {}
@@ -199,6 +149,118 @@ operation:
               - columnCounter: 2fbcc877-b184-42da-aa66-750246271bea
                 stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 179970ff-2f1f-4905-9d5d-86cd33250066
+          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'A'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 15a0560b-1306-400f-b78f-2813aac71431
+          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'B'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2c2e2bd2-18cf-4376-8ec8-ddf46ac4dec3
+          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'F'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0d78622d-6c8c-4a29-837b-ac1b3f46220e
+          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'O'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: b703d487-9576-4c94-a2c5-d32b6b618d2d
+          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'P'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: false
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1c1342c8-5713-4c96-b58a-6f06b66e60ea
+          stepCounter: 1b61a86d-6b90-4e7d-9401-1844035ff63a
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -216,7 +278,7 @@ operation:
   name: CTSK_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::548
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

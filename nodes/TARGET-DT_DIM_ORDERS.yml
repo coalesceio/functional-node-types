@@ -3,81 +3,40 @@ id: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
 name: DT_DIM_ORDERS
 operation:
   config:
-    advanceWarehouse: false
-    backfill: false
-    backfillSource: ""
-    backfillSourceSchema: ""
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: ""
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    cpygrants: false
-    downstreamOption: false
-    immutabilityConstraint: false
-    immutableExpression: ""
-    initialize: ON_CREATE
-    initializeWarehouseSize: ""
-    lagSpecification:
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    orderBy:
+        - keyColTextBox: O_ORDERSTATUS
+    tabValueColumn:
       items:
-        - colName:
-            columnCounter: ebbd0369-92a0-4d40-953e-752429c5fe17
-            stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
-    orderByDateTime:
-      items:
-        - {}
-    orderseq:
-      items:
-        - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: d34b1d05-974d-48e0-9123-f343e470a653
-            stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
-    recordVersioning: Datetime Column
-    recordorderBy:
-      items:
-        - {}
-    refreshWarehouseSize: ""
-    refresh_mode: AUTO
-    timeTravel: false
-    timeTravelreference: ""
-    timeTraveltype: ""
-    timeTravelvalue: ""
-    warehouseName: dev_wh_xs
+        - valColTextBox: O_SHIPPRIORITY
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: dynamic table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 79e79adb-bc9e-4366-b038-421e54cd3c6e
-          stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
-        config: {}
-        dataType: STRING
-        defaultValue: ""
-        description: ""
-        isSurrogateKey: true
-        name: DT_DIM_ORDERS_KEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: "{{ dimensionHistoryPk() }}"
       - appliedColumnTests: {}
         columnReference:
           columnCounter: d34b1d05-974d-48e0-9123-f343e470a653
@@ -104,20 +63,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 0c6fd288-2cc1-45de-a2cb-a4a911bb4af8
-          stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
-        config: {}
-        dataType: VARCHAR(1)
-        description: ""
-        name: O_ORDERSTATUS
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
                 stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
             transform: ""
       - appliedColumnTests: {}
@@ -178,20 +123,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: aad24069-83bd-48b8-a090-e52527d12fa8
-          stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: O_SHIPPRIORITY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 84e28e27-113f-4358-9659-f919554a6c02
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 6c516322-3bea-4c53-851c-eef496da5573
           stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
         config: {}
@@ -223,69 +154,113 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 19ece601-0024-486a-b7fb-432935002bd2
+          columnCounter: 33985bf3-7828-4d04-ba9b-03fa5277e1ab
           stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemStartDate: true
-        name: RECORD_START_TIME
+        name: "'A'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: "{%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%} {{order_by_col_int()}}{%endif%}"
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 2e6627fe-43f6-49e5-9e2d-d58875ebcb0e
+          columnCounter: 564f6fba-4be6-4209-95d4-2d70a09263bb
           stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemEndDate: true
-        name: RECORD_END_TIME
+        name: "'B'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: LEAD({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%}{{order_by_col_int()}} {%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: cb0debff-554d-4979-983b-ae5c181935a4
+          columnCounter: 48f4aed1-fdb6-40d0-851a-ad3124db8686
           stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
         config: {}
-        dataType: NUMERIC
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isRecordCurrent: true
-        name: RECORD_CURRENT_FLAG
+        name: "'F'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CASE WHEN (LEAD({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%}{{order_by_col_int()}} {%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)) IS NULL THEN 1 ELSE 0 END
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a28ee21a-402b-452c-ab0f-0983705beeef
+          columnCounter: 19a6991a-47a3-4b5f-a974-3801fa8e7bd4
           stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: RECORD_CREATED_DATE
+        name: "'O'"
         nullable: true
-        recordCreated: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: FIRST_VALUE({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%} {{order_by_col_int()}}{%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 7c9fa5d0-1bde-47a1-8139-11225fb3aeae
+          stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'P'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: false
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c67dd46c-9660-4a52-a91e-f19396f1f7d0
+          stepCounter: 0e2f06b8-8577-43f5-bce8-29e7de0f126a
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O_SHIPPRIORITY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 84e28e27-113f-4358-9659-f919554a6c02
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -303,7 +278,7 @@ operation:
   name: DT_DIM_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: dynamic-tables:::350
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

@@ -58,6 +58,23 @@ operation:
               - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
                 stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
             transform: ""
+      - acceptedValues:
+          strictMatch: false
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 63df843f-8789-47ac-8a16-0b8073b5826c
+          stepCounter: a1991760-d93b-4457-afb2-2a9bbd5aa2d0
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
     cteString: ""
     description: ""
     destinationName: ""

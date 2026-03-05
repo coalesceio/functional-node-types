@@ -3,61 +3,37 @@ id: 2b68f744-52e3-4825-b2af-78f57239895d
 name: DT_WRK_LRV_ORDERS
 operation:
   config:
-    advanceWarehouse: false
-    backfill: false
-    backfillSource: ""
-    backfillSourceSchema: ""
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: ""
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    cpygrants: false
-    downstreamOption: false
-    immutabilityConstraint: false
-    immutableExpression: ""
-    initialize: ON_CREATE
-    initializeWarehouseSize: ""
-    lagSpecification:
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    orderBy:
+        - keyColTextBox: O_ORDERSTATUS
+    tabValueColumn:
       items:
-        - colName:
-            columnCounter: 097db387-85f1-45f1-b8b4-260541d1319b
-            stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
-    orderByDateTime:
-      items:
-        - {}
-    orderseq:
-      items:
-        - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: 449c965d-a6a5-4a65-9eba-9bee72ed7585
-            stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
-    recordVersioning: Datetime Column
-    recordorderBy:
-      items:
-        - {}
-    refreshWarehouseSize: ""
-    refresh_mode: AUTO
-    timeTravel: false
-    timeTravelreference: ""
-    timeTraveltype: ""
-    timeTravelvalue: ""
-    warehouseName: dev_wh_xs
+        - valColTextBox: O_SHIPPRIORITY
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: dynamic table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -87,20 +63,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 8f83a262-e5cf-4692-948b-a7abf3102fb8
-          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
-        config: {}
-        dataType: VARCHAR(1)
-        description: ""
-        name: O_ORDERSTATUS
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
                 stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
             transform: ""
       - appliedColumnTests: {}
@@ -161,20 +123,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: b48ae7ed-080e-479d-b92b-33ed1f36e89f
-          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: O_SHIPPRIORITY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 84e28e27-113f-4358-9659-f919554a6c02
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 880728f4-ba6b-4780-8b4d-3406b5e711d9
           stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
         config: {}
@@ -206,18 +154,113 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d9442c62-d576-48ae-a334-756e887c923a
+          columnCounter: cb1d380c-b525-42b5-b917-5e88e2199229
           stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: RECORD_CREATED_DATE
+        name: "'A'"
         nullable: true
-        recordCreated: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: FIRST_VALUE({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%} {{order_by_col_int()}}{%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ec0006cb-af21-41ac-87b8-1feefcbb2603
+          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'B'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 88d941c6-435c-424f-a7be-edb1006205b7
+          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'F'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c9abee23-cf4f-4a4b-a46a-43874493bfd3
+          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'O'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 191af7a2-65ae-4f25-847e-b32d2b1c8193
+          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: "'P'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: false
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 53bccfe7-322d-45f7-bcb2-75c4b236ece3
+          stepCounter: 2b68f744-52e3-4825-b2af-78f57239895d
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
+                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+            transform: ""
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -235,7 +278,7 @@ operation:
   name: DT_WRK_LRV_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: dynamic-tables:::351
+  sqlType: "409"
   type: sql
   version: 1
 type: Node
