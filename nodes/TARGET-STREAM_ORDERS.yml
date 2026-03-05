@@ -3,66 +3,70 @@ id: 7854ca2d-12e6-47b1-b252-943da4915220
 name: STREAM_ORDERS
 operation:
   config:
-    appendOnly: false
-    initialRows: true
-    redeploymentBehavior: Create or Replace
-    sourceType: Table
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - {}
+    pattern: abc
+    rowsPerMatch: ""
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: abc
+          valDefineExpression: O_ORDERSTATUS  IS NOT NULL
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: O_ORDERSTATUS
+          valMeasureColumnName: O_ORDERSTATUS
+          valMeasureExpression: COUNT
+    tabSelectFunction:
+      items:
+        - {}
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: false
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: Stream on orders
   isMultisource: false
   locationName: TARGET
-  materializationType: stream
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 019c9366-fe0a-7239-a118-0f453c092d72
+          columnCounter: 8a0625d5-d537-4ae2-8081-bcfc2f657741
           stepCounter: 7854ca2d-12e6-47b1-b252-943da4915220
         config: {}
-        dataType: NUMBER
+        dataType: NUMBER(18,0)
+        defaultValue: ""
         description: ""
-        name: O_ORDERKEY
+        name: O_ORDERSTATUS
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 019c9366-fe0a-7239-a118-124beb83ab5d
-          stepCounter: 7854ca2d-12e6-47b1-b252-943da4915220
-        config: {}
-        dataType: NUMBER
-        description: ""
-        name: O_CUSTKEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 019c9366-fe0a-7239-a118-1751939649ca
-          stepCounter: 7854ca2d-12e6-47b1-b252-943da4915220
-        config: {}
-        dataType: NUMBER
-        description: ""
-        name: O_TOTALPRICE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
-    description: ""
-    destinationName: ""
     enabledColumnTestIDs: []
-    materializationOption: ""
     sourceMapping:
       - aliases:
           ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
@@ -78,7 +82,7 @@ operation:
   name: STREAM_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::153
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

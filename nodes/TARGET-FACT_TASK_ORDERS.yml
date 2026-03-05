@@ -22,16 +22,10 @@ operation:
     subqueryval1: ""
     tabKeyColumn:
       items:
-        - keyColDropdown:
-            columnCounter: 3c33a5af-8d6a-4ca6-9cf6-54b85c97ae4d
-            stepCounter: 0c3b914d-5720-448e-addd-52b2e4ea7e8f
-          keyColTextBox: O_ORDERSTATUS
+        - keyColTextBox: O_ORDERSTATUS
     tabValueColumn:
       items:
-        - valColDropdown:
-            columnCounter: 2cee75d1-8da4-4fcf-9488-e4ebbd34069d
-            stepCounter: 0c3b914d-5720-448e-addd-52b2e4ea7e8f
-          valColTextBox: O_SHIPPRIORITY
+        - valColTextBox: O_SHIPPRIORITY
     testsEnabled: false
     trunc: false
   database: ""

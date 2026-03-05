@@ -3,44 +3,44 @@ id: 6e58d5ef-e9b9-4429-b199-189455c36e0e
 name: COA_FACT_ORDERS
 operation:
   config:
-    changetracking: false
-    clusterKey: false
-    clusterKeyConfig:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - orderByCol: null
+          orderByTextBox: O_CUSTKEY
+    partitionBy:
+      items:
+        - partitionByCol:
+            columnCounter: 019c934c-0e00-70dd-af43-5f806046ea4d
+            stepCounter: 6e58d5ef-e9b9-4429-b199-189455c36e0e
+          partitionByColTextBox: O_ORDERKEY
+    pattern: abc
+    rowsPerMatch: ""
+    selectOrderBy:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    tabDefine:
+      items:
+        - valDefineColumnName: ABC
+          valDefineExpression: O_TOTALPRICE IS NOT NULL
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: O_TOTALPRICE
+          valMeasureColumnName: O_TOTALPRICE
+          valMeasureExpression: COUNT
+    tabSelectFunction:
       items:
         - {}
-    clusterKeyExpressions: false
-    constraintsspec:
-      items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    lastModifiedComparison: false
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: false
     testsEnabled: false
-    treatNullAsCurrentTimestamp: false
+    to: ""
+    toggleOrderBy: false
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
     truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: Create or Alter Fact for orders
@@ -50,56 +50,27 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 019c934c-0e00-70dd-af43-5f806046ea4d
-          stepCounter: 6e58d5ef-e9b9-4429-b199-189455c36e0e
-        config: {}
-        dataType: NUMBER
-        description: ""
-        isBusinessKey: true
-        name: O_ORDERKEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 019c934c-0e00-70dd-af43-60f2dd2e5b73
-          stepCounter: 6e58d5ef-e9b9-4429-b199-189455c36e0e
-        config: {}
-        dataType: NUMBER
-        description: ""
-        isBusinessKey: false
-        name: O_CUSTKEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
           columnCounter: 019c934c-0e00-70dd-af43-6480c3668b98
           stepCounter: 6e58d5ef-e9b9-4429-b199-189455c36e0e
         config: {}
-        dataType: NUMBER
+        dataType: NUMBER(18,0)
+        defaultValue: ""
         description: ""
-        isBusinessKey: false
         name: O_TOTALPRICE
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f717e286-d18e-4780-a89e-65140d079e12
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
-    description: ""
-    destinationName: ""
     enabledColumnTestIDs: []
-    materializationOption: ""
     sourceMapping:
       - aliases:
           ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
@@ -115,7 +86,7 @@ operation:
   name: COA_FACT_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::534
+  sqlType: "410"
   type: sql
   version: 1
 type: Node
