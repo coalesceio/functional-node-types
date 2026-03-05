@@ -9,9 +9,6 @@ operation:
     tabValueColumn:
       items:
         - ColTextBox: O_ORDERKEY
-          valColDropdown:
-            columnCounter: ba7a954e-336a-4cc4-89e6-ea0f973e74f1
-            stepCounter: 823732c8-8dd2-4666-823c-cc03d11a311c
     testsEnabled: false
     truncateBefore: false
     valColTextBox: hj

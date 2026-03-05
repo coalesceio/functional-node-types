@@ -3,129 +3,140 @@ id: 6713c955-b1c2-446d-95bb-a2de05cc7a66
 name: CORTEX_SEARCH_ORDERS
 operation:
   config:
-    allcol: false
-    attrcol:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: ff
+    tabValueColumn:
       items:
-        - acolname:
-            columnCounter: 019c936c-dc05-730e-9c4d-99495e1ecc3d
-            stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
-    colpreview:
-      items:
-        - {}
-    createcortex: true
-    embmodel: snowflake-arctic-embed-m-v1.5
-    excss: false
-    filcrit:
-      items:
-        - {}
-    filtoggle: false
-    initialize: ON_CREATE
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    locCSS: ""
-    lopt: and
-    mulfilcon: false
-    namCSS: ""
-    numboost: false
-    numericboost:
-      items:
-        - {}
-    query1: ""
-    querycortex: false
-    searchcol:
-      columnCounter: 019c936c-dc05-730e-9c4d-90c5d03f7d40
-      stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
-    timdec: false
-    timedecay:
-      items:
-        - {}
-    warehouseName: dev_wh_xs
+        - ColTextBox: O_ORDERKEY
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: f
   database: ""
   deployEnabled: true
   description: Cortex search service for orders
   isMultisource: false
   locationName: TARGET
-  materializationType: cortex search service
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
-          columnCounter: 019c936c-dc05-730e-9c4d-882e73242ad1
+          columnCounter: 0c4ec744-2e3c-4360-9f28-aab08e69ef8a
           stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
         config: {}
-        dataType: NUMBER
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
         description: ""
-        name: O_ORDERKEY
+        name: FF
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 89d6ad62-9915-481d-b21f-b764919177fe
+          stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: F
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
           columnCounter: 019c936c-dc05-730e-9c4d-8eb81f4c59c0
           stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
         config: {}
-        dataType: NUMBER
+        dataType: NUMBER(38,0)
+        defaultValue: ""
         description: ""
         name: O_CUSTKEY
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 74e9cd12-2b07-434e-a7bd-8f02ed42a3fe
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
           columnCounter: 019c936c-dc05-730e-9c4d-90c5d03f7d40
           stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
         config: {}
-        dataType: VARCHAR
+        dataType: VARCHAR(1)
+        defaultValue: ""
         description: ""
         name: O_ORDERSTATUS
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
           columnCounter: 019c936c-dc05-730e-9c4d-96c9129bc255
           stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
         config: {}
-        dataType: VARCHAR
+        dataType: VARCHAR(15)
+        defaultValue: ""
         description: ""
         name: O_CLERK
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 81db38f7-bdeb-4acc-a29a-a39616e0f690
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
-      - appliedColumnTests: {}
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
         columnReference:
           columnCounter: 019c936c-dc05-730e-9c4d-99495e1ecc3d
           stepCounter: 6713c955-b1c2-446d-95bb-a2de05cc7a66
         config: {}
-        dataType: VARCHAR
+        dataType: VARCHAR(79)
+        defaultValue: ""
         description: ""
         name: O_COMMENT
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 01fdb573-e6f5-46be-be01-e894bd954c91
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
+          - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
-    description: ""
-    destinationName: ""
     enabledColumnTestIDs: []
-    materializationOption: ""
     sourceMapping:
       - aliases:
           ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
@@ -141,7 +152,7 @@ operation:
   name: CORTEX_SEARCH_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: cortex:::499
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

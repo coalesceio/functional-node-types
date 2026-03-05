@@ -3,11 +3,15 @@ id: 6d059794-4bc0-4271-b68f-26c63128d6f6
 name: BASE_VIEW_ORDERS
 operation:
   config:
-    groupByAll: false
-    insertStrategy: UNION
-    secureoption: false
-    selectDistinct: false
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: f
+    tabValueColumn:
+      items:
+        - ColTextBox: O_ORDERKEY
     testsEnabled: false
+    truncateBefore: false
+    valColTextBox: h
   database: ""
   deployEnabled: true
   description: Base View for orders
@@ -17,34 +21,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 019c9352-83c9-75e1-b06c-675f090d4c6f
-          stepCounter: 6d059794-4bc0-4271-b68f-26c63128d6f6
-        config: {}
-        dataType: NUMBER
-        description: ""
-        name: O_ORDERKEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: a7dd4426-5320-4d0c-bf69-d473445e4aee
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 019c9352-83c9-75e1-b06c-6995c8def1fb
-          stepCounter: 6d059794-4bc0-4271-b68f-26c63128d6f6
-        config: {}
-        dataType: VARCHAR
-        description: ""
-        name: O_ORDERSTATUS
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 7885ed34-668d-4041-9f1c-128b01f5c7b8
-                stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 019c9352-83c9-75e1-b06c-6cbbf4fb254d
@@ -59,11 +35,65 @@ operation:
               - columnCounter: f588caf5-a2f4-4186-9ea0-c2232363b36d
                 stepCounter: fd320d62-9217-4147-8d14-1cd5eb725727
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cd98903e-079a-4104-876f-4a14c2e7f68d
+          stepCounter: 6d059794-4bc0-4271-b68f-26c63128d6f6
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: F
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3d1e48d2-30df-4184-b272-94071ee8c3d6
+          stepCounter: 6d059794-4bc0-4271-b68f-26c63128d6f6
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: H
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 019c9352-83c9-75e1-b06c-6995c8def1fb
+          stepCounter: 6d059794-4bc0-4271-b68f-26c63128d6f6
+        config: {}
+        dataType: VARCHAR(1)
+        defaultValue: ""
+        description: ""
+        name: O_ORDERSTATUS
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
-    description: ""
-    destinationName: ""
     enabledColumnTestIDs: []
-    materializationOption: ""
     sourceMapping:
       - aliases:
           ORDERS: fd320d62-9217-4147-8d14-1cd5eb725727
@@ -74,12 +104,12 @@ operation:
             nodeName: ORDERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
-        name: V_NODE
+        name: BASE_VIEW_ORDERS
         noLinkRefs: []
   name: BASE_VIEW_ORDERS
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types:::188
+  sqlType: "399"
   type: sql
   version: 1
 type: Node
