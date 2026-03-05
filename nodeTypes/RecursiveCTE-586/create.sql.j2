@@ -21,11 +21,10 @@ does not permit copying or modification for any other purpose.
         {%- endif -%}
     {%- endif -%}
 
-    {% if currentState.node.materializationType != desiredState.node.materializationType %}
-        {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
-        {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
-        DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
-    {% endif %}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+
 {% endif %}
 
 {% if node.override.create.enabled %}
