@@ -26,11 +26,15 @@ operation:
     sfuncname: AVG
     simtabKeyColumn:
       items:
-        - skeyColDropdown: null
+        - skeyColDropdown:
+            columnCounter: 1436167e-33bb-4400-a196-6a6b4d8f85db
+            stepCounter: ac12c26c-c264-4fde-b415-6de1dfbb6b89
           skeyColTextBox: SCORE
     simtabValueColumn:
       items:
-        - svalColDropdown: null
+        - svalColDropdown:
+            columnCounter: 157bc357-e187-4417-953d-b06dbf72ad69
+            stepCounter: ac12c26c-c264-4fde-b415-6de1dfbb6b89
           svalColTextBox: SUBJECT
     sincol: true
     subqueryval1: ""

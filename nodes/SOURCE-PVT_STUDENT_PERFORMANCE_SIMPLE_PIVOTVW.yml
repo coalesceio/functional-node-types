@@ -23,6 +23,14 @@ operation:
     pivotMode: Simplified
     samKeyColval: false
     sfuncname: MAX
+    simtabKeyColumn:
+      items:
+        - skeyColDropdown: null
+          skeyColTextBox: TERM
+    simtabValueColumn:
+      items:
+        - svalColDropdown: null
+          svalColTextBox: SCORE
     sincol: true
     skeyColDropdown: ""
     skeyColTextBox: SCORE
