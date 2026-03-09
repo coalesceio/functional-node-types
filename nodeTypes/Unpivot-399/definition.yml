@@ -49,9 +49,6 @@ metadata:
         enableIf: "{% if config.UnpivotMode == 'Simplified' %} true {% else %} false {% endif %}"
         items:
 
-          - type: label
-            displayName: ⚠️ Warning - On Redeployment, PARTITION Changes will Drop and Recreate the Table
-            attributeName: labelPartWarning
           - displayName: Adding extra Columns in mapping grid(After Resync)
             attributeName: addcolumns
             type: toggleButton

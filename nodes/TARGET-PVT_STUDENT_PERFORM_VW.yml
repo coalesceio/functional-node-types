@@ -18,6 +18,7 @@ operation:
       items:
         - exclcoltxtBox: TERM
     inferPivot: false
+    pivotMode: Standard
     samKeyColval: false
     sincol: true
     subqueryval1: ""
@@ -26,8 +27,7 @@ operation:
         - keyColTextBox: SUBJECT
     tabValueColumn:
       items:
-        - Colvol: null
-          valColTextBox: SCORE
+        - valColTextBox: SCORE
     testsEnabled: false
     trunc: true
   database: ""
@@ -50,8 +50,8 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences:
-              - columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
-                stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+              - columnCounter: 88c455fe-8773-421b-b45b-5c6a3ff9b284
+                stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
             transform: ""
       - acceptedValues:
           strictMatch: true
