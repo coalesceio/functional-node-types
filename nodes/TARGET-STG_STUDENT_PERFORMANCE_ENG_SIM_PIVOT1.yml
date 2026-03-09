@@ -99,10 +99,10 @@ operation:
         customSQL:
           customSQL: ""
         dependencies:
-          - locationName: SOURCE
+          - locationName: TARGET
             nodeName: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT') }} "PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT"
+          joinCondition: FROM {{ ref('TARGET', 'PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT') }} "PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT"
         name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT1
         noLinkRefs: []
   name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT1
