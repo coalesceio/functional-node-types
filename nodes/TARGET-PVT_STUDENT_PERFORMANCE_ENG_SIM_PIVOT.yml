@@ -1,6 +1,6 @@
 fileVersion: 1
-id: ca5f5dcb-c87b-4d83-a179-b1455c570049
-name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOTVW
+id: 33500457-b40b-4c64-b160-0813bb4cba46
+name: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
 operation:
   config:
     Colvol1: ""
@@ -17,12 +17,12 @@ operation:
       items:
         - {}
     filterColumn: ""
-    filterOperator: ""
+    filterOperator: "="
     filterValues: ""
     inferPivot: false
     pivotMode: Simplified
     samKeyColval: false
-    sfuncname: MAX
+    sfuncname: AVG
     simtabKeyColumn:
       items:
         - skeyColDropdown: null
@@ -30,27 +30,27 @@ operation:
     simtabValueColumn:
       items:
         - svalColDropdown: null
-          svalColTextBox: SCORE
+          svalColTextBox: SUBJECT
     sincol: true
     skeyColDropdown: ""
     skeyColTextBox: SCORE
     subqueryval1: ""
     svalColDropdown: ""
-    svalColTextBox: TERM
+    svalColTextBox: SUBJECT
     tabKeyColumn:
       items:
-        - {}
+        - keyColTextBox: ""
     tabValueColumn:
       items:
-        - {}
+        - valColTextBox: ""
     testsEnabled: false
     trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: SOURCE
-  materializationType: view
+  locationName: TARGET
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -59,8 +59,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e8bddc2b-7536-482d-ba15-2539a3f47ae9
-          stepCounter: ca5f5dcb-c87b-4d83-a179-b1455c570049
+          columnCounter: 600a0704-257e-4b6a-aa16-222bd71382f5
+          stepCounter: 33500457-b40b-4c64-b160-0813bb4cba46
         config: {}
         dataType: VARIANT
         defaultValue: ""
@@ -85,9 +85,9 @@ operation:
             nodeName: STUDENT_PERFORMANCE
         join:
           joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
-        name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOTVW
+        name: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
         noLinkRefs: []
-  name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOTVW
+  name: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
   overrideSQL: false
   schema: ""
   sqlType: "409"
