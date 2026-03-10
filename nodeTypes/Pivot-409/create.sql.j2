@@ -68,8 +68,8 @@ does not permit copying or modification for any other purpose.
            
     {% if desiredState.config.pivotMode == 'Simplified' %}
         {# Create table with single variant column #}
-         
-        {% if desiredState.node.materializationType != 'view' and (currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType) %}
+
+        {% if desiredState.node.materializationType != 'view' and (currentState == undefined or currentState.materializationType != desiredState.materializationType) %}
         
             {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
 

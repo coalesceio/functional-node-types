@@ -3,7 +3,7 @@ id: 154efcab-bc9f-40e1-b7b3-d1014d3bd396
 name: UPVT_MONTHLY_SALES1
 operation:
   config:
-    UnpivotMode: Standard
+    UnpivotMode: Simplified
     addcolumns: false
     filterColumn: ""
     filterOperator: ""

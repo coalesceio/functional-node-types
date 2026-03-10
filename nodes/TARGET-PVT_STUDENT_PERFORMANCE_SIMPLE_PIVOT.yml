@@ -4,6 +4,7 @@ name: PVT_STUDENT_PERFORMANCE_SIMPLE_PIVOT
 operation:
   config:
     Colvol1: ""
+    addcolumns: true
     aggfunc:
       items:
         - {}
@@ -16,10 +17,21 @@ operation:
     exlcol:
       items:
         - {}
+    filterColumn: ""
+    filterOperator: ""
+    filterValues: ""
     inferPivot: false
     pivotMode: Simplified
     samKeyColval: false
     sfuncname: MAX
+    simtabKeyColumn:
+      items:
+        - skeyColDropdown: null
+          skeyColTextBox: SUBJECT
+    simtabValueColumn:
+      items:
+        - svalColDropdown: null
+          svalColTextBox: SCORE
     sincol: true
     skeyColDropdown:
       columnCounter: f3d7323c-951f-40a1-b029-0a877e84ffa6
