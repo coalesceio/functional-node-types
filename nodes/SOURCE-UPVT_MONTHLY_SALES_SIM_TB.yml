@@ -1,0 +1,90 @@
+fileVersion: 1
+id: 15aadb16-d377-463f-af33-8e2f8c4cfe34
+name: UPVT_MONTHLY_SALES_SIM_TB
+operation:
+  config:
+    UnpivotMode: Simplified
+    addcolumns: false
+    filterColumn: ""
+    filterOperator: ""
+    filterValues: ""
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: ""
+    postSQL: ""
+    preSQL: ""
+    tabValueColumn:
+      items:
+        - colTextBox: ""
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: ""
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9fdf8fa5-4412-4787-9b3f-85548026c1de
+          stepCounter: 15aadb16-d377-463f-af33-8e2f8c4cfe34
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: KEY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 742e24ca-3202-4a27-980b-609ab45e3073
+          stepCounter: 15aadb16-d377-463f-af33-8e2f8c4cfe34
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: VALUE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          MONTHLY_SALES: 26da5965-720a-4bce-81e3-8fa55cab9ec9
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: |
+            FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+        name: UPVT_MONTHLY_SALES_SIM_TB
+        noLinkRefs: []
+  name: UPVT_MONTHLY_SALES_SIM_TB
+  overrideSQL: false
+  schema: ""
+  sqlType: "399"
+  type: sql
+  version: 1
+type: Node

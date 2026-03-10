@@ -1,0 +1,88 @@
+fileVersion: 1
+id: 8c36c7a7-3c00-43cd-ac4d-d52613c20264
+name: STG_MONTHLY_SALES_SIM_TB
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0040ebf3-dc2c-4164-9c54-c42f3b0c5e07
+          stepCounter: 8c36c7a7-3c00-43cd-ac4d-d52613c20264
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 9fdf8fa5-4412-4787-9b3f-85548026c1de
+                stepCounter: 15aadb16-d377-463f-af33-8e2f8c4cfe34
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6a1aeb20-870d-4e3d-a19c-6cdb23829c35
+          stepCounter: 8c36c7a7-3c00-43cd-ac4d-d52613c20264
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: VALUE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 742e24ca-3202-4a27-980b-609ab45e3073
+                stepCounter: 15aadb16-d377-463f-af33-8e2f8c4cfe34
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 481c1b0c-dc16-40fe-9756-7d1daaa03fd1
+          stepCounter: 8c36c7a7-3c00-43cd-ac4d-d52613c20264
+        config: {}
+        dataType: VARIANT
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: JSONVAL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "'{' || \"UPVT_MONTHLY_SALES_SIM_TB.KEY\" || ',' || \"UPVT_MONTHLY_SALES_SIM_TB\".json:DEPT::STRING ||','|| UPVT_MONTHLY_SALES_SIM_TB:EMPID\"::STRING ||'}'"
+        systemColumnType: None
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          UPVT_MONTHLY_SALES_SIM_TB: 15aadb16-d377-463f-af33-8e2f8c4cfe34
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: UPVT_MONTHLY_SALES_SIM_TB
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'UPVT_MONTHLY_SALES_SIM_TB') }} "UPVT_MONTHLY_SALES_SIM_TB"
+        name: STG_MONTHLY_SALES_SIM_TB
+        noLinkRefs: []
+  name: STG_MONTHLY_SALES_SIM_TB
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node

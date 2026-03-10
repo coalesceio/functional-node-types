@@ -11,6 +11,8 @@ does not permit copying or modification for any other purpose.
 {% set source = sources[0] %}
 {%set joinclause =source.join%}
 
+{%- set ns = namespace(pcolumn = [],collist = []) %}
+
 {# == To run data quality tests before data insertion == #}
 
 {% for test in node.tests if config.testsEnabled %}
@@ -20,7 +22,46 @@ does not permit copying or modification for any other purpose.
         {% endif %}
 {% endfor %}
 
-{% if (node.materializationType == 'table' or node.materializationType == 'transient table')%}
+{% if (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.UnpivotMode == 'Simplified')  %}
+
+  {%if config.trunc %}
+  		{{ stage('Truncate UnPivot Table') }}
+			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+  {%endif%}
+  
+	
+  {{ stage('Insert data into UnPivot table') }}
+  INSERT INTO {{ this }}
+  (
+	KEY,
+	VALUE
+	{%if config.addcolumns -%}
+    {% for col in source.columns if col.name not in ('KEY','VALUE') -%}        
+      ,{{ col.name }}
+    {% endfor -%}
+    {%endif%}
+   )
+	SELECT
+	f.KEY,
+	f.VALUE
+	{%if config.addcolumns -%}
+    {% for col in source.columns if col.name not in ('KEY','VALUE') -%}        
+      ,{{ get_source_transform(col) }} AS "{{ col.name }}"
+    {% endfor -%}
+    {%endif%}
+	FROM
+	( SELECT
+	OBJECT_CONSTRUCT_KEEP_NULL(*) AS json
+	{{ source.join }}
+	) AS FLN,
+	TABLE(FLATTEN(input => FLN.json)) f
+	{% if config.filterOperator and config.filterValues %}
+	WHERE f.KEY {{ config.filterOperator }} ({{ config.filterValues }})
+	{% endif %}
+	
+
+{% elif (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.UnpivotMode == 'Standard')  %}
+
 {% if config.truncateBefore  %}
 
     {{ stage('Truncate  Table') }}
@@ -54,7 +95,7 @@ INSERT INTO {{ this }}
                   {%if col.name not in ns.pcolumn and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
 			            {{ get_source_transform(col) }} AS "{{ col.name }}",
                   {%endif%}
-		        {% endfor %}                
+		           {% endfor %}                
 			    {{config.nameColTextBox}},
                 {{config.valColTextBox}}
                {{  get_clause(joinclause,'from')  }} 
