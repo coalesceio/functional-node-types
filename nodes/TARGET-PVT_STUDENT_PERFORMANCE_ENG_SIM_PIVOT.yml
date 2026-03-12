@@ -1,0 +1,114 @@
+fileVersion: 1
+id: 33500457-b40b-4c64-b160-0813bb4cba46
+name: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+operation:
+  config:
+    Colvol1: ""
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - {}
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    filterColumn: ""
+    filterOperator: "="
+    filterValues: ""
+    inferPivot: false
+    pivotMode: Simplified
+    samKeyColval: false
+    sfuncname: AVG
+    simtabKeyColumn:
+      items:
+        - skeyColDropdown: null
+          skeyColTextBox: SCORE
+    simtabValueColumn:
+      items:
+        - svalColDropdown: null
+          svalColTextBox: TERM
+    sincol: true
+    skeyColDropdown: ""
+    skeyColTextBox: SCORE
+    subqueryval1: ""
+    svalColDropdown: ""
+    svalColTextBox: SUBJECT
+    tabKeyColumn:
+      items:
+        - keyColTextBox: ""
+    tabValueColumn:
+      items:
+        - valColTextBox: ""
+    testsEnabled: false
+    trunc: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 600a0704-257e-4b6a-aa16-222bd71382f5
+          stepCounter: 33500457-b40b-4c64-b160-0813bb4cba46
+        config: {}
+        dataType: VARIANT
+        defaultValue: ""
+        description: ""
+        name: DATA
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 17442036-2f1f-42fc-b71a-657fc3219ddd
+          stepCounter: 33500457-b40b-4c64-b160-0813bb4cba46
+        config: {}
+        dataType: TIMESTAMP_NTZ
+        defaultValue: ""
+        description: ""
+        name: LOAD_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: CURRENT_TIMESTAMP()
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STUDENT_PERFORMANCE: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STUDENT_PERFORMANCE
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STUDENT_PERFORMANCE') }} "STUDENT_PERFORMANCE"
+        name: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+        noLinkRefs: []
+  name: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

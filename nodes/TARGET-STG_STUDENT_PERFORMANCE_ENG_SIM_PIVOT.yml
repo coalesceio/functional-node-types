@@ -1,0 +1,54 @@
+fileVersion: 1
+id: 30f47025-ddcd-43b8-a5d7-0de669c31f8b
+name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+operation:
+  config:
+    insertStrategy: INSERT
+    postSQL: ""
+    preSQL: ""
+    testsEnabled: true
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9b6578cb-73a4-45ea-88e5-6c00ed31f04b
+          stepCounter: 30f47025-ddcd-43b8-a5d7-0de669c31f8b
+        config: {}
+        dataType: VARIANT
+        description: ""
+        name: DATA
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 600a0704-257e-4b6a-aa16-222bd71382f5
+                stepCounter: 33500457-b40b-4c64-b160-0813bb4cba46
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT: 33500457-b40b-4c64-b160-0813bb4cba46
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: TARGET
+            nodeName: PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+        join:
+          joinCondition: FROM {{ ref('TARGET', 'PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT') }} "PVT_STUDENT_PERFORMANCE_ENG_SIM_PIVOT"
+        name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+        noLinkRefs: []
+  name: STG_STUDENT_PERFORMANCE_ENG_SIM_PIVOT
+  overrideSQL: false
+  schema: ""
+  sqlType: Stage
+  type: sql
+  version: 1
+type: Node

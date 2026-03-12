@@ -1,5 +1,5 @@
 fileVersion: 1
-id: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+id: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
 name: STUDENT_PERFORMANCE
 operation:
   database: ""
@@ -13,8 +13,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 66a955e1-51fc-45b0-99d5-076be170a2a6
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: 88c455fe-8773-421b-b45b-5c6a3ff9b284
+          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -32,8 +32,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 87fe22c6-6388-441e-950f-5b9aa9966d3f
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: 78bee4c7-156d-457f-94ee-60027a1bf257
+          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
@@ -51,8 +51,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b3be608d-900b-4e58-95b5-3eb1d0a81d66
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: 5cc27cb2-33d4-4c0a-9eb1-6eede2ff9c32
+          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
@@ -70,8 +70,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: bd861a16-5651-4924-855d-718266030fb6
-          stepCounter: 4e202516-00cf-48f8-ad9b-32dae2a68ce7
+          columnCounter: cbecdb98-f60d-45a0-9654-c0e92b391373
+          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
