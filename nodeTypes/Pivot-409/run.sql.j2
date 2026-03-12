@@ -61,14 +61,17 @@ does not permit copying or modification for any other purpose.
     {%endif%}
    FROM (
   SELECT *
-  {{ source.join }}
+  {{ get_clause(sources[0].join,'from') }}
   {% if config.filterColumn %}
   WHERE {{ config.filterColumn }} {{ config.filterOperator }} ({{ config.filterValues }})
   {% endif %}
   ) TGT
   PIVOT({{config.sfuncname}}({{ns.pcolumn1}}) FOR {{ns.valcolumn}} IN (ANY)) AS PVT
-
-
+  {% set clause = get_clause(sources[0].join) -%}
+  {% if clause -%}
+    {{ ("WHERE " ~ clause.strip()[3:].strip()) if clause.strip().upper().startswith('AND') else clause -}}
+  {% endif -%}
+            
 {% elif (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Standard')  %}
 
   {% set source = sources[0] %}

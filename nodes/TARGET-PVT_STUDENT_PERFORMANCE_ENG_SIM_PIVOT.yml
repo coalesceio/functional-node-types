@@ -26,11 +26,11 @@ operation:
     simtabKeyColumn:
       items:
         - skeyColDropdown: null
-          skeyColTextBox: TERM
+          skeyColTextBox: SCORE
     simtabValueColumn:
       items:
         - svalColDropdown: null
-          svalColTextBox: SUBJECT
+          svalColTextBox: TERM
     sincol: true
     skeyColDropdown: ""
     skeyColTextBox: SCORE
