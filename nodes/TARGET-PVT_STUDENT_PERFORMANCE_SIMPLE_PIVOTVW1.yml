@@ -93,6 +93,26 @@ operation:
                 stepCounter: "0"
             transform: CURRENT_TIMESTAMP()
         systemColumnType: None
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a117f727-5178-4dc3-9713-d94dcb4e3268
+          stepCounter: 8d85bc2c-dc3a-4386-812d-283b4585082e
+        config: {}
+        dataType: STRING
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: SOURCE_NAME
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "'STUD_PERF'"
+        systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:

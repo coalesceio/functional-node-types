@@ -86,7 +86,7 @@ operation:
           columnCounter: e0c3b451-fa6e-430a-969e-51863cabb213
           stepCounter: 989b6616-9490-4f0a-b1cc-bbd2d98feb7b
         config: {}
-        dataType: TIMESTAMP
+        dataType: TIMESTAMP_NTZ
         defaultValue: ""
         description: ""
         keyColumnType: None
