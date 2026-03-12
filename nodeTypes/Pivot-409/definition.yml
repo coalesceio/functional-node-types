@@ -30,13 +30,105 @@ metadata:
         - view
         - transient table
 
+      - displayName: Pivot Mode
+        attributeName: pivotMode
+        type: dropdownSelector
+        default: Standard
+        options:
+        - Standard
+        - Simplified
+        isRequired: true
+
       - displayName: Enable Tests
         attributeName: testsEnabled
         type: toggleButton
         default: false
         enableIf: "{% if node.materializationType == 'view' %} false {% else %} true {% endif %}"
 
-    - groupName: Pivot Options
+    - groupName: Simplified Pivot  mode Options
+      enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+      items:
+
+      - displayName: Add Columns from mapping grid(After Resync)
+        attributeName: addcolumns
+        type: toggleButton
+        default: false
+      
+      - displayName: Pivot Column is the column from source table that will be aggregated
+        type: label
+
+      - type: tabular
+        displayName: 'Pivot Column-(Cannot add multiple pivot columns)'
+        attributeName: simtabKeyColumn
+        isRequired: false
+        enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+        columns:
+        
+        - displayName: Pivot Column
+          type: columnDropdownSelector
+          attributeName: skeyColDropdown
+          isRequired: false
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+
+        - displayName: Pivot Column
+          type: textBox
+          attributeName: skeyColTextBox
+          isRequired: true 
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+      
+      - type: tabular
+        displayName: 'Value Column'
+        attributeName: simtabValueColumn 
+        isRequired: true
+        columns:
+      
+        - displayName: Value Column
+          type: columnDropdownSelector
+          attributeName: svalColDropdown
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+
+        - displayName: Value Column
+          type: textBox
+          attributeName: svalColTextBox
+          enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"  
+        
+      -  type: dropdownSelector
+         displayName: Aggregate Functions
+         attributeName: sfuncname
+         isRequired: false
+         default: AVG
+         options:
+          - AVG
+          - MAX
+          - MIN
+          - COUNT
+          - SUM
+
+    - groupName: Filter Options
+      enableIf: "{% if config.pivotMode == 'Simplified' %} true {% else %} false {% endif %}"
+      items:
+      - displayName: Filter Column
+        type: textBox
+        attributeName: filterColumn
+        isRequired: false
+
+      - displayName: Filter Operator
+        type: dropdownSelector
+        attributeName: filterOperator
+        options:
+          - '='
+          - '!='
+          - 'IN'
+          - 'NOT IN'
+        isRequired: false
+
+      - displayName: Filter Value(s)
+        type: textBox
+        attributeName: filterValues
+        isRequired: false
+      
+    - groupName: Standard Pivot  mode Options
+      enableIf: "{% if config.pivotMode == 'Standard' %} true {% else %} false {% endif %}"
       items:
       - displayName: Infer Structure of Pivot Data
         attributeName: inferPivot
@@ -46,7 +138,7 @@ metadata:
       - type: tabular
         displayName: 'Pivot Column-(Cannot add multiple pivot columns)'
         attributeName: tabKeyColumn
-        isRequired: true
+        isRequired: false
         columns:
         
         - displayName: Pivot Column

@@ -14,7 +14,7 @@ does not permit copying or modification for any other purpose.
     {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
 
       {% set source = sources[0] %}
-      {%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+      {%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[],pcolumn1='',valcolumn='') %}
 
 {# == To run data quality tests before data insertion == #}
 
@@ -23,9 +23,53 @@ does not permit copying or modification for any other purpose.
             {{ test_stage(test.name, test.continueOnFailure) }}
             {{ test.templateString }}
         {% endif %}
-    {% endfor %}
 
-{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
+    {% endfor %}
+{% if (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Simplified')  %}
+
+  {%if config.trunc %}
+  		{{ stage('Truncate Pivot Table') }}
+			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+  {%endif%}
+
+  {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColDropdown.name') | list |first|default('')%}
+  {%if ns.pcolumn1 == ''%}
+    {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColTextBox')|list | first%}    
+  {%endif%}
+        
+  {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColDropdown.name') | list |first|default('')%}
+  {%if ns.valcolumn == ''%}
+      {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColTextBox')|list | first%}    
+  {%endif%}
+
+  {{ stage('Insert data into Pivot table') }}
+    INSERT INTO {{ this }}
+   (
+    DATA
+    {%if config.addcolumns -%}
+    {% for col in source.columns if col.name not in ('DATA') -%}        
+		  ,{{ col.name }}
+		{% endfor -%}
+    {%endif%}
+   )
+   SELECT
+   PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA
+   {%if config.addcolumns -%}
+   {% for col in source.columns if col.name not in ('DATA') -%}        
+			,{{ get_source_transform(col) }} AS "{{ col.name }}"
+		{% endfor -%}
+    {%endif%}
+   FROM (
+  SELECT *
+  {{ get_clause(sources[0].join,'from') }}
+  {% if config.filterColumn %}
+  WHERE {{ config.filterColumn }} {{ config.filterOperator }} ({{ config.filterValues }})
+  {% endif %}
+  ) TGT
+  PIVOT({{config.sfuncname}}({{ns.pcolumn1}}) FOR {{ns.valcolumn}} IN (ANY)) AS PVT
+  {{ get_clause(sources[0].join) }}
+            
+{% elif (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Standard')  %}
 
   {% set source = sources[0] %}
          {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
