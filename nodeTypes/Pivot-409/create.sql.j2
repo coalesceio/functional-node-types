@@ -113,10 +113,7 @@ does not permit copying or modification for any other purpose.
             {% endif %}
             ) TGT
             PIVOT({{desiredState.config.sfuncname}}({{ns.pcolumn1}}) FOR {{ns.valcolumn}} IN (ANY)) AS PVT
-            {% set clause = get_clause(desiredState.sources[0].join) %}
-            {% if clause %}
-                {{ ("WHERE " ~ clause.strip()[3:].strip()) if clause.strip().upper().startswith('AND') else clause }}
-            {% endif %}
+            {{get_clause(desiredState.sources[0].join) }}
                    
         {% endif %}
 

@@ -67,10 +67,7 @@ does not permit copying or modification for any other purpose.
   {% endif %}
   ) TGT
   PIVOT({{config.sfuncname}}({{ns.pcolumn1}}) FOR {{ns.valcolumn}} IN (ANY)) AS PVT
-  {% set clause = get_clause(sources[0].join) -%}
-  {% if clause -%}
-    {{ ("WHERE " ~ clause.strip()[3:].strip()) if clause.strip().upper().startswith('AND') else clause -}}
-  {% endif -%}
+  {{ get_clause(sources[0].join) }}
             
 {% elif (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Standard')  %}
 

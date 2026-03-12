@@ -135,7 +135,7 @@ macroString: |-
           {%- set remainder = cleaned_join_clause[split_index + offset:] -%}
 
           {%- if found_keyword == 'where' -%}
-              {%- set add_part = 'AND ' ~ remainder -%}
+              {%- set add_part = 'WHERE ' ~ remainder -%}
           {%- else -%}
               {%- set add_part = found_keyword ~ ' ' ~ remainder -%}
           {%- endif -%}
