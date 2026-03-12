@@ -479,11 +479,13 @@ Pivot has three configuration groups:
 #### Simplified Pivot Mode
 
 * In Simplified Pivot Mode,we load the data into single DATA variant column
-* We have to add a stage node on top of it to flatten it further into columns
+* We have to add a stage node on top of it to flatten it further into columns.
 
 <img width="459" height="78" alt="PIP-image" src="https://github.com/user-attachments/assets/d1b1f109-5d7b-42e6-b583-cc4c8ddfab7a" />
 
+
 <img width="1531" height="650" alt="pivot-image" src="https://github.com/user-attachments/assets/f0c9847e-aef9-40ce-a1ac-1e6261596b50" />
+
 
 <img width="1057" height="302" alt="flattened-image" src="https://github.com/user-attachments/assets/1d9af47f-4d01-493e-ba39-4b6b9d440443" />
 
