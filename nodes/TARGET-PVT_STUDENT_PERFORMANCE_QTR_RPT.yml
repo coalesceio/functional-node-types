@@ -41,20 +41,6 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: a98dca01-ac98-40bf-94e3-449e87aabe7f
-          stepCounter: dad62854-c069-48cb-8d12-783e4129d895
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: STUDENT_ID
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 88c455fe-8773-421b-b45b-5c6a3ff9b284
-                stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: f0714969-856a-46c9-9451-82f32ea60814
           stepCounter: dad62854-c069-48cb-8d12-783e4129d895
         config: {}
