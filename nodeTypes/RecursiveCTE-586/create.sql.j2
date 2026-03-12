@@ -78,7 +78,7 @@
               {%if not loop.last%} AND   {%endif%}  
            {%- endfor -%}
         {%endif%}        
-        {{ get_clause(joinclause) }}
+        {{ get_clause(sources[1].join) }}
         
     )SELECT {% for col in sources[2].columns if col.reqcolumn != 'N' %}
               {%if col.transform == '' %}
