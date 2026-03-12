@@ -11,6 +11,29 @@ The Coalesce Functional Node Types Package includes:
 * [Recursive CTE](#recursive-cte)
 * [Code](#code)
 
+## Functional node types - Brief Summary
+
+
+This is a package of functional nodes designed for common types of data transformations. coalesce It includes eight node types:
+
+---
+
+### Dimension Tables
+
+- **Date Dimension** — generates a calendar table with attributes like day, month, quarter, fiscal year, and holiday flags, configurable by start date and number of days to generate.
+- **Time Dimension** — generates a time-of-day reference table with attributes like hour, minute, second, AM/PM, and business/peak hour flags, at configurable granularity (hour, minute, or second).
+
+### Reshaping Data
+
+- **Pivot** — converts row values into columns (e.g., turning month + sales rows into jan_sales, feb_sales columns), supporting single and multi-column pivots with dynamic structure inference.
+- **Unpivot** — the reverse operation, rotating wide columns back into rows for a normalized structure.
+
+Advanced SQL Patterns
+
+- **Match Recognize** — leverages Snowflake's MATCH_RECOGNIZE clause to detect patterns in sequential data, useful for fraud detection, session tracking, and clickstream analysis.
+- **View-Qualify (Advanced Deploy)** — creates Snowflake views with an optional QUALIFY filter on window functions, similar to how HAVING works for aggregates.
+- **Recursive CTE** — supports hierarchical/self-referential queries (e.g., org charts, tree structures) using Snowflake's recursive common table expressions.
+
 ---
 
 ## Date Dimension
