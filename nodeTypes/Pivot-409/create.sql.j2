@@ -107,12 +107,17 @@ does not permit copying or modification for any other purpose.
             {% endfor %}
             FROM (
             SELECT *
-            {{ desiredState.sources[0].join }}
+            {{ get_clause(desiredState.sources[0].join,'from') }}
             {% if desiredState.config.filterColumn %}
             WHERE {{ desiredState.config.filterColumn }} {{ desiredState.config.filterOperator }} ({{ desiredState.config.filterValues }})
             {% endif %}
             ) TGT
             PIVOT({{desiredState.config.sfuncname}}({{ns.pcolumn1}}) FOR {{ns.valcolumn}} IN (ANY)) AS PVT
+            {% set clause = get_clause(desiredState.sources[0].join) %}
+            {% if clause %}
+                {{ ("WHERE " ~ clause.strip()[3:].strip()) if clause.strip().upper().startswith('AND') else clause }}
+            {% endif %}
+                   
         {% endif %}
 
     {% elif desiredState.config.pivotMode == 'Standard' %}
