@@ -11,12 +11,11 @@ The Coalesce Functional Node Types Package includes:
 * [Recursive CTE](#recursive-cte)
 * [Code](#code)
 
+---
+
 ## Functional node types - Brief Summary
 
-
 This is a package of functional nodes designed for common types of data transformations. coalesce It includes eight node types:
-
----
 
 ### Dimension Tables
 
@@ -473,10 +472,35 @@ Pivot has three configuration groups:
 | **Options** | **Description** |
 |-------------|-----------------|
 | **Create As** | Choose 'table', 'view' or 'transient table' |
+| **Pivot mode**| Choose ['Simplified'](#simplified-pivot-mode),'Standard'|
 | **Truncate** | True/False toggle to enable or disable truncating the output columns |
 | **Enable tests** | Toggle: True/False<br/>Determines if tests are enabled |
 
-#### Pivot Options
+#### Simplified Pivot Mode
+
+* In Simplified Pivot Mode,we load the data into single DATA variant column
+* We have to add a stage node on top of it to flatten it further into columns
+
+<img width="459" height="78" alt="PIP-image" src="https://github.com/user-attachments/assets/d1b1f109-5d7b-42e6-b583-cc4c8ddfab7a" />
+
+<img width="1531" height="650" alt="pivot-image" src="https://github.com/user-attachments/assets/f0c9847e-aef9-40ce-a1ac-1e6261596b50" />
+
+<img width="1057" height="302" alt="flattened-image" src="https://github.com/user-attachments/assets/1d9af47f-4d01-493e-ba39-4b6b9d440443" />
+
+
+#### Simplified Pivot Options
+
+| **Pivot column**|Pivot column(Dropdown) <br/>Pivot column(textbox)The column from the source table or subquery that will be aggregated and turned into new columns.|
+|**Value Column**|-Value Column(Dropdown) <br/> -Value Column(textbox) <br/> Values you want to populate in the new columns.|
+|**Aggregate Functions**|Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.|
+
+##### Simplified filter options
+
+| **Filter Column**| Choose column to add any filter condition|
+| **Filter Operator**|Choose the operation =,<,>|
+| **Filter Value**|Choose the comparison value for filter condition|
+
+#### Standard Pivot Options
 
 ##### Single Pivot Column
 
