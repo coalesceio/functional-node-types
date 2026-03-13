@@ -500,7 +500,7 @@ Pivot has three configuration groups:
 ##### Simplified filter options
 
 | **Filter Column**| Choose column to add any filter condition|
-| **Filter Operator**|Choose the operation =,<,>|
+| **Filter Operator**|Choose the operation `=`,`<`,`>`|
 | **Filter Value**|Choose the comparison value for filter condition|
 
 #### Standard Pivot Options
