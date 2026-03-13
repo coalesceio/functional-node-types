@@ -11,6 +11,7 @@ The Coalesce Functional Node Types Package includes:
 * [Recursive CTE](#recursive-cte)
 * [Code](#code)
 
+
 ---
 
 ## Functional node types - Brief Summary
