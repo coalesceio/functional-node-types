@@ -30,7 +30,7 @@ operation:
       items:
         - {}
     primaryKeyName: ""
-    selectDistinct: false
+    selectDistinct: true
     testsEnabled: false
     treatNullAsCurrentTimestamp: false
     truncateBefore: false
@@ -39,7 +39,7 @@ operation:
   description: Fact table for orders
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:

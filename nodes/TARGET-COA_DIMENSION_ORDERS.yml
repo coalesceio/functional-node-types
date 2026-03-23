@@ -3,7 +3,7 @@ id: c774fd34-7155-4b11-aacb-d79f7500846a
 name: COA_DIMENSION_ORDERS
 operation:
   config:
-    changetracking: false
+    changetracking: true
     clusterKey: false
     clusterKeyConfig:
       items:
@@ -211,7 +211,7 @@ operation:
             nodeName: ORDERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
-        name: CDIM_NODE
+        name: COA_DIMENSION_ORDERS
         noLinkRefs: []
   name: COA_DIMENSION_ORDERS
   overrideSQL: false

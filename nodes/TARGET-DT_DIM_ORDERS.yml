@@ -51,7 +51,7 @@ operation:
     timeTravelreference: ""
     timeTraveltype: ""
     timeTravelvalue: ""
-    warehouseName: dev_wh_xs
+    warehouseName: COMPUTEWH
   database: ""
   deployEnabled: true
   description: ""

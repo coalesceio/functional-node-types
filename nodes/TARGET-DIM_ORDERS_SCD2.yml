@@ -93,6 +93,7 @@ operation:
         dataType: VARCHAR
         description: ""
         isBusinessKey: false
+        isChangeTracking: true
         name: O_ORDERSTATUS
         nullable: true
         sourceColumnReferences:

@@ -12,7 +12,7 @@ operation:
         - {}
     clusterKeyExpressions: false
     secureOption: false
-    selectDistinct: false
+    selectDistinct: true
   database: ""
   deployEnabled: true
   description: Materialized view for orders
@@ -107,7 +107,7 @@ operation:
             nodeName: ORDERS
         join:
           joinCondition: FROM {{ ref('SOURCE', 'ORDERS') }} ORDERS
-        name: MV_NODE
+        name: MV_ORDERS
         noLinkRefs: []
   name: MV_ORDERS
   overrideSQL: false

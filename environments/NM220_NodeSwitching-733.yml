@@ -5,7 +5,7 @@ mappingDefinitions:
     database: TANVI_DEV
     schema: SOURCE
   TARGET:
-    database: TANVI_DEV
-    schema: QA_PHASE
+    database: PRANJAL_DEV
+    schema: TEST_DB
 name: NM220_NodeSwitching
 type: Environment
