@@ -1,0 +1,111 @@
+fileVersion: 1
+id: 00c0fb28-4224-41dd-abda-e08b40706d22
+name: INTTBL_STOCK_PRICE_HISTORY
+operation:
+  config:
+    autoRefresh: true
+    clusterKey: true
+    clusterKeyConfig:
+      items:
+        - columnName:
+            columnCounter: 4639d82d-f69a-4e8f-959c-c47132db1d17
+            stepCounter: 00c0fb28-4224-41dd-abda-e08b40706d22
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: UNION ALL
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    selectDistinct: false
+    testsEnabled: false
+    warehouseName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: interactive table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4639d82d-f69a-4e8f-959c-c47132db1d17
+          stepCounter: 00c0fb28-4224-41dd-abda-e08b40706d22
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 61f6f71e-f91a-463b-8c4d-e177d2eb0936
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f2a9879b-2bae-473e-ac66-e1e86ba655b2
+          stepCounter: 00c0fb28-4224-41dd-abda-e08b40706d22
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1f2011c2-3589-42ef-9e99-ab223d58d359
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3f4dfbeb-098b-4634-a92f-14af4abedce8
+          stepCounter: 00c0fb28-4224-41dd-abda-e08b40706d22
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ea8e1e56-f531-485f-81b9-a229a65c6c55
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c23f7e27-b65d-4900-ae58-0521b56c0312
+          stepCounter: 00c0fb28-4224-41dd-abda-e08b40706d22
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STOCK_PRICE_HISTORY: 89406961-17b7-4339-850a-e41c33ed55ad
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: INTTBL_STOCK_PRICE_HISTORY
+        noLinkRefs: []
+  name: INTTBL_STOCK_PRICE_HISTORY
+  overrideSQL: false
+  schema: ""
+  sqlType: interactive-table:::602
+  type: sql
+  version: 1
+type: Node

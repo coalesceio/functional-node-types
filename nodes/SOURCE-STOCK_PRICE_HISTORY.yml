@@ -1,0 +1,92 @@
+fileVersion: 1
+id: 89406961-17b7-4339-850a-e41c33ed55ad
+name: STOCK_PRICE_HISTORY
+operation:
+  database: ""
+  deployEnabled: true
+  description: ""
+  locationName: SOURCE
+  metadata:
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 61f6f71e-f91a-463b-8c4d-e177d2eb0936
+          stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: COMPANY
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1f2011c2-3589-42ef-9e99-ab223d58d359
+          stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+        config: {}
+        dataType: DATE
+        defaultValue: ""
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ea8e1e56-f531-485f-81b9-a229a65c6c55
+          stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: PRICE
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
+          stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        defaultValue: ""
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: STOCK_PRICE_HISTORY
+  schema: ""
+  sqlType: Source
+  type: sourceInput
+  version: 1
+type: Node

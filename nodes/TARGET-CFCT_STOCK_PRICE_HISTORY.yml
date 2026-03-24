@@ -1,0 +1,129 @@
+fileVersion: 1
+id: 843e515b-f641-4469-946e-833e14a97d62
+name: CFCT_STOCK_PRICE_HISTORY
+operation:
+  config:
+    changetracking: true
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    constraintsspec:
+      items:
+        - {}
+    datretention: ""
+    defaultcoallation: ""
+    eschemaevol: false
+    foreignk: false
+    foreignkeycon:
+      items:
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: UNION
+    lastModifiedComparison: false
+    maxdataretention: ""
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    selectDistinct: false
+    testsEnabled: false
+    treatNullAsCurrentTimestamp: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c52492ab-e270-457c-a022-6e9fbec22643
+          stepCounter: 843e515b-f641-4469-946e-833e14a97d62
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 61f6f71e-f91a-463b-8c4d-e177d2eb0936
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3bff8383-2b22-42c5-bb2a-e1168b4874af
+          stepCounter: 843e515b-f641-4469-946e-833e14a97d62
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1f2011c2-3589-42ef-9e99-ab223d58d359
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 60f0c8f9-1a92-449e-8c2c-ff2c991b7945
+          stepCounter: 843e515b-f641-4469-946e-833e14a97d62
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ea8e1e56-f531-485f-81b9-a229a65c6c55
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 17dfc534-5d40-4e32-bc6c-36f2c223036f
+          stepCounter: 843e515b-f641-4469-946e-833e14a97d62
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STOCK_PRICE_HISTORY: 89406961-17b7-4339-850a-e41c33ed55ad
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: CFCT_STOCK_PRICE_HISTORY
+        noLinkRefs: []
+  name: CFCT_STOCK_PRICE_HISTORY
+  overrideSQL: false
+  schema: ""
+  sqlType: create-or-alter-package:::534
+  type: sql
+  version: 1
+type: Node

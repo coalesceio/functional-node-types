@@ -1,0 +1,138 @@
+fileVersion: 1
+id: cd76b8b6-6f8b-4f9b-b39e-0716c54acb5d
+name: CTSK_STOCK_PRICE_HISTORY
+operation:
+  config:
+    changetracking: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    constraintsspec:
+      items:
+        - {}
+    datretention: ""
+    defaultcoallation: ""
+    devMode: false
+    eschemaevol: false
+    flagSrcStream: true
+    foreignk: false
+    foreignkeycon:
+      items:
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: UNION
+    maxdataretention: ""
+    multiStreamBehavior: AND
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    predTask: DATA_TRANSFORMATION_ROOT_TASK
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    rootTask: DATA_TRANSFORMATION_ROOT_TASK
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    selectDistinct: true
+    serverlessSize: MEDIUM
+    timeOut: 60000
+    truncateBefore: true
+    whName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: task
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: df8b39ff-48df-4b22-96ce-bb312162f26e
+          stepCounter: cd76b8b6-6f8b-4f9b-b39e-0716c54acb5d
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 61f6f71e-f91a-463b-8c4d-e177d2eb0936
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 16b64961-cf27-4c82-85e7-82d739b71286
+          stepCounter: cd76b8b6-6f8b-4f9b-b39e-0716c54acb5d
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1f2011c2-3589-42ef-9e99-ab223d58d359
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 685fbec4-902e-44c5-a269-a4eff8f44267
+          stepCounter: cd76b8b6-6f8b-4f9b-b39e-0716c54acb5d
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ea8e1e56-f531-485f-81b9-a229a65c6c55
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9da4e8e4-0a0d-45cb-bdbf-4a6da4f214c1
+          stepCounter: cd76b8b6-6f8b-4f9b-b39e-0716c54acb5d
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STOCK_PRICE_HISTORY: 89406961-17b7-4339-850a-e41c33ed55ad
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: CTSK_STOCK_PRICE_HISTORY
+        noLinkRefs: []
+  name: CTSK_STOCK_PRICE_HISTORY
+  overrideSQL: false
+  schema: ""
+  sqlType: create-or-alter-package:::548
+  type: sql
+  version: 1
+type: Node

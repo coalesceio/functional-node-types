@@ -1,0 +1,260 @@
+fileVersion: 1
+id: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+name: CDIM_STOCK_PRICE_HISTORY
+operation:
+  config:
+    changetracking: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    constraintsspec:
+      items:
+        - {}
+    customZeroKeyValues:
+      items:
+        - {}
+    datretention: ""
+    defaultcoallation: ""
+    eschemaevol: false
+    foreignk: false
+    foreignkeycon:
+      items:
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: UNION
+    insertZeroKey: false
+    insertZeroKeyAdvanced: false
+    insertZeroKeyBol: "TRUE"
+    insertZeroKeyDate: 01-01-1900
+    insertZeroKeyStr: UNKNOWN
+    insertZeroKeySurrogateKey: "0"
+    insertZeroKeyTimestamp: "1900-01-01 00:00:00.000"
+    lastModifiedComparison: false
+    maxdataretention: ""
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    selectDistinct: false
+    testsEnabled: false
+    treatNullAsCurrentTimestamp: false
+    truncateBefore: true
+    type2Dimension: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9233539e-980e-483d-ad8e-2572653d4ba5
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSurrogateKey: true
+        name: CDIM_STOCK_PRICE_HISTORY_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 41a2554c-5ed8-4719-b2ff-4cde6a8b3893
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        isBusinessKey: true
+        name: COMPANY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 61f6f71e-f91a-463b-8c4d-e177d2eb0936
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 1a9141e5-9324-4fc0-be4a-93b3d8a17b6a
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: DATE
+        description: ""
+        name: PRICE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1f2011c2-3589-42ef-9e99-ab223d58d359
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6f882777-5fd7-4778-8430-24a8138625f4
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: PRICE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ea8e1e56-f531-485f-81b9-a229a65c6c55
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a53c30fe-adba-4076-b5e6-798d461f9925
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
+                stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: bd750ad1-26cc-49d9-a7ac-be28d5a27a81
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSystemVersion: true
+        name: SYSTEM_VERSION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: da320730-b79a-407d-8c5d-10207b1b918a
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: VARCHAR
+        defaultValue: ""
+        description: ""
+        isSystemCurrentFlag: true
+        name: SYSTEM_CURRENT_FLAG
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: ddf1dcff-20a3-4f1a-9951-e53461570342
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemStartDate: true
+        name: SYSTEM_START_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 81edac2a-e64c-4f0f-bdf0-314c76575dab
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemEndDate: true
+        name: SYSTEM_END_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 447644c4-f53d-478e-9290-7e2e7f4c8173
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2471af2e-c79e-4ebb-990c-88dd11480bbc
+          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          STOCK_PRICE_HISTORY: 89406961-17b7-4339-850a-e41c33ed55ad
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: STOCK_PRICE_HISTORY
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'STOCK_PRICE_HISTORY') }} "STOCK_PRICE_HISTORY"
+        name: CDIM_STOCK_PRICE_HISTORY
+        noLinkRefs: []
+  name: CDIM_STOCK_PRICE_HISTORY
+  overrideSQL: false
+  schema: ""
+  sqlType: create-or-alter-package:::535
+  type: sql
+  version: 1
+type: Node
