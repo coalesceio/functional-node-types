@@ -3,55 +3,45 @@ id: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
 name: CDIM_STOCK_PRICE_HISTORY
 operation:
   config:
-    changetracking: false
-    clusterKey: false
-    clusterKeyConfig:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 1a9141e5-9324-4fc0-be4a-93b3d8a17b6a
+            stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
+          orderByTextBox: PRICE_DATE
+    partitionBy:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
       items:
         - {}
-    clusterKeyExpressions: false
-    constraintsspec:
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+        - valDefineColumnName: UP
+          valDefineExpression: price > lag(price)
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
       items:
         - {}
-    customZeroKeyValues:
-      items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    insertZeroKey: false
-    insertZeroKeyAdvanced: false
-    insertZeroKeyBol: "TRUE"
-    insertZeroKeyDate: 01-01-1900
-    insertZeroKeyStr: UNKNOWN
-    insertZeroKeySurrogateKey: "0"
-    insertZeroKeyTimestamp: "1900-01-01 00:00:00.000"
-    lastModifiedComparison: false
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: false
     testsEnabled: false
-    treatNullAsCurrentTimestamp: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
     truncateBefore: true
-    type2Dimension: false
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
@@ -61,23 +51,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 9233539e-980e-483d-ad8e-2572653d4ba5
-          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSurrogateKey: true
-        name: CDIM_STOCK_PRICE_HISTORY_KEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 41a2554c-5ed8-4719-b2ff-4cde6a8b3893
@@ -140,103 +113,20 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: bd750ad1-26cc-49d9-a7ac-be28d5a27a81
+          columnCounter: 28477e66-9cfc-4dd9-abbc-3ae9ac0e8de7
           stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
         config: {}
-        dataType: NUMBER
+        dataType: NUMBER(18,0)
         defaultValue: ""
         description: ""
-        isSystemVersion: true
-        name: SYSTEM_VERSION
+        name: MATCH_NUMBER
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: da320730-b79a-407d-8c5d-10207b1b918a
-          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
-        config: {}
-        dataType: VARCHAR
-        defaultValue: ""
-        description: ""
-        isSystemCurrentFlag: true
-        name: SYSTEM_CURRENT_FLAG
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: ddf1dcff-20a3-4f1a-9951-e53461570342
-          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemStartDate: true
-        name: SYSTEM_START_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 81edac2a-e64c-4f0f-bdf0-314c76575dab
-          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemEndDate: true
-        name: SYSTEM_END_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 447644c4-f53d-478e-9290-7e2e7f4c8173
-          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 2471af2e-c79e-4ebb-990c-88dd11480bbc
-          stepCounter: 1dae9a20-64a7-47b1-bf5b-1cbcbef50abd
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -254,7 +144,7 @@ operation:
   name: CDIM_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::535
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

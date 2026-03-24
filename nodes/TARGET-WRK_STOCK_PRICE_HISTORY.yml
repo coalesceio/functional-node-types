@@ -3,32 +3,43 @@ id: 5d7a104a-b791-46a2-8cb4-ce76bf2245b7
 name: WRK_STOCK_PRICE_HISTORY
 operation:
   config:
-    asofColumn:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: b4bdc29c-75fd-41fe-9c29-14a4549bb905
+            stepCounter: 5d7a104a-b791-46a2-8cb4-ce76bf2245b7
+          orderByTextBox: PRICE_DATE
+    partitionBy:
       items:
         - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
-    clusterKey: false
-    clusterKeyConfig:
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
       items:
         - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
     testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
     truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
@@ -94,6 +105,25 @@ operation:
               - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
                 stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: afb66a28-882f-4225-bd7c-718efc379ec3
+          stepCounter: 5d7a104a-b791-46a2-8cb4-ce76bf2245b7
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -111,7 +141,7 @@ operation:
   name: WRK_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

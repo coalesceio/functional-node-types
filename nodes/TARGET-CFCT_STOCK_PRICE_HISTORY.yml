@@ -3,50 +3,49 @@ id: 843e515b-f641-4469-946e-833e14a97d62
 name: CFCT_STOCK_PRICE_HISTORY
 operation:
   config:
-    changetracking: true
-    clusterKey: false
-    clusterKeyConfig:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 3bff8383-2b22-42c5-bb2a-e1168b4874af
+            stepCounter: 843e515b-f641-4469-946e-833e14a97d62
+          orderByTextBox: PRICE_DATE
+    partitionBy:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
       items:
         - {}
-    clusterKeyExpressions: false
-    constraintsspec:
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
       items:
         - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    lastModifiedComparison: false
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: false
     testsEnabled: false
-    treatNullAsCurrentTimestamp: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
     truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -123,7 +122,7 @@ operation:
   name: CFCT_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::534
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

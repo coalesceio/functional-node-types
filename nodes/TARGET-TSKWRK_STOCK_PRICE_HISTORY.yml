@@ -3,39 +3,49 @@ id: e83690d1-0e74-45f1-8e3c-232b94e5a978
 name: TSKWRK_STOCK_PRICE_HISTORY
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: dce4a840-af7b-4e56-9cb0-69df989dc1c2
+            stepCounter: e83690d1-0e74-45f1-8e3c-232b94e5a978
+          orderByTextBox: PRICE_DATE
+    partitionBy:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
       items:
         - {}
-    clusterKeyExpressions: false
-    devMode: true
-    flagSrcStream: true
-    groupByAll: false
-    insertStrategy: UNION
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
       items:
         - {}
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    selectDistinct: true
-    serverlessSize: MEDIUM
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
     truncateBefore: true
-    whName: <WAREHOUSE_NAME>
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:
@@ -95,6 +105,25 @@ operation:
               - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
                 stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 87e681ab-2f7b-4a9d-b089-2145e7daae0c
+          stepCounter: e83690d1-0e74-45f1-8e3c-232b94e5a978
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: MATCH_NUMBER
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -112,7 +141,7 @@ operation:
   name: TSKWRK_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::151
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

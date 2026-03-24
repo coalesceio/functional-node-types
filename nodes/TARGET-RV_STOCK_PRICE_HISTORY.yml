@@ -3,19 +3,49 @@ id: f04c88b0-8140-4106-b50a-e49aadbf0544
 name: RV_STOCK_PRICE_HISTORY
 operation:
   config:
-    insertStrategy: UNION ALL
-    persistTableLocation: "ex: TARGET"
-    persistTableName: "ex: DIM_ORDERS"
-    refTable: false
-    srcTable: false
-    suffixlength: ex:1
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 4b4075f6-6a19-4a32-a8f2-124b9b4fad2e
+            stepCounter: f04c88b0-8140-4106-b50a-e49aadbf0544
+          orderByTextBox: PRICE_DATE
+    partitionBy:
+      items:
+        - {}
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
+      items:
+        - {}
     testsEnabled: true
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: run view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -101,7 +131,7 @@ operation:
   name: RV_STOCK_PRICE_HISTORY
   overrideSQL: true
   schema: ""
-  sqlType: incremental-loading:::281
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

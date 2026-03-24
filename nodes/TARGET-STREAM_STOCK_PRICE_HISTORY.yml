@@ -3,16 +3,49 @@ id: 039ecaa2-5421-4137-9cf0-3405d2085803
 name: STREAM_STOCK_PRICE_HISTORY
 operation:
   config:
-    appendOnly: false
-    initialRows: true
-    redeploymentBehavior: Create or Replace
-    sourceType: Table
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: false
+    orderBy:
+      items:
+        - orderByCol:
+            columnCounter: 0c52358e-c4cb-4fb9-8ddd-073f58f3b6ed
+            stepCounter: 039ecaa2-5421-4137-9cf0-3405d2085803
+          orderByTextBox: PRICE_DATE
+    partitionBy:
+      items:
+        - {}
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
+      items:
+        - {}
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: stream
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -72,57 +105,6 @@ operation:
               - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
                 stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: a277f161-8d06-4692-b38f-ca8c47ed2cb6
-          stepCounter: 039ecaa2-5421-4137-9cf0-3405d2085803
-        config: {}
-        dataType: STRING
-        defaultValue: ""
-        description: ""
-        metadataAction: true
-        name: METADATA$ACTION
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: c01137c8-ac89-41f9-a47a-bbaaf977dc1e
-          stepCounter: 039ecaa2-5421-4137-9cf0-3405d2085803
-        config: {}
-        dataType: boolean
-        defaultValue: ""
-        description: ""
-        metadataIsUpdate: true
-        name: METADATA$ISUPDATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 2b45b790-e864-4e5f-a40d-bccd36031845
-          stepCounter: 039ecaa2-5421-4137-9cf0-3405d2085803
-        config: {}
-        dataType: STRING
-        defaultValue: ""
-        description: ""
-        metadataRowID: true
-        name: METADATA$ROW_ID
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -140,7 +122,7 @@ operation:
   name: STREAM_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::153
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

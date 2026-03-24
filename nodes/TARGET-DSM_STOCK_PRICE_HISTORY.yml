@@ -3,47 +3,51 @@ id: 7edfe22e-5573-41cd-a3bb-7c90e71432a8
 name: DSM_STOCK_PRICE_HISTORY
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    flagSrcStream: true
-    initialRows: true
-    latestRowFromSource: false
-    loadType: Merge
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
     orderBy:
       items:
-        - colName:
-            columnCounter: 632e59fd-a80f-4b65-9d46-0bc08c91f6b3
+        - orderByCol:
+            columnCounter: b82945e4-14c2-41d1-9a76-e1b6dea10056
             stepCounter: 7edfe22e-5573-41cd-a3bb-7c90e71432a8
-          sortOrd: desc
+          orderByTextBox: PRICE_DATE
     partitionBy:
       items:
         - partColName:
             columnCounter: a0d53eea-ff27-40e6-b026-3b8f27e2b8c7
             stepCounter: 7edfe22e-5573-41cd-a3bb-7c90e71432a8
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    redeploymentBehavior: Create or Replace
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: ""
-    schedulePeriod: "60"
-    schedulePeriodOption: Predecessor
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
+      items:
+        - {}
+    testsEnabled: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
+    truncateBefore: true
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -108,35 +112,20 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 84f85d00-290c-42e1-9681-b0b63a72e9a0
+          columnCounter: 4a5bc4ae-81c6-41db-81f7-87a5254fe3ca
           stepCounter: 7edfe22e-5573-41cd-a3bb-7c90e71432a8
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(18,0)
         defaultValue: ""
         description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
+        name: MATCH_NUMBER
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e5abbc51-18fe-40e6-83e6-8ee120a5df6d
-          stepCounter: 7edfe22e-5573-41cd-a3bb-7c90e71432a8
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -154,7 +143,7 @@ operation:
   name: DSM_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::483
+  sqlType: "410"
   type: sql
   version: 1
 type: Node

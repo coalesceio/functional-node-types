@@ -3,45 +3,49 @@ id: 216fe11c-3438-4d86-bc65-f2ccf9969ca4
 name: FCT_STOCK_PRICE_HISTORY
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    afterMatchSkip: ""
+    allRowsPerMatch: ""
+    inferMatchRecognize: true
+    orderBy:
       items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    deleteStrategy: NO DELETE
-    excludeMergeList:
-      items:
-        - {}
-    excludeMergeToggle: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lastModifiedComparison: false
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    postSQL: ""
-    preSQL: ""
-    primary: true
-    primaryKeyCol:
-      items:
-        - primaryKey:
-            columnCounter: 953099a9-f66c-440e-a4a2-ea394d76e486
+        - orderByCol:
+            columnCounter: 5e4604f5-c28b-4428-acbc-75a10d7dc82e
             stepCounter: 216fe11c-3438-4d86-bc65-f2ccf9969ca4
-    primaryKeyName: ""
-    selectDistinct: false
+          orderByTextBox: PRICE_DATE
+    partitionBy:
+      items:
+        - {}
+    pattern: ANY_ROW UP+
+    rowsPerMatch: ALL ROWS PER MATCH
+    selectOrderBy:
+      items:
+        - {}
+    tabDefine:
+      items:
+        - valDefineColumnName: "TRUE"
+          valDefineExpression: ANY_ROW
+    tabMeasures:
+      items:
+        - valAliasExpressionColumnName: MATCH_NUMBER
+          valMeasureColumnName: ""
+          valMeasureExpression: match_number
+    tabSelectFunction:
+      items:
+        - {}
     testsEnabled: false
-    treatNullAsCurrentTimestamp: false
+    to: ""
+    toggleOrderBy: true
+    togglePartitionBy: false
+    toggleSelectFunction: false
+    toggleSelectOrderBy: false
     truncateBefore: false
+    varAfterMatchSkip: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -101,40 +105,6 @@ operation:
               - columnCounter: 40e762d7-9b53-4704-92fd-e4ef24524d62
                 stepCounter: 89406961-17b7-4339-850a-e41c33ed55ad
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: c82e16cc-29d8-4565-a2d1-c503d4db4a8b
-          stepCounter: 216fe11c-3438-4d86-bc65-f2ccf9969ca4
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 070171aa-15b3-48f0-a6dd-3b92407e7f3b
-          stepCounter: 216fe11c-3438-4d86-bc65-f2ccf9969ca4
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -152,7 +122,7 @@ operation:
   name: FCT_STOCK_PRICE_HISTORY
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::389
+  sqlType: "410"
   type: sql
   version: 1
 type: Node
