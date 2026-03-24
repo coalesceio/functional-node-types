@@ -1,0 +1,261 @@
+fileVersion: 1
+id: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+name: CDIM_QUARTERLY_SALES
+operation:
+  config:
+    changetracking: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    constraintsspec:
+      items:
+        - {}
+    customZeroKeyValues:
+      items:
+        - {}
+    datretention: ""
+    defaultcoallation: ""
+    eschemaevol: false
+    foreignk: false
+    foreignkeycon:
+      items:
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: UNION
+    insertZeroKey: false
+    insertZeroKeyAdvanced: false
+    insertZeroKeyBol: "TRUE"
+    insertZeroKeyDate: 01-01-1900
+    insertZeroKeyStr: UNKNOWN
+    insertZeroKeySurrogateKey: "0"
+    insertZeroKeyTimestamp: "1900-01-01 00:00:00.000"
+    lastModifiedComparison: false
+    maxdataretention: ""
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    selectDistinct: false
+    testsEnabled: false
+    treatNullAsCurrentTimestamp: false
+    truncateBefore: true
+    type2Dimension: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 812c0432-1968-446a-b76b-1e224bddcc43
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSurrogateKey: true
+        name: CDIM_QUARTERLY_SALES_KEY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e5ab27fa-1d46-4e31-92f9-96226576eae1
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        isBusinessKey: true
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6ef004d-3c99-42f2-94a6-5dbc965ad629
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9f5ee9e0-5e1d-49ec-b01c-04d8ad4e559b
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        isChangeTracking: true
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d2395896-5286-49fb-b491-2088d6e11f15
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: de94b50c-679e-4610-adc5-6314b19aed4b
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 97a96afa-e056-4d52-b692-bda1e549e2e0
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: NUMBER
+        defaultValue: ""
+        description: ""
+        isSystemVersion: true
+        name: SYSTEM_VERSION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a8c95b20-6f4e-433b-94f9-4efc6c5dff42
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: VARCHAR
+        defaultValue: ""
+        description: ""
+        isSystemCurrentFlag: true
+        name: SYSTEM_CURRENT_FLAG
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: d10ada9d-2e0f-49b1-ba77-e0890ae1b06b
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemStartDate: true
+        name: SYSTEM_START_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c4d6e838-2629-4f24-b400-c6ede06b9236
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemEndDate: true
+        name: SYSTEM_END_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f86db35f-588d-4b29-bccf-6ac002105af3
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f4b0f76c-1d06-4699-bc2f-a577bea259b8
+          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: CDIM_QUARTERLY_SALES
+        noLinkRefs: []
+  name: CDIM_QUARTERLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: create-or-alter-package:::535
+  type: sql
+  version: 1
+type: Node

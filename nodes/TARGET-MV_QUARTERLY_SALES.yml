@@ -1,0 +1,101 @@
+fileVersion: 1
+id: 5913b34b-0ea4-45f7-ae95-a0bbf7cb1656
+name: MV_QUARTERLY_SALES
+operation:
+  config:
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    secureOption: false
+    selectDistinct: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: Materialized View
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6b6f0517-51bb-4cb8-8127-ee420ac7a9fe
+          stepCounter: 5913b34b-0ea4-45f7-ae95-a0bbf7cb1656
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6ef004d-3c99-42f2-94a6-5dbc965ad629
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b43cf467-1ea1-486a-9a91-cc1b97e85aed
+          stepCounter: 5913b34b-0ea4-45f7-ae95-a0bbf7cb1656
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f88cf96f-dc94-47df-ba68-5914207141fe
+          stepCounter: 5913b34b-0ea4-45f7-ae95-a0bbf7cb1656
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3a54cde1-3c83-4a39-b100-9f6eedea2bad
+          stepCounter: 5913b34b-0ea4-45f7-ae95-a0bbf7cb1656
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: MV_QUARTERLY_SALES
+        noLinkRefs: []
+  name: MV_QUARTERLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: materialized-view:::178
+  type: sql
+  version: 1
+type: Node

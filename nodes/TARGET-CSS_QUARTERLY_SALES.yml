@@ -1,0 +1,130 @@
+fileVersion: 1
+id: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+name: CSS_QUARTERLY_SALES
+operation:
+  config:
+    allcol: false
+    attrcol:
+      items:
+        - acolname:
+            columnCounter: cb383183-5a4b-43f4-9a08-a811b503260e
+            stepCounter: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+    colpreview:
+      items:
+        - {}
+    createcortex: true
+    embmodel: ""
+    excss: false
+    filcrit:
+      items:
+        - {}
+    filtoggle: false
+    initialize: ON_CREATE
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    locCSS: ""
+    lopt: and
+    mulfilcon: false
+    namCSS: ""
+    numboost: false
+    numericboost:
+      items:
+        - {}
+    query1: ""
+    querycortex: false
+    searchcol:
+      columnCounter: cb383183-5a4b-43f4-9a08-a811b503260e
+      stepCounter: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+    timdec: false
+    timedecay:
+      items:
+        - {}
+    warehouseName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: cortex search service
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 74c318ee-4543-4677-ad75-a5305faf4063
+          stepCounter: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6ef004d-3c99-42f2-94a6-5dbc965ad629
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3cf195c6-8393-4128-beeb-e9bc066ca1f4
+          stepCounter: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: cb383183-5a4b-43f4-9a08-a811b503260e
+          stepCounter: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 600d402e-aba3-4737-9931-2bd2819f3766
+          stepCounter: ba6eacfc-76d8-4bee-a292-39ac0879a2e6
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: CSS_QUARTERLY_SALES
+        noLinkRefs: []
+  name: CSS_QUARTERLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: cortex:::499
+  type: sql
+  version: 1
+type: Node

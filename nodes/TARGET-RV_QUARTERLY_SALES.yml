@@ -1,0 +1,101 @@
+fileVersion: 1
+id: 911a7a32-9560-42bc-938e-8f22bde63669
+name: RV_QUARTERLY_SALES
+operation:
+  config:
+    incColumn:
+      columnCounter: f3a5c024-5672-4b12-b22c-9f149b7ac0fd
+      stepCounter: 911a7a32-9560-42bc-938e-8f22bde63669
+    insertStrategy: UNION ALL
+    persistTableLocation: TARGET
+    persistTableName: PSTG_QUARTERLY_SALES
+    refTable: true
+    srcTable: false
+    suffixlength: ex:1
+    testsEnabled: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: run view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 303dc750-6c68-449a-9c3b-d623dee4a6c4
+          stepCounter: 911a7a32-9560-42bc-938e-8f22bde63669
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6ef004d-3c99-42f2-94a6-5dbc965ad629
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ddbfee50-5bce-4dfe-9f4c-9c930bdd5b08
+          stepCounter: 911a7a32-9560-42bc-938e-8f22bde63669
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a690d537-1ea1-4b08-a254-e41a67252d35
+          stepCounter: 911a7a32-9560-42bc-938e-8f22bde63669
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f3a5c024-5672-4b12-b22c-9f149b7ac0fd
+          stepCounter: 911a7a32-9560-42bc-938e-8f22bde63669
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: RV_QUARTERLY_SALES
+        noLinkRefs: []
+  name: RV_QUARTERLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: incremental-loading:::281
+  type: sql
+  version: 1
+type: Node

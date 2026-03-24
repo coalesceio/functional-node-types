@@ -1,0 +1,155 @@
+fileVersion: 1
+id: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+name: DL_QUARTERLY_SALES
+operation:
+  config:
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 45567569-2064-4709-8511-784176fa2f9e
+      stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: false
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: 5fd1aa0a-9c4c-4208-87e0-1105a66c6e25
+            stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+          sortOrd: desc
+    orderByDateTime:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - partColName:
+            columnCounter: 01f98af8-fb30-45d9-9963-7fcb7ab399a2
+            stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create or Replace
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 01f98af8-fb30-45d9-9963-7fcb7ab399a2
+          stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6ef004d-3c99-42f2-94a6-5dbc965ad629
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6294a547-2364-4fd6-988d-6a7c61edf62b
+          stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 45567569-2064-4709-8511-784176fa2f9e
+          stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5fd1aa0a-9c4c-4208-87e0-1105a66c6e25
+          stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f992477a-15df-4688-b745-a951e6a0479d
+          stepCounter: 7e9634b4-6fb1-4cfa-8f26-c031e3bc3418
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        hmUpdTs: true
+        name: DM_UPDATE_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: current_timestamp::timestamp_ntz
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: DL_QUARTERLY_SALES
+        noLinkRefs: []
+  name: DL_QUARTERLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: deferred-merge:::301
+  type: sql
+  version: 1
+type: Node

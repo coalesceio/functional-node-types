@@ -1,0 +1,146 @@
+fileVersion: 1
+id: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+name: STREAM_QUARTERLY_SALES
+operation:
+  config:
+    appendOnly: true
+    initialRows: true
+    redeploymentBehavior: Create or Replace
+    sourceType: Table
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: stream
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 74d37743-44e3-41ce-bea9-15659c4f1d0d
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d6ef004d-3c99-42f2-94a6-5dbc965ad629
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b398d6aa-4e3b-4e2c-b85c-0c3567c56609
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 78e69ca6-1975-4956-9d6f-010f3cda60e6
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 365bb143-a9b3-43c2-9c48-5b9fe219a2b4
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
+                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 36bbb202-3b5f-4437-a962-e43bd198b374
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: STRING
+        defaultValue: ""
+        description: ""
+        metadataAction: true
+        name: METADATA$ACTION
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: cd1cd4eb-40ec-435e-a920-92606f40e1d0
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: boolean
+        defaultValue: ""
+        description: ""
+        metadataIsUpdate: true
+        name: METADATA$ISUPDATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a09caf4c-1f94-4270-91bd-93de661eb403
+          stepCounter: ab940196-0b22-46ab-8d8a-90f7c7d71dd2
+        config: {}
+        dataType: STRING
+        defaultValue: ""
+        description: ""
+        metadataRowID: true
+        name: METADATA$ROW_ID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: STREAM_QUARTERLY_SALES
+        noLinkRefs: []
+  name: STREAM_QUARTERLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: streams-and-tasks:::153
+  type: sql
+  version: 1
+type: Node
