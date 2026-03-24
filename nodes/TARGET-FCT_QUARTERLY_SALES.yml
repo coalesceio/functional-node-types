@@ -3,23 +3,37 @@ id: c3ce2185-d8a4-4f91-8183-deca16360221
 name: FCT_QUARTERLY_SALES
 operation:
   config:
-    groupByAll: true
-    insertStrategy: UNION ALL
-    orderby: false
-    orderbycolumn:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColTextBox: AMOUNT
     testsEnabled: false
-    truncateBefore: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -79,40 +93,6 @@ operation:
               - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
                 stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 47085f6a-c3b9-41e4-b712-10621d7209f8
-          stepCounter: c3ce2185-d8a4-4f91-8183-deca16360221
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: f5b31b88-ff89-40e6-b196-5d2b43e0d9ca
-          stepCounter: c3ce2185-d8a4-4f91-8183-deca16360221
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -130,7 +110,7 @@ operation:
   name: FCT_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types:::248
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

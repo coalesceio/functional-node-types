@@ -3,86 +3,31 @@ id: 3b480e82-a8cc-4088-91d1-eef13007ebd9
 name: DMFS_QUARTERLY_SALES
 operation:
   config:
-    addCustomDMFs: false
-    addcolumnleveldmfs: false
-    adddmfs:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    adddmfsobject:
+    aggfunc1:
+      items:
+        - funcname1: AVG
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    addobjectleveldmfs: false
-    alertFrequency: 60
-    alertWarehouse: ""
-    blankCntTrigger: false
-    blankPrcntThreshold: 5
-    blankPrcntTrigger: false
-    customDMFsConfig:
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - {}
-    dupCntTrigger: true
-    emailAlertToggle: false
-    emailList: ""
-    freshThreshold: 24
-    freshTrigger: true
-    notfIntegrationName: ""
-    nullCntTrigger: true
-    nullPrcntThreshold: 5
-    nullPrcntTrigger: false
-    overrideEmailAlertToggle: false
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    universalColumnBlankCountDMF: false
-    universalColumnBlankCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.blankCountUniversalColumns[]
-    universalColumnBlankPercentDMF: false
-    universalColumnBlankPercentDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.blankPercentUniversalColumns[]
-    universalColumnDmfs: true
-    universalColumnDuplicateCountDMF: true
-    universalColumnDuplicateCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.duplicateCountUniversalColumns[]
-    universalColumnFreshnessDMF: true
-    universalColumnFreshnessDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.freshnessUniversalColumns[]
-    universalColumnNullCountDMF: true
-    universalColumnNullCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.nullCountUniversalColumns[]
-    universalColumnNullPercentDMF: false
-    universalColumnNullPercentDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.nullPercentUniversalColumns[]
-    universalColumnUniqueCountDMF: false
-    universalColumnUniqueCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.uniqueCountUniversalColumns[]
-    universalDmfs: true
-    universalObjectDmfs: true
-    universalObjectDmfsList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.universalObjectDmfs[]
+        - keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
@@ -108,34 +53,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 97976198-c0a2-4991-a537-1cea14baa812
-          stepCounter: 3b480e82-a8cc-4088-91d1-eef13007ebd9
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: AMOUNT
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
-                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 92755c1a-3a1e-4205-a4fc-0b313d644821
-          stepCounter: 3b480e82-a8cc-4088-91d1-eef13007ebd9
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: QUARTER
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
-                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 949194aa-54ad-4bbc-bfe8-3ef24abd4475
           stepCounter: 3b480e82-a8cc-4088-91d1-eef13007ebd9
         config: {}
@@ -148,6 +65,44 @@ operation:
               - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
                 stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 47dd231d-b66d-4bdc-ae8b-0cf18be10df5
+          stepCounter: 3b480e82-a8cc-4088-91d1-eef13007ebd9
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q1'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 96fd2bee-2dc8-4748-8216-87986e022100
+          stepCounter: 3b480e82-a8cc-4088-91d1-eef13007ebd9
+        config: {}
+        dataType: NUMBER(38,6)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q2'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -165,7 +120,7 @@ operation:
   name: DMFS_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: data-quality:::448
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

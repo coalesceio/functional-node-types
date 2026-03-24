@@ -3,28 +3,37 @@ id: aaada20d-1bf1-4e51-92a5-8635dbaa731c
 name: PSTG_QUARTERLY_SALES
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: AVG
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lastModifiedComparison: false
-    orderby: false
-    orderbycolumn:
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - {}
-    postSQL: ""
-    preSQL: SELECT COUNT(*) FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }}
-    selectDistinct: false
+        - keyColDropdown:
+            columnCounter: 12952b14-7d80-482c-bc26-d3f853595895
+            stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown:
+            columnCounter: 5aba542c-6ae3-46ee-ba65-453ced866a83
+            stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
+          valColTextBox: AMOUNT
     testsEnabled: false
-    treatNullAsCurrentTimestamp: false
-    truncateBefore: false
-    type2Dimension: false
+    trunc: true
   database: ""
   deployEnabled: true
   description: ""
@@ -34,23 +43,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: f3553dd6-013d-4038-b01d-8895916f7614
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSurrogateKey: true
-        name: PSTG_QUARTERLY_SALES_KEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: f10b292b-42fd-4fd2-b814-9eb31186fafe
@@ -107,108 +99,6 @@ operation:
               - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
                 stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 84b0c033-3dd5-4fab-af53-c13c527f39e8
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSystemVersion: true
-        name: SYSTEM_VERSION
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 47c3b0c3-3255-41fa-8731-112031c60a30
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: VARCHAR
-        defaultValue: ""
-        description: ""
-        isSystemCurrentFlag: true
-        name: SYSTEM_CURRENT_FLAG
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 2e9a48d1-fc0a-423e-9590-3a035e05c28e
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemStartDate: true
-        name: SYSTEM_START_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 5993fb43-502e-4e1f-b06d-c7e69e2ed9f7
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemEndDate: true
-        name: SYSTEM_END_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 3f5bdb6c-1f6a-47ce-9611-7cb3dae19cce
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: e082abc6-8c35-4462-8b78-5dc7e3c8f9b3
-          stepCounter: aaada20d-1bf1-4e51-92a5-8635dbaa731c
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -226,7 +116,7 @@ operation:
   name: PSTG_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::391
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

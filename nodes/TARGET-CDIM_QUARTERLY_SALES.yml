@@ -3,81 +3,40 @@ id: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
 name: CDIM_QUARTERLY_SALES
 operation:
   config:
-    changetracking: false
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    constraintsspec:
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - {}
-    customZeroKeyValues:
+        - keyColTextBox: QUARTER
+    tabValueColumn:
       items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    insertZeroKey: false
-    insertZeroKeyAdvanced: false
-    insertZeroKeyBol: "TRUE"
-    insertZeroKeyDate: 01-01-1900
-    insertZeroKeyStr: UNKNOWN
-    insertZeroKeySurrogateKey: "0"
-    insertZeroKeyTimestamp: "1900-01-01 00:00:00.000"
-    lastModifiedComparison: false
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: false
+        - valColTextBox: AMOUNT
     testsEnabled: false
-    treatNullAsCurrentTimestamp: false
-    truncateBefore: true
-    type2Dimension: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 812c0432-1968-446a-b76b-1e224bddcc43
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSurrogateKey: true
-        name: CDIM_QUARTERLY_SALES_KEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: e5ab27fa-1d46-4e31-92f9-96226576eae1
@@ -136,108 +95,6 @@ operation:
               - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
                 stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 97a96afa-e056-4d52-b692-bda1e549e2e0
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSystemVersion: true
-        name: SYSTEM_VERSION
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: a8c95b20-6f4e-433b-94f9-4efc6c5dff42
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: VARCHAR
-        defaultValue: ""
-        description: ""
-        isSystemCurrentFlag: true
-        name: SYSTEM_CURRENT_FLAG
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: d10ada9d-2e0f-49b1-ba77-e0890ae1b06b
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemStartDate: true
-        name: SYSTEM_START_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: c4d6e838-2629-4f24-b400-c6ede06b9236
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemEndDate: true
-        name: SYSTEM_END_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: f86db35f-588d-4b29-bccf-6ac002105af3
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: f4b0f76c-1d06-4699-bc2f-a577bea259b8
-          stepCounter: 3b5fc9a7-e524-43d1-84b3-3a11735cdc97
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -255,7 +112,7 @@ operation:
   name: CDIM_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::535
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

@@ -3,22 +3,37 @@ id: 911a7a32-9560-42bc-938e-8f22bde63669
 name: RV_QUARTERLY_SALES
 operation:
   config:
-    incColumn:
-      columnCounter: f3a5c024-5672-4b12-b22c-9f149b7ac0fd
-      stepCounter: 911a7a32-9560-42bc-938e-8f22bde63669
-    insertStrategy: UNION ALL
-    persistTableLocation: TARGET
-    persistTableName: PSTG_QUARTERLY_SALES
-    refTable: true
-    srcTable: false
-    suffixlength: ex:1
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
+      items:
+        - {}
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColTextBox: AMOUNT
     testsEnabled: true
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: run view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -95,7 +110,7 @@ operation:
   name: RV_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: incremental-loading:::281
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

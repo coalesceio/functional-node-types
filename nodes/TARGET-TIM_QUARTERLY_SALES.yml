@@ -3,40 +3,37 @@ id: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
 name: TIM_QUARTERLY_SALES
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: MIN
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    devMode: false
-    flagSrcStream: true
-    groupByAll: false
-    insertStrategy: UNION
-    loadType: Insert
-    mergeOrderBy:
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - {}
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
+        - keyColDropdown:
+            columnCounter: 7b8ead82-2459-4d54-b933-9f0c3776a672
+            stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
+          keyColTextBox: QUARTER
+    tabValueColumn:
       items:
-        - {}
-    partitionBy:
-      items:
-        - {}
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    selectDistinct: false
-    serverlessSize: MEDIUM
-    truncateBefore: true
-    whName: COMPUTE_WH
+        - valColDropdown:
+            columnCounter: 063461cf-f162-49c7-a876-4d721b3ee3c2
+            stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
@@ -62,34 +59,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 063461cf-f162-49c7-a876-4d721b3ee3c2
-          stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: AMOUNT
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
-                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 7b8ead82-2459-4d54-b933-9f0c3776a672
-          stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: QUARTER
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
-                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: b26b4f89-67b9-4e77-9b5f-96dda0dfa33d
           stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
         config: {}
@@ -107,35 +76,39 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 19a89b61-e77e-45f6-a62a-0608caf16730
+          columnCounter: 32372f34-56fc-4df7-9788-1d6f4781438f
           stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
+        name: "'2023_Q1'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: c9804edd-5e9e-4462-a76f-e8c87211aa4c
+          columnCounter: 9266e3c0-5589-49bc-a8e7-ab43dc52a6a2
           stepCounter: 3ade6ecf-d622-4481-b4db-adb1d0455d8c
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
+        name: "'2023_Q2'"
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -153,7 +126,7 @@ operation:
   name: TIM_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::567
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

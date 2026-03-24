@@ -3,22 +3,37 @@ id: 5913b34b-0ea4-45f7-ae95-a0bbf7cb1656
 name: MV_QUARTERLY_SALES
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    aggfunc1:
+      items:
+        - funcname1: AVG
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    clusterKeyExpressions: false
-    secureOption: false
-    selectDistinct: true
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: Materialized View
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -95,7 +110,7 @@ operation:
   name: MV_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: materialized-view:::178
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

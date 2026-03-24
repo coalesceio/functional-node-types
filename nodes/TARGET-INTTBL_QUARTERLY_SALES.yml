@@ -3,31 +3,37 @@ id: ba9e1687-851f-4704-851a-9d4bf09d6c58
 name: INTTBL_QUARTERLY_SALES
 operation:
   config:
-    autoRefresh: false
-    clusterKey: true
-    clusterKeyConfig:
-      items:
-        - columnName:
-            columnCounter: 3f9ce305-bc79-469c-bd1d-e93bab8ed392
-            stepCounter: ba9e1687-851f-4704-851a-9d4bf09d6c58
-    clusterKeyConfigExpressions:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lagSpecification:
+    aggfunc1:
+      items:
+        - funcname1: SUM
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    selectDistinct: false
+    inferPivot: false
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
+      items:
+        - keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColTextBox: AMOUNT
     testsEnabled: false
-    warehouseName: dev_wh_xs
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: interactive table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -104,7 +110,7 @@ operation:
   name: INTTBL_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: interactive-table:::602
+  sqlType: "409"
   type: sql
   version: 1
 type: Node

@@ -3,42 +3,33 @@ id: ed946c85-7820-4e9e-82d0-42856b463ac1
 name: CT_QUARTERLY_SALES
 operation:
   config:
-    changetracking: true
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - columnName: null
-    clusterKeyConfigExpressions:
+    Colvol1: "'2023_Q1','2023_Q2'"
+    aggfunc:
       items:
         - {}
-    clusterKeyExpressions: false
-    constraintsspec:
+    aggfunc1:
+      items:
+        - funcname1: COUNT
+    defaultval: ""
+    defvalue: false
+    excolval: false
+    exlcol:
       items:
         - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
+    inferPivot: true
+    samKeyColval: false
+    sincol: true
+    subqueryval1: ""
+    tabKeyColumn:
       items:
-        - {}
-    groupByAll: true
-    inlineconst: false
-    insertStrategy: INSERT
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
+        - keyColDropdown: null
+          keyColTextBox: QUARTER
+    tabValueColumn:
       items:
-        - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: false
+        - valColDropdown: null
+          valColTextBox: AMOUNT
     testsEnabled: false
-    truncateBefore: true
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
@@ -64,34 +55,6 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 92df454e-3348-481f-a2ec-c7b864662df1
-          stepCounter: ed946c85-7820-4e9e-82d0-42856b463ac1
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: AMOUNT
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: ddcb6a00-ab55-4505-bc69-730e3d4c5bcc
-                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: a2557227-3fcb-44e7-be7b-de40c3e3956d
-          stepCounter: ed946c85-7820-4e9e-82d0-42856b463ac1
-        config: {}
-        dataType: VARCHAR(16777216)
-        description: ""
-        name: QUARTER
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 38f21ec4-9e72-4479-b0bd-befc7e38709b
-                stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
           columnCounter: 67913ea0-5619-4018-8f07-182181fb9729
           stepCounter: ed946c85-7820-4e9e-82d0-42856b463ac1
         config: {}
@@ -104,6 +67,44 @@ operation:
               - columnCounter: f73d1408-317d-42d6-80b0-55ae554a76c1
                 stepCounter: ece9f9d8-e57c-45a3-ae7d-59ee56e987fc
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 470f3eab-4e02-48d2-92a8-7b18d17bd033
+          stepCounter: ed946c85-7820-4e9e-82d0-42856b463ac1
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q1'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 63ee08d1-68e3-43f7-b31a-7f8cfd9ba49d
+          stepCounter: ed946c85-7820-4e9e-82d0-42856b463ac1
+        config: {}
+        dataType: NUMBER(18,0)
+        defaultValue: ""
+        description: ""
+        name: "'2023_Q2'"
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -121,7 +122,7 @@ operation:
   name: CT_QUARTERLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::345
+  sqlType: "409"
   type: sql
   version: 1
 type: Node
