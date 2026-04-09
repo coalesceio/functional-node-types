@@ -1,0 +1,115 @@
+fileVersion: 1
+id: a7ea8b36-aac2-48db-bf01-efb3e558db1d
+name: MV_QT
+operation:
+  config:
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    secureOption: false
+    selectDistinct: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: Materialized View
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 893ef620-7663-499f-a43d-910bd91967cf
+          stepCounter: a7ea8b36-aac2-48db-bf01-efb3e558db1d
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: I
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c1271ca8-378f-45c1-beb4-4a0f63e229a8
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 371f95b7-1807-4ca2-a3c1-82df086e1f12
+          stepCounter: a7ea8b36-aac2-48db-bf01-efb3e558db1d
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: P
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da63dd1c-9ea4-4ee8-9093-f61b54991b3b
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: cefd1286-337d-42ec-b2eb-d4974edd5018
+          stepCounter: a7ea8b36-aac2-48db-bf01-efb3e558db1d
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 02ddffa3-3131-46a8-8e53-e2fbe9f2d90c
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 885a9bec-150e-44f5-9af6-453e6b3ef302
+          stepCounter: a7ea8b36-aac2-48db-bf01-efb3e558db1d
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 59861c45-3fef-4a37-b132-b007c900af03
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: fa19b8ea-e106-4abd-bb1f-707e28f8a599
+          stepCounter: a7ea8b36-aac2-48db-bf01-efb3e558db1d
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: MV_QT
+        noLinkRefs: []
+  name: MV_QT
+  overrideSQL: false
+  schema: ""
+  sqlType: materialized-view:::178
+  type: sql
+  version: 1
+type: Node

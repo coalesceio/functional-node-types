@@ -1,0 +1,144 @@
+fileVersion: 1
+id: 81be2ad9-77e7-456b-8226-453efe6f9938
+name: CFCT_QT
+operation:
+  config:
+    changetracking: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    constraintsspec:
+      items:
+        - {}
+    datretention: ""
+    defaultcoallation: ""
+    eschemaevol: false
+    foreignk: false
+    foreignkeycon:
+      items:
+        - {}
+    groupByAll: false
+    inlineconst: false
+    insertStrategy: UNION
+    lastModifiedComparison: false
+    maxdataretention: ""
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    outlineconst: false
+    primary: false
+    primarykeycon:
+      items:
+        - {}
+    primarykeyname: ""
+    selectDistinct: false
+    testsEnabled: false
+    treatNullAsCurrentTimestamp: false
+    truncateBefore: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5b65011f-7a60-4a99-a7ac-a8ae19935e7a
+          stepCounter: 81be2ad9-77e7-456b-8226-453efe6f9938
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        isBusinessKey: true
+        name: I
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c1271ca8-378f-45c1-beb4-4a0f63e229a8
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9f66149a-6206-41bd-860d-3c026e11c1af
+          stepCounter: 81be2ad9-77e7-456b-8226-453efe6f9938
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: P
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da63dd1c-9ea4-4ee8-9093-f61b54991b3b
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ddc42f32-1eb1-48fe-aa5e-02d6dd06670e
+          stepCounter: 81be2ad9-77e7-456b-8226-453efe6f9938
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 02ddffa3-3131-46a8-8e53-e2fbe9f2d90c
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 13b8596d-0b9d-4fd1-aec5-aae0fcb3d2f6
+          stepCounter: 81be2ad9-77e7-456b-8226-453efe6f9938
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 59861c45-3fef-4a37-b132-b007c900af03
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 772a7218-2678-41dd-bc29-6458a5359bb4
+          stepCounter: 81be2ad9-77e7-456b-8226-453efe6f9938
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: CFCT_QT
+        noLinkRefs: []
+  name: CFCT_QT
+  overrideSQL: false
+  schema: ""
+  sqlType: create-or-alter-package:::534
+  type: sql
+  version: 1
+type: Node

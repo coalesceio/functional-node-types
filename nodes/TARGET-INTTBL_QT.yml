@@ -1,0 +1,125 @@
+fileVersion: 1
+id: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+name: INTTBL_QT
+operation:
+  config:
+    autoRefresh: true
+    clusterKey: true
+    clusterKeyConfig:
+      items:
+        - columnName:
+            columnCounter: 3e9d08eb-1b31-4741-95a1-31be3e25fde9
+            stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: UNION ALL
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    selectDistinct: false
+    testsEnabled: false
+    warehouseName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: interactive table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3e9d08eb-1b31-4741-95a1-31be3e25fde9
+          stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: I
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c1271ca8-378f-45c1-beb4-4a0f63e229a8
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4a327f76-0880-427b-959a-899bfd10f985
+          stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: P
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da63dd1c-9ea4-4ee8-9093-f61b54991b3b
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c1fae844-c382-413a-be47-f852c570a18f
+          stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 02ddffa3-3131-46a8-8e53-e2fbe9f2d90c
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f5c5fe25-2c70-49df-9c66-11c222c74892
+          stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 59861c45-3fef-4a37-b132-b007c900af03
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e8304fb9-5afd-498e-b873-45d5f339d764
+          stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: INTTBL_QT
+        noLinkRefs: []
+  name: INTTBL_QT
+  overrideSQL: false
+  schema: ""
+  sqlType: interactive-table:::602
+  type: sql
+  version: 1
+type: Node

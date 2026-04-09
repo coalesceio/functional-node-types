@@ -1,0 +1,185 @@
+fileVersion: 1
+id: 882b517a-a6d5-4be1-8359-05fee0085050
+name: DMFS_QT
+operation:
+  config:
+    addCustomDMFs: false
+    addcolumnleveldmfs: false
+    adddmfs:
+      items:
+        - {}
+    adddmfsobject:
+      items:
+        - {}
+    addobjectleveldmfs: false
+    alertFrequency: 60
+    alertWarehouse: ""
+    blankCntTrigger: false
+    blankPrcntThreshold: 5
+    blankPrcntTrigger: false
+    customDMFsConfig:
+      items:
+        - {}
+    dupCntTrigger: true
+    emailAlertToggle: false
+    emailList: ""
+    freshThreshold: 24
+    freshTrigger: true
+    notfIntegrationName: ""
+    nullCntTrigger: true
+    nullPrcntThreshold: 5
+    nullPrcntTrigger: false
+    overrideEmailAlertToggle: false
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    universalColumnBlankCountDMF: false
+    universalColumnBlankCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.blankCountUniversalColumns[]
+    universalColumnBlankPercentDMF: false
+    universalColumnBlankPercentDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.blankPercentUniversalColumns[]
+    universalColumnDmfs: true
+    universalColumnDuplicateCountDMF: true
+    universalColumnDuplicateCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.duplicateCountUniversalColumns[]
+    universalColumnFreshnessDMF: true
+    universalColumnFreshnessDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.freshnessUniversalColumns[]
+    universalColumnNullCountDMF: true
+    universalColumnNullCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.nullCountUniversalColumns[]
+    universalColumnNullPercentDMF: false
+    universalColumnNullPercentDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.nullPercentUniversalColumns[]
+    universalColumnUniqueCountDMF: false
+    universalColumnUniqueCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.uniqueCountUniversalColumns[]
+    universalDmfs: true
+    universalObjectDmfs: true
+    universalObjectDmfsList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.universalObjectDmfs[]
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 95746882-ff5d-47e1-a395-bd1f12e34a8a
+          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: I
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c1271ca8-378f-45c1-beb4-4a0f63e229a8
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 02dcf0a4-acef-45d7-b4e1-f0b21492eda0
+          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: P
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da63dd1c-9ea4-4ee8-9093-f61b54991b3b
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 46d8164e-03eb-4f4b-83a1-d9e742a1310e
+          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 02ddffa3-3131-46a8-8e53-e2fbe9f2d90c
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bc6b5293-d6f3-4a42-8053-a9ed2fe45269
+          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 59861c45-3fef-4a37-b132-b007c900af03
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6dc7d66e-b212-4697-81ed-f2baa7e2594a
+          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: DMFS_QT
+        noLinkRefs: []
+  name: DMFS_QT
+  overrideSQL: false
+  schema: ""
+  sqlType: data-quality:::448
+  type: sql
+  version: 1
+type: Node

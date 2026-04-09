@@ -1,0 +1,122 @@
+fileVersion: 1
+id: 0fa12529-537b-4fb1-9bda-e1072e444a06
+name: RV_QT
+operation:
+  config:
+    insertStrategy: UNION ALL
+    persistTableLocation: "ex: TARGET"
+    persistTableName: "ex: DIM_ORDERS"
+    refTable: false
+    srcTable: false
+    suffixlength: ex:1
+    testsEnabled: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: run view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 5ab4582b-2d50-4283-a530-ef765dda5e18
+          stepCounter: 0fa12529-537b-4fb1-9bda-e1072e444a06
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: I
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c1271ca8-378f-45c1-beb4-4a0f63e229a8
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: fe7b8f49-a3d6-45d0-8978-daf3e374d133
+          stepCounter: 0fa12529-537b-4fb1-9bda-e1072e444a06
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: P
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da63dd1c-9ea4-4ee8-9093-f61b54991b3b
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 9e5b3e6b-c73d-4917-ae37-b20eede002aa
+          stepCounter: 0fa12529-537b-4fb1-9bda-e1072e444a06
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 02ddffa3-3131-46a8-8e53-e2fbe9f2d90c
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 43ff6477-b98d-42b3-8fe8-c259a54be5ec
+          stepCounter: 0fa12529-537b-4fb1-9bda-e1072e444a06
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 59861c45-3fef-4a37-b132-b007c900af03
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8c7f785a-8231-4858-91db-1c6a88ea49cf
+          stepCounter: 0fa12529-537b-4fb1-9bda-e1072e444a06
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+        customSQL:
+          customSQL: |-
+            {{ stage('Override Create SQL', deploy_phase_override="create") }}
+            	CREATE OR REPLACE VIEW {{ ref('TARGET', 'RV_QT')}} AS (
+            		SELECT 
+             "I" AS "I",
+             "P" AS "P",
+             "O" AS "O",
+             "DATE_COL" AS "DATE_COL",
+             "TIMESTAMP_COL" AS "TIMESTAMP_COL"
+             FROM {{ ref('SOURCE', 'QT') }}
+            	)
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: RV_QT
+        noLinkRefs: []
+  name: RV_QT
+  overrideSQL: true
+  schema: ""
+  sqlType: incremental-loading:::281
+  type: sql
+  version: 1
+type: Node

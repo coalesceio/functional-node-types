@@ -1,0 +1,144 @@
+fileVersion: 1
+id: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+name: CSS_QT
+operation:
+  config:
+    allcol: false
+    attrcol:
+      items:
+        - acolname:
+            columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
+            stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+    colpreview:
+      items:
+        - {}
+    createcortex: true
+    embmodel: ""
+    excss: false
+    filcrit:
+      items:
+        - {}
+    filtoggle: false
+    initialize: ON_CREATE
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    locCSS: ""
+    lopt: and
+    mulfilcon: false
+    namCSS: ""
+    numboost: false
+    numericboost:
+      items:
+        - {}
+    query1: ""
+    querycortex: false
+    searchcol:
+      columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
+      stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+    timdec: false
+    timedecay:
+      items:
+        - {}
+    warehouseName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: cortex search service
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 49183c32-092e-4b95-a0a4-a25eb6dc59a0
+          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: I
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: c1271ca8-378f-45c1-beb4-4a0f63e229a8
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
+          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+        config: {}
+        dataType: VARCHAR(1)
+        description: ""
+        name: P
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: da63dd1c-9ea4-4ee8-9093-f61b54991b3b
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d43231e6-8b20-4ca7-ba94-03d7d50aa3bf
+          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: O
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 02ddffa3-3131-46a8-8e53-e2fbe9f2d90c
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a2d12486-657f-4a69-b5cb-b8c1b81fb981
+          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 59861c45-3fef-4a37-b132-b007c900af03
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 40e10ef9-0124-4cfc-8c60-62691e0a4d67
+          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
+                stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QT
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: CSS_QT
+        noLinkRefs: []
+  name: CSS_QT
+  overrideSQL: false
+  schema: ""
+  sqlType: cortex:::499
+  type: sql
+  version: 1
+type: Node
