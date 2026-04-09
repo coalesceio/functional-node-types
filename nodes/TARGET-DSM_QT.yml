@@ -3,47 +3,28 @@ id: 61993109-0346-4964-a5a3-efa0db29d00c
 name: DSM_QT
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    flagSrcStream: true
-    initialRows: true
-    latestRowFromSource: false
-    loadType: Merge
-    orderBy:
-      items:
-        - colName:
-            columnCounter: c2a40954-fae8-48db-984d-2b3b8e8f1dfb
-            stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
-          sortOrd: desc
     partitionBy:
       items:
         - partColName:
             columnCounter: d147d550-f70c-459d-8ab2-0722f323b71a
             stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    redeploymentBehavior: Create or Replace
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: ""
-    schedulePeriod: "60"
-    schedulePeriodOption: Predecessor
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+    partitionby: false
+    qualify: false
+    val: ""
+    winfunc: ROW_NUMBER
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -117,40 +98,6 @@ operation:
               - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
                 stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 46b85a80-062a-4c7d-98cc-6afe2d899866
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 3706950d-d9e8-4d9f-902a-5e77ba206879
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -168,7 +115,7 @@ operation:
   name: DSM_QT
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::483
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

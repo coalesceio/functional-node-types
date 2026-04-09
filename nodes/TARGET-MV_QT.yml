@@ -3,22 +3,29 @@ id: a7ea8b36-aac2-48db-bf01-efb3e558db1d
 name: MV_QT
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    partitionBy:
       items:
         - {}
-    clusterKeyExpressions: false
-    secureOption: false
-    selectDistinct: true
+    partitionby: false
+    qualify: true
+    val: "0.10"
+    winfunc: RATIO_TO_REPORT
+    winfuncColName:
+      columnCounter: cefd1286-337d-42ec-b2eb-d4974edd5018
+      stepCounter: a7ea8b36-aac2-48db-bf01-efb3e558db1d
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: Materialized View
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -109,7 +116,7 @@ operation:
   name: MV_QT
   overrideSQL: false
   schema: ""
-  sqlType: materialized-view:::178
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

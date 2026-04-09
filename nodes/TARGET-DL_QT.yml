@@ -3,33 +3,11 @@ id: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
 name: DL_QT
 operation:
   config:
-    capUpdate: false
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    createas: table
-    devMode: true
-    dmlCol:
-      columnCounter: 3f951848-bfe6-45d8-8e98-2615c0717a3b
-      stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
-    dmlDelete: D
-    dmlInsert: I
-    dmlUpdate: U
-    flagSrcStream: false
-    initialRows: true
-    insertOnly: false
-    orderBy:
-      items:
-        - colName:
-            columnCounter: 67d99150-f3f1-4e04-bc63-edc85a974779
-            stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
-          sortOrd: desc
-    orderByDateTime:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
     partitionBy:
@@ -37,25 +15,16 @@ operation:
         - partColName:
             columnCounter: 90a73d2c-758b-443a-9d01-81e179bf0017
             stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
-    predTask: ""
-    recordVersioning: Datetime Column
-    redeploymentBehavior: Create or Replace
-    retainLastNonDeleteFlag: false
-    rootTask: ""
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    serverlessSize: MEDIUM
-    softDeleteFlag: false
-    sourceType: Table
-    whName: <WAREHOUSE_NAME>
+    partitionby: false
+    qualify: false
+    val: ""
+    winfunc: ROW_NUMBER
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -129,23 +98,6 @@ operation:
               - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
                 stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: b5d72fda-13e8-45eb-ae02-c49a571af1dc
-          stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
-        config: {}
-        dataType: timestamp
-        defaultValue: ""
-        description: ""
-        hmUpdTs: true
-        name: DM_UPDATE_TIMESTAMP
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: current_timestamp::timestamp_ntz
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -163,7 +115,7 @@ operation:
   name: DL_QT
   overrideSQL: false
   schema: ""
-  sqlType: deferred-merge:::301
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

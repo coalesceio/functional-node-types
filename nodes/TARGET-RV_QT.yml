@@ -3,19 +3,26 @@ id: 0fa12529-537b-4fb1-9bda-e1072e444a06
 name: RV_QT
 operation:
   config:
-    insertStrategy: UNION ALL
-    persistTableLocation: "ex: TARGET"
-    persistTableName: "ex: DIM_ORDERS"
-    refTable: false
-    srcTable: false
-    suffixlength: ex:1
-    testsEnabled: true
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    partitionBy:
+      items:
+        - {}
+    partitionby: false
+    qualify: false
+    val: ""
+    winfunc: ROW_NUMBER
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: run view
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -114,9 +121,9 @@ operation:
         name: RV_QT
         noLinkRefs: []
   name: RV_QT
-  overrideSQL: true
+  overrideSQL: false
   schema: ""
-  sqlType: incremental-loading:::281
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

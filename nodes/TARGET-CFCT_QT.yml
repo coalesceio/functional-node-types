@@ -3,50 +3,29 @@ id: 81be2ad9-77e7-456b-8226-453efe6f9938
 name: CFCT_QT
 operation:
   config:
-    changetracking: false
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    constraintsspec:
-      items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    lastModifiedComparison: false
-    maxdataretention: ""
+    compcol: false
+    ntileval: ""
+    oprt: ">"
     orderby: false
     orderbycolumn:
       items:
         - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
+    partitionBy:
       items:
         - {}
-    primarykeyname: ""
-    selectDistinct: false
-    testsEnabled: false
-    treatNullAsCurrentTimestamp: false
-    truncateBefore: true
+    partitionby: false
+    qualify: true
+    val: "0.10"
+    winfunc: RATIO_TO_REPORT
+    winfuncColName:
+      columnCounter: ddc42f32-1eb1-48fe-aa5e-02d6dd06670e
+      stepCounter: 81be2ad9-77e7-456b-8226-453efe6f9938
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -138,7 +117,7 @@ operation:
   name: CFCT_QT
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::534
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

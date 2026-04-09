@@ -3,59 +3,26 @@ id: fc16f962-de46-4ca2-99f5-06a8b8468955
 name: CTSK_QT
 operation:
   config:
-    changetracking: true
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    constraintsspec:
-      items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    devMode: true
-    eschemaevol: false
-    flagSrcStream: true
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    maxdataretention: ""
-    multiStreamBehavior: AND
+    compcol: false
+    ntileval: ""
+    oprt: "="
     orderby: false
     orderbycolumn:
       items:
         - {}
-    outlineconst: false
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    primary: false
-    primarykeycon:
+    partitionBy:
       items:
         - {}
-    primarykeyname: ""
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Predecessor
-    schedulingMode: Warehouse Task
-    selectDistinct: false
-    serverlessSize: MEDIUM
-    timeOut: 60000
-    truncateBefore: true
-    whName: <WAREHOUSE_NAME>
+    partitionby: false
+    qualify: true
+    val: "2"
+    winfunc: ROW_NUMBER
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -146,7 +113,7 @@ operation:
   name: CTSK_QT
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::548
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

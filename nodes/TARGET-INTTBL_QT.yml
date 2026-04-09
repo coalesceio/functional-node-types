@@ -3,32 +3,26 @@ id: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
 name: INTTBL_QT
 operation:
   config:
-    autoRefresh: true
-    clusterKey: true
-    clusterKeyConfig:
-      items:
-        - columnName:
-            columnCounter: 3e9d08eb-1b31-4741-95a1-31be3e25fde9
-            stepCounter: 2e677e46-fb95-48bc-85cc-4f822b54e0bb
-    clusterKeyConfigExpressions:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lagSpecification:
+    partitionBy:
       items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    selectDistinct: false
-    testsEnabled: false
-    warehouseName: COMPUTE_WH
+        - {}
+    partitionby: false
+    qualify: false
+    val: ""
+    winfunc: ROW_NUMBER
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: interactive table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -119,7 +113,7 @@ operation:
   name: INTTBL_QT
   overrideSQL: false
   schema: ""
-  sqlType: interactive-table:::602
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

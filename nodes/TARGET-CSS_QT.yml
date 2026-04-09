@@ -3,51 +3,32 @@ id: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
 name: CSS_QT
 operation:
   config:
-    allcol: false
-    attrcol:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: true
+    orderbycolumn:
       items:
-        - acolname:
+        - sortColName:
+            columnCounter: d43231e6-8b20-4ca7-ba94-03d7d50aa3bf
+            stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+          sortOrder: desc
+    partitionBy:
+      items:
+        - partColName:
             columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
             stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
-    colpreview:
-      items:
-        - {}
-    createcortex: true
-    embmodel: ""
-    excss: false
-    filcrit:
-      items:
-        - {}
-    filtoggle: false
-    initialize: ON_CREATE
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    locCSS: ""
-    lopt: and
-    mulfilcon: false
-    namCSS: ""
-    numboost: false
-    numericboost:
-      items:
-        - {}
-    query1: ""
-    querycortex: false
-    searchcol:
-      columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
-      stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
-    timdec: false
-    timedecay:
-      items:
-        - {}
-    warehouseName: COMPUTE_WH
+    partitionby: true
+    qualify: true
+    val: "1"
+    winfunc: ROW_NUMBER
+    winfuncColName: ""
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: cortex search service
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -138,7 +119,7 @@ operation:
   name: CSS_QT
   overrideSQL: false
   schema: ""
-  sqlType: cortex:::499
+  sqlType: "459"
   type: sql
   version: 1
 type: Node
