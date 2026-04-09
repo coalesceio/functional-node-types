@@ -3,32 +3,23 @@ id: 91b5cb61-f573-4579-b7a0-5a451ad0067c
 name: WRK_QT1
 operation:
   config:
-    asofColumn:
-      items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
+    compcol: false
+    ntileval: ""
+    oprt: "="
     orderby: false
     orderbycolumn:
       items:
         - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
-    testsEnabled: false
-    truncateBefore: true
+    partitionBy:
+      items:
+        - {}
+    partitionby: false
+    qualify: true
+    val: "0.10"
+    winfunc: RATIO_TO_REPORT
+    winfuncColName:
+      columnCounter: 7e71c2af-af5f-4ae4-8802-7bdfd2a77f1c
+      stepCounter: 91b5cb61-f573-4579-b7a0-5a451ad0067c
   database: ""
   deployEnabled: true
   description: ""
@@ -125,7 +116,7 @@ operation:
   name: WRK_QT1
   overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

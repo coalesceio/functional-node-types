@@ -3,37 +3,11 @@ id: 1e24801d-e376-488d-a035-e09489df8ddb
 name: DT_WRK_LRV_QT1
 operation:
   config:
-    advanceWarehouse: false
-    backfill: false
-    backfillSource: ""
-    backfillSourceSchema: ""
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    cpygrants: false
-    downstreamOption: false
-    immutabilityConstraint: false
-    immutableExpression: ""
-    initialize: ON_CREATE
-    initializeWarehouseSize: ""
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    orderBy:
-      items:
-        - colName:
-            columnCounter: e8b8a445-1338-4e5a-9230-c0f21b26c285
-            stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
-    orderByDateTime:
-      items:
-        - {}
-    orderseq:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
     partitionBy:
@@ -41,23 +15,19 @@ operation:
         - partColName:
             columnCounter: 1e233d3c-0a98-4e0e-b531-3bf699b0c0b9
             stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
-    recordVersioning: Datetime Column
-    recordorderBy:
-      items:
-        - {}
-    refreshWarehouseSize: ""
-    refresh_mode: AUTO
-    timeTravel: false
-    timeTravelreference: ""
-    timeTraveltype: ""
-    timeTravelvalue: ""
-    warehouseName: COMPUTE_WH
+    partitionby: false
+    qualify: true
+    val: "0.10"
+    winfunc: RATIO_TO_REPORT
+    winfuncColName:
+      columnCounter: f94e6814-edfb-41de-b25b-4470c234a910
+      stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: dynamic table
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -131,23 +101,6 @@ operation:
               - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
                 stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 6b047a25-3e70-415e-a2b8-ed48c84e26c1
-          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        name: RECORD_CREATED_DATE
-        nullable: true
-        recordCreated: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: FIRST_VALUE({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%} {{order_by_col_int()}}{%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -165,7 +118,7 @@ operation:
   name: DT_WRK_LRV_QT1
   overrideSQL: false
   schema: ""
-  sqlType: dynamic-tables:::351
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

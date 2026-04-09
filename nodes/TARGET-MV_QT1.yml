@@ -3,22 +3,26 @@ id: 533d5226-fb40-4c55-87f6-5feb25115e79
 name: MV_QT1
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    clusterKeyConfigExpressions:
+    partitionBy:
       items:
         - {}
-    clusterKeyExpressions: false
-    secureOption: false
-    selectDistinct: true
+    partitionby: false
+    qualify: false
+    val: ""
+    winfunc: ROW_NUMBER
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: Materialized View
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -109,7 +113,7 @@ operation:
   name: MV_QT1
   overrideSQL: false
   schema: ""
-  sqlType: materialized-view:::178
+  sqlType: "459"
   type: sql
   version: 1
 type: Node

@@ -3,51 +3,29 @@ id: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
 name: CSS_QT1
 operation:
   config:
-    allcol: false
-    attrcol:
-      items:
-        - acolname:
-            columnCounter: 95c5ba17-b706-4383-b0b2-5b99063f0bf9
-            stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
-    colpreview:
+    compcol: false
+    ntileval: ""
+    oprt: "="
+    orderby: false
+    orderbycolumn:
       items:
         - {}
-    createcortex: true
-    embmodel: ""
-    excss: false
-    filcrit:
+    partitionBy:
       items:
         - {}
-    filtoggle: false
-    initialize: ON_CREATE
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: 60
-    locCSS: ""
-    lopt: and
-    mulfilcon: false
-    namCSS: ""
-    numboost: false
-    numericboost:
-      items:
-        - {}
-    query1: ""
-    querycortex: false
-    searchcol:
-      columnCounter: 95c5ba17-b706-4383-b0b2-5b99063f0bf9
+    partitionby: false
+    qualify: true
+    val: "0.10"
+    winfunc: RATIO_TO_REPORT
+    winfuncColName:
+      columnCounter: dc72da59-22f0-4653-93c1-8dc9b4f0d390
       stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
-    timdec: false
-    timedecay:
-      items:
-        - {}
-    warehouseName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: cortex search service
+  materializationType: view
   metadata:
     appliedNodeTests: []
     columns:
@@ -138,7 +116,7 @@ operation:
   name: CSS_QT1
   overrideSQL: false
   schema: ""
-  sqlType: cortex:::499
+  sqlType: "459"
   type: sql
   version: 1
 type: Node
