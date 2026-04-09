@@ -19,6 +19,7 @@ operation:
       columnCounter: 14a2bcc1-804f-4963-af1c-3fb2aa2bdd0a
       stepCounter: 20424bb7-cf55-4d60-ae88-42549b584023
     mulcol: false
+    pivotMode: Standard
     sincol: true
     subqueryval1: ""
     tabKeyColumn:

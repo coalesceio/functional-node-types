@@ -1,42 +1,52 @@
 fileVersion: 1
-id: 700ca829-ea39-412a-a66d-52a5254a1100
-name: PVT_QUARTERLY_SALES_EXCL
+id: 9504446b-2df4-4d66-b33f-368e99ce4503
+name: PVT_QUARTERLY_SALES2_EXC
 operation:
   config:
     Colvol1: ""
+    addcolumns: false
     aggfunc:
       items:
         - {}
     aggfunc1:
       items:
-        - funcname1: MAX
+        - funcname1: SUM
     defaultval: ""
     defvalue: false
-    excolval: false
+    excolval: true
     exlcol:
       items:
-        - exclcol1:
-            columnCounter: 669616db-2d53-416d-8b8c-1eb62c0a9d72
-            stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-    inferPivot: false
-    keyCol:
-      columnCounter: da16e3e5-42d9-4d69-b214-191e90b41952
-      stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-    mulcol: false
+        - exclcol1: null
+          exclcoltxtBox: DISCOUNT_PERCENT
+    filterColumn: ""
+    filterOperator: ""
+    filterValues: ""
+    inferPivot: true
     pivotMode: Standard
+    samKeyColval: false
+    sfuncname: AVG
+    simtabKeyColumn:
+      items:
+        - {}
+    simtabValueColumn:
+      items:
+        - {}
     sincol: true
-    subqueryval1: ""
+    subqueryval1: |-
+      SELECT DISTINCT quarter
+              FROM ANANDHIS_DEV.SOURCE_DATA.ad_campaign_types_by_quarter
+              WHERE television = TRUE
+              ORDER BY quarter
     tabKeyColumn:
       items:
-        - keyColTextBox: "\"QUARTER\""
+        - keyColDropdown: null
+          keyColTextBox: "\"QUARTER\""
     tabValueColumn:
       items:
-        - valColTextBox: "\"AMOUNT\""
+        - valColDropdown: null
+          valColTextBox: "\"AMOUNT\""
     testsEnabled: false
-    trunc: true
-    valCol1:
-      columnCounter: 78d28dcd-bfce-444c-83bb-0d8625279e66
-      stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+    trunc: false
   database: ""
   deployEnabled: true
   description: ""
@@ -48,8 +58,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: f272d5b5-3bef-4bb1-acb9-69b2ce98e5b7
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: 5459a4b5-2c04-4337-b2d2-ef705e6c83fc
+          stepCounter: 9504446b-2df4-4d66-b33f-368e99ce4503
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -60,27 +70,13 @@ operation:
               - columnCounter: 801c9f24-3ca9-435f-a360-818519b241e6
                 stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
             transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 669616db-2d53-416d-8b8c-1eb62c0a9d72
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: DISCOUNT_PERCENT
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: d4942832-cfcf-45f2-9e02-fb21e4bc54c9
-                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
-            transform: ""
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 0b068e04-e35b-4dc2-9982-d2e96ffd84ad
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: 4f464bbd-f4ec-4d8f-8286-7da289503901
+          stepCounter: 9504446b-2df4-4d66-b33f-368e99ce4503
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -98,8 +94,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 66023eb5-7037-4001-9374-fdced04e2f67
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: 05f137a3-3d50-4c7f-ab3e-09c61e2625a3
+          stepCounter: 9504446b-2df4-4d66-b33f-368e99ce4503
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -117,8 +113,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d18e11c9-1737-4324-a9fa-473c4f0d6c76
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: fe69df47-0249-4276-b68a-80ff58bfe746
+          stepCounter: 9504446b-2df4-4d66-b33f-368e99ce4503
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -136,8 +132,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 045cada0-2d9b-4373-b82b-018af11b6ecc
-          stepCounter: 700ca829-ea39-412a-a66d-52a5254a1100
+          columnCounter: 764249a1-5023-435c-a0ed-c43b9bdb6757
+          stepCounter: 9504446b-2df4-4d66-b33f-368e99ce4503
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
@@ -153,7 +149,8 @@ operation:
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
-      - aliases: {}
+      - aliases:
+          QUARTERLY_SALES: 6b63ec21-6fef-4a0f-b751-ca44d2654548
         customSQL:
           customSQL: ""
         dependencies:
@@ -161,9 +158,9 @@ operation:
             nodeName: QUARTERLY_SALES
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
-        name: PVT_QUARTERLY_SALES_EXCL
+        name: PVT_QUARTERLY_SALES2_EXC
         noLinkRefs: []
-  name: PVT_QUARTERLY_SALES_EXCL
+  name: PVT_QUARTERLY_SALES2_EXC
   overrideSQL: false
   schema: ""
   sqlType: "409"

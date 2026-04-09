@@ -1,0 +1,139 @@
+fileVersion: 1
+id: e25d6229-ac24-4db1-ad16-677092c5a015
+name: PVT_QUARTERLY_SALES3
+operation:
+  config:
+    Colvol1: ""
+    addcolumns: false
+    aggfunc:
+      items:
+        - {}
+    aggfunc1:
+      items:
+        - funcname1: MAX
+    defaultval: ""
+    defvalue: false
+    excolval: true
+    exlcol:
+      items:
+        - exclcol1:
+            columnCounter: 0e3f3074-b049-4e69-9c20-ac0e2da9f4f2
+            stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
+          exclcoltxtBox: DISCOUNT_PERCENT
+    filterColumn: ""
+    filterOperator: ""
+    filterValues: ""
+    inferPivot: true
+    pivotMode: Standard
+    samKeyColval: false
+    sfuncname: AVG
+    simtabKeyColumn:
+      items:
+        - {}
+    simtabValueColumn:
+      items:
+        - {}
+    sincol: true
+    subqueryval1: |-
+      SELECT DISTINCT quarter
+              FROM ANANDHIS_DEV.SOURCE_DATA.ad_campaign_types_by_quarter
+              WHERE television = TRUE
+              ORDER BY quarter
+    tabKeyColumn:
+      items:
+        - keyColDropdown:
+            columnCounter: 8546d6f6-3e05-41c4-bd6b-a4b72dc22cb0
+            stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
+          keyColTextBox: QUARTER
+    tabValueColumn:
+      items:
+        - valColDropdown: null
+          valColTextBox: AMOUNT
+    testsEnabled: false
+    trunc: false
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: SOURCE
+  materializationType: table
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a89e3f34-4431-4b8c-a995-8f0a194f39ed
+          stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 801c9f24-3ca9-435f-a360-818519b241e6
+                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ea711d3a-3765-4631-a551-19c3ba3fcde4
+          stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: AMOUNT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 26e10521-c430-410e-9188-29ddd3868b7a
+                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8546d6f6-3e05-41c4-bd6b-a4b72dc22cb0
+          stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f507873f-ba84-4420-9614-5179bb37e333
+                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0e3f3074-b049-4e69-9c20-ac0e2da9f4f2
+          stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: DISCOUNT_PERCENT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: d4942832-cfcf-45f2-9e02-fb21e4bc54c9
+                stepCounter: 6b63ec21-6fef-4a0f-b751-ca44d2654548
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          QUARTERLY_SALES: 6b63ec21-6fef-4a0f-b751-ca44d2654548
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: QUARTERLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'QUARTERLY_SALES') }} "QUARTERLY_SALES"
+        name: PVT_QUARTERLY_SALES3
+        noLinkRefs: []
+  name: PVT_QUARTERLY_SALES3
+  overrideSQL: false
+  schema: ""
+  sqlType: "409"
+  type: sql
+  version: 1
+type: Node

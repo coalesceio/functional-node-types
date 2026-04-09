@@ -26,6 +26,7 @@ operation:
       columnCounter: 367875b8-5ff8-464d-823d-5694382330a8
       stepCounter: d2b79091-4158-4d94-a06d-58f4638403cd
     mulcol: true
+    pivotMode: Standard
     samKeyColval: true
     sincol: false
     subqueryval1: ""

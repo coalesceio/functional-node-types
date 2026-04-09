@@ -24,6 +24,7 @@ metadata:
         - type: toggleButton
           attributeName: qualify
           displayName: QUALIFY filter
+          default: false
 
         - displayName: Window functions
           attributeName: winfunc
@@ -59,6 +60,7 @@ metadata:
           displayName: Constant value-desired number of buckets
           attributeName: ntileval
           isRequired: false
+          default: ''
           enableIf: "{% if config.qualify and config.winfunc in('NTILE') %} true {% else %} false {% endif %}" 
       
         - type: label
@@ -133,6 +135,7 @@ metadata:
 
         - type: toggleButton
           attributeName: compcol
+          default: false
           displayName: Compare return value of function with window column
           enableIf: "{% if config.qualify and config.winfunc not in('ROW_NUMBER','RANK','DENSE_RANK','PERCENT_RANK','NTILE','CUME_DIST') %} true {% else %} false {% endif %}"
 
@@ -140,6 +143,7 @@ metadata:
         - type: textBox
           displayName: Expected Value  (In case of "BETWEEN" comparison operator, the expected value is like ' 2 and 3')
           attributeName: val
+          default: ''
           isRequired: false
           enableIf: "{% if config.qualify and config.compcol != true %} true {% else %} false {% endif %}"  
         

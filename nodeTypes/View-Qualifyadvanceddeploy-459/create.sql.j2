@@ -17,13 +17,25 @@ does not permit copying or modification for any other purpose.
     {% set targetObjectSchema = ref_no_link(currentState.node.location.name, currentState.node.name).split('.')[1] %} 
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
 
-     {{ stage('Drop View') }}
-     DROP VIEW IF EXISTS {{ fullyQualifiedTargetObjectName }}
+    {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
+    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 
 {% elif desiredState %}
 
         {% if currentState != undefined %}
+
+            {%- if currentState.node.nodeType != desiredState.node.nodeType %}
+                {%- set warningMsg = getNodeTypeSwitchWarning() | default('') %}
+
+                {# Warning display - Node type changes can impact related tasks, streams, or services. #}
+                {%- if warningMsg | trim | length > 0 -%}
+                    {{ stage('Warning! Node Type Switching Detected', false) }}
+                    {{ warningMsg }}
+                    select 1=0
+                {%- endif -%}
+            {%- endif -%}
             
 		  {# Change Node Name or Change Storage Location #}
             {# Storage Location Tests #}
@@ -50,10 +62,11 @@ does not permit copying or modification for any other purpose.
                 {% set ns.storageLocationTest = false %}
              {% endif %}
 			
-			  {% if (ns.storageLocationTest == false or currentState.node.name != desiredState.node.name) %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
-                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
-              {%endif%}
+			{% if (ns.storageLocationTest == false or currentState.node.name != desiredState.node.name) or currentState.node.materializationType != desiredState.node.materializationType %}
+                {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
+                {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+                DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+            {% endif %}
 			  
         {% endif %}
 

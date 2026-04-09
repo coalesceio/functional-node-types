@@ -4,7 +4,7 @@ isDisabled: false
 metadata:
   defaultStorageLocation: null
   error: null
-  nodeMetadataSpec: |
+  nodeMetadataSpec: |-
     capitalized: MATCH_RECOGNIZE
     short: MR
     plural: MATCH_RECOGNIZE
@@ -149,6 +149,7 @@ metadata:
       -  type: dropdownSelector
          displayName: After match skip
          attributeName: afterMatchSkip
+         default: ''
          isRequired: false
          options:
              - ''
@@ -177,6 +178,7 @@ metadata:
       - displayName: Pattern
         attributeName: pattern
         type: textBox
+        default: ''
         syntax: sql
         isRequired: true
     	
@@ -254,6 +256,6 @@ metadata:
         - displayName: Column
           type: textBox
           attributeName: selectOrderByTextBox
-          enableIf: "{% if config.toggleSelectOrderBy %} true {% else %} false {% endif %}"        
+          enableIf: "{% if config.toggleSelectOrderBy %} true {% else %} false {% endif %}"
 name: Match Recognize
 type: NodeType
