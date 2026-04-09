@@ -3,51 +3,23 @@ id: 5f5be542-a0ba-441e-b242-beb363779ecf
 name: CSS_MONTHLY_SALES
 operation:
   config:
-    allcol: false
-    attrcol:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: month
+    tabValueColumn:
       items:
-        - acolname:
-            columnCounter: c50b79df-07c1-4d23-877d-b007f274600d
-            stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
-    colpreview:
-      items:
-        - {}
-    createcortex: true
-    embmodel: ""
-    excss: false
-    filcrit:
-      items:
-        - {}
-    filtoggle: false
-    initialize: ON_CREATE
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    locCSS: ""
-    lopt: and
-    mulfilcon: false
-    namCSS: ""
-    numboost: false
-    numericboost:
-      items:
-        - {}
-    query1: ""
-    querycortex: false
-    searchcol:
-      columnCounter: c50b79df-07c1-4d23-877d-b007f274600d
-      stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
-    timdec: false
-    timedecay:
-      items:
-        - {}
-    warehouseName: COMPUTE_WH
+        - ColTextBox: JAN
+        - ColTextBox: FEB
+        - ColTextBox: MAR
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: sales
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: cortex search service
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -77,48 +49,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 027a2a1f-b7c6-4190-9133-2e1255b1ec84
-          stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: JAN
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 6aec7d3e-bfce-4899-9c8e-0a002486f607
-          stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: FEB
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f8e9da7a-345f-41ab-829b-5fb8576c1ee8
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: c83c4585-af58-4599-925c-6e682126e18c
-          stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: MAR
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: e7428bea-1f85-4683-91dd-471fc78d15e1
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
       - appliedColumnTests: {}
@@ -163,6 +93,44 @@ operation:
               - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8dbc660b-5a1e-4d11-a2d0-1fc5cba6d2ff
+          stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: MONTH
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f1ea341e-fe11-4136-9d1c-c549aa0032d7
+          stepCounter: 5f5be542-a0ba-441e-b242-beb363779ecf
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: SALES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -180,7 +148,7 @@ operation:
   name: CSS_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: cortex:::499
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

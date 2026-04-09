@@ -3,31 +3,24 @@ id: 009079cb-abe8-474c-a3ab-6de5d5163eda
 name: INTTBL_MONTHLY_SALES
 operation:
   config:
-    autoRefresh: false
-    clusterKey: true
-    clusterKeyConfig:
+    includenull: false
+    inferunpivot: true
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - columnName:
-            columnCounter: 298accb6-7e91-43c3-b5cf-0f7b773723bc
+        - ColTextBox: MAR
+          valColDropdown:
+            columnCounter: 21ab0f96-1431-4d0f-8908-47162a29b67a
             stepCounter: 009079cb-abe8-474c-a3ab-6de5d5163eda
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: UNION ALL
-    lagSpecification:
-      items:
-        - {}
-    selectDistinct: false
     testsEnabled: false
-    warehouseName: dev_wh_xs
+    truncateBefore: false
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: interactive table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -160,7 +153,7 @@ operation:
   name: INTTBL_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: interactive-table:::602
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

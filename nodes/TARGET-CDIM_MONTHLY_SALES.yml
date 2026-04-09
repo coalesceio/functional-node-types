@@ -3,58 +3,15 @@ id: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
 name: CDIM_MONTHLY_SALES
 operation:
   config:
-    changetracking: false
-    clusterKey: false
-    clusterKeyConfig:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: month
+    tabValueColumn:
       items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    constraintsspec:
-      items:
-        - {}
-    customZeroKeyValues:
-      items:
-        - {}
-    datretention: ""
-    defaultcoallation: ""
-    eschemaevol: false
-    foreignk: false
-    foreignkeycon:
-      items:
-        - {}
-    groupByAll: false
-    inlineconst: false
-    insertStrategy: UNION
-    insertZeroKey: false
-    insertZeroKeyAdvanced: false
-    insertZeroKeyBol: "TRUE"
-    insertZeroKeyDate: 01-01-1900
-    insertZeroKeyStr: UNKNOWN
-    insertZeroKeySurrogateKey: "0"
-    insertZeroKeyTimestamp: "1900-01-01 00:00:00.000"
-    lastModifiedColumn:
-      columnCounter: 9a70846e-dd61-47d9-879b-b54a91452d66
-      stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-    lastModifiedComparison: true
-    maxdataretention: ""
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    outlineconst: false
-    primary: false
-    primarykeycon:
-      items:
-        - {}
-    primarykeyname: ""
-    selectDistinct: false
+        - ColTextBox: JAN
     testsEnabled: false
-    treatNullAsCurrentTimestamp: true
     truncateBefore: true
-    type2Dimension: false
+    valColTextBox: sales
   database: ""
   deployEnabled: true
   description: ""
@@ -64,23 +21,6 @@ operation:
   metadata:
     appliedNodeTests: []
     columns:
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 95c01c5d-af42-4dec-9f00-06c733d60534
-          stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-        config: {}
-        dataType: NUMBER
-        defaultValue: ""
-        description: ""
-        isSurrogateKey: true
-        name: CDIM_MONTHLY_SALES_KEY
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
       - appliedColumnTests: {}
         columnReference:
           columnCounter: 4c69dfd9-d5dc-4573-bf0a-501b3ad0183d
@@ -108,20 +48,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 97077e83-5d57-4251-a682-e0367d5997ea
-          stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: JAN
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
       - appliedColumnTests: {}
@@ -199,103 +125,39 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 3211d8e9-3837-4026-9c08-307d0afbcd1b
+          columnCounter: 8a35eedc-b34a-4cb2-8110-6cb41a1d131d
           stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
         config: {}
-        dataType: NUMBER
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        isSystemVersion: true
-        name: SYSTEM_VERSION
+        name: MONTH
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
             transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: feaf22ae-a760-49ff-8cfe-5d9d5616e885
+          columnCounter: dd1476f1-2183-425c-a067-f2a93250ecd3
           stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
         config: {}
-        dataType: VARCHAR
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemCurrentFlag: true
-        name: SYSTEM_CURRENT_FLAG
+        name: SALES
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 1e4a9100-6e62-4359-9322-f1c752d9ce39
-          stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemStartDate: true
-        name: SYSTEM_START_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: b2d348db-6a24-474e-9a78-c906b1bc22e5
-          stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemEndDate: true
-        name: SYSTEM_END_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST('2999-12-31 00:00:00' AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: 0e4417df-6a10-40df-b82f-9b9ce11e2314
-          stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: f326576e-d6bb-4790-973b-06e7caf5e94c
-          stepCounter: 01c5500f-3f04-49e3-ae28-e8ee93b5c7fc
-        config: {}
-        dataType: TIMESTAMP
-        defaultValue: ""
-        description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -313,7 +175,7 @@ operation:
   name: CDIM_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: create-or-alter-package:::535
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

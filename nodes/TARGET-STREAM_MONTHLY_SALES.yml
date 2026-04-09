@@ -3,16 +3,24 @@ id: 22b6722c-be27-4d65-89a1-b906d761b4d3
 name: STREAM_MONTHLY_SALES
 operation:
   config:
-    appendOnly: false
-    initialRows: true
-    redeploymentBehavior: Create or Replace
-    sourceType: Table
+    includenull: false
+    inferunpivot: true
+    nameColTextBox: MONTH
+    tabValueColumn:
+      items:
+        - ColTextBox: FEB
+          valColDropdown:
+            columnCounter: 3ec2fa7d-5c4b-41eb-9da6-494854d24c56
+            stepCounter: 22b6722c-be27-4d65-89a1-b906d761b4d3
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: stream
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -128,57 +136,6 @@ operation:
               - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: d2f6e2ae-2a1e-4252-834e-b4ea92257c2a
-          stepCounter: 22b6722c-be27-4d65-89a1-b906d761b4d3
-        config: {}
-        dataType: STRING
-        defaultValue: ""
-        description: ""
-        metadataAction: true
-        name: METADATA$ACTION
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: cb1a8fd8-908e-4d2e-8197-39e73e314342
-          stepCounter: 22b6722c-be27-4d65-89a1-b906d761b4d3
-        config: {}
-        dataType: boolean
-        defaultValue: ""
-        description: ""
-        metadataIsUpdate: true
-        name: METADATA$ISUPDATE
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: afb41a53-2a93-4d49-b774-ec17fd710585
-          stepCounter: 22b6722c-be27-4d65-89a1-b906d761b4d3
-        config: {}
-        dataType: STRING
-        defaultValue: ""
-        description: ""
-        metadataRowID: true
-        name: METADATA$ROW_ID
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: ""
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -196,7 +153,7 @@ operation:
   name: STREAM_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::153
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

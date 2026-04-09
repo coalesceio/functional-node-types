@@ -3,44 +3,21 @@ id: 7832337a-6336-44b9-908f-e2d2b304e623
 name: DT_WRK_MONTHLY_SALES
 operation:
   config:
-    advanceWarehouse: false
-    backfill: false
-    backfillSource: ""
-    backfillSourceSchema: ""
-    clusterKey: false
-    clusterKeyConfig:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    cpygrants: false
-    downstreamOption: false
-    groupByAll: false
-    immutabilityConstraint: false
-    immutableExpression: ""
-    initialize: ON_CREATE
-    initializeWarehouseSize: ""
-    insertStrategy: UNION ALL
-    lagSpecification:
-      items:
-        - lagPeriod: Minutes
-          lagValue: "60"
-    refreshWarehouseSize: ""
-    refresh_mode: AUTO
-    selectDistinct: false
-    timeTravel: false
-    timeTravelreference: ""
-    timeTraveltype: ""
-    timeTravelvalue: ""
-    warehouseName: COMPUTE_WH
+        - ColTextBox: MAR
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: transient dynamic table
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -173,7 +150,7 @@ operation:
   name: DT_WRK_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: dynamic-tables:::347
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

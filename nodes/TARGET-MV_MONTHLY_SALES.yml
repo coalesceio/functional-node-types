@@ -3,22 +3,24 @@ id: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
 name: MV_MONTHLY_SALES
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    includenull: false
+    inferunpivot: true
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    secureOption: false
-    selectDistinct: true
+        - ColTextBox: MAR
+          valColDropdown:
+            columnCounter: 6232ae49-bc72-4379-b10b-24b01dcbb539
+            stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: Materialized View
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -151,7 +153,7 @@ operation:
   name: MV_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: materialized-view:::178
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

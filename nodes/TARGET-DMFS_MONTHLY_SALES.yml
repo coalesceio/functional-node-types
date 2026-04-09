@@ -3,86 +3,15 @@ id: 6e4f893b-a852-4edf-beb6-acbf66577200
 name: DMFS_MONTHLY_SALES
 operation:
   config:
-    addCustomDMFs: false
-    addcolumnleveldmfs: false
-    adddmfs:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - {}
-    adddmfsobject:
-      items:
-        - {}
-    addobjectleveldmfs: false
-    alertFrequency: 60
-    alertWarehouse: ""
-    blankCntTrigger: false
-    blankPrcntThreshold: 5
-    blankPrcntTrigger: false
-    customDMFsConfig:
-      items:
-        - {}
-    dupCntTrigger: true
-    emailAlertToggle: false
-    emailList: ""
-    freshThreshold: 24
-    freshTrigger: true
-    notfIntegrationName: ""
-    nullCntTrigger: true
-    nullPrcntThreshold: 5
-    nullPrcntTrigger: false
-    overrideEmailAlertToggle: false
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    universalColumnBlankCountDMF: false
-    universalColumnBlankCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.blankCountUniversalColumns[]
-    universalColumnBlankPercentDMF: false
-    universalColumnBlankPercentDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.blankPercentUniversalColumns[]
-    universalColumnDmfs: true
-    universalColumnDuplicateCountDMF: true
-    universalColumnDuplicateCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.duplicateCountUniversalColumns[]
-    universalColumnFreshnessDMF: true
-    universalColumnFreshnessDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.freshnessUniversalColumns[]
-    universalColumnNullCountDMF: true
-    universalColumnNullCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.nullCountUniversalColumns[]
-    universalColumnNullPercentDMF: false
-    universalColumnNullPercentDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.nullPercentUniversalColumns[]
-    universalColumnUniqueCountDMF: false
-    universalColumnUniqueCountDMFList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.uniqueCountUniversalColumns[]
-    universalDmfs: true
-    universalObjectDmfs: true
-    universalObjectDmfsList: |2-
-       -- This field is auto-populated from the Package Configuration.
-       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
-       -- To edit, update the below Config in Package Configuration.
-       packageConfiguration.universalObjectDmfs[]
+        - ColTextBox: FEB
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
@@ -132,20 +61,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: 44317346-905e-469b-a1d6-f0462fa9ea65
-          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: FEB
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f8e9da7a-345f-41ab-829b-5fb8576c1ee8
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
       - appliedColumnTests: {}
@@ -204,6 +119,44 @@ operation:
               - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: c9ae25de-1a94-4463-8a52-b85957c0fa60
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: MONTH
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 2c5c9e96-ed79-4d7a-9107-db9110a3739c
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: SALES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -221,7 +174,7 @@ operation:
   name: DMFS_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: data-quality:::448
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

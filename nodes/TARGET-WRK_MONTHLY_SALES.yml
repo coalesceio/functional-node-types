@@ -3,32 +3,15 @@ id: 06fcee5d-2340-4b67-af3f-db09628eef75
 name: WRK_MONTHLY_SALES
 operation:
   config:
-    asofColumn:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - {}
-    asofJoin: true
-    asofJoinMain: false
-    asofJoinON: false
-    asofJoinUSING: false
-    clusterKey: false
-    clusterKeyConfig:
-      items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    groupByAll: false
-    insertStrategy: INSERT
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    postSQL: ""
-    preSQL: ""
-    selectDistinct: false
+        - ColTextBox: JAN
     testsEnabled: false
     truncateBefore: true
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
@@ -64,20 +47,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: b23db9b6-03f1-4b39-bf0b-58812a91bbe8
-          stepCounter: 06fcee5d-2340-4b67-af3f-db09628eef75
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: JAN
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
       - appliedColumnTests: {}
@@ -150,6 +119,44 @@ operation:
               - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 4e82b015-ce09-4c34-8c05-60d66fecd787
+          stepCounter: 06fcee5d-2340-4b67-af3f-db09628eef75
+        config: {}
+        dataType: VARCHAR(16777216)
+        defaultValue: ""
+        description: ""
+        name: MONTH
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 914ffef6-20e3-4094-8d28-72741bc79e4d
+          stepCounter: 06fcee5d-2340-4b67-af3f-db09628eef75
+        config: {}
+        dataType: NUMBER(38,0)
+        defaultValue: ""
+        description: ""
+        name: SALES
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -178,9 +185,9 @@ operation:
         name: WRK_MONTHLY_SALES
         noLinkRefs: []
   name: WRK_MONTHLY_SALES
-  overrideSQL: true
+  overrideSQL: false
   schema: ""
-  sqlType: base-node-types-advanced-deploy:::179
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

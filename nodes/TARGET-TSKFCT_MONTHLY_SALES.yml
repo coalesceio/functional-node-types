@@ -3,38 +3,21 @@ id: b4a507f4-ebda-4743-932c-a85e8de81493
 name: TSKFCT_MONTHLY_SALES
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    devMode: false
-    flagSrcStream: false
-    groupByAll: false
-    insertStrategy: UNION
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    selectDistinct: false
-    serverlessSize: MEDIUM
-    whName: COMPUTE_WH
+        - ColTextBox: JAN
+    testsEnabled: false
+    truncateBefore: false
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: task
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -64,20 +47,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: c85f4e00-ad60-482e-84dd-9c0555b2a161
-          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: JAN
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
       - appliedColumnTests: {}
@@ -155,35 +124,39 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 98ad2128-14e0-490e-b232-4a472c079799
+          columnCounter: fcfc1595-ef9a-4183-8cb2-70639069d74d
           stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
         config: {}
-        dataType: TIMESTAMP
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
+        name: MONTH
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a6d03679-c2eb-471b-9bd5-7b32383e4e2c
+          columnCounter: 149179eb-0865-43f3-9100-6d50ac8d9d00
           stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
+        name: SALES
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -201,7 +174,7 @@ operation:
   name: TSKFCT_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::150
+  sqlType: "399"
   type: sql
   version: 1
 type: Node

@@ -3,51 +3,21 @@ id: af2f5733-1981-4560-af23-1239a6f6bdb1
 name: TIM_MONTHLY_SALES
 operation:
   config:
-    clusterKey: false
-    clusterKeyConfig:
+    includenull: false
+    inferunpivot: false
+    nameColTextBox: MONTH
+    tabValueColumn:
       items:
-        - {}
-    clusterKeyConfigExpressions:
-      items:
-        - {}
-    clusterKeyExpressions: false
-    devMode: true
-    flagSrcStream: true
-    groupByAll: false
-    insertStrategy: UNION
-    loadType: Merge
-    mergeOrderBy:
-      items:
-        - colName:
-            columnCounter: 3e012e8c-3d8d-43d5-8dd0-70637095498b
-            stepCounter: af2f5733-1981-4560-af23-1239a6f6bdb1
-          sortOrd: desc
-    multiStreamBehavior: AND
-    orderby: false
-    orderbycolumn:
-      items:
-        - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: 54669c57-460d-494b-bbcc-00cdfad22bb7
-            stepCounter: af2f5733-1981-4560-af23-1239a6f6bdb1
-    predTask: DATA_TRANSFORMATION_ROOT_TASK
-    rootTask: DATA_TRANSFORMATION_ROOT_TASK
-    scheduleCRON: 5 0-23 * * * America/Los_Angeles
-    schedulePeriod: "60"
-    schedulePeriodOption: Minutes
-    schedulingMode: Warehouse Task
-    selectDistinct: false
-    serverlessSize: MEDIUM
+        - ColTextBox: FEB
+    testsEnabled: false
     truncateBefore: true
-    whName: <WAREHOUSE_NAME>
+    valColTextBox: SALES
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: table
+  materializationType: transient table
   metadata:
     appliedNodeTests: []
     columns:
@@ -91,20 +61,6 @@ operation:
         sourceColumnReferences:
           - columnReferences:
               - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
-                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
-            transform: ""
-      - appliedColumnTests: {}
-        columnReference:
-          columnCounter: a0b56aa7-da26-47d0-80cd-dcacd9c4b9db
-          stepCounter: af2f5733-1981-4560-af23-1239a6f6bdb1
-        config: {}
-        dataType: NUMBER(38,0)
-        description: ""
-        name: FEB
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences:
-              - columnCounter: f8e9da7a-345f-41ab-829b-5fb8576c1ee8
                 stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
             transform: ""
       - appliedColumnTests: {}
@@ -168,35 +124,39 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 20bdd825-8c6d-450e-b825-3662f8d6c0dd
+          columnCounter: d2891eba-bab6-46ba-b9b1-61558b940d39
           stepCounter: af2f5733-1981-4560-af23-1239a6f6bdb1
         config: {}
-        dataType: TIMESTAMP
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        isSystemCreateDate: true
-        name: SYSTEM_CREATE_DATE
+        name: MONTH
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 4dd8d134-093d-4f4d-8bcf-fc44c75c154d
+          columnCounter: 8e2ab35e-60b6-499e-ab86-4b0b44ec7528
           stepCounter: af2f5733-1981-4560-af23-1239a6f6bdb1
         config: {}
-        dataType: TIMESTAMP
+        dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        isSystemUpdateDate: true
-        name: SYSTEM_UPDATE_DATE
+        name: SALES
         nullable: true
+        primaryKey: false
         sourceColumnReferences:
           - columnReferences: []
-            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+            transform: ""
+        transform: ""
+        uniqueKey: false
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -214,7 +174,7 @@ operation:
   name: TIM_MONTHLY_SALES
   overrideSQL: false
   schema: ""
-  sqlType: streams-and-tasks:::567
+  sqlType: "399"
   type: sql
   version: 1
 type: Node
