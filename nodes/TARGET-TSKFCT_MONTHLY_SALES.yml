@@ -1,0 +1,207 @@
+fileVersion: 1
+id: b4a507f4-ebda-4743-932c-a85e8de81493
+name: TSKFCT_MONTHLY_SALES
+operation:
+  config:
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    devMode: false
+    flagSrcStream: false
+    groupByAll: false
+    insertStrategy: UNION
+    multiStreamBehavior: AND
+    orderby: false
+    orderbycolumn:
+      items:
+        - {}
+    predTask: DATA_TRANSFORMATION_ROOT_TASK
+    rootTask: DATA_TRANSFORMATION_ROOT_TASK
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    selectDistinct: false
+    serverlessSize: MEDIUM
+    whName: COMPUTE_WH
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: task
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: f6a3c8f3-744a-4386-8dbe-d45e62e06264
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b575240c-d2ac-4fe7-807c-edb0c693930d
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 42c01017-aa8a-4543-8e50-b8509c7e546a
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DEPT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c85f4e00-ad60-482e-84dd-9c0555b2a161
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: JAN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 0cccbcf4-d526-45ed-a025-5f4d2c0ad551
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: FEB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f8e9da7a-345f-41ab-829b-5fb8576c1ee8
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 8f0c3a7a-e2d5-4fe8-983d-5daca0d0fab6
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e7428bea-1f85-4683-91dd-471fc78d15e1
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: d3504c7c-c08c-47e8-8717-3e6232035726
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: APR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 64f3063e-02db-435f-8d92-122b63431919
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: bed66181-1372-4559-9256-576a1601cdc9
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 85e633e9-b720-4bb1-8588-8784a7542852
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c658cf6a-b758-4929-a90f-a32de59ef927
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 98ad2128-14e0-490e-b232-4a472c079799
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a6d03679-c2eb-471b-9bd5-7b32383e4e2c
+          stepCounter: b4a507f4-ebda-4743-932c-a85e8de81493
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          MONTHLY_SALES: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+        name: TSKFCT_MONTHLY_SALES
+        noLinkRefs: []
+  name: TSKFCT_MONTHLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: streams-and-tasks:::150
+  type: sql
+  version: 1
+type: Node

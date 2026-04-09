@@ -1,0 +1,157 @@
+fileVersion: 1
+id: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+name: MV_MONTHLY_SALES
+operation:
+  config:
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    secureOption: false
+    selectDistinct: true
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: Materialized View
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c8dad85b-c0ad-4f53-a359-b82751add9bf
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b575240c-d2ac-4fe7-807c-edb0c693930d
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: ea70b074-d1e8-4a56-8f33-40016f4a27ed
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DEPT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c6678607-9ab4-40fa-ab46-f4804abc5a43
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: JAN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a8ec22e9-fd73-43e4-b7db-0b2e4e173ef1
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: FEB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f8e9da7a-345f-41ab-829b-5fb8576c1ee8
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6232ae49-bc72-4379-b10b-24b01dcbb539
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e7428bea-1f85-4683-91dd-471fc78d15e1
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b0f59d32-e730-4b77-b8fa-e1eb0d8c7c23
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: APR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 64f3063e-02db-435f-8d92-122b63431919
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: a6e26a73-6730-4f73-8d53-d76bf33da406
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 85e633e9-b720-4bb1-8588-8784a7542852
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 12c58e32-d149-493b-b87d-581e3a88908e
+          stepCounter: 444c8e32-9775-41f6-a744-58e1c5e6dcd3
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          MONTHLY_SALES: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+        name: MV_MONTHLY_SALES
+        noLinkRefs: []
+  name: MV_MONTHLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: materialized-view:::178
+  type: sql
+  version: 1
+type: Node

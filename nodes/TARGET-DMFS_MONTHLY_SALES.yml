@@ -1,0 +1,227 @@
+fileVersion: 1
+id: 6e4f893b-a852-4edf-beb6-acbf66577200
+name: DMFS_MONTHLY_SALES
+operation:
+  config:
+    addCustomDMFs: false
+    addcolumnleveldmfs: false
+    adddmfs:
+      items:
+        - {}
+    adddmfsobject:
+      items:
+        - {}
+    addobjectleveldmfs: false
+    alertFrequency: 60
+    alertWarehouse: ""
+    blankCntTrigger: false
+    blankPrcntThreshold: 5
+    blankPrcntTrigger: false
+    customDMFsConfig:
+      items:
+        - {}
+    dupCntTrigger: true
+    emailAlertToggle: false
+    emailList: ""
+    freshThreshold: 24
+    freshTrigger: true
+    notfIntegrationName: ""
+    nullCntTrigger: true
+    nullPrcntThreshold: 5
+    nullPrcntTrigger: false
+    overrideEmailAlertToggle: false
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    universalColumnBlankCountDMF: false
+    universalColumnBlankCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.blankCountUniversalColumns[]
+    universalColumnBlankPercentDMF: false
+    universalColumnBlankPercentDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.blankPercentUniversalColumns[]
+    universalColumnDmfs: true
+    universalColumnDuplicateCountDMF: true
+    universalColumnDuplicateCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.duplicateCountUniversalColumns[]
+    universalColumnFreshnessDMF: true
+    universalColumnFreshnessDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.freshnessUniversalColumns[]
+    universalColumnNullCountDMF: true
+    universalColumnNullCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.nullCountUniversalColumns[]
+    universalColumnNullPercentDMF: false
+    universalColumnNullPercentDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.nullPercentUniversalColumns[]
+    universalColumnUniqueCountDMF: false
+    universalColumnUniqueCountDMFList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.uniqueCountUniversalColumns[]
+    universalDmfs: true
+    universalObjectDmfs: true
+    universalObjectDmfsList: |2-
+       -- This field is auto-populated from the Package Configuration.
+       -- Redeployment behavior is controlled by toggles, NOT Package Configuration.
+       -- To edit, update the below Config in Package Configuration.
+       packageConfiguration.universalObjectDmfs[]
+  database: ""
+  deployEnabled: true
+  description: ""
+  isMultisource: false
+  locationName: TARGET
+  materializationType: view
+  metadata:
+    appliedNodeTests: []
+    columns:
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 01c0dfdd-3603-4f5d-a262-1063e0cddafc
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: EMPID
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: b575240c-d2ac-4fe7-807c-edb0c693930d
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3814359e-77df-4709-91ef-3c951a45375c
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: VARCHAR(16777216)
+        description: ""
+        name: DEPT
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 48a9b399-4398-4bae-9590-53a9dbe7c31a
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 481ba4ea-1319-40b9-b97a-c7541f7ab32f
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: JAN
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 3f21d1db-a357-4f68-9dd6-4e0a3ec776c9
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 44317346-905e-469b-a1d6-f0462fa9ea65
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: FEB
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: f8e9da7a-345f-41ab-829b-5fb8576c1ee8
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: 3769a1fb-fc59-4e8a-a204-7d794bef5aa5
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: MAR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: e7428bea-1f85-4683-91dd-471fc78d15e1
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: e124c447-1274-4b3b-b556-f1ef7dc897fd
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: NUMBER(38,0)
+        description: ""
+        name: APR
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 64f3063e-02db-435f-8d92-122b63431919
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: c546c664-ab73-4828-8172-f000b3b0f3a9
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: DATE
+        description: ""
+        name: DATE_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 85e633e9-b720-4bb1-8588-8784a7542852
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+      - appliedColumnTests: {}
+        columnReference:
+          columnCounter: b40291ab-5beb-4f15-8691-67be701a2376
+          stepCounter: 6e4f893b-a852-4edf-beb6-acbf66577200
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        description: ""
+        name: TIMESTAMP_COL
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: 1ec74302-262a-4e6a-b8e2-277b9257c620
+                stepCounter: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+            transform: ""
+    cteString: ""
+    enabledColumnTestIDs: []
+    sourceMapping:
+      - aliases:
+          MONTHLY_SALES: 883c7b84-a65f-4a7d-a55c-c7f08c4dca78
+        customSQL:
+          customSQL: ""
+        dependencies:
+          - locationName: SOURCE
+            nodeName: MONTHLY_SALES
+        join:
+          joinCondition: FROM {{ ref('SOURCE', 'MONTHLY_SALES') }} "MONTHLY_SALES"
+        name: DMFS_MONTHLY_SALES
+        noLinkRefs: []
+  name: DMFS_MONTHLY_SALES
+  overrideSQL: false
+  schema: ""
+  sqlType: data-quality:::448
+  type: sql
+  version: 1
+type: Node
