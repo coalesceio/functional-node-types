@@ -1,38 +1,60 @@
 fileVersion: 1
-id: b0830d24-f62b-4714-a4c4-818d1c9cf622
-name: WRK_QT
+id: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
+name: CSS_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
-    orderby: false
-    orderbycolumn:
+    allcol: false
+    attrcol:
+      items:
+        - acolname:
+            columnCounter: 95c5ba17-b706-4383-b0b2-5b99063f0bf9
+            stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
+    colpreview:
       items:
         - {}
-    partitionBy:
+    createcortex: true
+    embmodel: ""
+    excss: false
+    filcrit:
       items:
         - {}
-    partitionby: false
-    qualify: true
-    val: "0.10"
-    winfunc: RATIO_TO_REPORT
-    winfuncColName:
-      columnCounter: 9dd6955b-5dae-4f2d-af1f-7e2c920e8063
-      stepCounter: b0830d24-f62b-4714-a4c4-818d1c9cf622
+    filtoggle: false
+    initialize: ON_CREATE
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: 60
+    locCSS: ""
+    lopt: and
+    mulfilcon: false
+    namCSS: ""
+    numboost: false
+    numericboost:
+      items:
+        - {}
+    query1: ""
+    querycortex: false
+    searchcol:
+      columnCounter: 95c5ba17-b706-4383-b0b2-5b99063f0bf9
+      stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
+    timdec: false
+    timedecay:
+      items:
+        - {}
+    warehouseName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: cortex search service
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: efeaee22-577c-4979-8e57-777b74bf0b1b
-          stepCounter: b0830d24-f62b-4714-a4c4-818d1c9cf622
+          columnCounter: 797cf694-322f-4309-9186-223791bc096a
+          stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -45,8 +67,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c4d63d06-131a-4a27-892e-4351ce1b62df
-          stepCounter: b0830d24-f62b-4714-a4c4-818d1c9cf622
+          columnCounter: 95c5ba17-b706-4383-b0b2-5b99063f0bf9
+          stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -59,8 +81,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 9dd6955b-5dae-4f2d-af1f-7e2c920e8063
-          stepCounter: b0830d24-f62b-4714-a4c4-818d1c9cf622
+          columnCounter: dc72da59-22f0-4653-93c1-8dc9b4f0d390
+          stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -73,8 +95,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 31460471-6b74-449d-88e5-08cb695bcbfa
-          stepCounter: b0830d24-f62b-4714-a4c4-818d1c9cf622
+          columnCounter: 404c046d-20a0-4a29-92a1-4e557892dfda
+          stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
         config: {}
         dataType: DATE
         description: ""
@@ -87,8 +109,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 72432008-75b9-40e4-9c35-0488138579ce
-          stepCounter: b0830d24-f62b-4714-a4c4-818d1c9cf622
+          columnCounter: ff1d81aa-721f-402a-972c-24fe10ce9f5b
+          stepCounter: 24e9bccf-ff26-40de-ab19-104d0abcdaaa
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -110,13 +132,13 @@ operation:
           - locationName: SOURCE
             nodeName: QT
         join:
-          joinCondition: FROM  {{ ref('SOURCE', 'QT') }} QT
-        name: WRK_QT
+          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
+        name: CSS_QT1
         noLinkRefs: []
-  name: WRK_QT
+  name: CSS_QT1
   overrideSQL: false
   schema: ""
-  sqlType: "459"
+  sqlType: cortex:::499
   type: sql
   version: 1
 type: Node

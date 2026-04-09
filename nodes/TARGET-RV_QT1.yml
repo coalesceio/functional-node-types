@@ -1,40 +1,28 @@
 fileVersion: 1
-id: 882b517a-a6d5-4be1-8359-05fee0085050
-name: DMFS_QT
+id: 0828dcc1-0473-45cc-97cb-869d35011163
+name: RV_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
-    orderby: true
-    orderbycolumn:
-      items:
-        - sortColName:
-            columnCounter: 46d8164e-03eb-4f4b-83a1-d9e742a1310e
-            stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
-          sortOrder: desc
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: 02dcf0a4-acef-45d7-b4e1-f0b21492eda0
-            stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
-    partitionby: true
-    qualify: true
-    val: "1"
-    winfunc: ROW_NUMBER
+    insertStrategy: UNION ALL
+    persistTableLocation: "ex: TARGET"
+    persistTableName: "ex: DIM_ORDERS"
+    refTable: false
+    srcTable: false
+    suffixlength: ex:1
+    testsEnabled: true
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: run view
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 95746882-ff5d-47e1-a395-bd1f12e34a8a
-          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+          columnCounter: 8a49142c-6867-4662-97e7-c085ba105e3d
+          stepCounter: 0828dcc1-0473-45cc-97cb-869d35011163
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -47,8 +35,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 02dcf0a4-acef-45d7-b4e1-f0b21492eda0
-          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+          columnCounter: a6f50bca-0c4f-4e4d-b526-fe6b05e1ff33
+          stepCounter: 0828dcc1-0473-45cc-97cb-869d35011163
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -61,8 +49,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 46d8164e-03eb-4f4b-83a1-d9e742a1310e
-          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+          columnCounter: ac97da6e-8157-41ad-a31f-4191b924b975
+          stepCounter: 0828dcc1-0473-45cc-97cb-869d35011163
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -75,8 +63,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: bc6b5293-d6f3-4a42-8053-a9ed2fe45269
-          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+          columnCounter: 64833fd8-6df8-47d0-ab2e-fa6b1cfde4ee
+          stepCounter: 0828dcc1-0473-45cc-97cb-869d35011163
         config: {}
         dataType: DATE
         description: ""
@@ -89,8 +77,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 6dc7d66e-b212-4697-81ed-f2baa7e2594a
-          stepCounter: 882b517a-a6d5-4be1-8359-05fee0085050
+          columnCounter: c7b3497c-d591-44bd-bd50-6faf24addf34
+          stepCounter: 0828dcc1-0473-45cc-97cb-869d35011163
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -107,18 +95,28 @@ operation:
       - aliases:
           QT: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
         customSQL:
-          customSQL: ""
+          customSQL: |-
+            {{ stage('Override Create SQL', deploy_phase_override="create") }}
+            	CREATE OR REPLACE VIEW {{ ref('TARGET', 'RV_QT1')}} AS (
+            		SELECT 
+             "I" AS "I",
+             "P" AS "P",
+             "O" AS "O",
+             "DATE_COL" AS "DATE_COL",
+             "TIMESTAMP_COL" AS "TIMESTAMP_COL"
+             FROM {{ ref('SOURCE', 'QT') }}
+            	)
         dependencies:
           - locationName: SOURCE
             nodeName: QT
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
-        name: DMFS_QT
+        name: RV_QT1
         noLinkRefs: []
-  name: DMFS_QT
-  overrideSQL: false
+  name: RV_QT1
+  overrideSQL: true
   schema: ""
-  sqlType: "459"
+  sqlType: incremental-loading:::281
   type: sql
   version: 1
 type: Node

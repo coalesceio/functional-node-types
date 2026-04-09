@@ -1,37 +1,68 @@
 fileVersion: 1
-id: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
-name: DL_QT
+id: 82be95ad-e478-47f5-a021-4d8d6d7e1332
+name: DL_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
-    orderby: false
-    orderbycolumn:
+    capUpdate: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    createas: table
+    devMode: true
+    dmlCol:
+      columnCounter: 7d1d6176-d203-400a-89a2-f4f6c8ec5227
+      stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
+    dmlDelete: D
+    dmlInsert: I
+    dmlUpdate: U
+    flagSrcStream: false
+    initialRows: true
+    insertOnly: false
+    orderBy:
+      items:
+        - colName:
+            columnCounter: a2ab6d19-833c-4ee5-b634-73e15d5f022f
+            stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
+          sortOrd: desc
+    orderByDateTime:
       items:
         - {}
     partitionBy:
       items:
         - partColName:
-            columnCounter: 90a73d2c-758b-443a-9d01-81e179bf0017
-            stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
-    partitionby: false
-    qualify: false
-    val: ""
-    winfunc: ROW_NUMBER
+            columnCounter: fc05d1b8-0d14-435e-8b86-ecfb6dd29151
+            stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
+    predTask: ""
+    recordVersioning: Datetime Column
+    redeploymentBehavior: Create At Existing Stream
+    retainLastNonDeleteFlag: false
+    rootTask: ""
+    scheduleCRON: 5 0-23 * * * America/Los_Angeles
+    schedulePeriod: "60"
+    schedulePeriodOption: Minutes
+    schedulingMode: Warehouse Task
+    serverlessSize: MEDIUM
+    softDeleteFlag: false
+    sourceType: Table
+    whName: <WAREHOUSE_NAME>
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 90a73d2c-758b-443a-9d01-81e179bf0017
-          stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
+          columnCounter: fc05d1b8-0d14-435e-8b86-ecfb6dd29151
+          stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -44,8 +75,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 3f951848-bfe6-45d8-8e98-2615c0717a3b
-          stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
+          columnCounter: 7d1d6176-d203-400a-89a2-f4f6c8ec5227
+          stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -58,8 +89,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 5be818d9-e5cc-4e3a-8a3f-8db7c4de88c5
-          stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
+          columnCounter: 3584231f-13de-4dd8-a6e6-324ffcaa7991
+          stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -72,8 +103,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 844d0279-2db5-435b-bebf-91c707fa5418
-          stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
+          columnCounter: c8272532-17ea-4079-a237-e67a1d85d001
+          stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
         config: {}
         dataType: DATE
         description: ""
@@ -86,8 +117,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 67d99150-f3f1-4e04-bc63-edc85a974779
-          stepCounter: ba96bf31-9a9d-4e22-aeb4-3c6d9ad44e5a
+          columnCounter: a2ab6d19-833c-4ee5-b634-73e15d5f022f
+          stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -98,6 +129,23 @@ operation:
               - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
                 stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 484baa26-58e6-4332-8dfe-25324ee5fb98
+          stepCounter: 82be95ad-e478-47f5-a021-4d8d6d7e1332
+        config: {}
+        dataType: timestamp
+        defaultValue: ""
+        description: ""
+        hmUpdTs: true
+        name: DM_UPDATE_TIMESTAMP
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: current_timestamp::timestamp_ntz
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -110,12 +158,12 @@ operation:
             nodeName: QT
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
-        name: DL_QT
+        name: DL_QT1
         noLinkRefs: []
-  name: DL_QT
+  name: DL_QT1
   overrideSQL: false
   schema: ""
-  sqlType: "459"
+  sqlType: deferred-merge:::301
   type: sql
   version: 1
 type: Node

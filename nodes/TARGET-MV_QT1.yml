@@ -1,42 +1,34 @@
 fileVersion: 1
-id: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
-name: DIM_QT
+id: 533d5226-fb40-4c55-87f6-5feb25115e79
+name: MV_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
-    orderby: false
-    orderbycolumn:
+    clusterKey: false
+    clusterKeyConfig:
       items:
         - {}
-    partitionBy:
+    clusterKeyConfigExpressions:
       items:
         - {}
-    partitionby: false
-    qualify: true
-    val: "0.10"
-    winfunc: RATIO_TO_REPORT
-    winfuncColName:
-      columnCounter: 78c1b11d-1edb-4a09-8451-8ae8b9982690
-      stepCounter: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
+    clusterKeyExpressions: false
+    secureOption: false
+    selectDistinct: true
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: Materialized View
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 5dacd15d-1646-4d01-9792-58cc8692359d
-          stepCounter: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
+          columnCounter: 75705be9-dc20-4273-b4a1-9ba941b0d855
+          stepCounter: 533d5226-fb40-4c55-87f6-5feb25115e79
         config: {}
         dataType: NUMBER(38,0)
         description: ""
-        isBusinessKey: true
         name: I
         nullable: true
         sourceColumnReferences:
@@ -46,8 +38,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 77faca6e-7de6-4fa5-af25-77a2ce7939c7
-          stepCounter: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
+          columnCounter: e67dd524-d66e-4007-aa36-939914d60e69
+          stepCounter: 533d5226-fb40-4c55-87f6-5feb25115e79
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -60,8 +52,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 78c1b11d-1edb-4a09-8451-8ae8b9982690
-          stepCounter: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
+          columnCounter: 5b6d594d-2182-496d-9325-4082d2da0b7d
+          stepCounter: 533d5226-fb40-4c55-87f6-5feb25115e79
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -74,8 +66,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 498e5a88-1472-469a-946a-ae50ff384f70
-          stepCounter: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
+          columnCounter: 7a4376dc-a6cd-4dba-a7b0-1ba13ea11022
+          stepCounter: 533d5226-fb40-4c55-87f6-5feb25115e79
         config: {}
         dataType: DATE
         description: ""
@@ -88,8 +80,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: ecb74e61-8f1f-49f7-bd42-7bc726c86036
-          stepCounter: 736955a4-ae5b-48b3-ab2d-9f2e8dede42d
+          columnCounter: 036e1f1f-3c0b-43f0-bfb9-6e47abdb575f
+          stepCounter: 533d5226-fb40-4c55-87f6-5feb25115e79
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -112,12 +104,12 @@ operation:
             nodeName: QT
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
-        name: DIM_QT
+        name: MV_QT1
         noLinkRefs: []
-  name: DIM_QT
+  name: MV_QT1
   overrideSQL: false
   schema: ""
-  sqlType: "459"
+  sqlType: materialized-view:::178
   type: sql
   version: 1
 type: Node

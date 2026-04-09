@@ -1,24 +1,34 @@
 fileVersion: 1
-id: 4a5158fe-521a-4584-ac9c-b104aafe712d
-name: DT_WRK_LRV_QT
+id: 91b5cb61-f573-4579-b7a0-5a451ad0067c
+name: WRK_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
+    asofColumn:
+      items:
+        - {}
+    asofJoin: true
+    asofJoinMain: false
+    asofJoinON: false
+    asofJoinUSING: false
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: INSERT
     orderby: false
     orderbycolumn:
       items:
         - {}
-    partitionBy:
-      items:
-        - partColName:
-            columnCounter: cd41f209-f5c6-46db-a0b8-3e59e70645ec
-            stepCounter: 4a5158fe-521a-4584-ac9c-b104aafe712d
-    partitionby: false
-    qualify: false
-    val: ""
-    winfunc: ROW_NUMBER
+    postSQL: ""
+    preSQL: ""
+    selectDistinct: false
+    testsEnabled: false
+    truncateBefore: true
   database: ""
   deployEnabled: true
   description: ""
@@ -30,8 +40,8 @@ operation:
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: cd41f209-f5c6-46db-a0b8-3e59e70645ec
-          stepCounter: 4a5158fe-521a-4584-ac9c-b104aafe712d
+          columnCounter: 623fe0c8-3180-4671-ab22-bc333d590685
+          stepCounter: 91b5cb61-f573-4579-b7a0-5a451ad0067c
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -44,8 +54,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 13b1d53d-fcef-4137-bb25-6bcb2c82428c
-          stepCounter: 4a5158fe-521a-4584-ac9c-b104aafe712d
+          columnCounter: 70baa701-7dff-441d-a97e-98696062769d
+          stepCounter: 91b5cb61-f573-4579-b7a0-5a451ad0067c
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -58,8 +68,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: ef50f9da-b0d9-44e9-9a61-530ebaf851d2
-          stepCounter: 4a5158fe-521a-4584-ac9c-b104aafe712d
+          columnCounter: 7e71c2af-af5f-4ae4-8802-7bdfd2a77f1c
+          stepCounter: 91b5cb61-f573-4579-b7a0-5a451ad0067c
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -72,8 +82,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 4b6c9caf-1682-4c22-a47d-e22bdcc4fafd
-          stepCounter: 4a5158fe-521a-4584-ac9c-b104aafe712d
+          columnCounter: 1ecf5cbf-325d-4f36-9502-0d037922c63f
+          stepCounter: 91b5cb61-f573-4579-b7a0-5a451ad0067c
         config: {}
         dataType: DATE
         description: ""
@@ -86,8 +96,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 7014ff21-7ba2-4353-ad94-47c4d9ab2914
-          stepCounter: 4a5158fe-521a-4584-ac9c-b104aafe712d
+          columnCounter: 4e4a892c-75f2-490a-bb53-4a3fb7b4b980
+          stepCounter: 91b5cb61-f573-4579-b7a0-5a451ad0067c
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -109,13 +119,13 @@ operation:
           - locationName: SOURCE
             nodeName: QT
         join:
-          joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
-        name: DT_WRK_LRV_QT
+          joinCondition: FROM  {{ ref('SOURCE', 'QT') }} QT
+        name: WRK_QT1
         noLinkRefs: []
-  name: DT_WRK_LRV_QT
+  name: WRK_QT1
   overrideSQL: false
   schema: ""
-  sqlType: "459"
+  sqlType: base-node-types-advanced-deploy:::179
   type: sql
   version: 1
 type: Node

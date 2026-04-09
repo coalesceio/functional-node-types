@@ -1,41 +1,40 @@
 fileVersion: 1
-id: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
-name: CSS_QT
+id: 1afb7123-22da-4be5-b673-e6c00c64c992
+name: INTTBL_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
-    orderby: true
-    orderbycolumn:
+    autoRefresh: false
+    clusterKey: true
+    clusterKeyConfig:
       items:
-        - sortColName:
-            columnCounter: d43231e6-8b20-4ca7-ba94-03d7d50aa3bf
-            stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
-          sortOrder: desc
-    partitionBy:
+        - columnName:
+            columnCounter: 0a7fb3ff-3c4c-492c-aa7e-b61db4754fdc
+            stepCounter: 1afb7123-22da-4be5-b673-e6c00c64c992
+    clusterKeyConfigExpressions:
       items:
-        - partColName:
-            columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
-            stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
-    partitionby: true
-    qualify: true
-    val: "1"
-    winfunc: ROW_NUMBER
-    winfuncColName: ""
+        - {}
+    clusterKeyExpressions: false
+    groupByAll: false
+    insertStrategy: UNION ALL
+    lagSpecification:
+      items:
+        - {}
+    selectDistinct: false
+    testsEnabled: false
+    warehouseName: dev_wh_xs
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: interactive table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 49183c32-092e-4b95-a0a4-a25eb6dc59a0
-          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+          columnCounter: 0a7fb3ff-3c4c-492c-aa7e-b61db4754fdc
+          stepCounter: 1afb7123-22da-4be5-b673-e6c00c64c992
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -48,8 +47,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 03ba1385-61ad-4f1d-b600-125c3d317e00
-          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+          columnCounter: bccffc7e-2b61-43d3-987d-0668276b4d57
+          stepCounter: 1afb7123-22da-4be5-b673-e6c00c64c992
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -62,8 +61,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d43231e6-8b20-4ca7-ba94-03d7d50aa3bf
-          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+          columnCounter: e10dd775-8f1c-4098-84d5-8a3d9a185c14
+          stepCounter: 1afb7123-22da-4be5-b673-e6c00c64c992
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -76,8 +75,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: a2d12486-657f-4a69-b5cb-b8c1b81fb981
-          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+          columnCounter: c95386d2-998f-46b1-badb-ac593d6261fc
+          stepCounter: 1afb7123-22da-4be5-b673-e6c00c64c992
         config: {}
         dataType: DATE
         description: ""
@@ -90,8 +89,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 40e10ef9-0124-4cfc-8c60-62691e0a4d67
-          stepCounter: 4f9f83d7-40b1-4ca9-b3f0-952a86b35cca
+          columnCounter: 0be6829c-8fa1-4567-a42d-b8268100fa0e
+          stepCounter: 1afb7123-22da-4be5-b673-e6c00c64c992
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -114,12 +113,12 @@ operation:
             nodeName: QT
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
-        name: CSS_QT
+        name: INTTBL_QT1
         noLinkRefs: []
-  name: CSS_QT
+  name: INTTBL_QT1
   overrideSQL: false
   schema: ""
-  sqlType: "459"
+  sqlType: interactive-table:::602
   type: sql
   version: 1
 type: Node

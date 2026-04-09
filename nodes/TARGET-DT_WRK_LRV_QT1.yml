@@ -1,37 +1,70 @@
 fileVersion: 1
-id: 61993109-0346-4964-a5a3-efa0db29d00c
-name: DSM_QT
+id: 1e24801d-e376-488d-a035-e09489df8ddb
+name: DT_WRK_LRV_QT1
 operation:
   config:
-    compcol: false
-    ntileval: ""
-    oprt: "="
-    orderby: false
-    orderbycolumn:
+    advanceWarehouse: false
+    backfill: false
+    backfillSource: ""
+    backfillSourceSchema: ""
+    clusterKey: false
+    clusterKeyConfig:
+      items:
+        - {}
+    clusterKeyConfigExpressions:
+      items:
+        - {}
+    clusterKeyExpressions: false
+    cpygrants: false
+    downstreamOption: false
+    immutabilityConstraint: false
+    immutableExpression: ""
+    initialize: ON_CREATE
+    initializeWarehouseSize: ""
+    lagSpecification:
+      items:
+        - lagPeriod: Minutes
+          lagValue: "60"
+    orderBy:
+      items:
+        - colName:
+            columnCounter: e8b8a445-1338-4e5a-9230-c0f21b26c285
+            stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
+    orderByDateTime:
+      items:
+        - {}
+    orderseq:
       items:
         - {}
     partitionBy:
       items:
         - partColName:
-            columnCounter: d147d550-f70c-459d-8ab2-0722f323b71a
-            stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
-    partitionby: false
-    qualify: false
-    val: ""
-    winfunc: ROW_NUMBER
+            columnCounter: 1e233d3c-0a98-4e0e-b531-3bf699b0c0b9
+            stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
+    recordVersioning: Datetime Column
+    recordorderBy:
+      items:
+        - {}
+    refreshWarehouseSize: ""
+    refresh_mode: AUTO
+    timeTravel: false
+    timeTravelreference: ""
+    timeTraveltype: ""
+    timeTravelvalue: ""
+    warehouseName: COMPUTE_WH
   database: ""
   deployEnabled: true
   description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: dynamic table
   metadata:
     appliedNodeTests: []
     columns:
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: d147d550-f70c-459d-8ab2-0722f323b71a
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
+          columnCounter: 1e233d3c-0a98-4e0e-b531-3bf699b0c0b9
+          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -44,8 +77,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: a7dc88ed-a356-4274-b8cd-15be0c47239f
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
+          columnCounter: c141ce14-5c68-4bc6-b1e5-6f3f67b9c50c
+          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
         config: {}
         dataType: VARCHAR(1)
         description: ""
@@ -58,8 +91,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 9ad7316b-03fa-494d-86b9-2c6f5c97dc04
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
+          columnCounter: f94e6814-edfb-41de-b25b-4470c234a910
+          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
         config: {}
         dataType: NUMBER(38,0)
         description: ""
@@ -72,8 +105,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: 29420856-9a73-4cbd-91a8-5bc802203b9a
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
+          columnCounter: 1a82cd65-5166-4fbb-9f60-4d924ae06dcc
+          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
         config: {}
         dataType: DATE
         description: ""
@@ -86,8 +119,8 @@ operation:
             transform: ""
       - appliedColumnTests: {}
         columnReference:
-          columnCounter: c2a40954-fae8-48db-984d-2b3b8e8f1dfb
-          stepCounter: 61993109-0346-4964-a5a3-efa0db29d00c
+          columnCounter: e8b8a445-1338-4e5a-9230-c0f21b26c285
+          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
         config: {}
         dataType: TIMESTAMP_NTZ(9)
         description: ""
@@ -98,6 +131,23 @@ operation:
               - columnCounter: d3e98d70-b23c-451e-8a4d-8b80c4f664f9
                 stepCounter: f192f3ee-6f7b-4190-b1e7-33dbd4b6c705
             transform: ""
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6b047a25-3e70-415e-a2b8-ed48c84e26c1
+          stepCounter: 1e24801d-e376-488d-a035-e09489df8ddb
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        name: RECORD_CREATED_DATE
+        nullable: true
+        recordCreated: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: FIRST_VALUE({%if config.recordVersioning not in ('Integer Column')%}{{order_by_col()}}{%else%} {{order_by_col_int()}}{%endif%}) OVER (PARTITION BY {{ partition_by() }} ORDER BY {{ order_by_col() }} asc)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -110,12 +160,12 @@ operation:
             nodeName: QT
         join:
           joinCondition: FROM {{ ref('SOURCE', 'QT') }} "QT"
-        name: DSM_QT
+        name: DT_WRK_LRV_QT1
         noLinkRefs: []
-  name: DSM_QT
+  name: DT_WRK_LRV_QT1
   overrideSQL: false
   schema: ""
-  sqlType: "459"
+  sqlType: dynamic-tables:::351
   type: sql
   version: 1
 type: Node

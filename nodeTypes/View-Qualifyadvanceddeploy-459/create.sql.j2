@@ -19,7 +19,7 @@ does not permit copying or modification for any other purpose.
 
     {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
     {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
-    DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+    DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
 
 
 {% elif desiredState %}
@@ -65,7 +65,7 @@ does not permit copying or modification for any other purpose.
 			{% if (ns.storageLocationTest == false or currentState.node.name != desiredState.node.name) or currentState.node.materializationType != desiredState.node.materializationType %}
                 {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name), true, "sql", "drop") }}
                 {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
-                DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+                DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
             {% endif %}
 			  
         {% endif %}
