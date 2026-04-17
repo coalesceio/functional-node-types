@@ -12,6 +12,20 @@ macroString: |-
       {% set parameters = desiredState.parameters %}
   {% endif %}
 
+
+  {# ----------------------------------------------------------------------
+    Macro: ddlColumnCasing
+    Purpose: Conditionally quotes column identifiers based on the toggle 
+  ---------------------------------------------------------------------- #}
+
+  {%- macro ddlColumnCasing(inputConfig, columnName) -%}
+      {%- if inputConfig == true -%}
+          {{ columnName }}
+      {%- else -%}
+          "{{ columnName }}"
+      {%- endif -%}
+  {%- endmacro -%}
+
   {#-- This macro will frame the order by clause with the columns and sort order specified in config #}
   {#-- Input parmeters   - None #}
   {#-- Return            - Order by clause #}
