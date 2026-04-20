@@ -14,7 +14,7 @@ does not permit copying or modification for any other purpose.
     {% set fullyQualifiedTargetObjectName = ref_no_link(node.location.name, node.name) %}
 
       {% set source = sources[0] %}
-      {%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+      {%- set ns = namespace(saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[],pcolumn1='',valcolumn='') %}
 
 {# == To run data quality tests before data insertion == #}
 
@@ -23,9 +23,53 @@ does not permit copying or modification for any other purpose.
             {{ test_stage(test.name, test.continueOnFailure) }}
             {{ test.templateString }}
         {% endif %}
-    {% endfor %}
 
-{% if node.materializationType == 'table' or node.materializationType == 'transient table'  %}
+    {% endfor %}
+{% if (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Simplified')  %}
+
+  {%if config.trunc %}
+  		{{ stage('Truncate Pivot Table') }}
+			TRUNCATE IF EXISTS {{ ref_no_link(node.location.name, node.name) }}
+  {%endif%}
+
+  {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColDropdown.name') | list |first|default('')%}
+  {%if ns.pcolumn1 == ''%}
+    {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColTextBox')|list | first%}    
+  {%endif%}
+        
+  {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColDropdown.name') | list |first|default('')%}
+  {%if ns.valcolumn == ''%}
+      {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColTextBox')|list | first%}    
+  {%endif%}
+
+  {{ stage('Insert data into Pivot table') }}
+    INSERT INTO {{ this }}
+   (
+    DATA
+    {%if config.addcolumns -%}
+    {% for col in source.columns if col.name not in ('DATA') -%}        
+		  ,{{ col.name }}
+		{% endfor -%}
+    {%endif%}
+   )
+   SELECT
+   PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA
+   {%if config.addcolumns -%}
+   {% for col in source.columns if col.name not in ('DATA') -%}        
+			,{{ get_source_transform(col) }} AS {{ ddlColumnCasing(config.ddlCaseInsensitive, col.name) }}
+		{% endfor -%}
+    {%endif%}
+   FROM (
+  SELECT *
+  {{ get_clause(sources[0].join,'from') }}
+  {% if config.filterColumn %}
+  WHERE {{ config.filterColumn }} {{ config.filterOperator }} ({{ config.filterValues }})
+  {% endif %}
+  ) TGT
+  PIVOT({{config.sfuncname}}({{ ddlColumnCasing(config.ddlCaseInsensitive, ns.pcolumn1) }}) FOR {{ddlColumnCasing(config.ddlCaseInsensitive, ns.valcolumn)}} IN (ANY)) AS PVT
+  {{ get_clause(sources[0].join) }}
+            
+{% elif (node.materializationType == 'table' or node.materializationType == 'transient table') and (config.pivotMode == 'Standard')  %}
 
   {% set source = sources[0] %}
          {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
@@ -89,12 +133,12 @@ does not permit copying or modification for any other purpose.
                 {%endif%}
                 SELECT * FROM (SELECT * {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%} {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   
                  {{ source.join }} )
-              PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if config.subqueryval1 !="" %}
+              PIVOT({{func}}({{ ddlColumnCasing(config.ddlCaseInsensitive, ns.pcolumn | first) }}) FOR {{ ddlColumnCasing(config.ddlCaseInsensitive, ns.keycol) }} IN ( {%if config.subqueryval1 !="" %}
                  {{config.subqueryval1}}
                 {%elif config.Colvol1 != "" %}
                    {{config.Colvol1}}  
                 {%else%}
-                ANY ORDER BY {{ns.keycol}}
+                ANY ORDER BY {{ ddlColumnCasing(config.ddlCaseInsensitive, ns.keycol) }}
                 {%endif%})
                 {%if config.defvalue == true%} DEFAULT ON NULL ({{config.defaultval}}) {%endif%}
                 ) 
@@ -135,17 +179,18 @@ does not permit copying or modification for any other purpose.
                  FROM
               (SELECT
               {%for col in ns.pcolumn%}
-                 {{col}},
-                 {{ns.keycol}} AS {{ns.keycol}}_{{col}}
+                 {{ ddlColumnCasing(config.ddlCaseInsensitive, col) }},
+                            {{ ddlColumnCasing(config.ddlCaseInsensitive, ns.keycol) }} 
+        AS {{ ddlColumnCasing(config.ddlCaseInsensitive, ns.keycol ~ '_' ~ col) }}
                  {%if not loop.last%},{%endif%}
               {%endfor%}
               {{ source.join }})
               {%for col in ns.pcolumn%} 
-                PIVOT({{ns.mggfunctions[loop.index0]}}({{col}}) FOR {{ns.keycol}}_{{col}} IN ( 
+                PIVOT({{ns.mggfunctions[loop.index0]}}({{ ddlColumnCasing(config.ddlCaseInsensitive, col) }}) FOR {{ ddlColumnCasing(config.ddlCaseInsensitive, ns.keycol ~ '_' ~ col) }} IN ( 
                 {%if ns.filcol[loop.index0] != None %}
                    {{ns.filcol[loop.index0]}}  
                 {%else%}
-                   ANY ORDER BY {{ns.keycol}}
+                   ANY ORDER BY {{ ddlColumnCasing(config.ddlCaseInsensitive, ns.keycol) }}
                 {%endif%}){%if config.defvalue == true%} DEFAULT ON NULL ({{config.defaultval}}) {%endif%})
 			      {%endfor%})
         {%endif%}   

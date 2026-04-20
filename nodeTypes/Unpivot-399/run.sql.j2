@@ -49,19 +49,33 @@ does not permit copying or modification for any other purpose.
 {{ stage('Insert ' + source.name | string ) }}
 INSERT INTO {{ this }}
  ( 
-               SELECT 
-               {% for col in source.columns %}        
-                  {%if col.name not in ns.pcolumn and col.name|upper != config.nameColTextBox|upper and col.name|upper != config.valColTextBox|upper  %}
-			            {{ get_source_transform(col) }} AS "{{ col.name }}",
-                  {%endif%}
-		           {% endfor %}                
-			    {{config.nameColTextBox}},
-                {{config.valColTextBox}}
-               {{  get_clause(joinclause,'from')  }} 
-               UNPIVOT {%if config.includenull %}INCLUDE NULLS {%endif%}({{config.valColTextBox}} FOR {{config.nameColTextBox}} IN ({{ns.collist|join(',')}}))
-               {{  get_clause(joinclause)  }}
-             )
-{%endif%}
+
+    SELECT 
+        {% for col in source.columns %}        
+            {% if col.name not in ns.pcolumn 
+               and col.name|upper != config.nameColTextBox|upper 
+               and col.name|upper != config.valColTextBox|upper %}
+               
+                {{ get_source_transform(col) }} AS {{ ddlColumnCasing(config.ddlCaseInsensitive, col.name) }},
+            
+            {% endif %}
+        {% endfor %}                
+
+        {{ ddlColumnCasing(config.ddlCaseInsensitive, config.nameColTextBox) }},
+        {{ ddlColumnCasing(config.ddlCaseInsensitive, config.valColTextBox) }}
+
+        {{ get_clause(joinclause,'from') }} 
+
+        UNPIVOT 
+        {% if config.includenull %}INCLUDE NULLS {% endif %}
+        (
+            {{ ddlColumnCasing(config.ddlCaseInsensitive, config.valColTextBox) }} 
+            FOR 
+            {{ ddlColumnCasing(config.ddlCaseInsensitive, config.nameColTextBox) }} 
+           IN ({{ns.collist|join(',')}}))
+        {{ get_clause(joinclause) }}
+)
+{% endif %}
 
 {# == To run data quality tests after data insertion == #}
 

@@ -8,6 +8,7 @@ does not permit copying or modification for any other purpose.
 {# == Node Type Name           : PIVOT NODE == #}
 {# == Node Type Description    : This node transforms a narrow table to wider table.It is particularly useful when you want to convert unique row values from one column into multiple columns in the output, aggregating data in the process == #}
 
+
 {% if desiredState == undefined %}
 
     {# Table or View Name #}
@@ -16,13 +17,15 @@ does not permit copying or modification for any other purpose.
     {% set fullyQualifiedTargetObjectName = ref_no_link(currentState.node.location.name, currentState.node.name) %}
     
     {{ stage('Drop ' + ref_no_link(currentState.node.location.name, currentState.node.name)) }}
-    {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
-    DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+      {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+      DROP {{ materialization }} {{ fullyQualifiedTargetObjectName }}
+
 
 {% elif currentState == undefined or (currentState != undefined and desiredState != currentState) %} 
 
-    {% if currentState != undefined %}
-
+   
+    {%if currentState != undefined %}
+        
         {%- if currentState.node.nodeType != desiredState.node.nodeType %}
             {%- set warningMsg = getNodeTypeSwitchWarning() | default('') %}
 
@@ -40,208 +43,232 @@ does not permit copying or modification for any other purpose.
             {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
             DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
         {% endif %}
+    {%endif%}
 
-    {% endif %}
+    {% set source = desiredState.sources[0] %}
+    {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[],valcolumn='',pcolumn1='') %}
 
-         {% set source = desiredState.sources[0] %}
-         {%- set ns = namespace(keycol = "",pcolumn = [],saggfunctions=[],mggfunctions=[],funcdesc='',filcolval =[],cnt =1,i=0,exclclause =[],fexclclause ="",filcol =[]) %}
+    {# Initialize metadata tracking variables for both Simplified and Standard modes #}
+    {% set nsMetaVariables = namespace(
+        transformTest       = true,
+        sourceLinkTest      = true,
+        testsEnabledTest    = true,
+        metaDataChanged     = false,
+        joinDiff            = [],
+        transformDiff       = [],
+        sourceLinkDiff      = [],
+        truncateBeforeDiff  = [],
+        testsEnabledDiff    = [],
+        metaDataChanges     = [],
+        metadataUpdate      = 'Metadata Update'
+    ) %}
 
+    {# ==========================================
+       CREATION LOGIC (Simplified vs Standard)
+       ========================================== #}
+           
+    {% if desiredState.config.pivotMode == 'Simplified' %}
+        {# Create table with single variant column #}
 
-     {# Infer Pivot true #}
-     {%if desiredState.config.inferPivot == true %}
-			          {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
-                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
-                  {%if ns.keycol == null or ns.pcolumn == [] %}                    
-                       {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
-                        {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
-                  {%endif%}
-      {%else%}
-			         {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
-                  {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
-
-                {# =========================================================
-                Initialize metadata tracking variables
-                ========================================================= #}
-                {% set nsMetaVariables = namespace(
-                    transformTest       = true,
-                    sourceLinkTest      = true,
-                    testsEnabledTest    = true,
-                    metaDataChanged     = false,
-                    joinDiff            = [],
-                    transformDiff       = [],
-                    sourceLinkDiff      = [],
-                    truncateBeforeDiff  = [],
-                    testsEnabledDiff    = [],
-                    metaDataChanges     = [],
-                    metadataUpdate      = 'Metadata Update'
-                ) %}
-      {%endif%}
-
-         {# List of columns to be excluded from Pivot query#}
-        {%if desiredState.config.excolval == true%}
-         {%if desiredState.config.inferPivot == true and (desiredState.config.exlcol.get('items') | map(attribute='exclcol1') | list|first != None) %}
-
-            {% set exclcol = desiredState.config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
-            {%for col in exclcol%}
-              {%set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
-            {%endfor%}
-            {%set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
-         {%else%}
-             
-             {% set exclcol = desiredState.config.exlcol.get('items') | map(attribute='exclcoltxtBox') | list%} 
-
-            {%for col in exclcol%}
-              {%set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
-            {%endfor%}
-            {%set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
-
-         {%endif%}
-         {%endif%}
-
-         
-   {%if desiredState.config.inferPivot == true or desiredState.node.materializationType == 'view' %}
-
-        {%if currentState != undefined%}
-          {%if currentState.node.materializationType == desiredState.node.materializationType == 'view' %}
-		  
-            {%if currentState.storageLocations|length == 0%}          
-              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
-              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
-               {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
-               
-            {%else %}  
-              {# Current target node mappings #}
-              {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
-              {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
-              {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
-            {% endif %}      
-       
-            {# Desired target node mappings #}
-            {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
-            {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
-            {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
-			
-            {% if currentState.node.nodeType == desiredState.node.nodeType and (desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema)  %}
-                {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
-                DROP VIEW IF EXISTS {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}                    
-            {% endif %}
-         {%endif%}
-        {%endif%}
-
-      {%if desiredState.config.sincol == true %}
-
-        {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list%}
-         
-         
-        {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
+        {% if desiredState.node.materializationType != 'view' and (currentState == undefined or currentState.materializationType != desiredState.materializationType) %}
+        
+            {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
 
             CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              AS
-             ( {%for func in ns.saggfunctions%}
-               {%if func == 'SUM'%} 
-                 {%set ns.funcdesc = "TOTAL "+ ns.pcolumn|first %}
-               {%elif func == 'AVG'%}
-                 {%set ns.funcdesc = "AVERAGE "+ ns.pcolumn|first%}
-               {%elif func == 'MAX'%}
-                 {%set ns.funcdesc = "MAXIMUM "+ ns.pcolumn|first%}
-               {%elif func == 'MIN'%}
-                 {%set ns.funcdesc = "MINIMUM "+ ns.pcolumn|first%}
-               {%elif func == 'COUNT'%}
-                 {%set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first%}
-                {%endif%}
-                SELECT * FROM (
-                SELECT  * {%if ns.fexclclause != "" %} {{ ns.fexclclause}} {%endif%} {%if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {%endif%}   
-                 {{ source.join }} )
-              PIVOT({{func}}({{ns.pcolumn|first}}) FOR {{ns.keycol}} IN ( {%if desiredState.config.subqueryval1 !="" %}
-                 {{desiredState.config.subqueryval1}}
-                {%elif desiredState.config.Colvol1 != "" %}
-                   {{desiredState.config.Colvol1}}  
-                {%else%}
-                ANY ORDER BY {{ns.keycol}}
-                {%endif%})
-                {%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%}
-                ) 
-                {%- if not loop.last -%} UNION {% endif %}
-                {%endfor%}
+            (
+                    DATA VARIANT
+                    {%if desiredState.config.addcolumns -%}
+                    {% for col in source.columns if col.name not in ('DATA') -%}        
+                            ,{{ col.name }} {{col.dataType}}
+                    {% endfor -%}
+                    {%endif -%}                
                 )
-        {%else %}
-        
-           {# Multiple Pivot Columns#}
-            {% set ns.mggfunctions = desiredState.config.tabValueColumn.get('items') | map(attribute='funcname') | list%}
+            {%- if node.description | length > 0 %} COMMENT = '{{ node.description | escape }}'{% endif %}
+                
+        {% elif desiredState.node.materializationType == 'view' %}
 
-           {#Filter column list#}
-              
-           {%if desiredState.config.samKeyColval == true%} 
-               {%for col in ns.pcolumn%}
-                  {%set ns.filcol = ns.filcol + [desiredState.config.Colvol1] %}
-               {%endfor%}
 
-            {%else%}
-                {%set ns.filcol = desiredState.config.tabValueColumn.get('items') | map(attribute='Colvol') | list%}
+            {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColDropdown.name') | list |first|default('')%}
+            {%if ns.pcolumn1 == ''%}
+                {%set ns.pcolumn1 = config.simtabKeyColumn.get('items') | map(attribute='skeyColTextBox')|list | first%}    
             {%endif%}
             
-           {# Filter columns need to be explicitly specified for Multiple Pivot Columns#}
-                           
-            {{ stage('Create Pivot '+ desiredState.node.materializationType,true, "sql", "create") }}             
-              
-              
-            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              AS
-             ( 
-                SELECT 
-                {%for func in ns.mggfunctions %}
-                       {%for val1 in ns.filcol[ns.i].split(',') %}
-                        {% set val = val1.strip() %}
-                      {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{ns.pcolumn[ns.i]}}
-                      {%set ns.cnt = ns.cnt +1%}
-                      {%if not loop.last %},{%endif%}
-				           {%endfor%}
-                   {%set ns.i = ns.i+1%}
-                   {%if not loop.last%},{%endif%}
-                {%endfor%}
-                 FROM
-              (SELECT
-              {%for col in ns.pcolumn%}
-                 {{col}},
-                 {{ns.keycol}} AS {{ns.keycol}}_{{col}}
-                 {%if not loop.last%},{%endif%}
-              {%endfor%}
-              {{ source.join }})
-              {%for col in ns.pcolumn%} 
-                PIVOT({{ns.mggfunctions[loop.index0]}}({{col}}) FOR {{ns.keycol}}_{{col}} IN ( 
-                {%if ns.filcol[loop.index0] != None %}
-                   {{ns.filcol[loop.index0]}}  
-                {%else%}
-                   ANY ORDER BY {{ns.keycol}}
-                {%endif%}){%if desiredState.config.defvalue == true%} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {%endif%})
-			      {%endfor%}
-                )
-         
-           {%endif%}
-        {%elif desiredState.config.inferPivot == false and desiredState.node.materializationType != 'view' %}     
-      
-           {% if currentState == undefined or (currentState != undefined and (currentState.node.nodeType != desiredState.node.nodeType or currentState.node.materializationType != desiredState.node.materializationType))  %}
-               {{ stage('Create Pivot '+ ' {{desiredState.node.materializationType}}') }}
-               CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
-              (
-                {% for col in desiredState.columns %}
-                    "{{ col.name }}" {{ col.dataType }}
-                    {%- if not col.nullable %} NOT NULL
-                        {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
-                    {% endif %}
-                    {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
-                    {%- if not loop.last -%}, {% endif %}
-                {% endfor %}
-               )
-              {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
+            {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColDropdown.name') | list |first|default('')%}
+            {%if ns.valcolumn == ''%}
+                {%set ns.valcolumn = config.simtabValueColumn.get('items') | map(attribute='svalColTextBox')|list | first%}    
+            {%endif%}
 
-                {# Metadata changes detected #}
+            {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
+            CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+            AS
+            SELECT
+            PARSE_JSON(REPLACE(TO_CHAR(OBJECT_CONSTRUCT_KEEP_NULL(*)), '''', '')) AS DATA,
+            {% for col in source.columns if col.name not in ('DATA') -%}        
+                {{ get_source_transform(col) }} AS {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, col.name) }},
+            {% endfor %}
+            FROM (
+            SELECT *
+            {{ get_clause(desiredState.sources[0].join,'from') }}
+            {% if desiredState.config.filterColumn %}
+            WHERE {{ desiredState.config.filterColumn }} {{ desiredState.config.filterOperator }} ({{ desiredState.config.filterValues }})
+            {% endif %}
+            ) TGT
+            PIVOT({{desiredState.config.sfuncname}}({{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.pcolumn1) }}) FOR {{ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.valcolumn)}} IN (ANY)) AS PVT
+            {{get_clause(desiredState.sources[0].join) }}
+                   
+        {% endif %}
+
+    {% elif desiredState.config.pivotMode == 'Standard' %}
+
+        {# Infer Pivot Logic #}
+        {% if desiredState.config.inferPivot == true %}
+            {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColDropdown.name') | list|first%}
+            {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColDropdown.name') | list%}
+            {%if ns.keycol == null or ns.pcolumn == [] %}                    
+                {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
+                {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+            {%endif%}
+        {% else %}
+            {%set ns.keycol = desiredState.config.tabKeyColumn.get('items') | map(attribute='keyColTextBox') | list|first%}
+            {%set ns.pcolumn = desiredState.config.tabValueColumn.get('items') | map(attribute='valColTextBox')|list%}
+        {% endif %}
+
+        {# Exclude clause logic #}
+        {% if desiredState.config.excolval == true %}
+            {% if desiredState.config.inferPivot == true and (desiredState.config.exlcol.get('items') | map(attribute='exclcol1') | list|first != None) %}
+                {% set exclcol = desiredState.config.exlcol.get('items') | map(attribute='exclcol1.name') | list%} 
+                {% for col in exclcol %}
+                    {% set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
+                {% endfor %}
+                {% set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
+            {% else %}
+                {% set exclcol = desiredState.config.exlcol.get('items') | map(attribute='exclcoltxtBox') | list%} 
+                {% for col in exclcol %}
+                    {% set ns.exclclause = ns.exclclause + ['"'+col+'"'] %}
+                {% endfor %}
+                {% set ns.fexclclause = 'EXCLUDE('+ ns.exclclause | join(',') + ')' %}
+            {% endif %}
+        {% endif %}
+
+        {% if desiredState.config.inferPivot == true or desiredState.node.materializationType == 'view' %}
+            {# Recreate logic for views or inferred tables #}
+            {% if currentState != undefined %}
+                {% if currentState.node.materializationType == desiredState.node.materializationType == 'view' %}
+                    {% if currentState.storageLocations|length == 0 %}          
+                        {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | string %}
+                        {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | string %}
+                        {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}
+                    {% else %}  
+                        {% set currentDatabase = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='database') | first %}
+                        {% set currentSchema = currentState.storageLocations | selectattr('name', 'equalto', currentState.node.location.name) | map(attribute='schema') | first %}
+                        {% set currentDatabaseSchema = currentDatabase + '.' + currentSchema %}  
+                    {% endif %}      
+            
+                    {% set desiredDatabase = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='database') | first %}
+                    {% set desiredSchema = desiredState.storageLocations | selectattr('name', 'equalto', desiredState.node.location.name) | map(attribute='schema') | first %}
+                    {% set desiredDatabaseSchema = desiredDatabase + '.' + desiredSchema %}  
+                    
+                    {% if currentState.node.nodeType == desiredState.node.nodeType and (desiredState.node.name != currentState.node.name or desiredDatabaseSchema != currentDatabaseSchema) %}
+                        {{ stage('Drop ' + currentState.node.materializationType + ' ' + ref_no_link(currentState.node.location.name, currentState.node.name),true, "sql", "drop") }}
+                       {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
+                        DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
+                    {% endif %}
+            {% endif %}
+
+            {% if desiredState.config.sincol == true %}
+                {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list %}
+                {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}
+                CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                AS ( 
+                    {% for func in ns.saggfunctions %}
+                        {% if func == 'SUM' %} {% set ns.funcdesc = "TOTAL "+ ns.pcolumn|first %}
+                        {% elif func == 'AVG' %} {% set ns.funcdesc = "AVERAGE "+ ns.pcolumn|first %}
+                        {% elif func == 'MAX' %} {% set ns.funcdesc = "MAXIMUM "+ ns.pcolumn|first %}
+                        {% elif func == 'MIN' %} {% set ns.funcdesc = "MINIMUM "+ ns.pcolumn|first %}
+                        {% elif func == 'COUNT' %} {% set ns.funcdesc = "COUNT OF "+ ns.pcolumn|first %}
+                        {% endif %}
+                        SELECT * FROM (
+                        SELECT * {% if ns.fexclclause != "" %} {{ ns.fexclclause}} {% endif %} {% if ns.saggfunctions | length >1 %},'{{ns.funcdesc}}' AS aggregate {% endif %}   
+                        {{ source.join }} )
+                        PIVOT({{func}}({{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.pcolumn | first) }}) FOR {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.keycol) }} IN ( 
+                            {% if desiredState.config.subqueryval1 !="" %} {{desiredState.config.subqueryval1}}
+                            {% elif desiredState.config.Colvol1 != "" %} {{desiredState.config.Colvol1}}  
+                            {% else %} ANY ORDER BY {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.keycol) }}
+                            {% endif %})
+                        {% if desiredState.config.defvalue == true %} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {% endif %}
+                        ) {% if not loop.last %} UNION {% endif %}
+                    {% endfor %}
+                )
+            {% else %}
+                {% set ns.mggfunctions = desiredState.config.tabValueColumn.get('items') | map(attribute='funcname') | list %}
+                {% if desiredState.config.samKeyColval == true %} 
+                    {% for col in ns.pcolumn %} {% set ns.filcol = ns.filcol + [desiredState.config.Colvol1] %} {% endfor %}
+                {% else %}
+                    {% set ns.filcol = desiredState.config.tabValueColumn.get('items') | map(attribute='Colvol') | list %}
+                {% endif %}
+                                
+                {{ stage('Create Pivot '+ desiredState.node.materializationType,true, "sql", "create") }}             
+                CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                AS ( 
+                    SELECT 
+                    {% for func in ns.mggfunctions %}
+                        {% for val1 in ns.filcol[ns.i].split(',') %}
+                            {% set val = val1.strip() %}
+                            {{func}}(${{ns.cnt}}) AS {{func}}_{{val.replace("'", "")}}_{{ns.pcolumn[ns.i]}}
+                            {% set ns.cnt = ns.cnt + 1 %}
+                            {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                        {% set ns.i = ns.i+1 %}
+                        {% if not loop.last %},{% endif %}
+                    {% endfor %}
+                    FROM (
+                        SELECT
+                        {% for col in ns.pcolumn %}
+                            {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, col) }},
+                            {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.keycol) }} 
+        AS {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.keycol ~ '_' ~ col) }}
+                            {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                        {{ source.join }}
+                    )
+                    {% for col in ns.pcolumn %} 
+                        PIVOT({{ns.mggfunctions[loop.index0]}}({{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, col) }}) FOR {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.keycol ~ '_' ~ col) }} IN ( 
+                        {% if ns.filcol[loop.index0] != None %} {{ns.filcol[loop.index0]}}  
+                        {% else %} ANY ORDER BY {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.keycol) }}
+                        {% endif %}){% if desiredState.config.defvalue == true %} DEFAULT ON NULL ({{desiredState.config.defaultval}}) {% endif %})
+                    {% endfor %}
+                )
+            {% endif %}
+
+        {% elif desiredState.config.inferPivot == false and desiredState.node.materializationType != 'view' %}     
+            {% if currentState == undefined or (currentState != undefined and currentState.node.materializationType != desiredState.node.materializationType) %}
+                {{ stage('Create Pivot '+ ' {{desiredState.node.materializationType}}') }}
+                CREATE OR REPLACE {{desiredState.node.materializationType}} {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
+                (
+                    {% for col in desiredState.columns %}
+					    {{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, col.name.replace("'", "")) }} {{ col.dataType }}
+                        {%- if not col.nullable %} NOT NULL
+                            {%- if col.defaultValue | length > 0 %} DEFAULT {{ col.defaultValue }}{% endif %}
+                        {% endif %}
+                        {%- if col.description | length > 0 %} COMMENT '{{ col.description | escape }}'{% endif %}
+                        {%- if not loop.last -%}, {% endif %}
+                    {% endfor %}
+                )
+                {%- if desiredState.node.description | length > 0 %} COMMENT = '{{ desiredState.node.description | escape }}'{% endif %}
                 {% set nsMetaVariables.metaDataChanged = true %}
-           {% endif %}
-  
-          {% if currentState != undefined and currentState.node.nodeType == desiredState.node.nodeType and currentState.node.materializationType == desiredState.node.materializationType%}
-		 
-            {# Change Node Name or Change Storage Location #}
+            {% endif %}
+        {% endif %}
+
+    {% endif %} {# End of Creation logic #}
+
+    {# ==========================================
+       METADATA / CONFIG CHANGES LOGIC
+       (Runs for both Simplified and Standard if it is a Table)
+       ========================================== #}
+
+    {% if currentState != undefined and currentState.node.materializationType == desiredState.node.materializationType == 'table'  %}
+        
+         {# Change Node Name or Change Storage Location #}
             {# Storage Location Tests #}
 
             {% set nsVariables = namespace(storageLocationTest=true) %}
@@ -426,9 +453,9 @@ does not permit copying or modification for any other purpose.
                 {% endif %}
             {% endfor %}
 
-            {% if nsMetaVariables.metaDataChanged == false %}
+        {% if nsMetaVariables.metaDataChanged == false %}
 
-                {# =========================================================
+             {# =========================================================
                 Join comparison
                 ========================================================= #}
                 {% set desiredStateSources = desiredState.sources[0].join | replace("{{", '"{{"') | replace("}}", '"}}"') | replace('/*', '/ *') | replace('*/', '* /') %}
@@ -581,7 +608,7 @@ does not permit copying or modification for any other purpose.
                     {{ update_metadata("Test Enanbled", nsMetaVariables.testsEnabledDiff, "Test Enanbled") }}
                 {% endif %}
 
-                {# =========================================================
+            {# =========================================================
                 defvalue comparison
                 ========================================================= #}
                 {% if desiredState.config.defvalue != currentState.config.defvalue | default(false) %}
@@ -590,9 +617,9 @@ does not permit copying or modification for any other purpose.
                         "was": currentState.config.defvalue | default(false) }, "defaultNULLvalue") }}
                 {% elif desiredState.config.defvalue == currentState.config.defvalue | default(false) == true %}
 
-                    {# =========================================================
+                {# =========================================================
                     defaultval comparison
-                    ========================================================= #}
+                 ========================================================= #}
                     {% if desiredState.config.defaultval != currentState.config.defaultval | default('') %}
                         {{ update_metadata("defaultNULLValue", {
                             "is": desiredState.config.defaultval | replace('/*', '/ *') | replace('*/', '* /'),
@@ -629,22 +656,19 @@ does not permit copying or modification for any other purpose.
                     {% set nsMetaVariables.metaDataChanged = true %}
 
                 {% endif %}
-        
-                {% if nsMetaVariables.metaDataChanged == false %}
-                    {# =========================================================
-                    Handle detected metadata changes and update
-                    ========================================================= #}
-                    {% if nsMetaVariables.metaDataChanges | length == 0 %}
-                        {{ stage('Metadata Update-Default') }}
-                    {% else %}
-                        {{ stage(nsMetaVariables.metadataUpdate) }}
-                        -- Metadata changes detected
-                        /* {{ nsMetaVariables.metaDataChanges }} */
-                    {% endif %}
-                    select 1=0
-                {% endif %}
+
+            {% if nsMetaVariables.testsEnabledTest == false %} {{ update_metadata("Test Enanbled", nsMetaVariables.testsEnabledDiff, "Test Enanbled") }} {% endif %}
+
+            {# (Handle detected metadata changes) #}
+            {% if nsMetaVariables.metaDataChanges | length == 0 %}
+                {{ stage('Metadata Update-Default') }}
+            {% else %}
+                {{ stage(nsMetaVariables.metadataUpdate) }}
+                -- Metadata changes detected
+                /* {{ nsMetaVariables.metaDataChanges }} */
             {% endif %}
-         {%endif%}    
-      {%endif%}
+            select 1=0
+        {% endif %}
+    {% endif %}
 
 {% endif %}
