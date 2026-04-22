@@ -47,7 +47,9 @@ operation:
           keyColTextBox: QUARTER
     tabValueColumn:
       items:
-        - valColDropdown: null
+        - valColDropdown:
+            columnCounter: ea711d3a-3765-4631-a551-19c3ba3fcde4
+            stepCounter: e25d6229-ac24-4db1-ad16-677092c5a015
           valColTextBox: AMOUNT
     testsEnabled: false
     trunc: false

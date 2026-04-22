@@ -114,7 +114,7 @@ does not permit copying or modification for any other purpose.
             {% endif %}
             ) TGT
             PIVOT({{desiredState.config.sfuncname}}({{ ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.pcolumn1) }}) FOR {{ddlColumnCasing(desiredState.config.ddlCaseInsensitive, ns.valcolumn)}} IN (ANY)) AS PVT
-            {{get_clause(desiredState.sources[0].join) }}
+            {{get_clause(desiredState.sources[0].join) }}                     
                    
         {% endif %}
 
@@ -173,8 +173,9 @@ does not permit copying or modification for any other purpose.
                        {%- set materialization = dropMaterialization(currentState.node.materializationType) %}
                         DROP {{ materialization }} {{ ref_no_link(currentState.node.location.name, currentState.node.name) }}
                     {% endif %}
-            {% endif %}
-
+                {% endif %} 
+			{%endif%}
+            
             {% if desiredState.config.sincol == true %}
                 {% set ns.saggfunctions = desiredState.config.aggfunc1.get('items') | map(attribute='funcname1') | list %}
                 {{ stage('Create Pivot '+ desiredState.node.materializationType, true, "sql", "create") }}

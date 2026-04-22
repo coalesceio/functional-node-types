@@ -3,7 +3,7 @@ id: 1b2fcf92-1d73-4186-aa24-b997456c7b31
 name: USER_ACTIVITY
 operation:
   database: ""
-  deployEnabled: false
+  deployEnabled: true
   description: ""
   locationName: TARGET
   metadata:

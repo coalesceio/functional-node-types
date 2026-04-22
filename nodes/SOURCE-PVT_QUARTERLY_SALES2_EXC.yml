@@ -40,11 +40,11 @@ operation:
     tabKeyColumn:
       items:
         - keyColDropdown: null
-          keyColTextBox: "\"QUARTER\""
+          keyColTextBox: QUARTER
     tabValueColumn:
       items:
         - valColDropdown: null
-          valColTextBox: "\"AMOUNT\""
+          valColTextBox: AMOUNT
     testsEnabled: false
     trunc: false
   database: ""
