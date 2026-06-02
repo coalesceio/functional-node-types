@@ -58,8 +58,8 @@ The Date Dimension node type has two configuration groups:
 |----------|-------------|
 | **Storage Location** | Storage Location where the WORK will be created |
 | **Node Type** | Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
 
 ##### Date Options
 
@@ -212,7 +212,7 @@ The stages Insert Zero key and Insert data on deploy are executed if there are c
 
 ### Redeployment with no changes 
 
-If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
 ### Date Dimension Deploy Undeployment
 
@@ -245,8 +245,8 @@ The Time Dimension node type has two configuration groups:
 |----------|-------------|
 | **Storage Location** | Storage Location where the WORK will be created |
 | **Node Type** | Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
 
 ##### Time Dimension Options
 
@@ -422,7 +422,7 @@ The stages Insert Zero key and Insert data on deploy are executed if there are c
 
 ### Redeployment with no changes 
 
-If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
 ### Time Dimension Deploy Undeployment
 
@@ -463,8 +463,8 @@ Pivot has three configuration groups:
 |--------------|-----------------|
 | **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
 | **Node Type** | (Required) Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
 #### Pivot General Options
 
@@ -604,7 +604,7 @@ The following stages are executed:
 |-----------|----------------|
 | **Metadata Update \| Transformation \| Default NULL\| Join** | A dummy statement would execute with specific changes listed in comments|
 
-**Note:** A few configuration changes are not recommended without re-inferring the table before deployment. For more details, please refer to this document - [Metadata Prevention](https://docs.google.com/document/d/1wAh_b_7HIqEEn4Q5lXduO_Li_9MrL4KZ/edit?usp=sharing&ouid=105543507530226126437&rtpof=true&sd=true)
+**Note:** A few configuration changes are not recommended without re-inferring the table before deployment. For more details, refer to this document - [Metadata Prevention](https://docs.google.com/document/d/1wAh_b_7HIqEEn4Q5lXduO_Li_9MrL4KZ/edit?usp=sharing&ouid=105543507530226126437&rtpof=true&sd=true)
 
 #### Pivot Recreating the Views
 
@@ -626,7 +626,7 @@ The following stages are executed:
 
 ### Redeployment with no changes 
 
-If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
 #### Node Type Switching
 
@@ -634,7 +634,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Pivot Deploy Undeployment
 
@@ -674,8 +674,8 @@ Unpivot has three configuration groups:
 |--------------|-----------------|
 | **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
 | **Node Type** | (Required) Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
  ![image](https://github.com/user-attachments/assets/edd67d5d-7216-429a-a292-2fe4980d1a9e)
 
@@ -769,7 +769,7 @@ The following stages are executed:
 |-----------|----------------|
 | **Metadata Update \| Transformation \| Default NULL\| Join** | A dummy statement would execute with specific changes listed in comments|
 
-**Note:** A few configuration changes are not recommended without re-inferring the table before deployment. For more details, please refer to this document - [Metadata Prevention](https://docs.google.com/document/d/1wAh_b_7HIqEEn4Q5lXduO_Li_9MrL4KZ/edit?usp=sharing&ouid=105543507530226126437&rtpof=true&sd=true)
+**Note:** A few configuration changes are not recommended without re-inferring the table before deployment. For more details, refer to this document - [Metadata Prevention](https://docs.google.com/document/d/1wAh_b_7HIqEEn4Q5lXduO_Li_9MrL4KZ/edit?usp=sharing&ouid=105543507530226126437&rtpof=true&sd=true)
 
 #### Unpivot Recreating the Views
 
@@ -791,7 +791,7 @@ The following stages are executed:
 
 ### Redeployment with no changes 
 
-If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
 #### Node Type Switching
 
@@ -799,7 +799,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Unpivot Deploy Undeployment
 
@@ -830,8 +830,8 @@ Match Recognize has three configuration groups:
 |--------------|-----------------|
 | **Storage Location** | (Required) Storage Location where the Match Recognize Table will be created |
 | **Node Type** | (Required) Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
 #### Match Recognize General Options
 
@@ -942,7 +942,7 @@ The below stage is executed:
 
 ### Redeployment with no changes 
 
-If the nodes are redeployed with no changes compared to previous deployment,then no stages are executed
+If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
 #### Node Type Switching
 
@@ -950,7 +950,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Match Recognize Tables Undeployment
 If a Match Recognize Node of materialization type table/view/transient table are deleted from a Workspace, that Workspace is committed to Git and that commit deployed to a higher level environment then the Match Recognize node in the target environment will be dropped.
@@ -984,8 +984,8 @@ The View node type has two configuration groups:
 |----------|-------------|
 | **Storage Location** | Storage Location where the WORK will be created |
 | **Node Type** | Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed / redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/> If FALSE the node will not be deployed or will be dropped during redeployment |
 
 #### View Options
 
@@ -1052,7 +1052,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 #### View Undeployment
 
@@ -1090,7 +1090,7 @@ A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-gui
 <img width="1047" height="448" alt="imagegroupbyclause" src="https://github.com/user-attachments/assets/ad50e259-11e2-481a-befc-3a76bfc921f2" />
 
 
-* In case if multiple tables are joined in anchor clause,then ensure you specify the anchor table name in config.
+* In case if multiple tables are joined in anchor clause, then ensure you specify the anchor table name in config.
   
 #### Adding a Recursive CTE with no source
 
@@ -1119,8 +1119,8 @@ Recursive CTE has three configuration groups:
 |--------------|-----------------|
 | **Storage Location** | (Required) Storage Location where the Pivot Table will be created |
 | **Node Type** | (Required) Name of template used to create node objects |
-| **Description** | A description of the node's purpose |
-| **Deploy Enabled** | If TRUE the node will be deployed/redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
+| **Description** | A description of the Node's purpose |
+| **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
 #### Recursive general Options
 
@@ -1204,7 +1204,7 @@ Node Type switching is supported starting from Coalesce version **7.28+**.
 
 From this version onward, a node’s materialization type can be switched from one supported type to another, subject to certain limitations.
 
-For more info click here - [Node Type Switching Logic and Limitations](#node-type-switching-logic)
+For more information, see [Node Type Switching Logic and Limitations](#node-type-switching-logic)
 
 ### Recursive CTE Undeployment
 
