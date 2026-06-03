@@ -14,7 +14,7 @@ The Coalesce Functional Node Types Package includes:
 
 ---
 
-## Functional node types - Brief Summary
+## Functional Node Types - Brief Summary
 
 This is a package of functional nodes designed for common types of data transformations. coalesce It includes eight node types:
 
@@ -210,7 +210,7 @@ The following stages are executed:
 #### Redeployment
 The stages Insert Zero key and Insert data on deploy are executed if there are changes in transformation,data type,nullability,zero key changes and default values,column addition,date related config values.
 
-### Redeployment with no changes 
+### Redeployment With No Changes 
 
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
@@ -344,7 +344,7 @@ The following stages are executed:
 |-----------|----------------|
 | **Rename Table/ Alter Column/ Delete Column/ Add Column/Edit table description** | Alter table statement is executed to perform the alter operation |
 
-### Redeployment with only metadata changes
+### Redeployment With Only Metadata Changes
 
 Sometimes, changes to config can result in metadata changes from node edits, DML changes, or storage upTimes. A few cases are listed below:
 
@@ -386,7 +386,7 @@ The following stages are executed:
 <img width="737" height="206" alt="image" src="https://github.com/user-attachments/assets/8ba71eeb-5c62-4af9-9da9-ef21187a5423" />
 
 ### Populate on Deploy for Time
-#### Initial deployment
+#### Initial Deployment
 
 |**Populate ondeploy**| **Insert Zero Key** |**Stages Executed**|
 |---------------------|---------------------|-------------------|
@@ -420,7 +420,7 @@ The stages Insert Zero key and Insert data on deploy are executed if there are c
 |20 |Test enabled changes |• Metadata Update |• Metadata Update |
 |21 |Business key changes |• Metadata Update |• Metadata Update |
 
-### Redeployment with no changes 
+### Redeployment With No Changes 
 
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
@@ -497,7 +497,7 @@ Pivot has three configuration groups:
 |**Value Column**|-Value Column(Dropdown) <br/> -Value Column(textbox) <br/> Values you want to populate in the new columns.|
 |**Aggregate Functions**|Aggregation you want to apply, like AVG, COUNT, MAX, MIN, and SUM.|
 
-##### Simplified filter options
+##### Simplified Filter Options
 
 | **Filter Column**| Choose column to add any filter condition|
 | **Filter Operator**|Choose the operation `=`,`<`,`>`|
@@ -624,7 +624,7 @@ The following stages are executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Pivot view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Pivot table/transient table |
 
-### Redeployment with no changes 
+### Redeployment With No Changes 
 
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
@@ -789,7 +789,7 @@ The following stages are executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Unpivot view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Unpivot table/transient table |
 
-### Redeployment with no changes 
+### Redeployment With No Changes 
 
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
@@ -940,7 +940,7 @@ The below stage is executed:
 | **Table/transient table to View** |  Drop table/transient table<br/> Create Match Recognize view |
 | **Table to transient table or vice versa** |  Drop table/transient table<br/> Create or Replace Match Recognize table/transient table |
 
-### Redeployment with no changes 
+### Redeployment With No Changes 
 
 If the nodes are redeployed with no changes compared to previous deployment, then no stages are executed
 
@@ -1092,13 +1092,13 @@ A (Recursive Common Table Expression CTE)[https://docs.snowflake.com/en/user-gui
 
 * In case if multiple tables are joined in anchor clause, then ensure you specify the anchor table name in config.
   
-#### Adding a Recursive CTE with no source
+#### Adding a Recursive CTE With No Source
 
 All the above steps specified above applies here as well except source columns need not be mapped to source tables/view in recursive clause.
 
 <img width="412" height="73" alt="image-recursion" src="https://github.com/user-attachments/assets/39f1b106-dab2-4613-8209-a22a53b59678" />
 
-### Recursive CTE limitations
+### Recursive CTE Limitations
 
 * We can join multiple sources in anchor clause but union of multiple sources in anchor clause is not supported
 * A termination condition is required in recursive clause to avoid infinite loop
@@ -1122,7 +1122,7 @@ Recursive CTE has three configuration groups:
 | **Description** | A description of the Node's purpose |
 | **Deploy Enabled** | If TRUE the node will be deployed or redeployed when changes are detected<br/>If FALSE the node will not be deployed or will be dropped during redeployment |
 
-#### Recursive general Options
+#### Recursive GEneral Options
 
 <img width="453" height="707" alt="image-recursivecte-generaloptions" src="https://github.com/user-attachments/assets/cd2ffe64-6693-4f58-bd6a-232e16580357" />
 
@@ -1273,7 +1273,7 @@ The stage executed:
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/TimeDimension-603/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/TimeDimension-603/run.sql.j2) |
 
-### Pivot code
+### Pivot Code
 
 | **Component** | **Link** |
 |--------------|-----------|
@@ -1281,7 +1281,7 @@ The stage executed:
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Pivot-409/run.sql.j2)
 
-### Unpivot code
+### Unpivot Code
 
 | **Component** | **Link** |
 |--------------|-----------|
@@ -1289,7 +1289,7 @@ The stage executed:
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/Unpivot-399/run.sql.j2)
 
-### Match Recognize code
+### Match Recognize Code
 
 | **Component** | **Link** |
 |--------------|-----------|
@@ -1297,7 +1297,7 @@ The stage executed:
 | **Create Template** | [create.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/create.sql.j2) |
 | **Run Template** | [run.sql.j2](https://github.com/coalesceio/functional-node-types/blob/main/nodeTypes/MatchRecognize-410/run.sql.j2)
 
-### View-Qualify advanced deploy
+### View-Qualify Advanced Deploy
 
 | **Component** | **Link** |
 |--------------|-----------|
