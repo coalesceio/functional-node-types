@@ -11,7 +11,7 @@ mappingDefinitions:
     database: PRANJAL_DEV
     schema: TEST_DB
   TGT2:
-    database: ""
-    schema: ""
+    database: ANANDHIS_DEV
+    schema: TARGET_ACC
 name: "[Fail-Safe-Handling]"
 type: Environment
