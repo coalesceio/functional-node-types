@@ -1,5 +1,8 @@
 fileVersion: 1
 id: "583"
-mappingDefinitions: {}
+mappingDefinitions:
+  TEST:
+    database: ""
+    schema: ""
 name: EDW_QA4
 type: Environment

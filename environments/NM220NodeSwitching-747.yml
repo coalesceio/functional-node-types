@@ -1,5 +1,8 @@
 fileVersion: 1
 id: "747"
-mappingDefinitions: {}
+mappingDefinitions:
+  TEST:
+    database: ""
+    schema: ""
 name: "[NM220]NodeSwitching"
 type: Environment
