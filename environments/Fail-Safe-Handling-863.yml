@@ -6,7 +6,7 @@ mappingDefinitions:
     schema: SOURCE_DB
   TARGET:
     database: PRANJAL_DEV
-    schema: PUBLIC
+    schema: SOURCE_DB
   TEST:
     database: PRANJAL_DEV
     schema: TEST_DB
