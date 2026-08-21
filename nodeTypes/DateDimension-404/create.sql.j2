@@ -393,7 +393,7 @@ does not permit copying or modification for any other purpose.
                 {% set cdb = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='database') | first %}
                 {% set csch = currentState.storageLocations | selectattr('name', 'equalto', srcSchName) | map(attribute='schema') | first %}
 
-                ALTER TABLE IF EXISTS "{{ cdb }}"."{{ csch }}"."{{ currentState.node.name }}"
+                ALTER TABLE  "{{ cdb }}"."{{ csch }}"."{{ currentState.node.name }}"
                 RENAME TO {{ ref_no_link(desiredState.node.location.name, desiredState.node.name) }}
 
                 {# Metadata changes detected #}
