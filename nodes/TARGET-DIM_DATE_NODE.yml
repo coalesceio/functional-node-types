@@ -1,10 +1,15 @@
 fileVersion: 1
-id: d56f3fff-c2de-490b-a905-c6d557374308
-name: DATE_NODE_view
+id: 34229131-4f3b-4363-a4c2-3e94d83a38c2
+name: DIM_DATE_NODE
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
     daysToGenerate: "2000"
+    insertZeroKey: false
+    insertZeroKeyDate: ""
+    insertZeroKeyStr: ""
+    insertZeroKeySurrogateKey: ""
+    pdeploy: false
     postSQL: ""
     preSQL: ""
     startingDate: DATEADD(DAY, -730, CURRENT_DATE)
@@ -12,10 +17,10 @@ operation:
     truncateBefore: true
   database: ""
   deployEnabled: true
-  description: This is Date Table.With the generated date values
+  description: ""
   isMultisource: false
   locationName: TARGET
-  materializationType: view
+  materializationType: table
   metadata:
     appliedNodeTests: []
     columns:
@@ -24,14 +29,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d2cf3a47-14e3-43b9-b004-111b9c533b25
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: c30a59ac-f63e-4db6-a909-172d387c8c97
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: DATE
         defaultValue: ""
         description: Date in the format YYYY-MM-DD
         isBusinessKey: true
-        isDate: true
         name: DATE_KEY
         nullable: true
         sourceColumnReferences:
@@ -42,8 +46,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e034fc21-0d24-4294-841e-7f3814404866
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: c08c3901-961c-408a-82e1-6d8b37e734b1
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -59,14 +63,14 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6ab9f710-e4c7-4ded-9b46-69295a8f1e52
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 0a3533c3-e10a-431e-9116-c481c5028c00
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: SMALLINT
         defaultValue: ""
         description: Month in the format MM
         isMonth: true
-        name: MONTH_NEW
+        name: MONTH
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
@@ -76,8 +80,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 1582dcdd-0b41-41b8-976d-e695867871b1
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 3b98ab92-64b6-4117-a3c7-2b00c4fd6eeb
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: CHAR(3)
         defaultValue: ""
@@ -93,8 +97,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 51e4f364-b950-4fff-8bc2-ee404427c722
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 207465a0-46ff-4c11-8a68-1fb9ac5b880c
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -110,10 +114,10 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 153a8f30-4c1b-46f2-91b2-977876e725b8
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: ca7180b9-754d-47f6-b7b8-27f995959423
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
-        dataType: VARCHAR(7)
+        dataType: VARCHAR(9)
         defaultValue: ""
         description: Day of the Week in format DD
         isDayOfWeek: true
@@ -127,10 +131,10 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 2f5f3159-1084-492f-bfee-6a2ce8a33a41
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 7c30755f-180e-4b85-8c2f-a66f4a9c1c8d
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
-        dataType: VARCHAR(10)
+        dataType: VARCHAR(9)
         defaultValue: ""
         description: Day of the Week in format DDD
         isDayNameOfWeek: true
@@ -144,25 +148,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 53cd872e-d893-4c25-b558-e5baa9023de1
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
-        config: {}
-        dataType: SMALLINT
-        defaultValue: ""
-        description: Day of the year.In the format DD
-        isYearColumn: true
-        name: DAY_OF_YEAR
-        nullable: true
-        sourceColumnReferences:
-          - columnReferences: []
-            transform: DAYOFYEAR({{ config.dateColumnName }})
-      - acceptedValues:
-          strictMatch: true
-          values: []
-        appliedColumnTests: {}
-        columnReference:
-          columnCounter: db6f9bca-6084-4639-a51c-0b3a1d7f007e
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: fdf4edb0-629c-4b9c-92e1-3ee57656d770
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -178,25 +165,25 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 12af96de-5149-42d0-b00d-fd75f5b7b4fc
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 317c2581-92e2-482c-ba09-5ad574d416e4
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: SMALLINT
         defaultValue: ""
-        description: Year and the Quarter number in the format YYYYQQ
-        isQuarter: true
-        name: QUARTER
+        description: Day of the year
+        isYearColumn: true
+        name: DAY_OF_YEAR
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: TO_NUMBER(TO_CHAR({{config.dateColumnName}}, 'YYYY') || '0' || TO_CHAR(DATE_PART('Q',{{config.dateColumnName}})), '999999')
+            transform: DAYOFYEAR({{ config.dateColumnName }})
       - acceptedValues:
           strictMatch: true
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 344f9120-d48c-42fa-8f5e-b25028e5efb2
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 09723a60-a5e8-4233-97ce-085c804d5498
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -212,8 +199,42 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: e988c389-c9bc-46e8-85b7-40fe7702103c
-          stepCounter: d56f3fff-c2de-490b-a905-c6d557374308
+          columnCounter: 6f78be78-6901-4cb8-b5c9-ca5d6cd94d6a
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
+        config: {}
+        dataType: SMALLINT
+        defaultValue: ""
+        description: Year and the Quarter number in the format YYYYQQ
+        isQuarter: true
+        name: QUARTER
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: TO_NUMBER(TO_CHAR({{config.dateColumnName}}, 'YYYY') || '0' || TO_CHAR(DATE_PART('Q',{{config.dateColumnName}})), '999999')
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: f086e307-3cd4-4137-b46c-d847bc86c1ff
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
+        config: {}
+        dataType: VARCHAR(9)
+        defaultValue: ""
+        description: Flag to check week day
+        isFlagWeekDay: true
+        name: FLAG_WEEK_DAY
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'N' ELSE 'Y' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 64899f88-b72f-4ae2-8be1-2dcb077dd234
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -223,7 +244,41 @@ operation:
         nullable: true
         sourceColumnReferences:
           - columnReferences: []
-            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'YES' ELSE 'NO' END
+            transform: CASE WHEN TO_CHAR({{config.dateColumnName }}, 'Dy') IN ('Sat','Sun') THEN 'Y' ELSE 'N' END
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: a2f33ffe-2645-4099-99d7-76487c89b62e
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemCreateDate: true
+        name: SYSTEM_CREATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 076c05b8-6ca1-4453-8eee-49893657e552
+          stepCounter: 34229131-4f3b-4363-a4c2-3e94d83a38c2
+        config: {}
+        dataType: TIMESTAMP
+        defaultValue: ""
+        description: ""
+        isSystemUpdateDate: true
+        name: SYSTEM_UPDATE_DATE
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: CAST(CURRENT_TIMESTAMP AS TIMESTAMP)
     cteString: ""
     enabledColumnTestIDs: []
     sourceMapping:
@@ -233,9 +288,9 @@ operation:
         dependencies: []
         join:
           joinCondition: ""
-        name: DATE_NODE_view
+        name: DIM_DATE_NODE
         noLinkRefs: []
-  name: DATE_NODE_view
+  name: DIM_DATE_NODE
   overrideSQL: false
   schema: ""
   sqlType: "404"

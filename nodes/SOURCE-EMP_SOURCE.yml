@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
-name: STUDENT_PERFORMANCE
+id: 175c2579-bee8-4115-9102-e80b6fa4c25d
+name: EMP_SOURCE
 operation:
   database: ""
   deployEnabled: true
@@ -13,13 +13,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 88c455fe-8773-421b-b45b-5c6a3ff9b284
-          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
+          columnCounter: 1583a282-6ba8-441b-82c7-527693dfd832
+          stepCounter: 175c2579-bee8-4115-9102-e80b6fa4c25d
         config: {}
         dataType: NUMBER(38,0)
         defaultValue: ""
         description: ""
-        name: STUDENT_ID
+        name: EMP_ID
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -32,13 +32,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 78bee4c7-156d-457f-94ee-60027a1bf257
-          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
+          columnCounter: 8c1bbd0a-c962-4697-8765-39f348671d74
+          stepCounter: 175c2579-bee8-4115-9102-e80b6fa4c25d
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: TERM
+        name: EMP_NAME
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -51,13 +51,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 5cc27cb2-33d4-4c0a-9eb1-6eede2ff9c32
-          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
+          columnCounter: 7e495c38-549b-42ab-9cc0-8e2e1634c585
+          stepCounter: 175c2579-bee8-4115-9102-e80b6fa4c25d
         config: {}
         dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: SUBJECT
+        name: EMP_CITY
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -70,13 +70,13 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: cbecdb98-f60d-45a0-9654-c0e92b391373
-          stepCounter: 5b325aed-f4e3-4b4f-a4a2-56be8b215acc
+          columnCounter: 618f1b39-9963-4995-99be-ef1b8fb69506
+          stepCounter: 175c2579-bee8-4115-9102-e80b6fa4c25d
         config: {}
-        dataType: NUMBER(38,0)
+        dataType: VARCHAR(16777216)
         defaultValue: ""
         description: ""
-        name: SCORE
+        name: DML_FLAG
         nullable: true
         primaryKey: false
         sourceColumnReferences:
@@ -84,7 +84,26 @@ operation:
             transform: ""
         transform: ""
         uniqueKey: false
-  name: STUDENT_PERFORMANCE
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: 6da6a005-5afd-4fd0-abe9-488773cc0a1a
+          stepCounter: 175c2579-bee8-4115-9102-e80b6fa4c25d
+        config: {}
+        dataType: TIMESTAMP_NTZ(9)
+        defaultValue: ""
+        description: ""
+        name: CREATED_AT
+        nullable: true
+        primaryKey: false
+        sourceColumnReferences:
+          - columnReferences: []
+            transform: ""
+        transform: ""
+        uniqueKey: false
+  name: EMP_SOURCE
   schema: ""
   sqlType: Source
   type: sourceInput
