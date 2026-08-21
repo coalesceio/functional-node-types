@@ -10,5 +10,8 @@ mappingDefinitions:
   TEST:
     database: ""
     schema: ""
+  TGT2:
+    database: ""
+    schema: ""
 name: EDW_QA1
 type: Environment

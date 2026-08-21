@@ -10,5 +10,8 @@ mappingDefinitions:
   TEST:
     database: PRANJAL_DEV
     schema: TEST_DB
+  TGT2:
+    database: ""
+    schema: ""
 name: "[Fail-Safe-Handling]"
 type: Environment

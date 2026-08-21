@@ -1,6 +1,6 @@
 fileVersion: 1
-id: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
-name: DIM_DATE_NODE_003
+id: d1c99dea-5cfc-4806-b440-8e4ebd993b18
+name: DIM_DATE_NODE_005
 operation:
   config:
     dateColumnName: "\"DATE_COL\""
@@ -9,7 +9,7 @@ operation:
     insertZeroKeyDate: ""
     insertZeroKeyStr: ""
     insertZeroKeySurrogateKey: ""
-    pdeploy: false
+    pdeploy: true
     postSQL: ""
     preSQL: ""
     startingDate: DATEADD(DAY, -730, CURRENT_DATE)
@@ -19,7 +19,7 @@ operation:
   deployEnabled: true
   description: ""
   isMultisource: false
-  locationName: TEST
+  locationName: TARGET
   materializationType: table
   metadata:
     appliedNodeTests: []
@@ -29,8 +29,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 0dfc1114-376e-4b57-9c0d-afcab8a256e1
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 46da6076-cf8d-4202-8f00-c2a8b7012905
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: DATE
         defaultValue: ""
@@ -46,8 +46,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 4eff461e-9955-49e1-904f-af440ca4b77f
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 5bf774fb-688e-45cf-acf1-e40fddca38b5
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -63,8 +63,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: f003fdef-d7e0-495e-9c3a-3ebca449535a
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 0540c655-360c-4c58-9088-b60029d3eae7
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -80,8 +80,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 7424d5d2-cea1-4ae1-9142-70dabdcc446a
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: b5ca9b52-f3b7-4ca7-b43e-76bfb65b32a5
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: CHAR(3)
         defaultValue: ""
@@ -97,8 +97,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 6b4f2aa5-a779-4fad-932d-bd49c7c9d2e8
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 20d59380-10f3-4998-9b00-8af6da384f07
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -114,8 +114,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 0834d76a-e43c-4d91-8cc1-0412a5d73811
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 55776d84-025d-41e4-8e79-ca86c8df4de1
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -131,10 +131,10 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b4e9e1cf-e1ec-4efd-8945-b25c2ca2615b
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 9aa0dcdb-028d-436b-86d0-9e6fec44ca0d
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
-        dataType: VARCHAR(8)
+        dataType: VARCHAR(9)
         defaultValue: ""
         description: Day of the Week in format DDD
         isDayNameOfWeek: true
@@ -148,8 +148,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: b32f3cf4-f258-4ff0-a969-a8cba3304cb0
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 669dec10-5a95-419a-bae7-ae9019f8c119
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -165,8 +165,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: d77b90fe-2cc3-4e06-89d7-a6403fd8c359
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 6e1cc517-9988-4fb5-8381-2bd93c3c86dd
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -182,8 +182,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: be394325-dbec-4b2f-afda-dea4c7d58940
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: c9df14db-59b6-4da0-a8a1-04621bca38be
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -199,8 +199,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: cdea1eb6-2080-4ad6-a5d1-dd9eb13351df
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 61978de4-2ce6-44d7-a6b3-103a1a3083d2
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: SMALLINT
         defaultValue: ""
@@ -216,8 +216,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: a733e099-a513-4597-9526-f413d04549d7
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 03f87cd6-5d9a-42cd-8215-b5fec831b804
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -233,8 +233,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 642bae4f-4b5e-4e8b-bcc6-205f4707fc47
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: b457d9ad-c3fd-480a-b9f0-5023715b27db
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: VARCHAR(9)
         defaultValue: ""
@@ -250,8 +250,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: 4e9abdff-8ef4-4a5a-93aa-6649e2bafeb5
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 0caa0bb2-005e-420b-9fa9-453b1206240c
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: TIMESTAMP
         defaultValue: ""
@@ -267,8 +267,8 @@ operation:
           values: []
         appliedColumnTests: {}
         columnReference:
-          columnCounter: f7c7b67b-37aa-4a0d-8e32-50eb2dd6fefa
-          stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
+          columnCounter: 11a66de4-bdd9-4cb0-b7dc-1b69c5f3f826
+          stepCounter: d1c99dea-5cfc-4806-b440-8e4ebd993b18
         config: {}
         dataType: TIMESTAMP
         defaultValue: ""
@@ -288,9 +288,9 @@ operation:
         dependencies: []
         join:
           joinCondition: ""
-        name: DIM_DATE_NODE_003
+        name: DIM_DATE_NODE_005
         noLinkRefs: []
-  name: DIM_DATE_NODE_003
+  name: DIM_DATE_NODE_005
   overrideSQL: false
   schema: ""
   sqlType: "404"

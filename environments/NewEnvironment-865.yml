@@ -1,11 +1,8 @@
 fileVersion: 1
-id: "583"
+id: "865"
 mappingDefinitions:
-  TEST:
-    database: ""
-    schema: ""
   TGT2:
     database: ""
     schema: ""
-name: EDW_QA4
+name: New Environment
 type: Environment
