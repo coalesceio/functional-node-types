@@ -12,6 +12,6 @@ mappingDefinitions:
     schema: TEST_DB
   TGT2:
     database: ANANDHIS_DEV
-    schema: TARGET_DEV
+    schema: ACC_QA
 name: "[Fail-Safe-Handling]"
 type: Environment
