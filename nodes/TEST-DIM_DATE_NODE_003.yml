@@ -219,7 +219,7 @@ operation:
           columnCounter: a733e099-a513-4597-9526-f413d04549d7
           stepCounter: 7e0757db-cf17-43d6-b2bd-53dbedf4fca8
         config: {}
-        dataType: VARCHAR(9)
+        dataType: VARCHAR(8)
         defaultValue: ""
         description: Flag to check week day
         isFlagWeekDay: true
