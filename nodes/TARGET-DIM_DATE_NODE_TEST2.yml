@@ -12,7 +12,7 @@ operation:
     pdeploy: false
     postSQL: ""
     preSQL: ""
-    startingDate: DATEADD(DAY, -730, CURRENT_DATE)
+    startingDate: DATEADD(DAY, -740, CURRENT_DATE)
     testsEnabled: false
     truncateBefore: true
   database: ""
