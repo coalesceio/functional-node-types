@@ -219,7 +219,7 @@ operation:
           columnCounter: 75e026a4-ca83-4399-a8e0-26a7bc896777
           stepCounter: 96f738f8-2cf9-4c9b-985b-567deb6721be
         config: {}
-        dataType: VARCHAR(8)
+        dataType: VARCHAR(9)
         defaultValue: ""
         description: Flag to check week day
         isFlagWeekDay: true
@@ -298,6 +298,26 @@ operation:
               - columnCounter: "0"
                 stepCounter: "0"
             transform: "'1'"
+        systemColumnType: None
+      - acceptedValues:
+          strictMatch: true
+          values: []
+        appliedColumnTests: {}
+        columnReference:
+          columnCounter: e136bde8-8a22-4788-9d3f-3f85ca02c801
+          stepCounter: 96f738f8-2cf9-4c9b-985b-567deb6721be
+        config: {}
+        dataType: STRING
+        defaultValue: ""
+        description: ""
+        keyColumnType: None
+        name: DUMMY_COL1
+        nullable: true
+        sourceColumnReferences:
+          - columnReferences:
+              - columnCounter: "0"
+                stepCounter: "0"
+            transform: "'2'"
         systemColumnType: None
     cteString: ""
     enabledColumnTestIDs: []
