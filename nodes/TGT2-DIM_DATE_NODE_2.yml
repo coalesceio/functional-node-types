@@ -117,7 +117,7 @@ operation:
           columnCounter: 0ab9a67c-b1ad-45b6-98ab-c102691429dd
           stepCounter: e9017fc5-0f14-4b1f-81d0-529f67c6fc24
         config: {}
-        dataType: VARCHAR(9)
+        dataType: VARCHAR(8)
         defaultValue: ""
         description: Day of the Week in format DD
         isDayOfWeek: true
