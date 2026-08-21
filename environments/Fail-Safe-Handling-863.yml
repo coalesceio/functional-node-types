@@ -6,6 +6,6 @@ mappingDefinitions:
     schema: SOURCE_DB
   TARGET:
     database: PRANJAL_DEV
-    schema: TEST_DB01
+    schema: TEST_DB
 name: "[Fail-Safe-Handling]"
 type: Environment
